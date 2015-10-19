@@ -49,8 +49,8 @@ class Player(Sprite):
             #list(filter(self.collidingWith, slist))
             
     def mouseClick(self, event):
-        self.x = event.x
-        self.y = event.y
+        x = event.x
+        y = event.y
 
     def Generate(self, event):
         x = event.x
