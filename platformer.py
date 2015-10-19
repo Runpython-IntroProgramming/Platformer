@@ -12,10 +12,10 @@ from ggame import App, RectangleAsset, ImageAsset, Sprite, LineStyle, Color, Fra
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 1000
 
-
 class Player(Sprite):
-    asset = ImageAsset("images/four_spaceship_by_albertov_with_thrust.png", 
-        Frame(227,0,292-227,125), 4, 'vertical')
+    grassy = Color(0xeeff00, 1.0)
+    thinline = LineStyle (1, grassy)
+    asset = RectangleAsset(5, 5, grassy, thinline)
 
     def __init__(self, position):
         super().__init__(Player.asset, position)
@@ -51,6 +51,7 @@ class Player(Sprite):
     def mouseClick(self, event):
         x = event.x
         y = event.y
+        Player((x,y))
 
     def Generate(self, event):
         x = event.x
@@ -60,12 +61,7 @@ class Player(Sprite):
         while t == 0:
             self.vy += .1
             t = collidingWithSprites(self, sclass=None)
-            
-        
-        
 
-    def thrustOff(self, event):
-        self.thrust = 0
 
 
 
@@ -76,7 +72,7 @@ class Sandbox(App):
         noline = LineStyle(0, black)
         bg_asset = RectangleAsset(width, height, noline, black)
         bg = Sprite(bg_asset, (0,0))
-        Player((0, 0))
+        Player((30, 30))
 
     def step(self):
         for x in self.getSpritesbyClass(Player):
