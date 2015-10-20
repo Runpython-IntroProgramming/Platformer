@@ -23,7 +23,7 @@ class Player(Sprite):
         self.vy = 1
         self.thrust = 0
         self.thrustframe = 1
-        Sandbox.listenKeyEvent("keydown", "p", self.mouseClick)
+        Sandbox.listenKeyEvent("keydown", "p", self.Generate)
         self.fxcenter = self.fycenter = 0.5
 
     def step(self):
