@@ -16,7 +16,6 @@ class Player(Sprite):
     grassy = Color(0xeeff00, 1.0)
     thinline = LineStyle (1, grassy)
     asset = RectangleAsset(5, 5, grassy, thinline)
-
     def __init__(self, position):
         super().__init__(Player.asset, position)
         g = 1
