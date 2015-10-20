@@ -18,17 +18,59 @@ class Player(Sprite):
     asset = RectangleAsset(15, 45, thinline, grassy)
     def __init__(self, position):
         super().__init__(Player.asset, position)
-        g = 1
         self.vx = 1
         self.vy = 1
+        self.thrustframe = 1
+        self.vx = 0
+        self.vy = 0
+        self.vr = 0
         self.thrust = 0
         self.thrustframe = 1
+        Sandbox.listenKeyEvent("keydown", "w", self.up)
+        Sandbox.listenKeyEvent("keydown", "s", self.down)
+        Sandbox.listenKeyEvent("keydown", "a", self.left)
+        Sandbox.listenKeyEvent("keydown", "d", self.right)
+        Sandbox.listenKeyEvent("keyup", "w", self.upoff)
+        Sandbox.listenKeyEvent("keyup", "s", self.downoff)
+        Sandbox.listenKeyEvent("keyup", "a", self.leftoff)
+        Sandbox.listenKeyEvent("keyup", "d", self.rightoff)
         Sandbox.listenKeyEvent("keydown", "p", self.Generate)
         self.fxcenter = self.fycenter = 0.5
+
+    def step(self):
+        self.x += self.vx
+        self.y += self.vy
+        self.rotation += self.vr
         
-    def Generate(self, event):
-        print ("Ma")
+    def up (self, event):
         self.vy += -.1
+    
+    def down (self, event):
+        self.vy += .1
+        
+    def left (self, event):
+        self.vx += -.1
+        
+    def right (self, event):
+        self.vx += .1
+        
+    def upoff (self, event):
+        self.vy = 0
+    
+    def downoff (self, event):
+        self.vy = 0
+        
+    def leftoff (self, event):
+        self.vx = 0
+        
+    def rightoff (self, event):
+        self.vx = 0
+        
+    def Generate (self, event):
+        while True:
+            self.vy += .1
+        
+
 
 
 
@@ -40,7 +82,7 @@ class Sandbox(App):
         noline = LineStyle(0, black)
         bg_asset = RectangleAsset(width, height, noline, black)
         bg = Sprite(bg_asset, (0,0))
-        Player((0, 0))
+        Player((100, 100))
 
     def step(self):
         for x in self.getSpritesbyClass(Player):
