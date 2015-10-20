@@ -25,25 +25,10 @@ class Player(Sprite):
         self.thrustframe = 1
         Sandbox.listenKeyEvent("keydown", "p", self.Generate)
         self.fxcenter = self.fycenter = 0.5
-
-    def step(self):
-        self.x += self.vx
-        self.y += self.vy
-        self.rotation += self.vr
-        if self.thrust == 1:
-            self.setImage(self.thrustframe)
-            self.thrustframe += 1
-            if self.thrustframe == 4:
-                self.thrustframe = 1
-        else:
-            self.setImage(0)
-            
         
-
     def Generate(self, event):
-        t = 0
-        while t == 0:
-            self.vy += .1
+        print ("Ma")
+        self.vy += -.1
 
 
 
