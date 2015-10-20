@@ -67,8 +67,7 @@ class Player(Sprite):
         self.vx = 0
         
     def Generate (self, event):
-        while True:
-            self.vy += .1
+        self.vy += 1
         
 
 
@@ -78,7 +77,7 @@ class Player(Sprite):
 class Sandbox(App):
     def __init__(self, width, height):
         super().__init__(width, height)
-        black = Color(0, 1)
+        black = Color(0xFFFFEE, 1)
         noline = LineStyle(0, black)
         bg_asset = RectangleAsset(width, height, noline, black)
         bg = Sprite(bg_asset, (0,0))
