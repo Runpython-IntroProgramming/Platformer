@@ -35,6 +35,7 @@ class Player(Sprite):
         Sandbox.listenKeyEvent("keyup", "a", self.leftoff)
         Sandbox.listenKeyEvent("keyup", "d", self.rightoff)
         Sandbox.listenKeyEvent("keydown", "p", self.Generate)
+        Sandbox.listenKeyEvent("keydown", "click", self.mouseClick)
         self.fxcenter = self.fycenter = 0.5
 
     def step(self):
@@ -66,13 +67,12 @@ class Player(Sprite):
     def rightoff (self, event):
         self.vx = 0
         
+    def mouseClick(self, event):
+        self.x = event.x
+        self.y = event.y
+        
     def Generate (self, event):
         self.vy += 1
-        
-
-
-
-
 
 class Sandbox(App):
     def __init__(self, width, height):
