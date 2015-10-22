@@ -1,7 +1,7 @@
 """
 platformer.py
-Author: <your name here>
-Credit: <list sources used, if any>
+Author: Sarah Dunbar
+Credit: http://brythonserver.github.io/ggame/
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
@@ -35,7 +35,7 @@ class Player(Sprite):
         Sandbox.listenKeyEvent("keyup", "a", self.leftoff)
         Sandbox.listenKeyEvent("keyup", "d", self.rightoff)
         Sandbox.listenKeyEvent("keydown", "p", self.Generate)
-        Sandbox.listenMouseEvent("click", self.Move)
+        Sandbox.listenMouseEvent("mousemove", self.Move)
         self.fxcenter = self.fycenter = 0.5
 
     def step(self):
@@ -72,6 +72,7 @@ class Player(Sprite):
         self.y = event.y
         
     def Generate (self, event):
+        Sandbox.listenMouseEvent("mousemove", self.Move)
         self.vy += 1
 
 class Sandbox(App):
