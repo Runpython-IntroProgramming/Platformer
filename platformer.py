@@ -12,6 +12,21 @@ from ggame import App, RectangleAsset, ImageAsset, Sprite, LineStyle, Color, Fra
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 1000
 
+class Dummy(Sprite):
+    grassy = Color(0xeeff00, 1.0)
+    thinline = LineStyle (1, grassy)
+    asset = RectangleAsset(800, 45, thinline, grassy)
+    def __init__(self, position):
+        super().__init__(Dummy.asset, position)
+        self.vx = 1
+        self.vy = 1
+        self.thrustframe = 1
+        self.vx = 0
+        self.vy = 0
+        self.vr = 0
+        self.thrust = 0
+        self.thrustframe = 1
+
 class Player(Sprite):
     grassy = Color(0xeeff00, 1.0)
     thinline = LineStyle (1, grassy)
@@ -36,6 +51,13 @@ class Player(Sprite):
         Sandbox.listenKeyEvent("keyup", "d", self.rightoff)
         Sandbox.listenKeyEvent("keydown", "p", self.Generate)
         self.fxcenter = self.fycenter = 0.5
+        
+    def collidingWithSprites(self, sclass = None):
+        if sclass is None:
+            slist = App.spritelist
+        else:
+            slist = App.getSpritesbyClass(sclass)
+        return list(filter(self.collidingWith, slist))
 
     def step(self):
         self.x += self.vx
@@ -74,17 +96,20 @@ class Player(Sprite):
     def Generate (self, event):
         Sandbox.listenMouseEvent("mousemove", self.Move)
         self.vy += 2
+        gg = collidingWithSprites(self, sclass=None)
         #http://brythonserver.github.io/ggame/#ggame.App.listenMouseEvent
 
 class Sandbox(App):
+    
     def __init__(self, width, height):
         super().__init__(width, height)
         black = Color(0xFFFFEE, 1)
         noline = LineStyle(0, black)
         bg_asset = RectangleAsset(width, height, noline, black)
         bg = Sprite(bg_asset, (0,0))
+        Dummy ((100, 300))
         Player((100, 100))
-
+    
     def step(self):
         for x in self.getSpritesbyClass(Player):
             x.step()
