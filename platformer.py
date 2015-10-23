@@ -66,13 +66,15 @@ class Player(Sprite):
     def rightoff (self, event):
         self.vx = 0
         
-    def Generate (self, event):
-        x = Sandbox.listenMouseEvent("x", self.Move)
-        y = Sandbox.listenMouseEvent("y", self.Move2)
-        #http://brythonserver.github.io/ggame/#ggame.App.listenMouseEvent
+    def Move (self, event):
         self.x = event.x
         self.y = event.y
-        self.vy += .1
+        Sandbox.unlistenMouseEvent("mousemove", self.Move)
+        
+    def Generate (self, event):
+        Sandbox.listenMouseEvent("mousemove", self.Move)
+        self.vy += 2
+        #http://brythonserver.github.io/ggame/#ggame.App.listenMouseEvent
 
 class Sandbox(App):
     def __init__(self, width, height):
