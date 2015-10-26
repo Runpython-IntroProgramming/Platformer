@@ -31,6 +31,7 @@ class Player(Sprite):
     grassy = Color(0xeeff00, 1.0)
     thinline = LineStyle (1, grassy)
     asset = RectangleAsset(15, 45, thinline, grassy)
+    
     def __init__(self, position):
         super().__init__(Player.asset, position)
         self.vx = 1
@@ -51,18 +52,19 @@ class Player(Sprite):
         Sandbox.listenKeyEvent("keyup", "d", self.rightoff)
         Sandbox.listenKeyEvent("keydown", "p", self.Generate)
         self.fxcenter = self.fycenter = 0.5
-        
-    def collidingWithSprites(self, sclass = None):
-        if sclass is None:
-            slist = App.spritelist
-        else:
-            slist = App.getSpritesbyClass(sclass)
-        return list(filter(self.collidingWith, slist))
 
     def step(self):
-        self.x += self.vx
-        self.y += self.vy
-        self.rotation += self.vr
+        def cc (self):
+
+        p = True
+        while p == True:
+            self.x += self.vx
+            self.y += self.vy
+            self.rotation += self.vr
+            p = cc(self)
+            print(collidingWithSprites(self, sclass = Dummy))
+            
+        
         
     def up (self, event):
         self.vy += -.1
@@ -96,7 +98,6 @@ class Player(Sprite):
     def Generate (self, event):
         Sandbox.listenMouseEvent("mousemove", self.Move)
         self.vy += 2
-        gg = collidingWithSprites(self, sclass=None)
         #http://brythonserver.github.io/ggame/#ggame.App.listenMouseEvent
 
 class Sandbox(App):
