@@ -59,8 +59,13 @@ class Player(Sprite):
         self.x += self.vx
         self.y += self.vy
         self.rotation += self.vr
-        p = cc(self)
         coll = len(self.collidingWithSprites())
+        while coll == 1:
+            self.y = self.y + 1
+            oldy = self.y
+            coll = len(self.collidingWithSprites())
+        
+            
         
             
         
