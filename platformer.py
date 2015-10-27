@@ -64,7 +64,8 @@ class Player(Sprite):
             self.y = self.y + 1
             oldy = self.y
             coll = len(self.collidingWithSprites())
-        
+        self.x = oldx
+        self.y = oldy
             
         
             
