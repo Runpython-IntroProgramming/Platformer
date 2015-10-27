@@ -65,8 +65,8 @@ class Player(Sprite):
         if coll > 1:
             oldx = self.x
             oldy = self.y
-            self.x = oldx
-            self.y = oldy
+        self.x = oldx
+        self.y = oldy
 
     def up (self, event):
         self.vy += -.1
