@@ -54,15 +54,14 @@ class Player(Sprite):
         self.fxcenter = self.fycenter = 0.5
 
     def step(self):
-        def cc (self):
-
-        p = True
-        while p == True:
-            self.x += self.vx
-            self.y += self.vy
-            self.rotation += self.vr
-            p = cc(self)
-            print(collidingWithSprites(self, sclass = Dummy))
+        oldx = self.x
+        oldy = self.y
+        self.x += self.vx
+        self.y += self.vy
+        self.rotation += self.vr
+        p = cc(self)
+        coll = len(self.collidingWithSprites())
+        
             
         
         
