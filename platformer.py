@@ -67,6 +67,7 @@ class Player(Sprite):
             oldy = self.y
         self.x = oldx
         self.y = oldy
+        break
 
     def up (self, event):
         self.vy += -.1
