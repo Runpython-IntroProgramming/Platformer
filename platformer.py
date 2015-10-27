@@ -54,8 +54,6 @@ class Player(Sprite):
         self.fxcenter = self.fycenter = 0.5
 
     def step(self):
-        oldx = self.x
-        oldy = self.y
         self.x += self.vx
         self.y += self.vy
         self.rotation += self.vr
@@ -64,8 +62,11 @@ class Player(Sprite):
             self.y = self.y + .001
             oldy = self.y
             coll = len(self.collidingWithSprites())
-        self.x = oldx
-        self.y = oldy
+        if coll > 1:
+            oldx = self.x
+            oldy = self.y
+            self.x = oldx
+            self.y = oldy
 
     def up (self, event):
         self.vy += -.1
