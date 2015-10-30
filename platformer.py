@@ -117,9 +117,7 @@ class Sandbox(App):
         Player((100, 100))
     
     def step(self):
-        if g == 0:
-            g = g + 1
-            p = 0
+        p = 0
         for x in self.getSpritesbyClass(Player):
             x.step()
 
