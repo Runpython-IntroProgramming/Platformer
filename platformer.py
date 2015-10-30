@@ -107,7 +107,6 @@ class Player(Sprite):
 class Sandbox(App):
     
     def __init__(self, width, height):
-        g = 0
         super().__init__(width, height)
         black = Color(0xFFFFEE, 1)
         noline = LineStyle(0, black)
