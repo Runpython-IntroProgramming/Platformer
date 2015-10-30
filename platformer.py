@@ -56,9 +56,15 @@ class Player(Sprite):
 
     def step(self):
         oldy = self.y
+        p = p + 1
+        self.y += p
+        coll = len(self.collidingWithSprites())
+        if coll > 1:
+            p = 0
+            self.y = oldy
+        oldy = self.y
         self.x += self.vx
         self.y += self.vy
-        self.y += 
         self.rotation += self.vr
         coll = len(self.collidingWithSprites())
         if coll > 1:
@@ -101,7 +107,7 @@ class Player(Sprite):
 class Sandbox(App):
     
     def __init__(self, width, height):
-        p = 1
+        g = 0
         super().__init__(width, height)
         black = Color(0xFFFFEE, 1)
         noline = LineStyle(0, black)
@@ -111,6 +117,9 @@ class Sandbox(App):
         Player((100, 100))
     
     def step(self):
+        if g == 0:
+            g = g + 1
+            p = 0
         for x in self.getSpritesbyClass(Player):
             x.step()
 
