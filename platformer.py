@@ -41,6 +41,7 @@ class Player(Sprite):
         self.vx = 0
         self.vy = 0
         self.vr = 0
+        self.p = 0
         self.thrust = 0
         self.thrustframe = 1
         Sandbox.listenKeyEvent("keydown", "w", self.up)
@@ -54,13 +55,13 @@ class Player(Sprite):
         Sandbox.listenKeyEvent("keydown", "p", self.Generate)
         self.fxcenter = self.fycenter = 0.5
 
-    def step(self, p):
+    def step(self):
         oldy = self.y
-        p = p + 1
-        self.y += p
+        self.p += 1
+        self.y += self.p
         coll = len(self.collidingWithSprites())
         if coll > 1:
-            p = 0
+            self.p = 0
             self.y = oldy
         oldy = self.y
         self.x += self.vx
@@ -116,9 +117,8 @@ class Sandbox(App):
         Player((100, 100))
     
     def step(self):
-        p = 0
         for x in self.getSpritesbyClass(Player):
-            x.step(self, p)
+            x.step()
 
 
 myapp = Sandbox(SCREEN_WIDTH, SCREEN_HEIGHT)
