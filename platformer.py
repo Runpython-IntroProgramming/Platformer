@@ -54,7 +54,7 @@ class Player(Sprite):
         Sandbox.listenKeyEvent("keydown", "p", self.Generate)
         self.fxcenter = self.fycenter = 0.5
 
-    def step(self):
+    def step(self, p):
         oldy = self.y
         p = p + 1
         self.y += p
@@ -119,7 +119,7 @@ class Sandbox(App):
     def step(self):
         p = 0
         for x in self.getSpritesbyClass(Player):
-            x.step()
+            x.step(self, p)
 
 
 myapp = Sandbox(SCREEN_WIDTH, SCREEN_HEIGHT)
