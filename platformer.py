@@ -34,7 +34,7 @@ class Player(Sprite):
     
     def __init__(self, position):
         super().__init__(Player.asset, position)
-        p = 1
+        self.p = 1
         self.vx = 1
         self.vy = 1
         self.thrustframe = 1
@@ -55,16 +55,17 @@ class Player(Sprite):
         self.fxcenter = self.fycenter = 0.5
 
     def step(self):
-        oldy = self.y
-        self.x += self.vx
+        if self.x == 100:
+            p = 0
         p = p + 1
-        self.x += p
+        oldy = self.y
+        self.y += p
+        self.x += self.vx
         self.y += self.vy
         self.rotation += self.vr
         coll = len(self.collidingWithSprites())
         if coll > 1:
             self.y = oldy
-            p = 0
 
     def up (self, event):
         self.vy += -.1
@@ -103,6 +104,7 @@ class Player(Sprite):
 class Sandbox(App):
     
     def __init__(self, width, height):
+        p = 1
         super().__init__(width, height)
         black = Color(0xFFFFEE, 1)
         noline = LineStyle(0, black)
