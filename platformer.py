@@ -95,7 +95,8 @@ class Player(Sprite):
             self.x = oldx
 
     def up (self, event):
-        self.vy += -.2
+        self.vy += 3
+        self.vy += 2
         self.p = 0
     
     def down (self, event):
