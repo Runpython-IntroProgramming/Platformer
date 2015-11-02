@@ -29,7 +29,9 @@ class Dummy(Sprite):
         Sandbox.listenMouseEvent('click', self.generate)
         
     def generate (self, event):
-        Dummy ((x, y))
+        Dummy ((1, 1))
+        Dummy.x = event.x
+        Dummy.y = event.y
 
 class Player(Sprite):
     grassy = Color(0xeeff00, 1.0)
