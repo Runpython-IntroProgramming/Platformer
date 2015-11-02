@@ -26,9 +26,9 @@ class Dummy(Sprite):
         self.vr = 0
         self.thrust = 0
         self.thrustframe = 1
-        Sandbox.listenMouseEvent('click', self.generate)
-        
-    def generate (self, event):
+        Sandbox.listenKeyEvent("keydown", "w", self.Generate1)
+    
+    def Move (self, event):
         x = event.x
         y = event.y
         xreal = x%50
@@ -42,6 +42,10 @@ class Dummy(Sprite):
         else:
             yy = y + (50 - yreal)
         Dummy ((xx, yy))
+        Sandbox.unlistenMouseEvent("mousemove", self.Move)
+        
+    def Generate1 (self, event):
+        Sandbox.listenMouseEvent("mousemove", self.Move)
 
 class Player(Sprite):
     grassy = Color(0xeeff00, 1.0)
