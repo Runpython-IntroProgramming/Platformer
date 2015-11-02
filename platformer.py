@@ -64,14 +64,14 @@ class Player(Sprite):
         self.p = 0
         self.thrust = 0
         self.thrustframe = 1
-        Sandbox.listenKeyEvent("keydown", "w", self.up)
-        Sandbox.listenKeyEvent("keydown", "s", self.down)
-        Sandbox.listenKeyEvent("keydown", "a", self.left)
-        Sandbox.listenKeyEvent("keydown", "d", self.right)
-        Sandbox.listenKeyEvent("keyup", "w", self.upoff)
-        Sandbox.listenKeyEvent("keyup", "s", self.downoff)
-        Sandbox.listenKeyEvent("keyup", "a", self.leftoff)
-        Sandbox.listenKeyEvent("keyup", "d", self.rightoff)
+        Sandbox.listenKeyEvent("keydown", "up arrow", self.up)
+        Sandbox.listenKeyEvent("keydown", "down arrow", self.down)
+        Sandbox.listenKeyEvent("keydown", "left arrow", self.left)
+        Sandbox.listenKeyEvent("keydown", "right arrow", self.right)
+        Sandbox.listenKeyEvent("keyup", "up arrow", self.upoff)
+        Sandbox.listenKeyEvent("keyup", "down arrow", self.downoff)
+        Sandbox.listenKeyEvent("keyup", "left arrow", self.leftoff)
+        Sandbox.listenKeyEvent("keyup", "right arrow", self.rightoff)
         Sandbox.listenKeyEvent("keydown", "p", self.Generate)
         self.fxcenter = self.fycenter = 0.5
 
@@ -95,8 +95,8 @@ class Player(Sprite):
             self.x = oldx
 
     def up (self, event):
-        self.vy += 3
-        self.vy += 2
+        self.vy += -2
+        self.vy += -1
         self.p = 0
     
     def down (self, event):
