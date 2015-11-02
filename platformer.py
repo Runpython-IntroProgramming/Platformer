@@ -32,7 +32,6 @@ class Dummy(Sprite):
         x = event.x
         y = event.y
         Dummy ((x, y))
-        
 
 class Player(Sprite):
     grassy = Color(0xeeff00, 1.0)
@@ -83,6 +82,7 @@ class Player(Sprite):
 
     def up (self, event):
         self.vy += -.2
+        p = 0
     
     def down (self, event):
         self.vy += .1
