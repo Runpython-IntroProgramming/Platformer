@@ -15,7 +15,7 @@ SCREEN_HEIGHT = 1000
 class Dummy(Sprite):
     black = Color(0x000000, 1.0)
     thinline = LineStyle (1, black)
-    asset = RectangleAsset(800, 45, thinline, black)
+    asset = RectangleAsset(25, 25, thinline, black)
     def __init__(self, position):
         super().__init__(Dummy.asset, position)
         self.vx = 1
@@ -82,6 +82,7 @@ class Player(Sprite):
 
     def up (self, event):
         self.vy += -.2
+        p = 0
     
     def down (self, event):
         self.vy += .1
