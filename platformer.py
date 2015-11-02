@@ -98,6 +98,7 @@ class Player(Sprite):
         self.vy += -2
         self.vy += -1
         self.p = 0
+        self.vy += 2
     
     def down (self, event):
         self.vy += .1
