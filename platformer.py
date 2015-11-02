@@ -13,9 +13,9 @@ SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 1000
 
 class Dummy(Sprite):
-    grassy = Color(0xeeff00, 1.0)
-    thinline = LineStyle (1, grassy)
-    asset = RectangleAsset(800, 45, thinline, grassy)
+    black = Color(0x000000, 1.0)
+    thinline = LineStyle (1, black)
+    asset = RectangleAsset(800, 45, thinline, black)
     def __init__(self, position):
         super().__init__(Dummy.asset, position)
         self.vx = 1
@@ -26,6 +26,10 @@ class Dummy(Sprite):
         self.vr = 0
         self.thrust = 0
         self.thrustframe = 1
+        Sandbox.listenMouseEvent('click', self.generate)
+        
+    def generate (self, event):
+        Dummy ((x, y))
 
 class Player(Sprite):
     grassy = Color(0xeeff00, 1.0)
