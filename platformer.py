@@ -90,7 +90,7 @@ class Player(Sprite):
         self.y += self.vy
         self.rotation += self.vr
         coll = len(self.collidingWithSprites())
-        if coll > 1:
+        if coll > 1 and self.up == False:
             self.p = 0
             self.y = oldy
             self.x = oldx
