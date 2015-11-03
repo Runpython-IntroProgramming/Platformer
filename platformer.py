@@ -54,6 +54,7 @@ class Player(Sprite):
     
     def __init__(self, position):
         super().__init__(Player.asset, position)
+        self.up = False
         self.p = 1
         self.vx = 1
         self.vy = 1
@@ -80,7 +81,7 @@ class Player(Sprite):
         self.p += .1
         self.y += self.p
         coll = len(self.collidingWithSprites())
-        if coll > 1:
+        if coll > 1 and self.up = False:
             self.p = 0
             self.y = oldy
         oldy = self.y
@@ -95,14 +96,15 @@ class Player(Sprite):
             self.x = oldx
 
     def up (self, event):
+        self.up = True
+        coll = len(self.collidingWithSprites())
+        if coll > 1:
+            self.vy += -2
+            self.p = 0
         coll = len(self.collidingWithSprites())
         if coll == 1:
-            self.vy += -2
-            self.vy += -1
-            self.p = 0
-        if coll == 0:
-            self.vy += 2
             self.vy += 1
+        self.up = False
     
     def down (self, event):
         self.vy += .1
