@@ -77,7 +77,7 @@ class Player(Sprite):
 
     def step(self):
         oldy = self.y
-        self.p += 1
+        self.p += .1
         self.y += self.p
         coll = len(self.collidingWithSprites())
         if coll > 1:
