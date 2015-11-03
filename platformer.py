@@ -54,8 +54,8 @@ class Player(Sprite):
     
     def __init__(self, position):
         super().__init__(Player.asset, position)
-        self.up = 0
         self.p = 1
+        self.up = 0
         self.vx = 1
         self.vy = 1
         self.thrustframe = 1
@@ -100,7 +100,6 @@ class Player(Sprite):
         coll = len(self.collidingWithSprites())
         if coll > 1:
             self.vy += -2
-            self.p = 0
         coll = len(self.collidingWithSprites())
         if coll == 1:
             self.vy += 1
