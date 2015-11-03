@@ -81,7 +81,7 @@ class Player(Sprite):
         self.p += .1
         self.y += self.p
         coll = len(self.collidingWithSprites())
-        if coll > 1 and self.up = False:
+        if coll > 1 and self.up == False:
             self.p = 0
             self.y = oldy
         oldy = self.y
