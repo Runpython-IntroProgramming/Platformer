@@ -81,7 +81,7 @@ class Player(Sprite):
         self.p += .1
         self.y += self.p
         coll = len(self.collidingWithSprites())
-        if coll > 1:
+        if coll > 1 and self.g == 0:
             self.p = 0
             self.y = oldy
         oldy = self.y
@@ -90,18 +90,21 @@ class Player(Sprite):
         self.y += self.vy
         self.rotation += self.vr
         coll = len(self.collidingWithSprites())
-        if coll > 1:
+        if coll > 1 and self.g == 0:
             self.p = 0
             self.y = oldy
             self.x = oldx
 
     def up (self, event):
-        if self.g == 1:
-            self.vy += -2
-            self.vy += -1
-            self.p = 0
-            self.vy += 2
-            self.g = 0
+        coll = len(self.collidingWithSprites())
+        if coll > 1:
+            if self.g == 1:
+                self.vy += -3
+                self.vy += -2
+                self.vy += -1
+                self.p = 0
+                self.vy += 2
+                self.g = 0
     
     def down (self, event):
         self.vy += .1
