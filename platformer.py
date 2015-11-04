@@ -116,6 +116,7 @@ class Player(Sprite):
         
     def upoff (self, event):
         print("upoff")
+        self.p = 6
         self.vy = 0
         self.g = 1
     
