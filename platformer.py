@@ -76,11 +76,12 @@ class Player(Sprite):
 
     def step(self):
         oldy = self.y
-        self.vy += .1
+        self.vy += .05
         self.y += self.vy
         coll = len(self.collidingWithSprites())
         if coll > 1:
             self.vy = 0
+            print (coll)
             self.y = oldy
         oldy = self.y
         oldx = self.x
@@ -99,8 +100,7 @@ class Player(Sprite):
         if twix > 1:
             if self.g == 1:
                 print("up g == 1")
-                self.vy += -3
-                self.g = 0
+                self.vy += -2
     
     def down (self, event):
         self.vy += .1
@@ -130,8 +130,8 @@ class Player(Sprite):
         Sandbox.unlistenMouseEvent("mousemove", self.Move)
         
     def Generate (self, event):
+        self.vy = 0
         Sandbox.listenMouseEvent("mousemove", self.Move)
-        self.vy += 2
         #http://brythonserver.github.io/ggame/#ggame.App.listenMouseEvent
 
 class Sandbox(App):
