@@ -54,14 +54,12 @@ class Player(Sprite):
     
     def __init__(self, position):
         super().__init__(Player.asset, position)
-        self.p = 1
         self.vx = 1
         self.vy = 1
         self.thrustframe = 1
         self.vx = 0
         self.vy = 0
         self.vr = 0
-        self.p = 0
         self.g = 1
         self.thrust = 0
         self.thrustframe = 1
@@ -78,11 +76,11 @@ class Player(Sprite):
 
     def step(self):
         oldy = self.y
-        self.p += .1
-        self.y += self.p
+        self.vy += .1
+        self.y += self.vy
         coll = len(self.collidingWithSprites())
         if coll > 1:
-            self.p = 0
+            self.vy = 0
             self.y = oldy
         oldy = self.y
         oldx = self.x
@@ -91,7 +89,7 @@ class Player(Sprite):
         self.rotation += self.vr
         coll = len(self.collidingWithSprites())
         if coll > 1:
-            self.p = 0
+            self.vy = 0
             self.y = oldy
             self.x = oldx
 
@@ -101,8 +99,7 @@ class Player(Sprite):
         if twix > 1:
             if self.g == 1:
                 print("up g == 1")
-                self.vy += -5.5
-                self.p = 0
+                self.vy += -3
                 self.g = 0
     
     def down (self, event):
@@ -116,8 +113,6 @@ class Player(Sprite):
         
     def upoff (self, event):
         print("upoff")
-        self.p = 6
-        self.vy = 0
         self.g = 1
     
     def downoff (self, event):
