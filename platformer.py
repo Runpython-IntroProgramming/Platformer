@@ -62,6 +62,7 @@ class Player(Sprite):
         self.vy = 0
         self.vr = 0
         self.p = 0
+        self.g = 1
         self.thrust = 0
         self.thrustframe = 1
         Sandbox.listenKeyEvent("keydown", "up arrow", self.up)
@@ -95,10 +96,12 @@ class Player(Sprite):
             self.x = oldx
 
     def up (self, event):
-        self.vy += -2
-        self.vy += -1
-        self.p = 0
-        self.vy += 2
+        if self.g == 1:
+            self.vy += -2
+            self.vy += -1
+            self.p = 0
+            self.vy += 2
+            self.g = 0
     
     def down (self, event):
         self.vy += .1
@@ -110,6 +113,7 @@ class Player(Sprite):
         self.vx += .1
         
     def upoff (self, event):
+        self.g = 1
         self.vy = 0
     
     def downoff (self, event):
