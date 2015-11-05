@@ -16,10 +16,36 @@ class Springt(Sprite):
     water = Color(0x660000, 1.0)
     thinline = LineStyle (1, water)
     asset = RectangleAsset (20, 5, thinline, water)
+
     def __init__ (self, position):
         super().__init__(Springt.asset, position)
         self.vy = 1
-    
+        Sandbox.listenKeyEvent("keydown", "s", self.Generate)
+        
+    def step(self):
+        oldy = self.y
+        self.vy += .05
+        self.y += self.vy
+        coll = len(self.collidingWithSprites())
+        if coll > 1:
+            self.vy = 0
+            self.y = oldy
+        oldy = self.y
+        oldx = self.x
+        self.y += self.vy
+        coll = len(self.collidingWithSprites())
+        if coll > 1:
+            self.vy = 0
+            self.y = oldy
+        
+    def Move (self, event):
+        self.x = event.x
+        self.y = event.y
+        Sandbox.unlistenMouseEvent("mousemove", self.Move)
+        
+    def Generate (self, event):
+        self.vy = 0
+        Sandbox.listenMouseEvent("mousemove", self.Move)
 
 class Dummy(Sprite):
     black = Color(0xCC0033, 1.0)
@@ -85,7 +111,7 @@ class Player(Sprite):
 
     def step(self):
         oldy = self.y
-        self.vy += .05
+        self.vy += .1
         self.y += self.vy
         coll = len(self.collidingWithSprites())
         if coll > 1:
@@ -106,8 +132,9 @@ class Player(Sprite):
         self.y = self.y + 1
         twix = len(self.collidingWithSprites())
         if twix > 1:
-            if self.g == 1:
-                self.vy = -3
+            self.vy += -3
+            g = 1
+        if g =
     
     def down (self, event):
         self.vy += .1
@@ -119,8 +146,7 @@ class Player(Sprite):
         self.vx += .1
         
     def upoff (self, event):
-        self.g = 1
-        self.vy += 1
+        self.vy += 3
     
     def downoff (self, event):
         self.vy = 0
@@ -155,6 +181,8 @@ class Sandbox(App):
     
     def step(self):
         for x in self.getSpritesbyClass(Player):
+            x.step()
+        for x in self.getSpritesbyClass(Springt):
             x.step()
 
 
