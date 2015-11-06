@@ -99,11 +99,9 @@ class Player(Sprite):
         self.thrust = 0
         self.thrustframe = 1
         Sandbox.listenKeyEvent("keydown", "up arrow", self.up)
-        Sandbox.listenKeyEvent("keydown", "down arrow", self.down)
         Sandbox.listenKeyEvent("keydown", "left arrow", self.left)
         Sandbox.listenKeyEvent("keydown", "right arrow", self.right)
         Sandbox.listenKeyEvent("keyup", "up arrow", self.upoff)
-        Sandbox.listenKeyEvent("keyup", "down arrow", self.downoff)
         Sandbox.listenKeyEvent("keyup", "left arrow", self.leftoff)
         Sandbox.listenKeyEvent("keyup", "right arrow", self.rightoff)
         Sandbox.listenKeyEvent("keydown", "p", self.Generate)
@@ -142,9 +140,6 @@ class Player(Sprite):
         if twix > 1:
             self.vy = -3
             print (self.vy)
-    
-    def down (self, event):
-        self.vy += .1
         
     def left (self, event):
         self.vx += -.1
@@ -154,9 +149,6 @@ class Player(Sprite):
         
     def upoff (self, event):
         self.vy += 0
-    
-    def downoff (self, event):
-        self.vy = 0
         
     def leftoff (self, event):
         self.vx = 0
