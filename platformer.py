@@ -39,9 +39,8 @@ class Springt(Sprite):
             self.y = oldy
         
     def Move (self, event):
-        fx = event.x
-        fy = event.y
-        Springt ((fx, fy))
+        self.x = event.x
+        self.y = event.y
         self.vy = 0
         Sandbox.unlistenMouseEvent("mousemove", self.Move)
         
