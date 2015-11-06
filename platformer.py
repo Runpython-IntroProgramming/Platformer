@@ -39,12 +39,12 @@ class Springt(Sprite):
             self.y = oldy
         
     def Move (self, event):
-        self.x = event.x
-        self.y = event.y
+        fx = event.x
+        fy = event.y
+        Springt ((fx, fy))
         Sandbox.unlistenMouseEvent("mousemove", self.Move)
         
     def Generate (self, event):
-        self.vy = 0
         Sandbox.listenMouseEvent("mousemove", self.Move)
 
 class Dummy(Sprite):
@@ -182,9 +182,9 @@ class Sandbox(App):
         noline = LineStyle(0, black)
         bg_asset = RectangleAsset(width, height, noline, black)
         bg = Sprite(bg_asset, (0,0))
-        Springt((200, 200))
         Dummy ((100, 300))
         Player((100, 100))
+        Springt((1000, 1000))
     
     def step(self):
         for x in self.getSpritesbyClass(Player):
