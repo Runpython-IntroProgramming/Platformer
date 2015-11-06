@@ -132,8 +132,9 @@ class Player(Sprite):
             self.vx = 0
             self.vx = 0
             self.x = oldx
-            self.vy = -4
-            self.y += self.vy
+            if self.vy > 0:
+                self.vy = -4
+                self.y += self.vy
 
     def up (self, event):
         self.y = self.y + 1
