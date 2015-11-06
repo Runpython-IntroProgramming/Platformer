@@ -1,7 +1,7 @@
 """
 platformer.py
 Author: Sarah Dunbar
-Credit: http://brythonserver.github.io/ggame/
+Credit: http://brythonserver.github.io/ggame/, Mr. Dennison, Anoushka Alavilli, Geoff Dunbar
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
@@ -10,7 +10,7 @@ https://github.com/HHS-IntroProgramming/Platformer
 from ggame import App, RectangleAsset, ImageAsset, Sprite, LineStyle, Color, Frame
 
 SCREEN_WIDTH = 1000
-SCREEN_HEIGHT = 1000
+SCREEN_HEIGHT = 900
 
 class Springt(Sprite):
     water = Color(0x660000, 1.0)
