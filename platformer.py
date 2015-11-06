@@ -139,7 +139,6 @@ class Player(Sprite):
         twix = len(self.collidingWithSprites())
         if twix > 1:
             self.vy = -3
-            print (self.vy)
         
     def left (self, event):
         self.vx += -.1
