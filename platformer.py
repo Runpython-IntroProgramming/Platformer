@@ -130,11 +130,12 @@ class Player(Sprite):
 
     def up (self, event):
         self.y = self.y + 1
+        x = self.collidingWithSprites()
+        print (x)
         twix = len(self.collidingWithSprites())
         if twix > 1:
-            self.vy += -3
-            g = 1
-        if g =
+            self.vy = -3
+            print (self.vy)
     
     def down (self, event):
         self.vy += .1
@@ -146,7 +147,7 @@ class Player(Sprite):
         self.vx += .1
         
     def upoff (self, event):
-        self.vy += 3
+        self.vy += 0
     
     def downoff (self, event):
         self.vy = 0
