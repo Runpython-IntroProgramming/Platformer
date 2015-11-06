@@ -113,8 +113,8 @@ class Player(Sprite):
         oldy = self.y
         self.vy += .1
         self.y += self.vy
-        coll = len(self.collidingWithSprites())
-        if coll > 1:
+        coll = len(self.collidingWithSprites(sclass = Dummy))
+        if coll > 0:
             self.vy = 0
             self.y = oldy
         oldy = self.y
@@ -122,16 +122,21 @@ class Player(Sprite):
         self.x += self.vx
         self.y += self.vy
         self.rotation += self.vr
-        coll = len(self.collidingWithSprites())
-        if coll > 1:
+        coll = len(self.collidingWithSprites(sclass = Dummy))
+        if coll > 0:
             self.vy = 0
             self.y = oldy
             self.x = oldx
+        coll = len(self.collidingWithSprites(sclass = Springt))
+        if coll > 0:
+            self.vx = 0
+            self.vx = 0
+            self.x = oldx
+            self.vy = -4
+            self.y += self.vy
 
     def up (self, event):
         self.y = self.y + 1
-        x = self.collidingWithSprites()
-        print (x)
         twix = len(self.collidingWithSprites())
         if twix > 1:
             self.vy = -3
