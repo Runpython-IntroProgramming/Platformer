@@ -66,7 +66,8 @@ class Dummy(Sprite):
         
     def step (self):
         if self.g == 1:
-            if self.x == 100 and self.y == 100:
+            if self.x == 100 and self.y == 300:
+                print (":)")
                 Dummy ((xx, yy))
         
         
@@ -83,7 +84,9 @@ class Dummy(Sprite):
             yy = y - yreal
         else:
             yy = y + (50 - yreal)
+        print (xx, yy)
         self.g = 1
+        print (xx, yy)
         Sandbox.unlistenMouseEvent("mousemove", self.Move)
         
     def Generate1 (self, event):
