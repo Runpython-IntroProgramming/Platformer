@@ -61,8 +61,15 @@ class Dummy(Sprite):
         self.vr = 0
         self.thrust = 0
         self.thrustframe = 1
+        self.g = 0
         Sandbox.listenKeyEvent("keydown", "w", self.Generate1)
-    
+        
+    def step (self):
+        if self.g == 1:
+            if self.x == 100 and self.y == 100:
+                Dummy ((xx, yy))
+        
+        
     def Move (self, event):
         x = event.x
         y = event.y
@@ -76,7 +83,7 @@ class Dummy(Sprite):
             yy = y - yreal
         else:
             yy = y + (50 - yreal)
-        Dummy ((xx, yy))
+        self.g = 1
         Sandbox.unlistenMouseEvent("mousemove", self.Move)
         
     def Generate1 (self, event):
@@ -162,7 +169,7 @@ class Player(Sprite):
         
     def Generate (self, event):
         self.vy = 0
-        Sandbox.listenMouseEvent("mousemove", self.Move)
+        Sandbox.listenMouseEvent("mousemove", Move)
         #http://brythonserver.github.io/ggame/#ggame.App.listenMouseEvent
 
 class Sandbox(App):
@@ -182,6 +189,8 @@ class Sandbox(App):
             x.step()
         for x in self.getSpritesbyClass(Springt):
             x.step()
+        for x in self.getSpritesbyClass(Dummy):
+            x.step
 
 
 myapp = Sandbox(SCREEN_WIDTH, SCREEN_HEIGHT)
