@@ -165,7 +165,7 @@ class Player(Sprite):
         
     def Generate (self, event):
         self.vy = 0
-        Sandbox.listenMouseEvent("mousemove", Move)
+        Sandbox.listenMouseEvent("mousemove", self.Move)
         #http://brythonserver.github.io/ggame/#ggame.App.listenMouseEvent
 
 class Sandbox(App):
