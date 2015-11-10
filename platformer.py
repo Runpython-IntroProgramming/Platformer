@@ -64,12 +64,6 @@ class Dummy(Sprite):
         self.g = 0
         Sandbox.listenKeyEvent("keydown", "w", self.Generate1)
         
-    def step (self):
-        if self.g == 1:
-            if self.x == 100 and self.y == 300:
-                print (":)")
-                Dummy ((xx, yy))
-        
         
     def Move (self, event):
         x = event.x
@@ -84,9 +78,8 @@ class Dummy(Sprite):
             yy = y - yreal
         else:
             yy = y + (50 - yreal)
-        print (xx, yy)
-        self.g = 1
-        print (xx, yy)
+        if self.x == 100 and self.y == 300:
+            Dummy ((xx, yy))
         Sandbox.unlistenMouseEvent("mousemove", self.Move)
         
     def Generate1 (self, event):
@@ -192,8 +185,6 @@ class Sandbox(App):
             x.step()
         for x in self.getSpritesbyClass(Springt):
             x.step()
-        for x in self.getSpritesbyClass(Dummy):
-            x.step
 
 
 myapp = Sandbox(SCREEN_WIDTH, SCREEN_HEIGHT)
