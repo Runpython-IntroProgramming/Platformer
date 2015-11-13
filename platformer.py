@@ -25,6 +25,9 @@ Wall(400,300)
 class Platformer(App):
     def __init__(self):
         super().__init__()
+        
+
+
 
 myapp = Platformer()
 myapp.run()
