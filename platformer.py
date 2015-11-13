@@ -19,7 +19,5 @@ noline = LineStyle(0, blue)
 
 
 
-
-
 myapp = App()
 myapp.run()
