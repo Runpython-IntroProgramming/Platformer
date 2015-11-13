@@ -22,5 +22,9 @@ class Wall(Sprite):
 Wall(400,300)
 #Wall(400,300)
 
-myapp = App()
+class Platformer(App):
+    def __init__(self):
+        super().__init__()
+
+myapp = Platformer()
 myapp.run()
