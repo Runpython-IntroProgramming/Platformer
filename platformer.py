@@ -16,11 +16,12 @@ class Wall(Sprite):
     wall = RectangleAsset(50, 50, thinline, black)
     def __init__(self, xPos, yPos):
         super().__init__(Wall.wall, (xPos, yPos))
-        self.x = 100
-        self.y = 100
+        self.x = xPos
+        self.y = yPos
 
-Wall(400,300)
-#Wall(400,300)
+#if mouse pressed pressed:
+    #Wall(400,300)
+Wall(100, 500)
 
 class Platformer(App):
     def __init__(self):
