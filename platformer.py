@@ -24,7 +24,8 @@ class Box3D(Sprite):
         super().__init__(Box3D.block, (length, height))
         self.l = length
         self.h = height
-
+        block.listenKeyEvent("keydown", "space", self.thrustOn)
+        block.listenKeyEvent("keyup", "space", self.thrustOff)
 Box3D(55, 250)
 
 
