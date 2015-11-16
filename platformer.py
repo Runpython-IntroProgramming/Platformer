@@ -17,7 +17,19 @@ black = Color(0x000000, 1.0)
 thinline = LineStyle(1, blue)
 noline = LineStyle(0, blue)
 
+class Block(Sprite):
+    block = RectangleAsset(100, 25, thinline, blue)
+    def __init__(self, xval, yval):
+        super().__init__(Block.block, (xval, yval))
+        self.x = xval
+        self.y = yval
+        
+Block(100, 25)
+
+class Platformer(App):
+    def __init__(self):
+        super().__init__()
 
 
-myapp = App()
+myapp = Platformer()
 myapp.run()
