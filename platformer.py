@@ -19,14 +19,11 @@ class Wall(Sprite):
         self.x = xPos
         self.y = yPos
 
-from pymouse import PymouseEvent
-class DetectmouseClick(PymouseEvent):
-    def __init__(self):
-        PymouseEvent.__init__(self)
-        def click(self, x, y, button, press):
-            if button == 1:
-                if press:
-                    Wall(100, 500)
+def buildWall(event):
+    Wall.x = event.x
+    Wall.y = event.y
+    Wall(100, 500)
+myapp.listenMouseEvent('click', buildWall)
 
 class Platformer(App):
     def __init__(self):
