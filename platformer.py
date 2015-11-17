@@ -28,6 +28,12 @@ class Box3D(Sprite):
         block.listenKeyEvent("keyup", "space", self.thrustOff)
 Box3D(55, 250)
 
-
-myapp= App()
+class Platformer(App):
+    """
+    Tutorial4 space game example.
+    """
+    def __init__(self, width, height):
+        super().__init__(width, height)
+        
+myapp= Platformer()
 myapp.run()
