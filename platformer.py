@@ -18,22 +18,22 @@ noline= LineStyle(0, black)
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480
 
-class Box3D(Sprite):
+class Block(Sprite):
     block= RectangleAsset(125, 65, noline, turquoise)
-    def __init__(self, length, height):
-        super().__init__(Box3D.block, (length, height))
-        self.l = length
-        self.h = height
-        block.listenKeyEvent("keydown", "space", self.thrustOn)
-        block.listenKeyEvent("keyup", "space", self.thrustOff)
-Box3D(55, 250)
+    def __init__(self, xval, yval):
+        super().__init__(Block.block, (xval, yval))
+        self.x = xval
+        self.y = yval
+        
+Block(55, 250)
+Block
 
 class Platformer(App):
     """
     Tutorial4 space game example.
     """
-    def __init__(self, width, height):
-        super().__init__(width, height)
+    def __init__(self):
+        super().__init__()
         
 myapp= Platformer()
 myapp.run()
