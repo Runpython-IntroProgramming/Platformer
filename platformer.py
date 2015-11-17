@@ -23,13 +23,14 @@ class Block(Sprite):
         super().__init__(Block.block, (xval, yval))
         self.x = xval
         self.y = yval
-        
-Block(100, 400)
+
+for i in range(0,500):
+    Block(i, 400)
+    i = i+100
 
 class Platformer(App):
     def __init__(self):
         super().__init__()
-
 
 myapp = Platformer()
 myapp.run()
