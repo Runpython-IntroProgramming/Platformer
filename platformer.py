@@ -24,9 +24,7 @@ class Block(Sprite):
         self.x = xval
         self.y = yval
 
-for i in range(0,500):
-    Block(i, 400)
-    i = i+100
+Block(100,400)
 
 class Platformer(App):
     def __init__(self):
