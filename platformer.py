@@ -8,15 +8,14 @@ https://github.com/HHS-IntroProgramming/Platformer
 """
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset
 
-ballX = imput(
-ball    
-black= Color(0x000000, 1.0)
-red = Color(0xff0000,1.0)
-blue= Color(0x0000ff, 1.0)
+    
+red= Color(0xFE2E64, 1.0)
+bluelight = Color(0x81F7F3,1.0)
+#blue= Color(0x0000ff, 1.0)
 thinline = LineStyle(3, red)
 
 class Wall(Sprite):
-    wall = RectangleAsset(50, 50, thinline, black)
+    wall = RectangleAsset(50, 50, thinline, bluelight)
     def __init__(self, xPos, yPos):
         super().__init__(Wall.wall, (xPos, yPos))
         self.x = xPos
@@ -29,9 +28,15 @@ def moveChara(event):
  Sprite(Ball, (event.x, event.y))
 '''
 def buildWall(event):
-    #xPos.x = event.x
-    #yPos.y = event.y
-    Wall(event.x-25, event.y-25)
+    x = event.x%10
+    if x =! 0:
+        if x >= 5:
+            e = 10-x
+            x = x+e
+        if x < 5
+            e = 5-x
+            x = x-e
+    Wall(x-25, event.y-25)
 
 class Platformer(App):
     def __init__(self):
@@ -39,5 +44,5 @@ class Platformer(App):
 
 myapp = Platformer()
 myapp.listenMouseEvent('click', buildWall)
-myapp.listenKeyEvent('keydown', 'space', moveChara)
+#myapp.listenKeyEvent('keydown', 'space', moveChara)
 myapp.run()
