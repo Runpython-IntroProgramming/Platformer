@@ -26,7 +26,7 @@ class Block(Sprite):
         self.x = xval
         self.y = yval
 
-ocean= Color(0x87CEFA, 0.75)
+ocean= Color(0xA9BCF5, 0.75)
 
 black = Color(0, 1)
 noline = LineStyle(0, black)
