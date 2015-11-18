@@ -29,42 +29,8 @@ noline = LineStyle(0, black)
 bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, black)
 bg = Sprite(bg_asset, (0,0))
 
-Block(100,400)
-
-class Char(Sprite):
-
-    char = RectangleAsset(25, 75, thinline, pink)
-
-    def __init__(self, x, y):
-        super().__init__(char.asset, position)
-        self.vx = 1
-        self.vy = 1
-        self.vr = 0.01
-        self.thrust = 0
-        self.thrustframe = 1
-        Platformer.listenKeyEvent("keydown", "space", self.thrustOn)
-        Platformer.listenKeyEvent("keyup", "space", self.thrustOff)
-        self.fxcenter = self.fycenter = 0.5
-
-    def step(self):
-        self.x += self.vx
-        self.y += self.vy
-        self.rotation += self.vr
-        if self.thrust == 1:
-            self.setImage(self.thrustframe)
-            self.thrustframe += 1
-            if self.thrustframe == 4:
-                self.thrustframe = 1
-        else:
-            self.setImage(0)
-
-    def thrustOn(self, event):
-        self.thrust = 1
-
-    def thrustOff(self, event):
-        self.thrust = 0
-        
-Char(100,100)
+class buildBlock(event):
+    Block(event.x, event.y)
 
 class Platformer(App):
     def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
