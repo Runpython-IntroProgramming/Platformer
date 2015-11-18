@@ -21,12 +21,13 @@ class Wall(Sprite):
         super().__init__(Wall.wall, (xPos, yPos))
         self.x = xPos
         self.y = yPos
+'''
 class Ball(Sprite):
     ball = CircleAsset(30, thinline, blue)
 
 def moveChara(event):
  Sprite(Ball, (event.x, event.y))
-
+'''
 def buildWall(event):
     #xPos.x = event.x
     #yPos.y = event.y
