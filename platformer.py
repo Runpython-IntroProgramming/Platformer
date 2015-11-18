@@ -20,6 +20,15 @@ class Wall(Sprite):
         super().__init__(Wall.wall, (xPos, yPos))
         self.x = xPos
         self.y = yPos
+
+def buildWall(event):
+    x = event.x- event.x%50
+    y = event.y- event.y%50
+    Wall(x-25, y-25)
+
+class Platformer(App):
+    def __init__(self):
+        super().__init__()
 '''
 class Ball(Sprite):
     ball = CircleAsset(15, thinline, blue)
@@ -27,21 +36,6 @@ class Ball(Sprite):
 def moveChara(event):
  Sprite(Ball, (event.x, event.y))
 '''
-def buildWall(event):
-    x = event.x%30
-    if x != 0:
-        if x >= 15:
-            e = 30- x
-            x = event.x + e
-        elif x < 15:
-            e = 15-x
-            x = event.x - e
-    Wall(x-25, event.y-25)
-
-class Platformer(App):
-    def __init__(self):
-        super().__init__()
-
 myapp = Platformer()
 myapp.listenMouseEvent('click', buildWall)
 #myapp.listenKeyEvent('keydown', 'space', moveChara)
