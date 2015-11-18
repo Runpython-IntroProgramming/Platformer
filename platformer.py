@@ -22,15 +22,13 @@ class Wall(Sprite):
 def buildWall(event):
     #xPos.x = event.x
     #yPos.y = event.y
-    Wall(event.x, event.y)
+    Wall(event.x+25, event.y+25)
 
 
 class Platformer(App):
     def __init__(self):
         super().__init__()
         
-
-
 
 myapp = Platformer()
 myapp.listenMouseEvent('click', buildWall)
