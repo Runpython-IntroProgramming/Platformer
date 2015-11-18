@@ -36,7 +36,6 @@ def buildWall(event):
 class Platformer(App):
     def __init__(self):
         super().__init__()
-        
 
 myapp = Platformer()
 myapp.listenMouseEvent('click', buildWall)
