@@ -29,7 +29,7 @@ noline = LineStyle(0, black)
 bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, black)
 bg = Sprite(bg_asset, (0,0))
 
-class buildBlock(event):
+def buildBlock(event):
     Block(event.x, event.y)
 
 class Platformer(App):
@@ -37,4 +37,5 @@ class Platformer(App):
         super().__init__()
 
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
+myapp.listenMouseEvent('click', buildBlock)
 myapp.run()
