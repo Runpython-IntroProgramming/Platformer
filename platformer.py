@@ -22,20 +22,20 @@ class Wall(Sprite):
         self.y = yPos
 '''
 class Ball(Sprite):
-    ball = CircleAsset(30, thinline, blue)
+    ball = CircleAsset(15, thinline, blue)
 
 def moveChara(event):
  Sprite(Ball, (event.x, event.y))
 '''
 def buildWall(event):
-    x = event.x%10
-    if x =! 0:
-        if x >= 5:
-            e = 10-x
-            x = x+e
-        if x < 5
-            e = 5-x
-            x = x-e
+    x = event.x%30
+    if x != 0:
+        if x >= 15:
+            e = 30- x
+            x = event.x + e
+        elif x < 15:
+            e = 15-x
+            x = event.x - e
     Wall(x-25, event.y-25)
 
 class Platformer(App):
