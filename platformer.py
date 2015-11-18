@@ -22,7 +22,7 @@ class Wall(Sprite):
 def buildWall(event):
     #xPos.x = event.x
     #yPos.y = event.y
-    Wall(event.x+25, event.y+25)
+    Wall(event.x-25, event.y-25)
 
 
 class Platformer(App):
