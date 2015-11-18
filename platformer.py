@@ -35,7 +35,8 @@ bg = Sprite(bg_asset, (0,0))
 
 def classblock(event):
     event.x = event.x - event.x%80
-    Block(event.x-45, event.y-40)
+    event.y = event.y - event.y%65
+    Block(event.x-40, event.y-32.5)
       
 #Block(55, 250)
 #Block(300, 250)
