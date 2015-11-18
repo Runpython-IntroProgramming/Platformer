@@ -16,7 +16,7 @@ thinline = LineStyle(3, turquoise)
 noline= LineStyle(0, black)
 
 
-SCREEN_WIDTH = 800
+SCREEN_WIDTH = 1500
 SCREEN_HEIGHT = 800
 
 class Block(Sprite):
