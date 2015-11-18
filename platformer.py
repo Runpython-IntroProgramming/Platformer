@@ -34,6 +34,7 @@ bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, ocean)
 bg = Sprite(bg_asset, (0,0))
 
 def classblock(event):
+    event.x = event.x - event.x%80
     Block(event.x-45, event.y-40)
       
 #Block(55, 250)
