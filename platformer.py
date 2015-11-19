@@ -11,9 +11,9 @@ from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, El
     
 red= Color(0xFE2E64, 1.0)
 bluelight = Color(0x81F7F3,1.0)
-#blue= Color(0x0000ff, 1.0)
+blue= Color(0x0000ff, 1.0)
 thinline = LineStyle(3, red)
-
+#Walls
 class Wall(Sprite):
     wall = RectangleAsset(50, 50, thinline, bluelight)
     def __init__(self, xPos, yPos):
@@ -25,18 +25,24 @@ def buildWall(event):
     x = event.x- event.x%50
     y = event.y- event.y%50
     Wall(x-25, y-25)
-
+#App
 class Platformer(App):
     def __init__(self):
         super().__init__()
-'''
+#Sprite
 class Ball(Sprite):
-    ball = CircleAsset(15, thinline, blue)
-
+    ball = CircleAsset(20, thinline, blue)
+    def __init__(self, xPos, yPos):
+        super().__init__(Ball.ball, (xPos, yPos))
+        self.x = xPos
+        self.y = yPos
+def buildChara(event):
+    Ball(event.x, event.y)
+'''
 def moveChara(event):
  Sprite(Ball, (event.x, event.y))
 '''
 myapp = Platformer()
 myapp.listenMouseEvent('click', buildWall)
-#myapp.listenKeyEvent('keydown', 'space', moveChara)
+myapp.listenKeyEvent('keydown', 'r', buildChara)
 myapp.run()
