@@ -44,6 +44,6 @@ def moveChara(event):
 '''
 myapp = Platformer()
 myapp.listenMouseEvent('click', buildWall)
-myapp.listenKeyEvent('keydown', 'r', buildChara)
+#myapp.listenKeyEvent('keydown', 'r', buildChara)
 myapp.listenMouseEvent('', posChara)
 myapp.run()
