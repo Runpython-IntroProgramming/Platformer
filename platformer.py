@@ -8,7 +8,6 @@ https://github.com/HHS-IntroProgramming/Platformer
 """
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset
 
-    
 red= Color(0xFE2E64, 1.0)
 bluelight = Color(0x81F7F3,1.0)
 blue= Color(0x0000ff, 1.0)
@@ -20,7 +19,6 @@ class Wall(Sprite):
         super().__init__(Wall.wall, (xPos, yPos))
         self.x = xPos
         self.y = yPos
-
 #Sprite
 class Ball(Sprite):
     ball = CircleAsset(20, thinline, blue)
@@ -28,33 +26,34 @@ class Ball(Sprite):
         super().__init__(Ball.ball, (xPos, yPos))
         self.x = xPos
         self.y = yPos
-
-
-    
-
 #App
 class Platformer(App):
     def __init__(self):
         super().__init__()
         self.mousex = 0
         self.mousey = 0
-        self.listenMouseEvent('click', self.buildWall)
+        self.q = 0
+        self.listenKeyEvent('keydown', 'q', self.buildWall)
         self.listenKeyEvent('keydown', 'r', self.buildChara)
         self.listenMouseEvent('mousemove', self.mousemove)
-
+        self.listenKeyEvent('keydown', 'a', self.moveR)
     #make wall
     def buildWall(self, event):
         x = self.mousex- self.mousex%50
         y = self.mousey- self.mousey%50
         Wall(x-25, y-25)
-    
+    #tracks where the  mouse is
     def mousemove(self, event):
         self.mousex = event.x
         self.mousey = event.y
-        
     #make Sprite
     def buildChara(self, event):
-        Ball(self.mousex, self.mousey)
+        if self.q != 1:
+            Ball(self.mousex, self.mousey)
+            self.q = 1
+    #move the Sprite
+    def moveR(cat, event):
+        Ball
 
 '''
 def moveChara(event):
