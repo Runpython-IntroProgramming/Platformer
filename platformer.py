@@ -20,6 +20,7 @@ class Wall(Sprite):
         super().__init__(Wall.wall, (xPos, yPos))
         self.x = xPos
         self.y = yPos
+
 #Sprite
 class Ball(Sprite):
     ball = CircleAsset(20, thinline, blue)
@@ -27,23 +28,37 @@ class Ball(Sprite):
         super().__init__(Ball.ball, (xPos, yPos))
         self.x = xPos
         self.y = yPos
-#make wall
-def buildWall(event):
-    x = event.x- event.x%50
-    y = event.y- event.y%50
-    Wall(x-25, y-25)
+
+
+    
 
 #App
 class Platformer(App):
     def __init__(self):
         super().__init__()
+        self.mousex = 0
+        self.mousey = 0
+        self.listenMouseEvent('click', self.buildWall)
+        self.listenKeyEvent('keydown', 'r', self.buildChara)
+        self.listenMouseEvent('mousemove', self.mousemove)
+
+    #make wall
+    def buildWall(self, event):
+        x = self.mousex- self.mousex%50
+        y = self.mousey- self.mousey%50
+        Wall(x-25, y-25)
+    
+    def mousemove(self, event):
+        self.mousex = event.x
+        self.mousey = event.y
+        
+    #make Sprite
+    def buildChara(self, event):
+        Ball(self.mousex, self.mousey)
 
 '''
 def moveChara(event):
  Sprite(Ball, (event.x, event.y))
 '''
 myapp = Platformer()
-myapp.listenMouseEvent('click', buildWall)
-#myapp.listenKeyEvent('keydown', 'r', buildChara)
-myapp.listenMouseEvent('', posChara)
 myapp.run()
