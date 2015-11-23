@@ -43,7 +43,7 @@ def classblock(event):
 class Character(Sprite):
     character= RectangleAsset(40, 80, thinline, red)
     def __init__(self, xval, yval):
-        super().__init__(Block.block, (xval, yval))
+        super().__init__(Character.character, (xval, yval))
         self.x = xval
         self.y = yval
         
@@ -51,7 +51,7 @@ def classcharacter(event):
     global xval, yval
     x = xval
     y = yval
-    Block(x, y)
+    Character(x, y)
       
 def mousemove(event):
     global xval, yval
