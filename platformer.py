@@ -25,10 +25,6 @@ class Block(Sprite):
         super().__init__(Block.block, (xval, yval))
         self.x = xval
         self.y = yval
-    def buildBlock(event):
-        event.x = event.x - event.x%40
-        event.y = event.y - event.y%40
-        Block(event.x-10, event.y-10)
             
 
 black = Color(0, 1)
@@ -52,15 +48,18 @@ class Platformer(App):
         self.listenKeyEvent('keydown', 'p', self.buildDog)
         self.listenKeyEvent('keydown', 'w', self.buildBlock)
         self.listenMouseEvent('mousemove', self.motion)
+    
     def motion(self, event):
         self.mousex = event.x
         self.mousey = event.y
+    
     def buildDog (self, event):
         SSprite(self.mousex, self.mousey)
-    def buildBlock(event):
-        event.x = event.x - event.x%40
-        event.y = event.y - event.y%40
-        Block(self.mousex-10, self.mousey-10)
+    
+    def buildBlock(self, event):
+        x = self.mousex - self.mousex%40
+        y = self.mousey - self.mousey%40
+        Block(x-10, y-10)
         
         
 
