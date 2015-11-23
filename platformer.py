@@ -26,6 +26,8 @@ class Ball(Sprite):
         super().__init__(Ball.ball, (xPos, yPos))
         self.x = xPos
         self.y = yPos
+        self.xvel = 0
+        self.yvel = 0
 #App
 class Platformer(App):
     def __init__(self):
@@ -34,9 +36,9 @@ class Platformer(App):
         self.mousey = 0
         self.q = 0
         self.listenKeyEvent('keydown', 'q', self.buildWall)
-        self.listenKeyEvent('keydown', 'r', self.buildChara)
+        self.listenKeyEvent('keydown', 'e', self.buildChara)
         self.listenMouseEvent('mousemove', self.mousemove)
-        self.listenKeyEvent('keydown', 'a', self.moveR)
+        #self.listenKeyEvent('keydown', 'a', self.moveL)
     #make wall
     def buildWall(self, event):
         x = self.mousex- self.mousex%50
@@ -52,12 +54,8 @@ class Platformer(App):
             Ball(self.mousex, self.mousey)
             self.q = 1
     #move the Sprite
-    def moveR(cat, event):
-        Ball
+    #def moveL(cat, event):
+        #Ball(
 
-'''
-def moveChara(event):
- Sprite(Ball, (event.x, event.y))
-'''
 myapp = Platformer()
 myapp.run()
