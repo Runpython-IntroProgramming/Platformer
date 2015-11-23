@@ -33,7 +33,7 @@ bg = Sprite(bg_asset, (0,0))
 
 
 class SSprite(Sprite):
-    dog = CircleAsset(25, thinline, pink)
+    dog = CircleAsset(3, thinline, pink)
     def __init__(self, x, y):
         super().__init__(SSprite.dog, (x, y))
         self.x = x
