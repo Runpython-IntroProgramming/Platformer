@@ -25,12 +25,11 @@ class Block(Sprite):
         super().__init__(Block.block, (xval, yval))
         self.x = xval
         self.y = yval
-
     def buildBlock(event):
         event.x = event.x - event.x%40
         event.y = event.y - event.y%40
         Block(event.x-10, event.y-10)
-        
+            
 
 black = Color(0, 1)
 bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, black)
@@ -38,21 +37,32 @@ bg = Sprite(bg_asset, (0,0))
 
 
 class SSprite(Sprite):
-    asset = ImageAsset("images/four_spaceship_by_albertov_with_thrust.png", Frame(227,0,292-227,125), 4, 'vertical')
-    def __init__(self, position):
-        super().__init__(SSprite.asset, position)
+    dog = CircleAsset(25, thinline, pink)
+    def __init__(self, x, y):
+        super().__init__(SSprite.dog, (x, y))
+        self.x = x
+        self.y = y
         
-SSprite((100, 100))
-        
-
 
 class Platformer(App):
     def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
         super().__init__()
         self.mousex = 0
         self.mousey = 0
-        self.listenMouseEvent('mousemove', 
+        self.listenKeyEvent('keydown', 'p', self.buildDog)
+        self.listenKeyEvent('keydown', 'w', self.buildBlock)
+        self.listenMouseEvent('mousemove', self.motion)
+    def motion(self, event):
+        self.mousex = event.x
+        self.mousey = event.y
+    def buildDog (self, event):
+        SSprite(self.mousex, self.mousey)
+    def buildBlock(event):
+        event.x = event.x - event.x%40
+        event.y = event.y - event.y%40
+        Block(self.mousex-10, self.mousey-10)
+        
+        
 
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
-myapp.listenMouseEvent('click', buildBlock)
 myapp.run()
