@@ -11,6 +11,7 @@ from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, El
 darkblue= Color(0x0000CD, 1.0)
 black= Color(0x000000, 1.0)
 turquoise= Color(0x58FAD0, 1.0)
+red= Color(0xFF0000, 1.0)
 
 thinline = LineStyle(3, turquoise)
 noline= LineStyle(0, black)
@@ -27,7 +28,8 @@ class Block(Sprite):
         self.y = yval
 
 ocean= Color(0xA9BCF5, 0.75)
-
+yval= None
+xval= None
 black = Color(0, 1)
 noline = LineStyle(0, black)
 bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, ocean)
@@ -37,7 +39,23 @@ def classblock(event):
     event.x = event.x - event.x%80
     event.y = event.y - event.y%65
     Block(event.x-40, event.y-32.5)
+    
+class Character(Sprite):
+    character= RectangleAsset(40, 80, thinline, red)
+    def __init__(self, xval, yval):
+        super().__init__(Block.block, (xval, yval))
+        self.x = xval
+        self.y = yval
+        
+def classcharacter(event):
+    x = xval
+    y = yval
+    Block(x, y)
       
+def mousemove(event):
+    xval = event.x
+    yval = event.y
+    
 #Block(55, 250)
 #Block(300, 250)
 
@@ -51,4 +69,6 @@ class Platformer(App):
         
 myapp= Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.listenMouseEvent('click', classblock)
+myapp.listenKeyEvent('keydown', 'space', classcharacter)
+myapp.listenMouseEvent('mousemove', mousemove)
 myapp.run()
