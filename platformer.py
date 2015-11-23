@@ -28,8 +28,8 @@ class Block(Sprite):
         self.y = yval
 
 ocean= Color(0xA9BCF5, 0.75)
-yval= None
-xval= None
+yval= 0
+xval= 0
 black = Color(0, 1)
 noline = LineStyle(0, black)
 bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, ocean)
@@ -48,11 +48,13 @@ class Character(Sprite):
         self.y = yval
         
 def classcharacter(event):
+    global xval, yval
     x = xval
     y = yval
     Block(x, y)
       
 def mousemove(event):
+    global xval, yval
     xval = event.x
     yval = event.y
     
