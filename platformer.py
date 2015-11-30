@@ -11,10 +11,20 @@ from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, El
 red= Color(0xFE2E64, 1.0)
 bluelight = Color(0x81F7F3,1.0)
 blue= Color(0x0000ff, 1.0)
+white= Color(0xffffff, 1.0)
 thinline = LineStyle(3, red)
+whiteline = LineStyle(3, white)
+
 #Walls
 class Wall(Sprite):
     wall = RectangleAsset(50, 50, thinline, bluelight)
+    def __init__(self, xPos, yPos):
+        super().__init__(Wall.wall, (xPos, yPos))
+        self.x = xPos
+        self.y = yPos
+
+class WallE(Sprite):
+    wall = RectangleAsset(50, 50, whiteline, white)
     def __init__(self, xPos, yPos):
         super().__init__(Wall.wall, (xPos, yPos))
         self.x = xPos
@@ -34,28 +44,32 @@ class Platformer(App):
         super().__init__()
         self.mousex = 0
         self.mousey = 0
-        self.q = 0
+        self.JAZZY = 0
         self.listenKeyEvent('keydown', 'q', self.buildWall)
         self.listenKeyEvent('keydown', 'e', self.buildChara)
         self.listenMouseEvent('mousemove', self.mousemove)
-        #self.listenKeyEvent('keydown', 'a', self.moveL)
+        self.listenKeyEvent('keydown', 'a', self.moveL)
     #make wall
     def buildWall(self, event):
         x = self.mousex- self.mousex%50
         y = self.mousey- self.mousey%50
         Wall(x-25, y-25)
+    
     #tracks where the  mouse is
     def mousemove(self, event):
         self.mousex = event.x
         self.mousey = event.y
     #make Sprite
     def buildChara(self, event):
-        if self.q != 1:
-            Ball(self.mousex, self.mousey)
-            self.q = 1
+        if self.JAZZY:
+            self.JAZZY.destroy()
+        self.JAZZY = Ball(self.mousex, self.mousey)
+        s = self.mousex
     #move the Sprite
-    #def moveL(cat, event):
-        #Ball(
+    def moveL(self, event):
+        self.JAZZY.destroy()
+        a = self.s - 10
+        Ball(self.a, self.mousey)
 
 myapp = Platformer()
 myapp.run()
