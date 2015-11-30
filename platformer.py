@@ -33,7 +33,7 @@ bg = Sprite(bg_asset, (0,0))
 
 
 class SSprite(Sprite):
-    dog = CircleAsset(3, thinline, pink)
+    dog = CircleAsset(10, thinline, pink)
     def __init__(self, x, y):
         super().__init__(SSprite.dog, (x, y))
         self.x = x
@@ -45,6 +45,7 @@ class Platformer(App):
         super().__init__()
         self.mousex = 0
         self.mousey = 0
+        self.dog = 0
         self.listenKeyEvent('keydown', 'p', self.buildDog)
         self.listenKeyEvent('keydown', 'w', self.buildBlock)
         self.listenMouseEvent('mousemove', self.motion)
@@ -55,6 +56,10 @@ class Platformer(App):
     
     def buildDog (self, event):
         SSprite(self.mousex, self.mousey)
+        if self.dog != 1:
+            SSprite(self.mousex, self.mousey)
+            self.dog = 1
+            #delete first sprite and only keep the last sprite
     
     def buildBlock(self, event):
         x = self.mousex - self.mousex%40
