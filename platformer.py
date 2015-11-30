@@ -46,15 +46,13 @@ class Character(Sprite):
         super().__init__(Character.character, (xval, yval))
         self.x = xval
         self.y = yval
-x = 5        
-while x==5:
-    def classcharacter(event):
-        global xval, yval
-        x = xval
-        y = yval
-        Character(x, y)
-        x=6
-    
+
+def classcharacter(event):
+    global xval, yval
+    x = xval
+    y = yval
+    Character(x, y)
+
     
 def mousemove(event):
     global xval, yval
