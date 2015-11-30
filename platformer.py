@@ -46,9 +46,11 @@ class Platformer(App):
         self.mousex = 0
         self.mousey = 0
         self.dog = 0
+        self.dogsprite = None
         self.listenKeyEvent('keydown', 'p', self.buildDog)
         self.listenKeyEvent('keydown', 'w', self.buildBlock)
         self.listenMouseEvent('mousemove', self.motion)
+        self.listenKeyEvent('keydown', 'rightarrow', self.moveDog
     
     def motion(self, event):
         self.mousex = event.x
@@ -56,9 +58,9 @@ class Platformer(App):
     
     def buildDog (self, event):
         #SSprite(self.mousex, self.mousey)
-        if self.dog != 1:
-            SSprite(self.mousex, self.mousey)
-            self.dog = 1
+        if self.dogsprite:
+            self.dogsprite.destroy()
+        self.dogsprite = SSprite(self.mousex, self.mousey)
             #delete first sprite and only keep the last sprite
     
     def buildBlock(self, event):
@@ -66,7 +68,9 @@ class Platformer(App):
         y = self.mousey - self.mousey%40
         Block(x-10, y-10)
         
+    def moveDog(self, event):
+        self.dogsprite.destroy()
+        if self.dogsprite
         
-
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
