@@ -1,7 +1,7 @@
 """
 platformer.py
 Author: Anoushka Alavilli
-Credit: <list sources used, if any>
+Credit: Sarah Dunbar, Jasmine Lou, Dina Hertog-Raz, Mr. Dennison
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
@@ -30,6 +30,7 @@ class Block(Sprite):
 ocean= Color(0xA9BCF5, 0.75)
 yval= 0
 xval= 0
+charactersprite = None
 black = Color(0, 1)
 noline = LineStyle(0, black)
 bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, ocean)
@@ -49,10 +50,13 @@ class Character(Sprite):
 
 def classcharacter(event):
     global xval, yval
+    global charactersprite
     x = xval
     y = yval
-    Character(x, y)
-    myapp.unlistenKeyEvent('keydown', 'space', classcharacter)
+    if charactersprite:
+        charactersprite.destroy()
+    charactersprite = Character(x, y)
+    #myapp.unlistenKeyEvent('keydown', 'space', classcharacter)
 
     
 def mousemove(event):
