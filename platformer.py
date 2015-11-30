@@ -55,7 +55,7 @@ class Platformer(App):
         self.mousey = event.y
     
     def buildDog (self, event):
-        SSprite(self.mousex, self.mousey)
+        #SSprite(self.mousex, self.mousey)
         if self.dog != 1:
             SSprite(self.mousex, self.mousey)
             self.dog = 1
