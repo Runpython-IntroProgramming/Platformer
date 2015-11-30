@@ -46,17 +46,21 @@ class Character(Sprite):
         super().__init__(Character.character, (xval, yval))
         self.x = xval
         self.y = yval
-        
-def classcharacter(event):
-    global xval, yval
-    x = xval
-    y = yval
-    Character(x, y)
-      
+x = 5        
+while x=5:
+    def classcharacter(event):
+        global xval, yval
+        x = xval
+        y = yval
+        Character(x, y)
+        x=6
+    
+    
 def mousemove(event):
     global xval, yval
     xval = event.x
     yval = event.y
+    
     
 #Block(55, 250)
 #Block(300, 250)
@@ -73,4 +77,5 @@ myapp= Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.listenMouseEvent('click', classblock)
 myapp.listenKeyEvent('keydown', 'space', classcharacter)
 myapp.listenMouseEvent('mousemove', mousemove)
+myapp.listenMouseEvent
 myapp.run()
