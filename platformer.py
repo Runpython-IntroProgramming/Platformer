@@ -52,6 +52,7 @@ def classcharacter(event):
     x = xval
     y = yval
     Character(x, y)
+    myapp.unlistenKeyEvent('keydown', 'space', classcharacter)
 
     
 def mousemove(event):
