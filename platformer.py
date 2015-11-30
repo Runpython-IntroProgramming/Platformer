@@ -47,7 +47,7 @@ class Character(Sprite):
         self.x = xval
         self.y = yval
 x = 5        
-while x=5:
+while x==5:
     def classcharacter(event):
         global xval, yval
         x = xval
