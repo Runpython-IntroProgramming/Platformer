@@ -50,10 +50,10 @@ class Platformer(App):
         self.listenKeyEvent('keydown', 'p', self.buildDog)
         self.listenKeyEvent('keydown', 'w', self.buildBlock)
         self.listenMouseEvent('mousemove', self.motion)
-        self.listenKeyEvent('keydown', 'rightarrow', self.moveDogR)
-        self.listenKeyEvent('keydown', 'leftarrow', self.moveDogL)
-        self.listenKeyEvent('keydown', 'uparrow', self.moveDogU)
-        self.listenKeyEvent('keydown', 'downarrow', self.moveDogD)
+        self.listenKeyEvent('keydown', 'right arrow', self.moveDogR)
+        #self.listenKeyEvent('keydown', 'left arrow', self.moveDogL)
+        #self.listenKeyEvent('keydown', 'up arrow', self.moveDogU)
+        #self.listenKeyEvent('keydown', 'down arrow', self.moveDogD)
     
     def motion(self, event):
         self.mousex = event.x
@@ -72,9 +72,14 @@ class Platformer(App):
         Block(x-10, y-10)
         
     def moveDogR(self, event):
+        self.dogsprite.x += 5
+    def moveDogL(self, event):
         self.dogsprite.x -= 5
-        #self.dogsprite.destroy()
-        #if self.dogsprite
+    def moveDogU(self, event):
+        self.dogsprite.y += 5
+     def moveDogD(self, event):
+        self.dogsprite.y -= 5
+        
         
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
