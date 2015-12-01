@@ -25,8 +25,7 @@ class Block(Sprite):
         super().__init__(Block.block, (xval, yval))
         self.x = xval
         self.y = yval
-    
-    def collidingWithSprites()     
+
 
 black = Color(0, 1)
 bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, black)
@@ -74,12 +73,27 @@ class Platformer(App):
         
     def moveDogR(self, event):
         self.dogsprite.x += 5
+        collisions = self.collidingWithSprites()
+        if collisions:
+            self.dogsprite.x -= 5
+            
     def moveDogL(self, event):
         self.dogsprite.x -= 5
+        collisions = self.collidingWithSprites()
+        if collisions:
+            self.dogsprite.x += 5
+            
     def moveDogU(self, event):
         self.dogsprite.y -= 5
+        collisions = self.collidingWithSprites()
+        if collisions:
+            self.dogsprite.y += 5
+            
     def moveDogD(self, event):
         self.dogsprite.y += 5
+        collisions = self.collidingWithSprites()
+        if collisions:
+            self.dogsprite.y -= 5
         
         
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
