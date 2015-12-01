@@ -68,8 +68,8 @@ class Platformer(App):
     #move the Sprite
     def moveL(self, event):
         self.JAZZY.destroy()
-        a = self.s - 10
-        Ball(self.a, self.mousey)
+        s = self.s - 10
+        Ball(self.s, self.mousey)
 
 myapp = Platformer()
 myapp.run()
