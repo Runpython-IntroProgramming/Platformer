@@ -77,7 +77,6 @@ class Platformer(App):
         self.JAZZY.y += 10
     def moveR(self, event):
         self.JAZZY.x += 10
-        
-
+    def collidingWith(	self, obj)
 myapp = Platformer()
 myapp.run()
