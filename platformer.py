@@ -60,8 +60,14 @@ def classcharacter(event):
     if charactersprite:
         charactersprite.destroy()
     charactersprite = Character(x, y)
-    #myapp.unlistenKeyEvent('keydown', 'space', classcharacter)
-
+    
+def classcharacter(event):
+    xval = 0
+    yval = 0
+    self.listenKeyEvent('keydown', 'right arrow', self.MoveCharacterRight)
+    self.listenKeyEvent('keydown', 'left arrow', self.MoveCharacterLeft)
+    self.listenKeyEvent('keydown', 'down arrow', self.MoveCharacterDown)
+    self.listenKeyEvent('keydown', 'up arrow', self.MoveCharacterUp)
     
 def mousemove(event):
     global xval, yval
