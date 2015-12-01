@@ -36,11 +36,15 @@ noline = LineStyle(0, black)
 bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, ocean)
 bg = Sprite(bg_asset, (0,0))
 
+
+
 def classblock(event):
-    event.x = event.x - event.x%80
-    event.y = event.y - event.y%65
-    Block(event.x-40, event.y-32.5)
-    
+    global xval, yval
+    x = xval - xval%80
+    y = yval - yval%65
+    Block(x-40, y-32.5)
+
+
 class Character(Sprite):
     character= RectangleAsset(40, 80, thinline, red)
     def __init__(self, xval, yval):
@@ -77,8 +81,9 @@ class Platformer(App):
         super().__init__()
         
 myapp= Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
-myapp.listenMouseEvent('click', classblock)
-myapp.listenKeyEvent('keydown', 'space', classcharacter)
+
+myapp.listenKeyEvent('keydown', 'w', classblock)
+myapp.listenKeyEvent('keydown', 'p', classcharacter)
 myapp.listenMouseEvent('mousemove', mousemove)
 myapp.listenMouseEvent
 myapp.run()
