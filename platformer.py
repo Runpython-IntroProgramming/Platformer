@@ -25,7 +25,8 @@ class Block(Sprite):
         super().__init__(Block.block, (xval, yval))
         self.x = xval
         self.y = yval
-            
+    
+    def collidingWithSprites()     
 
 black = Color(0, 1)
 bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, black)
@@ -51,9 +52,9 @@ class Platformer(App):
         self.listenKeyEvent('keydown', 'w', self.buildBlock)
         self.listenMouseEvent('mousemove', self.motion)
         self.listenKeyEvent('keydown', 'right arrow', self.moveDogR)
-        #self.listenKeyEvent('keydown', 'left arrow', self.moveDogL)
-        #self.listenKeyEvent('keydown', 'up arrow', self.moveDogU)
-        #self.listenKeyEvent('keydown', 'down arrow', self.moveDogD)
+        self.listenKeyEvent('keydown', 'left arrow', self.moveDogL)
+        self.listenKeyEvent('keydown', 'up arrow', self.moveDogU)
+        self.listenKeyEvent('keydown', 'down arrow', self.moveDogD)
     
     def motion(self, event):
         self.mousex = event.x
@@ -76,9 +77,9 @@ class Platformer(App):
     def moveDogL(self, event):
         self.dogsprite.x -= 5
     def moveDogU(self, event):
-        self.dogsprite.y += 5
-     def moveDogD(self, event):
         self.dogsprite.y -= 5
+    def moveDogD(self, event):
+        self.dogsprite.y += 5
         
         
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
