@@ -45,6 +45,7 @@ class Platformer(App):
         self.mousex = 0
         self.mousey = 0
         self.JAZZY = 0
+        self.z = 0
         self.listenKeyEvent('keydown', 'q', self.buildWall)
         self.listenKeyEvent('keydown', 'e', self.buildChara)
         self.listenMouseEvent('mousemove', self.mousemove)
@@ -64,12 +65,12 @@ class Platformer(App):
         if self.JAZZY:
             self.JAZZY.destroy()
         self.JAZZY = Ball(self.mousex, self.mousey)
-        s = self.mousex
+        self.z = self.mousex
     #move the Sprite
     def moveL(self, event):
         self.JAZZY.destroy()
-        s = self.s - 10
-        Ball(self.s, self.mousey)
+        self.p = self.z - 10
+        Ball(self.p, self.mousey)
 
 myapp = Platformer()
 myapp.run()
