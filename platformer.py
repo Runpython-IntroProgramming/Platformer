@@ -50,7 +50,10 @@ class Platformer(App):
         self.listenKeyEvent('keydown', 'p', self.buildDog)
         self.listenKeyEvent('keydown', 'w', self.buildBlock)
         self.listenMouseEvent('mousemove', self.motion)
-        #self.listenKeyEvent('keydown', 'rightarrow', self.moveDog)
+        self.listenKeyEvent('keydown', 'rightarrow', self.moveDogR)
+        self.listenKeyEvent('keydown', 'leftarrow', self.moveDogL)
+        self.listenKeyEvent('keydown', 'uparrow', self.moveDogU)
+        self.listenKeyEvent('keydown', 'downarrow', self.moveDogD)
     
     def motion(self, event):
         self.mousex = event.x
@@ -68,10 +71,17 @@ class Platformer(App):
         y = self.mousey - self.mousey%40
         Block(x-10, y-10)
         
-    #def moveDog(self, event):
+    def moveDogR(self, event):
+        self.dogsprite.x -= 5
         #self.dogsprite.destroy()
         #if self.dogsprite
         
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
 
+#def collidingWithSprites(self, sclass=None)
+#Return a list of sprite objects identified by the sclass parameter 
+#that are currently colliding with (that is, with which the collidingWith 
+#method returns True) this sprite. If sclass is set to None (default), 
+#then all other sprites are checked for collision, otherwise, only sprites 
+#whose class matches sclass are checked.
