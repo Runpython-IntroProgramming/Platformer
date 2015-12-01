@@ -39,7 +39,7 @@ bg = Sprite(bg_asset, (0,0))
 
 
 def classblock(event):
-    #global xval, yval
+    global xval, yval
     x = xval - xval%80
     y = yval - yval%65
     Block(x-40, y-32.5)
