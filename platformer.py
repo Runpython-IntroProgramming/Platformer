@@ -68,15 +68,29 @@ class Platformer(App):
             self.JAZZY.destroy()
         self.JAZZY = Ball(self.mousex, self.mousey)
         self.z = self.mousex
-    #move the Sprite
+    #move the Sprite Left
     def moveL(self, event):
-        self.JAZZY.x -= 10
+        self.JAZZY.x -= 2
+        p = self.JAZZY.collidingWithSprites()
+        if p:
+            self.JAZZY.x += 2
+    #Up
     def moveU(self, event):
-        self.JAZZY.y -= 10
+        self.JAZZY.y -= 2
+        p = self.JAZZY.collidingWithSprites()
+        if p:
+            self.JAZZY.y += 2
+    #Down
     def moveD(self, event):
-        self.JAZZY.y += 10
+        self.JAZZY.y += 2
+        p = self.JAZZY.collidingWithSprites()
+        if p:
+            self.JAZZY.y += 2
+    #Right
     def moveR(self, event):
-        self.JAZZY.x += 10
-    def collidingWith(	self, obj)
+        self.JAZZY.x += 2
+        p = self.JAZZY.collidingWithSprites()
+        if p:
+            self.JAZZY.x -= 2
 myapp = Platformer()
 myapp.run()
