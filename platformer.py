@@ -61,14 +61,29 @@ def classcharacter(event):
         charactersprite.destroy()
     charactersprite = Character(x, y)
     
+
+
+
+
+
 def classcharacter(event):
-    xval = 0
-    yval = 0
-    self.listenKeyEvent('keydown', 'right arrow', self.MoveCharacterRight)
-    self.listenKeyEvent('keydown', 'left arrow', self.MoveCharacterLeft)
-    self.listenKeyEvent('keydown', 'down arrow', self.MoveCharacterDown)
-    self.listenKeyEvent('keydown', 'up arrow', self.MoveCharacterUp)
+    def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
+        super().__init__(Character.character, (xval, yval))
+        xval = 0
+        yval = 0
+        self.listenKeyEvent('keydown', 'right arrow', self.MoveCharacterRight)
+        self.listenKeyEvent('keydown', 'left arrow', self.MoveCharacterLeft)
+        self.listenKeyEvent('keydown', 'up arrow', self.MoveCharacterUp)
+
+def MoveCharacterRight (self, event):
+    self.character.x += 5
     
+def MoveCharacterLeft (self, event):
+    self.character.x += 5
+    
+def MoveCharacterUp (self, event):
+    self.character.x += 5
+
 def mousemove(event):
     global xval, yval
     xval = event.x
@@ -91,5 +106,8 @@ myapp= Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.listenKeyEvent('keydown', 'w', classblock)
 myapp.listenKeyEvent('keydown', 'p', classcharacter)
 myapp.listenMouseEvent('mousemove', mousemove)
+myapp.listenKeyEvent('keydown', 'right arrow', self.MoveCharacterRight)
+myapp.listenKeyEvent('keydown', 'left arrow', self.MoveCharacterLeft)
+myapp.listenKeyEvent('keydown', 'up arrow', self.MoveCharacterUp)
 myapp.listenMouseEvent
 myapp.run()
