@@ -73,25 +73,25 @@ class Platformer(App):
         
     def moveDogR(self, event):
         self.dogsprite.x += 5
-        collisions = self.dogsprite.collidingWithSprites()
+        collisions = self.dogsprite.collidingWithSprites(Block)
         if collisions:
             self.dogsprite.x -= 5
             
     def moveDogL(self, event):
         self.dogsprite.x -= 5
-        collisions = self.dogsprite.collidingWithSprites()
+        collisions = self.dogsprite.collidingWithSprites(Block)
         if collisions:
             self.dogsprite.x += 5
             
     def moveDogU(self, event):
         self.dogsprite.y -= 5
-        collisions = self.dogsprite.collidingWithSprites()
+        collisions = self.dogsprite.collidingWithSprites(Block)
         if collisions:
             self.dogsprite.y += 5
             
     def moveDogD(self, event):
         self.dogsprite.y += 5
-        collisions = self.dogsprite.collidingWithSprites()
+        collisions = self.dogsprite.collidingWithSprites(Block)
         if collisions:
             self.dogsprite.y -= 5
         
