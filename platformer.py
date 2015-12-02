@@ -22,8 +22,8 @@ class Wall(Sprite):
         super().__init__(Wall.wall, (xPos, yPos))
         self.x = xPos
         self.y = yPos
-        self.fxcenter = 0.5
-        self.fycenter = 0.5
+        #self.fxcenter = 0.5
+        #self.fycenter = 0.5
 
 class WallE(Sprite):
     wall = RectangleAsset(50, 50, whiteline, white)
@@ -40,6 +40,8 @@ class Ball(Sprite):
         self.y = yPos
         self.xvel = 0
         self.yvel = 0
+        self.fxcenter = 0.5
+        self.fycenter = 0.5
 #App
 class Platformer(App):
     def __init__(self):
