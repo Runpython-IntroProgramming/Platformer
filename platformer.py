@@ -73,35 +73,28 @@ class Platformer(App):
         
     def moveDogR(self, event):
         self.dogsprite.x += 5
-        collisions = self.collidingWithSprites()
+        collisions = self.dogsprite.collidingWithSprites()
         if collisions:
             self.dogsprite.x -= 5
             
     def moveDogL(self, event):
         self.dogsprite.x -= 5
-        collisions = self.collidingWithSprites()
+        collisions = self.dogsprite.collidingWithSprites()
         if collisions:
             self.dogsprite.x += 5
             
     def moveDogU(self, event):
         self.dogsprite.y -= 5
-        collisions = self.collidingWithSprites()
+        collisions = self.dogsprite.collidingWithSprites()
         if collisions:
             self.dogsprite.y += 5
             
     def moveDogD(self, event):
         self.dogsprite.y += 5
-        collisions = self.collidingWithSprites()
+        collisions = self.dogsprite.collidingWithSprites()
         if collisions:
             self.dogsprite.y -= 5
         
         
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
-
-#def collidingWithSprites(self, sclass=None)
-#Return a list of sprite objects identified by the sclass parameter 
-#that are currently colliding with (that is, with which the collidingWith 
-#method returns True) this sprite. If sclass is set to None (default), 
-#then all other sprites are checked for collision, otherwise, only sprites 
-#whose class matches sclass are checked.
