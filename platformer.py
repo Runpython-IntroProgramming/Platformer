@@ -85,7 +85,7 @@ class Platformer(App):
         self.JAZZY.y += 2
         p = self.JAZZY.collidingWithSprites()
         if p:
-            self.JAZZY.y += 2
+            self.JAZZY.y -= 2
     #Right
     def moveR(self, event):
         self.JAZZY.x += 2
