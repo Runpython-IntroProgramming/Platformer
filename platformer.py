@@ -1,7 +1,7 @@
 """
 platformer.py
 Author: Anoushka Alavilli
-Credit: Sarah Dunbar, Jasmine Lou, Dina Hertog-Raz, Mr. Dennison
+Credit: Sarah Dunbar, Jasmine Lou, Dina Hertog-Raz, Mr. Dennison, http://brythonserver.github.io/ggame/#ggame.Sprite.collidingWithSprites
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
@@ -92,6 +92,12 @@ def mousemove(event):
     global xval, yval
     xval = event.x
     yval = event.y
+    
+
+def collidingWith(charactersprite, obj)
+
+def collidingWithSprites(charactersprite, sclass=None)
+    
     
     
 #Block(55, 250)
