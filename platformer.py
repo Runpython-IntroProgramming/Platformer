@@ -63,7 +63,7 @@ class Platformer(App):
         #SSprite(self.mousex, self.mousey)
         if self.dogsprite:
             self.dogsprite.destroy()
-        self.dogsprite = SSprite(self.mousex, self.mousey)
+        self.dogsprite = SSprite(self.mousex - 7.5, self.mousey - 7.5)
             #delete first sprite and only keep the last sprite
     
     def buildBlock(self, event):
