@@ -77,13 +77,16 @@ def classcharacter(event):
 """
 
 def MoveCharacterRight (event):
-    charactersprite.x += 5
+    if charactersprite:
+        charactersprite.x += 5
     
 def MoveCharacterLeft (event):
-    charactersprite.x += 5
+    if charactersprite:
+        charactersprite.x -= 5
     
 def MoveCharacterUp (event):
-    charactersprite.x += 5
+    if charactersprite:
+        charactersprite.y -= 5
 
 def mousemove(event):
     global xval, yval
