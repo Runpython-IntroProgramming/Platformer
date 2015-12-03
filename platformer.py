@@ -98,7 +98,7 @@ class Platformer(App):
         #pass
         if self.dogsprite:
             self.dogsprite.y += gravity
-            gravity += 1
+            gravity += 0.2
         
         
         
