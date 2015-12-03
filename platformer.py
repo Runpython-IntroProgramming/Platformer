@@ -17,7 +17,7 @@ pink = Color(0xFF00FF, 1.0)
 
 thinline = LineStyle(2, pink)
 noline = LineStyle(0, blue)
-
+coolline = LineStyle(2, blue)
 
 class Block(Sprite):
     block = RectangleAsset(40, 40, thinline, blue)
@@ -33,7 +33,7 @@ bg = Sprite(bg_asset, (0,0))
 
 
 class SSprite(Sprite):
-    dog = CircleAsset(15, thinline, pink)
+    dog = RectangleAsset(30, 30, coolline, pink)
     def __init__(self, x, y):
         super().__init__(SSprite.dog, (x, y))
         self.x = x
@@ -53,18 +53,16 @@ class Platformer(App):
         self.listenKeyEvent('keydown', 'right arrow', self.moveDogR)
         self.listenKeyEvent('keydown', 'left arrow', self.moveDogL)
         self.listenKeyEvent('keydown', 'up arrow', self.moveDogU)
-        self.listenKeyEvent('keydown', 'down arrow', self.moveDogD)
+        #self.listenKeyEvent('keydown', 'down arrow', self.moveDogD)
     
     def motion(self, event):
         self.mousex = event.x
         self.mousey = event.y
     
     def buildDog (self, event):
-        #SSprite(self.mousex, self.mousey)
         if self.dogsprite:
             self.dogsprite.destroy()
-        self.dogsprite = SSprite(self.mousex - 7.5, self.mousey - 7.5)
-            #delete first sprite and only keep the last sprite
+        self.dogsprite = SSprite(self.mousex - 15, self.mousey - 15)
     
     def buildBlock(self, event):
         x = self.mousex - self.mousex%40
@@ -84,16 +82,16 @@ class Platformer(App):
             self.dogsprite.x += 5
             
     def moveDogU(self, event):
-        self.dogsprite.y -= 5
+        self.dogsprite.y -= 50
         collisions = self.dogsprite.collidingWithSprites(Block)
         if collisions:
-            self.dogsprite.y += 5
+            self.dogsprite.y += 50
             
-    def moveDogD(self, event):
+    '''def moveDogD(self, event):
         self.dogsprite.y += 5
         collisions = self.dogsprite.collidingWithSprites(Block)
         if collisions:
-            self.dogsprite.y -= 5
+            self.dogsprite.y -= 5'''
         
         
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
