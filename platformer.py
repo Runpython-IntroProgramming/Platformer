@@ -76,17 +76,12 @@ class Platformer(App):
         p = self.JAZZY.collidingWithSprites()
         if p:
             self.JAZZY.y += 50
-    #Down
-    def moveD(self, event):
-        self.JAZZY.y += 2
-        p = self.JAZZY.collidingWithSprites()
-        if p:
-            self.JAZZY.y -= 2
     #Right
     def moveR(self, event):
         self.JAZZY.x += 2
         p = self.JAZZY.collidingWithSprites()
         if p:
             self.JAZZY.x -= 2
+    #gravity
 myapp = Platformer()
 myapp.run()
