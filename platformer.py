@@ -95,9 +95,10 @@ class Platformer(App):
             self.dogsprite.y -= 5
             
     def step(self):
-        pass
-        #self.dogsprite.y += gravity
-        #gravity += 1
+        #pass
+        if self.dogsprite:
+            self.dogsprite.y += gravity
+            gravity += 1
         
         
         
