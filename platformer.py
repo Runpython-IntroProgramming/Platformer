@@ -77,17 +77,24 @@ def classcharacter(event):
 """
 
 def MoveCharacterRight (event):
-    Character.collidingWithSprites(Block)
+    #Character.collidingWithSprites(Block)
+    collision = Character.collidingWithSprites(Block)
+    if collision:
+        character.x -= 5
     if charactersprite:
         charactersprite.x += 5
     
 def MoveCharacterLeft (event):
-    Character.collidingWithSprites(Block)
+    collision = Character.collidingWithSprites(Block)
+    if collision:
+        character.x += 5
     if charactersprite:
         charactersprite.x -= 5
     
 def MoveCharacterUp (event):
-    Character.collidingWithSprites(self, sclass=None)
+    collision = Character.collidingWithSprites(self, sclass=None)
+    if collision:
+        character.y += 5
     if charactersprite:
         charactersprite.y -= 5
 
