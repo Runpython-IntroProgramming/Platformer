@@ -39,6 +39,7 @@ class SSprite(Sprite):
         self.x = x
         self.y = y
         
+gravity = 0
 
 class Platformer(App):
     def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
@@ -53,7 +54,7 @@ class Platformer(App):
         self.listenKeyEvent('keydown', 'right arrow', self.moveDogR)
         self.listenKeyEvent('keydown', 'left arrow', self.moveDogL)
         self.listenKeyEvent('keydown', 'up arrow', self.moveDogU)
-        #self.listenKeyEvent('keydown', 'down arrow', self.moveDogD)
+        self.listenKeyEvent('keydown', 'down arrow', self.moveDogD)
     
     def motion(self, event):
         self.mousex = event.x
@@ -86,12 +87,17 @@ class Platformer(App):
         collisions = self.dogsprite.collidingWithSprites(Block)
         if collisions:
             self.dogsprite.y += 50
-            
-    '''def moveDogD(self, event):
+
+    def moveDogD(self, event):
         self.dogsprite.y += 5
         collisions = self.dogsprite.collidingWithSprites(Block)
         if collisions:
-            self.dogsprite.y -= 5'''
+            self.dogsprite.y -= 5
+            
+    def step(self):
+        self.dogsprite.y += gravity
+        gravity += 1
+        
         
         
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
