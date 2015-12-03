@@ -24,16 +24,9 @@ class Wall(Sprite):
         self.y = yPos
         #self.fxcenter = 0.5
         #self.fycenter = 0.5
-
-class WallE(Sprite):
-    wall = RectangleAsset(50, 50, whiteline, white)
-    def __init__(self, xPos, yPos):
-        super().__init__(Wall.wall, (xPos, yPos))
-        self.x = xPos
-        self.y = yPos
 #Sprite
 class Ball(Sprite):
-    ball = CircleAsset(20, thinline, blue)
+    ball = RectangleAsset(30, 30, thinline, blue)
     def __init__(self, xPos, yPos):
         super().__init__(Ball.ball, (xPos, yPos))
         self.x = xPos
@@ -61,7 +54,6 @@ class Platformer(App):
         x = self.mousex- self.mousex%50
         y = self.mousey- self.mousey%50
         Wall(x-25, y-25)
-    
     #tracks where the  mouse is
     def mousemove(self, event):
         self.mousex = event.x
@@ -80,10 +72,10 @@ class Platformer(App):
             self.JAZZY.x += 2
     #Up
     def moveU(self, event):
-        self.JAZZY.y -= 2
+        self.JAZZY.y -= 40
         p = self.JAZZY.collidingWithSprites()
         if p:
-            self.JAZZY.y += 2
+            self.JAZZY.y += 50
     #Down
     def moveD(self, event):
         self.JAZZY.y += 2
