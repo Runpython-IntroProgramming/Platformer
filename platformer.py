@@ -64,6 +64,7 @@ class Platformer(App):
         if self.dogsprite:
             self.dogsprite.destroy()
         self.dogsprite = SSprite(self.mousex - 15, self.mousey - 15)
+        gravity = 0
     
     def buildBlock(self, event):
         x = self.mousex - self.mousex%40
@@ -99,6 +100,8 @@ class Platformer(App):
         if self.dogsprite:
             self.dogsprite.y += gravity
             gravity += 0.2
+            
+        
         
         
         
