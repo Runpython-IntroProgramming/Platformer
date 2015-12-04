@@ -35,6 +35,7 @@ class Ball(Sprite):
         self.yvel = 0
         self.fxcenter = 0.5
         self.fycenter = 0.5
+gravity = 0
 #App
 class Platformer(App):
     def __init__(self):
@@ -47,7 +48,6 @@ class Platformer(App):
         self.listenMouseEvent('mousemove', self.mousemove)
         self.listenKeyEvent('keydown', 'a', self.moveL)
         self.listenKeyEvent('keydown', 'w', self.moveU)
-        self.listenKeyEvent('keydown', 's', self.moveD)
         self.listenKeyEvent('keydown', 'd', self.moveR)
     #make wall
     def buildWall(self, event):
@@ -83,5 +83,11 @@ class Platformer(App):
         if p:
             self.JAZZY.x -= 2
     #gravity
+    def step(self):
+        if self.JAZZY:
+            self.JAZZY.y += gravity
+            gravity +=0.2
+        if self.JAZZY.y > 1000:
+            gravity = 0
 myapp = Platformer()
 myapp.run()
