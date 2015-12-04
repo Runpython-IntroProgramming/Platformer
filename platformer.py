@@ -22,8 +22,6 @@ class Wall(Sprite):
         super().__init__(Wall.wall, (xPos, yPos))
         self.x = xPos
         self.y = yPos
-        #self.fxcenter = 0.5
-        #self.fycenter = 0.5
 #Sprite
 class Ball(Sprite):
     ball = RectangleAsset(30, 30, thinline, blue)
