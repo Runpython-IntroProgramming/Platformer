@@ -8,8 +8,8 @@ https://github.com/HHS-IntroProgramming/Platformer
 """
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
 
-SCREEN_WIDTH = 10000
-SCREEN_HEIGHT = 10000
+SCREEN_WIDTH = 640
+SCREEN_HEIGHT = 480
 
 blue = Color(0x2EFEC8, 1.0)
 black = Color(0x000000, 1.0)
@@ -99,7 +99,9 @@ class Platformer(App):
         if self.dogsprite:
             self.dogsprite.y += gravity
             gravity += 0.2
-            
+        
+        if self.dogsprite.x > 640 or self.dogsprite.y > 480:
+            gravity = 0
 
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
