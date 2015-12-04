@@ -84,12 +84,16 @@ class Platformer(App):
             self.JAZZY.x -= 2
     #gravity
     def step(self):
+        global gravity
         if self.JAZZY:
+            print("JAZZY")
             p = self.JAZZY.collidingWithSprites()
             if not p:
                 self.JAZZY.y += gravity
                 gravity +=0.2
             else:
                 gravity = 0
+
+                
 myapp = Platformer()
 myapp.run()
