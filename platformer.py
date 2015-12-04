@@ -8,8 +8,8 @@ https://github.com/HHS-IntroProgramming/Platformer
 """
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
 
-SCREEN_WIDTH = 640
-SCREEN_HEIGHT = 480
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 1000
 
 blue = Color(0x2EFEC8, 1.0)
 black = Color(0x000000, 1.0)
@@ -95,7 +95,7 @@ class Platformer(App):
             self.dogsprite.y -= 5
             
     def step(self):
-        #pass
+        global gravity
         if self.dogsprite:
             collisions = self.dogsprite.collidingWithSprites(Block)
             if not collisions:
