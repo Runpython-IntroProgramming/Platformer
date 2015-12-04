@@ -97,11 +97,12 @@ class Platformer(App):
     def step(self):
         #pass
         if self.dogsprite:
-            self.dogsprite.y += gravity
-            gravity += 0.2
-        
-        if self.dogsprite.x > 640 or self.dogsprite.y > 480:
-            gravity = 0
+            collisions = self.dogsprite.collidingWithSprites(Block)
+            if not collisions:
+                self.dogsprite.y += gravity
+                gravity += 0.2
+            else:
+                gravity = 0
 
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
