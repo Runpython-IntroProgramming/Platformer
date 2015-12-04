@@ -81,8 +81,8 @@ def MoveCharacterRight (event):
     collision = charactersprite.collidingWithSprites(Block)
     if collision:
         charactersprite.x -= 5
-        if charactersprite:
-            charactersprite.x += 5
+        #if charactersprite:
+            #charactersprite.x += 5
     if charactersprite:
         charactersprite.x += 5
     
@@ -90,8 +90,8 @@ def MoveCharacterLeft (event):
     collision = charactersprite.collidingWithSprites(Block)
     if collision:
         charactersprite.x += 5
-        if charactersprite:
-            charactersprite.x -= 5
+        #if charactersprite:
+            #charactersprite.x -= 5
     if charactersprite:
         charactersprite.x -= 5
     
@@ -99,8 +99,8 @@ def MoveCharacterUp (event):
     collision = charactersprite.collidingWithSprites(Block)
     if collision:
         charactersprite.y += 5
-        if charactersprite:
-            charactersprite.y -= 5
+        #if charactersprite:
+            #charactersprite.y -= 5
     if charactersprite:
         charactersprite.y -= 5
 
