@@ -98,9 +98,9 @@ def MoveCharacterLeft (event):
 def MoveCharacterUp (event):
     collision = charactersprite.collidingWithSprites(self, sclass=None)
     if collision:
-        charactersrite.x += 5
+        charactersrite.x -= 5
         if charactersprite:
-            charactersprite.y -= 5
+            charactersprite.y += 5
     if charactersprite:
         charactersprite.y -= 5
 
