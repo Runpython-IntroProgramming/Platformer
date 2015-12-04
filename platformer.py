@@ -35,6 +35,7 @@ class Ball(Sprite):
         self.yvel = 0
         self.fxcenter = 0.5
         self.fycenter = 0.5
+#class PogoStick
 gravity = 0
 #App
 class Platformer(App):
@@ -74,7 +75,9 @@ class Platformer(App):
             self.JAZZY.x += 2
     #Up
     def moveU(self, event):
-        self.JAZZY.y -= 40
+        global gravity
+        gravity = -7
+        #self.JAZZY.y -= 60
         p = self.JAZZY.collidingWithSprites()
         if p:
             self.JAZZY.y += 50
