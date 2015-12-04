@@ -99,11 +99,11 @@ class Platformer(App):
     def step(self):
         global gravity
         if self.dogsprite:
-            gravity += 0.2
+            gravity += 0.3
             self.dogsprite.y += gravity
             collisions = self.dogsprite.collidingWithSprites(Block)
             if collisions:
-                self.dogsprite -= gravity
+                self.dogsprite.y -= gravity
                 gravity = 0
             
                 
