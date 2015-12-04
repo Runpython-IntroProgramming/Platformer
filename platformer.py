@@ -61,8 +61,10 @@ class Platformer(App):
         self.mousey = event.y
     
     def buildDog (self, event):
+        global gravity
         if self.dogsprite:
             self.dogsprite.destroy()
+            gravity = 0
         self.dogsprite = SSprite(self.mousex - 15, self.mousey - 15)
     
     def buildBlock(self, event):
@@ -97,12 +99,14 @@ class Platformer(App):
     def step(self):
         global gravity
         if self.dogsprite:
+            gravity += 0.2
+            self.dogsprite.y += gravity
             collisions = self.dogsprite.collidingWithSprites(Block)
-            if not collisions:
-                self.dogsprite.y += gravity
-                gravity += 0.2
-            else:
+            if collisions:
+                self.dogsprite -= gravity
                 gravity = 0
+            
+                
 
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
