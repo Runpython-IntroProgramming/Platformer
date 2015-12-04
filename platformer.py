@@ -60,8 +60,10 @@ class Platformer(App):
         self.mousey = event.y
     #make Sprite
     def buildChara(self, event):
+        global gravity
         if self.JAZZY:
             self.JAZZY.destroy()
+            gravity = 0
         self.JAZZY = Ball(self.mousex, self.mousey)
         self.z = self.mousex
     #move the Sprite Left
