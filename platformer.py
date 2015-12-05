@@ -1,7 +1,7 @@
 """
 platformer.py
-Author: <your name here>
-Credit: <list sources used, if any>
+Author: Jasmine Lou
+Credit: 
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
@@ -14,17 +14,20 @@ SCREEN_HEIGHT = 1000
 blue = Color(0x2EFEC8, 1.0)
 black = Color(0x000000, 1.0)
 pink = Color(0xFF00FF, 1.0)
+red = Color(0xFF5733, 1.0)
 
 thinline = LineStyle(2, pink)
+blkline = LineStyle(1, black)
 noline = LineStyle(0, blue)
 coolline = LineStyle(2, blue)
+redline = LineStyle(1, red)
 
 class Block(Sprite):
     block = RectangleAsset(40, 40, thinline, blue)
-    def __init__(self, xval, yval):
-        super().__init__(Block.block, (xval, yval))
-        self.x = xval
-        self.y = yval
+    def __init__(self, x, y):
+        super().__init__(Block.block, (x, y))
+        self.x = x
+        self.y = y
 
 
 black = Color(0, 1)
@@ -39,6 +42,13 @@ class SSprite(Sprite):
         self.x = x
         self.y = y
         
+class Spring(Sprite):
+    spring = RectangleAsset(15, 3, blkline, red)
+    def __init__(self, x, y):
+        super().__init__(Spring.spring, (x,y))
+        self.x = x
+        self.y = y
+
 gravity = 0
 
 class Platformer(App):
@@ -55,6 +65,7 @@ class Platformer(App):
         self.listenKeyEvent('keydown', 'left arrow', self.moveDogL)
         self.listenKeyEvent('keydown', 'up arrow', self.moveDogU)
         self.listenKeyEvent('keydown', 'down arrow', self.moveDogD)
+        self.listenKeyEvent('keydown', 's', self.buildSpring)
     
     def motion(self, event):
         self.mousex = event.x
@@ -71,6 +82,10 @@ class Platformer(App):
         x = self.mousex - self.mousex%40
         y = self.mousey - self.mousey%40
         Block(x-10, y-10)
+        
+    def buildSpring(self, event):
+        global gravity
+        self.spring = Spring(self.mousex-7.5, self.mousey-2.5)
         
     def moveDogR(self, event):
         self.dogsprite.x += 5
