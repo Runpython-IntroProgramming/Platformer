@@ -58,6 +58,7 @@ class Platformer(App):
         self.mousex = 0
         self.mousey = 0
         self.dog = 0
+        self.spring = 0
         self.dogsprite = None
         self.listenKeyEvent('keydown', 'p', self.buildDog)
         self.listenKeyEvent('keydown', 'w', self.buildBlock)
@@ -133,6 +134,10 @@ class Platformer(App):
                 gravity = 0
             if spcollisions:
                 gravity = -12
+        if self.spring:
+            springgravity += 0.3
+            self.spring.y += springgravity
+            
             
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
