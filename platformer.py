@@ -89,9 +89,7 @@ class Platformer(App):
         self.spring = Spring(self.mousex-7.5, self.mousey-2.5)
         springgravity = 0
         scollisions = self.spring.collidingwithSprites(Block)
-        if scollisions:
-            springgravity = 0
-        else:
+        while not scollisions:
             springgravity += 0.3
             self.spring.y += springgravity
         
