@@ -87,11 +87,12 @@ class Platformer(App):
     def buildSpring(self, event):
         global springgravity
         self.spring = Spring(self.mousex-7.5, self.mousey-2.5)
-        springgravity = 0
-        scollisions = self.spring.collidingwithSprites(Block)
-        while not scollisions:
-            springgravity += 0.3
-            self.spring.y += springgravity
+        #springgravity = 0
+        #scollisions = self.spring.collidingwithSprites(Block)
+        #while not scollisions:
+            #springgravity += 0.3
+            #self.spring.y += springgravity
+        
         
     def moveDogR(self, event):
         self.dogsprite.x += 5
@@ -126,9 +127,12 @@ class Platformer(App):
             gravity += 0.3
             self.dogsprite.y += gravity
             collisions = self.dogsprite.collidingWithSprites(Block)
+            spcollisions = self.dogsprite.collidingWithSprites(Spring)
             if collisions:
                 self.dogsprite.y -= gravity
                 gravity = 0
-                
+            if spcollisions:
+                gravity = -12
+            
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
