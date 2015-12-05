@@ -137,7 +137,10 @@ class Platformer(App):
         if self.spring:
             springgravity += 0.3
             self.spring.y += springgravity
-            
+            scollisions = self.spring.collidingWithSprites(Block)
+            if scollisions:
+                self.spring.y -= springgravity
+                springgravity = 0
             
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
