@@ -8,7 +8,7 @@ https://github.com/HHS-IntroProgramming/Platformer
 """
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
 
-SCREEN_WIDTH = 1000
+SCREEN_WIDTH = 1240
 SCREEN_HEIGHT = 1000
 
 blue = Color(0x2EFEC8, 1.0)
