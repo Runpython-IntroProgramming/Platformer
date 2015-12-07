@@ -33,7 +33,10 @@ class Ball(Sprite):
         self.yvel = 0
         self.fxcenter = 0.5
         self.fycenter = 0.5
-#class PogoStick
+class spring(sprite):
+    Spring = RectangleAsset(10, 30, thinline, blue)
+    def_init_(self, xPos, yPos
+
 gravity = 0
 #App
 class Platformer(App):
@@ -91,11 +94,16 @@ class Platformer(App):
         if self.JAZZY:
             gravity +=0.2
             self.JAZZY.y += gravity
-            p = self.JAZZY.collidingWithSprites()
+            p = self.JAZZY.collidingWithSprites(Wall)
             if p:
                 self.JAZZY.y -= gravity
                 gravity = 0
-
+    #Spring
+    def step(self):
+        global gravity
+        if self.JAZZY.collidingWithSprites(spring)
+            self.JAZZY.y -= gravity
+            gravity = -15
                 
 myapp = Platformer()
 myapp.run()
