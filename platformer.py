@@ -134,7 +134,9 @@ class Platformer(App):
                 gravity = 0
             if spcollisions:
                 gravity = -12
-        spring
+        springs = self.getSpritesbyClass(Spring)
+        for spring in springs:
+            spring.step()
             
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
