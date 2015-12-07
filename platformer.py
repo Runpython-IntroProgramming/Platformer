@@ -79,24 +79,27 @@ class Platformer(App):
         self.spring = spring(self.mousex, self.mousey)
     #move the Sprite Left
     def moveL(self, event):
-        self.JAZZY.x -= 2
-        p = self.JAZZY.collidingWithSprites()
-        if p:
-            self.JAZZY.x += 2
+        if self.JAZZY:
+            self.JAZZY.x -= 2
+            p = self.JAZZY.collidingWithSprites()
+            if p:
+                self.JAZZY.x += 2
     #Up
     def moveU(self, event):
-        global gravity
-        gravity = -7
-        #self.JAZZY.y -= 60
-        p = self.JAZZY.collidingWithSprites()
-        if p:
-            self.JAZZY.y += 50
+        if self.JAZZY:
+            global gravity
+            gravity = -7
+            #self.JAZZY.y -= 60
+            p = self.JAZZY.collidingWithSprites()
+            if p:
+                self.JAZZY.y += 50
     #Right
     def moveR(self, event):
-        self.JAZZY.x += 2
-        p = self.JAZZY.collidingWithSprites()
-        if p:
-            self.JAZZY.x -= 2
+        if self.JAZZY:
+            self.JAZZY.x += 2
+            p = self.JAZZY.collidingWithSprites()
+            if p:
+                self.JAZZY.x -= 2
     #gravity
     def step(self):
         global gravity
