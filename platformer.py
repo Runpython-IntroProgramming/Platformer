@@ -33,9 +33,12 @@ class Ball(Sprite):
         self.yvel = 0
         self.fxcenter = 0.5
         self.fycenter = 0.5
-class spring(sprite):
+class spring(Sprite):
     Spring = RectangleAsset(10, 30, thinline, blue)
-    def_init_(self, xPos, yPos
+    def __init__(self, xPos, yPos):
+        super().__init__(Wall.wall, (xPos, yPos))
+        self.x = xPos
+        self.y = yPos
 
 gravity = 0
 #App
@@ -51,6 +54,7 @@ class Platformer(App):
         self.listenKeyEvent('keydown', 'a', self.moveL)
         self.listenKeyEvent('keydown', 'w', self.moveU)
         self.listenKeyEvent('keydown', 'd', self.moveR)
+        self.listenKeyEvent('keydown', 'x', self.buildSpring)
     #make wall
     def buildWall(self, event):
         x = self.mousex- self.mousex%50
@@ -68,6 +72,10 @@ class Platformer(App):
             gravity = 0
         self.JAZZY = Ball(self.mousex, self.mousey)
         self.z = self.mousex
+    #make Spring
+    def buildSpring(self, event):
+        global gravity
+        self.spring = spring(self.mousex, self.mousey)
     #move the Sprite Left
     def moveL(self, event):
         self.JAZZY.x -= 2
@@ -101,7 +109,8 @@ class Platformer(App):
     #Spring
     def step(self):
         global gravity
-        if self.JAZZY.collidingWithSprites(spring)
+        p = self.JAZZY.collidingWithSprites(spring)
+        if p:
             self.JAZZY.y -= gravity
             gravity = -15
                 
