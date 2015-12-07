@@ -109,11 +109,11 @@ class Platformer(App):
             
     def moveDogU(self, event):
         global gravity
-        #self.dogsprite.y -= 50
-        gravity = -7
-        collisions = self.dogsprite.collidingWithSprites(Block)
-        if collisions:
-            self.dogsprite.y += 50
+        if gravity == 0:
+            gravity = -7
+            collisions = self.dogsprite.collidingWithSprites(Block)
+            if collisions:
+                self.dogsprite.y += 50
 
     def moveDogD(self, event):
         self.dogsprite.y += 5
