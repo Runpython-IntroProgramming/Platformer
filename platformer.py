@@ -51,6 +51,7 @@ class Character(Sprite):
         super().__init__(Character.character, (xval, yval))
         self.x = xval
         self.y = yval
+    gravity = 0
 
 def classcharacter(event):
     global xval, yval
@@ -60,7 +61,6 @@ def classcharacter(event):
     if charactersprite:
         charactersprite.destroy()
     charactersprite = Character(x, y)
-    gravity= 0
     
 
 
