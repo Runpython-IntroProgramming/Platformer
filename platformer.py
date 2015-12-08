@@ -102,12 +102,13 @@ def mousemove(event):
     global xval, yval
     xval = event.x
     yval = event.y
-'''    
-gravity= 0
+    
 
+gravity= 0
+collision = charactersprite.collidingWithSprites(Block)
 while not collision:
-    gravity= +1
-'''   
+    gravity= +=1
+   
     
     
 #Block(55, 250)
