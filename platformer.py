@@ -105,10 +105,6 @@ def mousemove(event):
     
 
 gravity= 0
-if charactersprite:
-    collision = charactersprite.collidingWithSprites(Block)
-    if not collision:
-        gravity= +1
    
     
     
@@ -122,6 +118,13 @@ class Platformer(App):
     """
     def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
         super().__init__()
+        
+    def step(self):
+        if charactersprite:
+            collision = charactersprite.collidingWithSprites(Block)
+            if not collision:
+                gravity= +1
+                charactersprite.y += gravity
         
 myapp= Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 
