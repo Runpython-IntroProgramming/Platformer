@@ -35,13 +35,25 @@ class Ball(Sprite):
         self.fycenter = 0.5
 #spring
 class spring(Sprite):
-    Spring = RectangleAsset(30, 10, thinline, blue)
+    Spring = RectangleAsset(30, 5, thinline, blue)
     def __init__(self, xPos, yPos):
         super().__init__(spring.Spring, (xPos, yPos))
         self.x = xPos
         self.y = yPos
+#endings sprite
+class winner(Sprite):
+    win = RectangleAsset(30, 30, thinline, blue)
+    def __init__(self, xPos, yPos):
+        super().__init__(winner.win, (xPos, yPos))
+        self.x = xPos
+        self.y = yPos
+        self.xvel = 0
+        self.yvel = 0
+        self.fxcenter = 0.5
+        self.fycenter = 0.5
 
 gravity = 0
+Sgravity = 0
 #App
 class Platformer(App):
     def __init__(self):
@@ -49,6 +61,8 @@ class Platformer(App):
         self.mousex = 0
         self.mousey = 0
         self.JAZZY = 0
+        self.spring = 0
+        self.ahh = 0
         self.listenKeyEvent('keydown', 'q', self.buildWall)
         self.listenKeyEvent('keydown', 'e', self.buildChara)
         self.listenMouseEvent('mousemove', self.mousemove)
@@ -56,6 +70,7 @@ class Platformer(App):
         self.listenKeyEvent('keydown', 'w', self.moveU)
         self.listenKeyEvent('keydown', 'd', self.moveR)
         self.listenKeyEvent('keydown', 's', self.buildSpring)
+        self.listenKeyEvent('keydown', 'r', self.buildahh)
     #make wall
     def buildWall(self, event):
         x = self.mousex- self.mousex%50
@@ -65,6 +80,11 @@ class Platformer(App):
     def mousemove(self, event):
         self.mousex = event.x
         self.mousey = event.y
+    #make !!!
+    def buildahh(self, event):
+        if self.ahh:
+            self.ahh.destroy()
+        self.ahh = winner(self.mousex, self.mousey)
     #make Sprite
     def buildChara(self, event):
         global gravity
@@ -75,7 +95,7 @@ class Platformer(App):
         self.z = self.mousex
     #make Spring
     def buildSpring(self, event):
-        global gravity
+        global Sgravity
         self.spring = spring(self.mousex, self.mousey)
     #move the Sprite Left
     def moveL(self, event):
@@ -88,11 +108,11 @@ class Platformer(App):
     def moveU(self, event):
         if self.JAZZY:
             global gravity
-            gravity = -7
-            #self.JAZZY.y -= 60
-            p = self.JAZZY.collidingWithSprites()
-            if p:
-                self.JAZZY.y += 50
+            if gravity == 0:
+                gravity = -7
+                p = self.JAZZY.collidingWithSprites()
+                if p:
+                    self.JAZZY.y += 50
     #Right
     def moveR(self, event):
         if self.JAZZY:
@@ -103,13 +123,14 @@ class Platformer(App):
     #gravity
     def step(self):
         global gravity
+        global Sgravity
         if self.spring:
-            gravity +=0.2
-            self.spring.y += gravity
+            Sgravity +=0.2
+            self.spring.y += Sgravity
             i = self.spring.collidingWithSprites(Wall)
             if i:
-                self.spring.y -= gravity
-                gravity = 0
+                self.spring.y -= Sgravity
+                Sgravity = 0
         if self.JAZZY:
             gravity +=0.2
             self.JAZZY.y += gravity
@@ -120,15 +141,10 @@ class Platformer(App):
                 gravity = 0
             if o:
                 self.JAZZY.y -= gravity
-                gravity = -15
-    #Spring
-    '''
-    def step(self):
-        global gravity
-        p = self.JAZZY.collidingWithSprites(spring)
-        if p:
-            self.JAZZY.y -= gravity
-            gravity = -15
-    '''            
+                gravity = -10
+        if self.JAZZY and self.ahh:
+            u = self.JAZZY.collidingWithSprites(ahh)
+            if u:
+                print ("winner!!!!!!!!!!!!!!!!!!!!")
 myapp = Platformer()
 myapp.run()
