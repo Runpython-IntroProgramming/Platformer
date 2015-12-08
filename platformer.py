@@ -108,7 +108,10 @@ def mousemove(event):
     xval = event.x
     yval = event.y
     
+gravity= 0
 
+while not collision:
+    gravity= +1
     
     
     
