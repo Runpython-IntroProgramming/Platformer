@@ -77,14 +77,11 @@ def classcharacter(event):
 """
 
 def MoveCharacterRight (event):
-    #Character.collidingWithSprites(Block)
-    collision = charactersprite.collidingWithSprites(Block)
-    if collision:
-        charactersprite.x -= 5
-        #if charactersprite:
-            #charactersprite.x += 5
     if charactersprite:
         charactersprite.x += 5
+        collision = charactersprite.collidingWithSprites(Block)
+        if collision:
+            charactersprite.x -= 5
     
 def MoveCharacterLeft (event):
     if charactersprite:
@@ -105,12 +102,12 @@ def mousemove(event):
     global xval, yval
     xval = event.x
     yval = event.y
-    
+'''    
 gravity= 0
 
 while not collision:
     gravity= +1
-    
+'''   
     
     
 #Block(55, 250)
