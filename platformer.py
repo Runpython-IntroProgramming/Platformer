@@ -105,8 +105,7 @@ def mousemove(event):
     
 
 gravity= 0
-   
-    
+
     
 #Block(55, 250)
 #Block(300, 250)
@@ -124,7 +123,7 @@ class Platformer(App):
         if charactersprite:
             collision = charactersprite.collidingWithSprites(Block)
             if not collision:
-                gravity= +1
+                gravity += 1
                 charactersprite.y += gravity
         
 myapp= Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
