@@ -125,7 +125,7 @@ class Platformer(App):
         if charactersprite:
             collision = charactersprite.collidingWithSprites(Block)
             if not collision:
-                gravity += 0.15
+                gravity += 0.2
                 charactersprite.y += gravity
         
 myapp= Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
