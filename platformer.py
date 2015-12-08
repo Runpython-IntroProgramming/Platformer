@@ -51,9 +51,10 @@ class Character(Sprite):
         super().__init__(Character.character, (xval, yval))
         self.x = xval
         self.y = yval
-        gravity = 0
+        
 
 def classcharacter(event):
+    gravity = 0
     global xval, yval
     global charactersprite
     x = xval
