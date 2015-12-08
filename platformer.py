@@ -105,9 +105,10 @@ def mousemove(event):
     
 
 gravity= 0
-collision = charactersprite.collidingWithSprites(Block)
-while not collision:
-    gravity= +=1
+if charactersprite:
+    collision = charactersprite.collidingWithSprites(Block)
+    if not collision:
+        gravity= +1
    
     
     
