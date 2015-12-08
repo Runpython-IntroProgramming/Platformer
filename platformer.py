@@ -60,6 +60,7 @@ def classcharacter(event):
     if charactersprite:
         charactersprite.destroy()
     charactersprite = Character(x, y)
+    gravity= 0
     
 
 
