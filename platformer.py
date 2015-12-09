@@ -20,6 +20,13 @@ noline= LineStyle(0, black)
 SCREEN_WIDTH = 1500
 SCREEN_HEIGHT = 800
 
+class Spring(Sprite):
+    block = RectangleAsset(40, 25, thinline, darkblue)
+    def __init__(self, xval, yval):
+        super().__init__(Spring.spring, (xval, yval))
+        self.x = xval
+        self.y = yval
+
 class Block(Sprite):
     block= RectangleAsset(80, 65, thinline, darkblue)
     def __init__(self, xval, yval):
