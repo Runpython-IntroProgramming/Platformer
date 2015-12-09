@@ -143,7 +143,6 @@ class Platformer(App):
                 gravity += 0.15
                 classspring.y += gravity
                 
-    
         
 myapp= Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 
@@ -153,6 +152,6 @@ myapp.listenMouseEvent('mousemove', mousemove)
 myapp.listenKeyEvent('keydown', 'right arrow', MoveCharacterRight)
 myapp.listenKeyEvent('keydown', 'left arrow', MoveCharacterLeft)
 myapp.listenKeyEvent('keydown', 'up arrow', MoveCharacterUp)
-#myapp.listenKeyEvent('keydown', 's', classspring)
+myapp.listenKeyEvent('keydown', 's', classspring)
 myapp.listenMouseEvent
 myapp.run()
