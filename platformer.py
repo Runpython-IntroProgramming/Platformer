@@ -55,14 +55,14 @@ def classspring (event):
     springgravity = 0
     global xval, yval
 
-
+'''
 class Character(Sprite):
     character= RectangleAsset(40, 80, thinline, red)
     def __init__(self, xval, yval):
         super().__init__(Character.character, (xval, yval))
         self.x = xval
         self.y = yval
-        
+'''        
 
 def classcharacter(event):
     gravity = 0
@@ -138,7 +138,7 @@ class Platformer(App):
             if not collision:
                 gravity += 0.15
                 charactersprite.y += gravity
-                
+    '''            
     def step(self):
         global springgravity
         if classspring:
@@ -146,6 +146,7 @@ class Platformer(App):
             if not collision:
                 gravity += 0.15
                 classsprite.y += gravity
+    '''
         
 myapp= Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 
@@ -155,6 +156,6 @@ myapp.listenMouseEvent('mousemove', mousemove)
 myapp.listenKeyEvent('keydown', 'right arrow', MoveCharacterRight)
 myapp.listenKeyEvent('keydown', 'left arrow', MoveCharacterLeft)
 myapp.listenKeyEvent('keydown', 'up arrow', MoveCharacterUp)
-myapp.listenKeyEvent('keydown', 's', classspring)
+#myapp.listenKeyEvent('keydown', 's', classspring)
 myapp.listenMouseEvent
 myapp.run()
