@@ -131,12 +131,12 @@ class Platformer(App):
         
     def step(self):
         global gravity
-        global springgravity
         if charactersprite:
             collision = charactersprite.collidingWithSprites(Block)
             if not collision:
                 gravity += 0.15
                 charactersprite.y += gravity
+        global springgravity
         if classspring:
             collision = classspring.collidingWithSprites(Block)
             if not collision:
