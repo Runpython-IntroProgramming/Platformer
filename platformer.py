@@ -50,6 +50,9 @@ def classblock(event):
     x = xval - xval%80
     y = yval - yval%65
     Block(x-40, y-32.5)
+    
+def classspring (event):
+    global xval, yval
 
 
 class Character(Sprite):
@@ -143,5 +146,6 @@ myapp.listenMouseEvent('mousemove', mousemove)
 myapp.listenKeyEvent('keydown', 'right arrow', MoveCharacterRight)
 myapp.listenKeyEvent('keydown', 'left arrow', MoveCharacterLeft)
 myapp.listenKeyEvent('keydown', 'up arrow', MoveCharacterUp)
+myapp.listenKeyEvent('keydown', 's', classblock)
 myapp.listenMouseEvent
 myapp.run()
