@@ -146,6 +146,6 @@ myapp.listenMouseEvent('mousemove', mousemove)
 myapp.listenKeyEvent('keydown', 'right arrow', MoveCharacterRight)
 myapp.listenKeyEvent('keydown', 'left arrow', MoveCharacterLeft)
 myapp.listenKeyEvent('keydown', 'up arrow', MoveCharacterUp)
-myapp.listenKeyEvent('keydown', 's', classblock)
+myapp.listenKeyEvent('keydown', 's', classspring)
 myapp.listenMouseEvent
 myapp.run()
