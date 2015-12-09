@@ -47,10 +47,6 @@ class winner(Sprite):
         super().__init__(winner.win, (xPos, yPos))
         self.x = xPos
         self.y = yPos
-        self.xvel = 0
-        self.yvel = 0
-        self.fxcenter = 0.5
-        self.fycenter = 0.5
 
 gravity = 0
 Sgravity = 0
@@ -62,7 +58,7 @@ class Platformer(App):
         self.mousey = 0
         self.JAZZY = 0
         self.spring = 0
-        self.ahh = 0
+        self.winner = 0
         self.listenKeyEvent('keydown', 'q', self.buildWall)
         self.listenKeyEvent('keydown', 'e', self.buildChara)
         self.listenMouseEvent('mousemove', self.mousemove)
@@ -82,9 +78,9 @@ class Platformer(App):
         self.mousey = event.y
     #make !!!
     def buildahh(self, event):
-        if self.ahh:
-            self.ahh.destroy()
-        self.ahh = winner(self.mousex, self.mousey)
+        if self.winner:
+            self.winner.destroy()
+        self.winner = winner(self.mousex, self.mousey)
     #make Sprite
     def buildChara(self, event):
         global gravity
@@ -101,7 +97,7 @@ class Platformer(App):
     def moveL(self, event):
         if self.JAZZY:
             self.JAZZY.x -= 2
-            p = self.JAZZY.collidingWithSprites()
+            p = self.JAZZY.collidingWithSprites(Wall)
             if p:
                 self.JAZZY.x += 2
     #Up
@@ -110,14 +106,14 @@ class Platformer(App):
             global gravity
             if gravity == 0:
                 gravity = -7
-                p = self.JAZZY.collidingWithSprites()
+                p = self.JAZZY.collidingWithSprites(Wall)
                 if p:
                     self.JAZZY.y += 50
     #Right
     def moveR(self, event):
         if self.JAZZY:
             self.JAZZY.x += 2
-            p = self.JAZZY.collidingWithSprites()
+            p = self.JAZZY.collidingWithSprites(Wall)
             if p:
                 self.JAZZY.x -= 2
     #gravity
@@ -142,9 +138,15 @@ class Platformer(App):
             if o:
                 self.JAZZY.y -= gravity
                 gravity = -10
-        if self.JAZZY and self.ahh:
-            u = self.JAZZY.collidingWithSprites(ahh)
+        if self.JAZZY and winner:
+            u = self.JAZZY.collidingWithSprites(winner)
             if u:
                 print ("winner!!!!!!!!!!!!!!!!!!!!")
+                f = input("If you are done with this game write 'done'")
+                if f == 'done':
+                    self.JAZZY.destroy()
+                    self.spring.destroy()
+                    Wall.destroy()
+                    self.winner.destroy()
 myapp = Platformer()
 myapp.run()
