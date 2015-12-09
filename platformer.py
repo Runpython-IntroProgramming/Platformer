@@ -121,7 +121,7 @@ class Platformer(App):
         super().__init__()
         
     def step(self):
-        global gravity
+        gravity = 0
         if charactersprite:
             collision = charactersprite.collidingWithSprites(Block)
             if not collision:
