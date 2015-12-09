@@ -141,7 +141,7 @@ class Platformer(App):
             collision = classspring.collidingWithSprites(Block)
             if not collision:
                 gravity += 0.15
-                classsprite.y += gravity
+                classspring.y += gravity
                 
     
         
