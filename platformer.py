@@ -55,14 +55,12 @@ def classspring (event):
     springgravity = 0
     global xval, yval
 
-'''
 class Character(Sprite):
     character= RectangleAsset(40, 80, thinline, red)
     def __init__(self, xval, yval):
         super().__init__(Character.character, (xval, yval))
         self.x = xval
         self.y = yval
-'''        
 
 def classcharacter(event):
     gravity = 0
