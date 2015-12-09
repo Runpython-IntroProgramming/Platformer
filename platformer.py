@@ -52,6 +52,7 @@ def classblock(event):
     Block(x-40, y-32.5)
     
 def classspring (event):
+    springgravity = 0
     global xval, yval
 
 
@@ -137,6 +138,14 @@ class Platformer(App):
             if not collision:
                 gravity += 0.15
                 charactersprite.y += gravity
+                
+    def step(self):
+        global springgravity
+        if classspring:
+            collision = classspring.collidingWithSprites(Block)
+            if not collision:
+                gravity += 0.15
+                classsprite.y += gravity
         
 myapp= Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 
