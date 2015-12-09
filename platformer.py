@@ -136,7 +136,7 @@ class Platformer(App):
             if not collision:
                 gravity += 0.15
                 charactersprite.y += gravity
-    '''            
+                
     def step(self):
         global springgravity
         if classspring:
@@ -144,7 +144,7 @@ class Platformer(App):
             if not collision:
                 gravity += 0.15
                 classsprite.y += gravity
-    '''
+    
         
 myapp= Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 
