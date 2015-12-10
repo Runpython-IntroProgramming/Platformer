@@ -52,7 +52,6 @@ def classblock(event):
     Block(x-40, y-32.5)
     
 def classspring (event):
-    #springgravity = 0
     global xval, yval
 
 class Character(Sprite):
@@ -117,7 +116,7 @@ gravity= 0
 
 #Block(55, 250)
 #Block(300, 250)
-
+springgravity = 0
 
 class Platformer(App):
     """
