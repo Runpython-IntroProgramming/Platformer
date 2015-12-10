@@ -59,6 +59,7 @@ class Platformer(App):
         self.JAZZY = 0
         self.spring = 0
         self.winner = 0
+        self.Wall = 0
         self.listenKeyEvent('keydown', 'q', self.buildWall)
         self.listenKeyEvent('keydown', 'e', self.buildChara)
         self.listenMouseEvent('mousemove', self.mousemove)
@@ -71,7 +72,7 @@ class Platformer(App):
     def buildWall(self, event):
         x = self.mousex- self.mousex%50
         y = self.mousey- self.mousey%50
-        Wall(x-25, y-25)
+        self.Wall = Wall(x-25, y-25)
     #tracks where the  mouse is
     def mousemove(self, event):
         self.mousex = event.x
@@ -146,7 +147,7 @@ class Platformer(App):
                 if f == 'done':
                     self.JAZZY.destroy()
                     self.spring.destroy()
-                    Wall.destroy()
+                    self.Wall.destroy()
                     self.winner.destroy()
 myapp = Platformer()
 myapp.run()
