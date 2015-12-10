@@ -38,6 +38,7 @@ ocean= Color(0xA9BCF5, 0.75)
 yval= 0
 xval= 0
 charactersprite = None
+springsprite = None
 black = Color(0, 1)
 noline = LineStyle(0, black)
 bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, ocean)
@@ -54,7 +55,8 @@ def classblock(event):
 def classspring(event):
     springgravity = 0
     global xval, yval
-    global classspring
+    global springsprite
+    springsprite = Spring(xval, yval)
 
 class Character(Sprite):
     character= RectangleAsset(40, 80, thinline, red)
@@ -115,6 +117,7 @@ def mousemove(event):
     
 
 gravity= 0
+springgravity = 0
 
 #Block(55, 250)
 #Block(300, 250)
@@ -135,11 +138,11 @@ class Platformer(App):
                 gravity += 0.15
                 charactersprite.y += gravity
         global springgravity
-        if classspring:
-            springcollision = classspring.collidingWithSprites(Block)
+        if springsprite:
+            springcollision = springsprite.collidingWithSprites(Block)
             if not springcollision:
                 springgravity += 0.15
-                classspring.y += springgravity
+                springsprite.y += springgravity
 
 
         
