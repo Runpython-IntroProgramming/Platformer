@@ -9,11 +9,12 @@ https://github.com/HHS-IntroProgramming/Platformer
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset
 
 red= Color(0xFE2E64, 1.0)
+green = Color(0x5dff00, 1.0)
 bluelight = Color(0x81F7F3,1.0)
 blue= Color(0x0000ff, 1.0)
 white= Color(0xffffff, 1.0)
 thinline = LineStyle(3, red)
-whiteline = LineStyle(3, white)
+blueline = LineStyle(3, blue)
 
 #Walls
 class Wall(Sprite):
@@ -24,7 +25,7 @@ class Wall(Sprite):
         self.y = yPos
 #Sprite
 class Ball(Sprite):
-    ball = RectangleAsset(30, 30, thinline, blue)
+    ball = RectangleAsset(30, 30, blueline, blue)
     def __init__(self, xPos, yPos):
         super().__init__(Ball.ball, (xPos, yPos))
         self.x = xPos
@@ -42,7 +43,7 @@ class spring(Sprite):
         self.y = yPos
 #endings sprite
 class winner(Sprite):
-    win = RectangleAsset(30, 30, thinline, blue)
+    win = RectangleAsset(30, 30, blueline, green)
     def __init__(self, xPos, yPos):
         super().__init__(winner.win, (xPos, yPos))
         self.x = xPos
