@@ -54,6 +54,7 @@ def classblock(event):
 def classspring(event):
     springgravity = 0
     global xval, yval
+    global classspring
 
 class Character(Sprite):
     character= RectangleAsset(40, 80, thinline, red)
