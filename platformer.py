@@ -51,9 +51,9 @@ def classblock(event):
     y = yval - yval%65
     Block(x-40, y-32.5)
     
-def classspring (event):
-    springgravity = 0
-    global xval, yval
+#def classspring (event):
+    #springgravity = 0
+    #global xval, yval
 
 class Character(Sprite):
     character= RectangleAsset(40, 80, thinline, red)
