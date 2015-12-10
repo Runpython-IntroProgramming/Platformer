@@ -23,7 +23,7 @@ SCREEN_HEIGHT = 800
 class Spring(Sprite):
     block = RectangleAsset(40, 25, thinline, darkblue)
     def __init__(self, xval, yval):
-        super().__init__(Spring.spring, (xval, yval))
+        super().__init__(Spring.block, (xval, yval))
         self.x = xval
         self.y = yval
 
