@@ -142,7 +142,7 @@ class Platformer(App):
             collision = charactersprite.collidingWithSprites(Block)
             characterspringcollision = charactersprite.collidingWithSprites(Spring)
             if characterspringcollision:
-                gravity = -5
+                gravity = -10
             if collision:
                 #gravity -= 0.15
                 charactersprite.y -= gravity
