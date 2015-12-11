@@ -103,6 +103,7 @@ def MoveCharacterLeft (event):
             charactersprite.x += 5
 
 def MoveCharacterUp (event):
+    global gravity
     if charactersprite:
         gravity = -20
         
@@ -112,7 +113,7 @@ def MoveCharacterUp (event):
         if collision:
             charactersprite.y += 5
     
-'''
+        '''
 def mousemove(event):
     global xval, yval
     xval = event.x
