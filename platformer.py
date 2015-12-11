@@ -141,6 +141,7 @@ class Platformer(App):
             if collision:
                 #gravity -= 0.15
                 charactersprite.y -= gravity
+                gravity= 0
             if not collision:
                 gravity += 0.15
         global springgravity
