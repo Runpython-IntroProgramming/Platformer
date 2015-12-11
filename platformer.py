@@ -102,7 +102,6 @@ def MoveCharacterLeft (event):
         if collision:
             charactersprite.x += 5
 
-    
 def MoveCharacterUp (event):
     if charactersprite:
         charactersprite.y -= 5
@@ -133,13 +132,15 @@ class Platformer(App):
     def step(self):
         global gravity
         if charactersprite:
+            gravity += 0.15
+            charactersprite.y += gravity
             collision = charactersprite.collidingWithSprites(Block)
             characterspringcollision = charactersprite.collidingWithSprites(Spring)
             if characterspringcollision:
                 gravity = -5
-            if not collision:
-                gravity += 0.15
-                charactersprite.y += gravity
+            if collision:
+                #gravity += 0.15
+                charactersprite.y -= gravity
         global springgravity
         if springsprite:
             springcollision = springsprite.collidingWithSprites(Block)
