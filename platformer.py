@@ -105,7 +105,7 @@ def MoveCharacterLeft (event):
 def MoveCharacterUp (event):
     global gravity
     if charactersprite:
-        gravity = -20
+        gravity = -5
         
         '''
         charactersprite.y -= 5
