@@ -61,6 +61,7 @@ class Platformer(App):
         self.spring = 0
         self.winner = 0
         self.Wall = 0
+        self.objects =[]
         self.listenKeyEvent('keydown', 'q', self.buildWall)
         self.listenKeyEvent('keydown', 'e', self.buildChara)
         self.listenMouseEvent('mousemove', self.mousemove)
@@ -74,6 +75,7 @@ class Platformer(App):
         x = self.mousex- self.mousex%50
         y = self.mousey- self.mousey%50
         self.Wall = Wall(x-25, y-25)
+        self.objects.append(self.Wall)
     #tracks where the  mouse is
     def mousemove(self, event):
         self.mousex = event.x
@@ -83,6 +85,7 @@ class Platformer(App):
         if self.winner:
             self.winner.destroy()
         self.winner = winner(self.mousex, self.mousey)
+        self.objects.append(self.winner)
     #make Sprite
     def buildChara(self, event):
         global gravity
@@ -91,10 +94,12 @@ class Platformer(App):
             gravity = 0
         self.JAZZY = Ball(self.mousex, self.mousey)
         self.z = self.mousex
+        self.objects.append(self.JAZZY)
     #make Spring
     def buildSpring(self, event):
         global Sgravity
         self.spring = spring(self.mousex, self.mousey)
+        self.objects.append(self.spring)
     #move the Sprite Left
     def moveL(self, event):
         if self.JAZZY:
@@ -146,9 +151,7 @@ class Platformer(App):
                 print ("winner!!!!!!!!!!!!!!!!!!!!")
                 f = input("If you are done with this game write 'done'")
                 if f == 'done':
-                    self.JAZZY.destroy()
-                    self.spring.destroy()
-                    self.Wall.destroy()
-                    self.winner.destroy()
+                    self.objects.destroy()
+                    print("OMG YOU'RE SUCH A WINNER")
 myapp = Platformer()
 myapp.run()
