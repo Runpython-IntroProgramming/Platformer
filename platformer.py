@@ -151,7 +151,8 @@ class Platformer(App):
                 print ("winner!!!!!!!!!!!!!!!!!!!!")
                 f = input("If you are done with this game write 'done'")
                 if f == 'done':
-                    self.objects.destroy()
+                    for c in self.objects:
+                        c.destroy()
                     print("OMG YOU'RE SUCH A WINNER")
                 else:
                     self.JAZZY.x -= 20
