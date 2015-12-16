@@ -70,6 +70,7 @@ class Platformer(App):
         self.listenKeyEvent('keydown', 'd', self.moveR)
         self.listenKeyEvent('keydown', 's', self.buildSpring)
         self.listenKeyEvent('keydown', 'r', self.buildahh)
+        self.listenKeyEvent('keydown', 'p', self.destroyLast)
     #make wall
     def buildWall(self, event):
         x = self.mousex- self.mousex%50
@@ -123,6 +124,11 @@ class Platformer(App):
             p = self.JAZZY.collidingWithSprites(Wall)
             if p:
                 self.JAZZY.x -= 2
+    #Destroy last
+    def destroyLast(self, event):
+        if self.objects:
+            a = self.objects[-1]
+            a.destroy()
     #gravity
     def step(self):
         global gravity
