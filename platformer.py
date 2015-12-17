@@ -151,7 +151,7 @@ class Platformer(App):
             if o:
                 self.JAZZY.y -= gravity
                 gravity = -10
-        if self.JAZZY and winner:
+        while self.JAZZY and winner:
             u = self.JAZZY.collidingWithSprites(winner)
             if u:
                 print ("winner!!!!!!!!!!!!!!!!!!!!")
@@ -160,6 +160,7 @@ class Platformer(App):
                     for c in self.objects:
                         c.destroy()
                     print("OMG YOU'RE SUCH A WINNER")
+                    self.objects=[]
                 else:
                     self.JAZZY.x -= 20
             p = self.JAZZY.collidingWithSprites(Wall)
