@@ -160,11 +160,8 @@ class Platformer(App):
                     for c in self.objects:
                         c.destroy()
                     print("OMG YOU'RE SUCH A WINNER")
-                    self.objects =[]
+                    #self.objects =[]
                 else:
                     self.JAZZY.x -= 20
-            p = self.JAZZY.collidingWithSprites(Wall)
-            if p:
-                self.JAZZY.x += 2
 myapp = Platformer()
 myapp.run()
