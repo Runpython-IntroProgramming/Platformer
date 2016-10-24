@@ -39,7 +39,7 @@ for x in width:
     
 def step():
     if wall.create:
-        Sprite(wall, (event.x,event.y))
+        Sprite(wall, (event.x, event.y))
     else:
         a=2
 
@@ -48,10 +48,16 @@ def step():
 def wKey(event):
     wall.create
 
+def mouseClick(event):
+    xplace=event.x
+    yplace=event.y
+    
+
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 # Set up event handlers for the app
 myapp.listenKeyEvent('keydown', 'w', wKey)
+myapp.listenMouseEvent('click', mouseClick)
 
 
 myapp.run(step)
