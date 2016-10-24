@@ -23,12 +23,25 @@ grid=RectangleAsset(30,30,gridline,white)
 Sprite(grid, (0,0))
 width=list(range(0,41))
 height=list(range(0,41))
+
 #display grid
 for x in width:
     for y in height:
         Sprite(grid, (20*x,20*y))
 
+#create land
+class wall(Sprite):
+    wall = Sprite(grid, (20*x,20*y))
+
+    def __init__(self, position):
+        super().__init__(wall.asset, position)
         
+        wall.listenKeyEvent("keydown", "w", self.wallcreate)
+        
+        def wallcreate(self, event):
+            sprite(wall)
+
+   
 
 
 
