@@ -30,15 +30,27 @@ for x in width:
         Sprite(grid, (20*x,20*y))
 
 #create land
-class wall(Sprite):
+'''class wall(Sprite):
     wall = Sprite(grid, (20*x,20*y))
         
-        wall.listenKeyEvent("keydown", "w", self.wallcreate)
+    wall.listenKeyEvent("keydown", "w", self.wallcreate)
         
-        def wallcreate(self, event):
-            wall.c=1
+    def wallcreate(self, event):
+        wall.c=1
         if wall.c == 1:
-            sprite(wall, (event.x, event.y)
+            sprite(wall, (event.x, event.y))
+'''
+wall = RectangleAsset(30,30,gridline,black)
+def __init__(self, position):
+        super().__init__(wall.sprite, position)
+        wall.listenKeyEvent("keydown", "w", self.wallcreate)
+
+def wall.create(self, event):
+    x=1
+        
+if x == 1:
+    Sprite(wall, (event.x, event.y))
+        
 
    
 
