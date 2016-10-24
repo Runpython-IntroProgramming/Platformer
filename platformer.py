@@ -34,15 +34,13 @@ class wall(Sprite):
     wall = RectangleAsset(20,20,gridline,black)
     def __init__(self, position):
         super().__init__(wall.asset, position)
-        wall.listenKeyEvent("keydown", "w", self.wallcreate)
-        wall.listenKeyEvent("keyup", "w", self.walldontcreate)
         
-
+        
     def wallcreate(self, event):
-        x=1
+        Sprite(wall, (0,0))
     
     def walldontcreate(self, event):
-        x=0
+        Sprite(wall, (100,100))
     
 class Platformer(App):
     def __init__(self, width, height):
@@ -54,5 +52,9 @@ class Platformer(App):
             Sprite(wall,(0,0))
         else:
             Sprite(wall,(100,100))
+            
+myapp.listenKeyEvent("keydown", "w", wallcreate)
+myapp.listenKeyEvent("keyup", "w", walldontcreate)
+
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
