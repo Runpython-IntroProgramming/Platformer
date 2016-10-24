@@ -29,30 +29,37 @@ for x in width:
     for y in height:
         Sprite(grid, (20*x,20*y))
 
-#create land
-'''class wall(Sprite):
-    wall = Sprite(grid, (20*x,20*y))
-        
-    wall.listenKeyEvent("keydown", "w", self.wallcreate)
-        
-    def wallcreate(self, event):
-        wall.c=1
-        if wall.c == 1:
-            sprite(wall, (event.x, event.y))
-'''
+#create wall
 class wall(Sprite):
-    wall = RectangleAsset(30,30,gridline,black)
-    print("hi")
+    wall = RectangleAsset(20,20,gridline,black)
     def __init__(self, position):
         super().__init__(wall.asset, position)
         wall.listenKeyEvent("keydown", "w", self.wallcreate)
+        wall.listenKeyEvent("keyup", "w", self.walldontcreate)
+        print("hi")
+    
+    def step(self):
+        print(hi)
+        if self.wallcreate == 1:
+            Sprite(wall,(0,0))
+        else:
+            Sprite(wall,(100,100))
 
     def wallcreate(self, event):
         x=1
+    
+    def walldontcreate((self, event):
+        x=0
+    
+
+
+class Platformer(App):
+    def __init__(self, width, height):
+        super().__init__(width, height)
         
-    if x == 1:
-        Sprite(wall, (event.x, event.y))
-        print(x)
+        
+
+
         
 
    
@@ -61,5 +68,5 @@ class wall(Sprite):
 
 
 
-myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
+myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
