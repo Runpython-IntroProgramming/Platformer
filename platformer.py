@@ -40,16 +40,19 @@ for x in width:
         if wall.c == 1:
             sprite(wall, (event.x, event.y))
 '''
-wall = RectangleAsset(30,30,gridline,black)
-def __init__(self, position):
-        super().__init__(wall.sprite, position)
+class wall(Sprite):
+    wall = RectangleAsset(30,30,gridline,black)
+    print("hi")
+    def __init__(self, position):
+        super().__init__(wall.asset, position)
         wall.listenKeyEvent("keydown", "w", self.wallcreate)
 
-def wall.create(self, event):
-    x=1
+    def wallcreate(self, event):
+        x=1
         
-if x == 1:
-    Sprite(wall, (event.x, event.y))
+    if x == 1:
+        Sprite(wall, (event.x, event.y))
+        print(x)
         
 
    
