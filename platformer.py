@@ -36,37 +36,23 @@ class wall(Sprite):
         super().__init__(wall.asset, position)
         wall.listenKeyEvent("keydown", "w", self.wallcreate)
         wall.listenKeyEvent("keyup", "w", self.walldontcreate)
-        print("hi")
+        
+
+    def wallcreate(self, event):
+        x=1
     
+    def walldontcreate(self, event):
+        x=0
+    
+class Platformer(App):
+    def __init__(self, width, height):
+        super().__init__(width, height)
+        
     def step(self):
         print(hi)
         if self.wallcreate == 1:
             Sprite(wall,(0,0))
         else:
             Sprite(wall,(100,100))
-
-    def wallcreate(self, event):
-        x=1
-    
-    def walldontcreate((self, event):
-        x=0
-    
-
-
-class Platformer(App):
-    def __init__(self, width, height):
-        super().__init__(width, height)
-        
-        
-
-
-        
-
-   
-
-
-
-
-
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
