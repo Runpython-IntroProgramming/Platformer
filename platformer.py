@@ -32,14 +32,13 @@ for x in width:
 #create land
 class wall(Sprite):
     wall = Sprite(grid, (20*x,20*y))
-
-    def __init__(self, position):
-        super().__init__(wall.asset, position)
         
         wall.listenKeyEvent("keydown", "w", self.wallcreate)
         
         def wallcreate(self, event):
-            sprite(wall)
+            wall.c=1
+        if wall.c == 1:
+            sprite(wall, (event.x, event.y)
 
    
 
