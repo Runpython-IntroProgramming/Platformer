@@ -24,29 +24,34 @@ width=list(range(0,41))
 height=list(range(0,41))
 a=2
 #display grid
+wall = RectangleAsset(20,20,gridline,black)
+wall.create = True
 
-
-#create wall
-class wall(Sprite):
-    wall = RectangleAsset(20,20,gridline,black)
-    def __init__(self, position):
-        super().__init__(wall.asset, position)
-        listenKeyEvent("keydown", "w", platformer.wallcreate)
-        listenKeyEvent("keyup", "w", platformer.walldontcreate)
+   
 
     
     
    
-    
-class platformer(app):
-    for x in width:
-        for y in height:
-            Sprite(grid, (20*x,20*y))
 
-    def wallcreate(self, event):
-        a=1
-    def walldontcreate(self, event):
-        a=0
-print(a)
-myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
-myapp.run()
+for x in width:
+    for y in height:
+        Sprite(grid, (20*x,20*y))
+    
+def step():
+    if wall.create:
+        Sprite(wall, (event.x,event.y))
+    else:
+        a=2
+
+
+
+def wKey(event):
+    wall.create
+
+
+myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
+# Set up event handlers for the app
+myapp.listenKeyEvent('keydown', 'w', wKey)
+
+
+myapp.run(step)
