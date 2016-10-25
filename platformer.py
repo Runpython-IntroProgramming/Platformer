@@ -60,12 +60,8 @@ def closest (mylist, mynum):
         myestimation.append(mylist[myvar]-mynum)
         myvar+=1
     myvar=0
-    myestimation2=[]
-    while myvar < len(mylist):
-        if myestimation[myvar] >= 0:
-            myestimation2.append(myestimation[myvar])
-        myvar+=1
-    return(min(myestimation2))
+   
+    return()
 
 def reverse(b):
     b.dir *= -1
