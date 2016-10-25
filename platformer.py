@@ -14,7 +14,8 @@ black = Color(0x000000, 1)
 green = Color(0x00ff00, 1)
 white = Color(0xFFFFFF, 1)
 
-SCREEN_WIDTH = 
+SCREEN_WIDTH = 640
+SCREEN_HEIGHT = 480
 
 """
 from ggame import App, RectangleAsset, ImageAsset, SoundAsset, Sprite, Sound
@@ -22,6 +23,9 @@ from ggame import LineStyle, Color
 
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480
+
+listx=[0, 40, 80, 120, 160, 200, 240, 280, 320, 360, 400, 440, 480, 520, 560, 600, 640]
+listy=[0, 40, 80, 120, 160, 200, 240, 280, 320, 360, 400, 440, 480]
 
 green = Color(0x00ff00, 1)
 black = Color(0, 1)
@@ -49,6 +53,7 @@ pew1 = Sound(pew1_asset)
 pop_asset = SoundAsset("sounds/reappear.mp3")
 pop = Sound(pop_asset)
 
+def
 
 def reverse(b):
     b.dir *= -1
@@ -72,7 +77,7 @@ def reverseKey(event):
 
 # Handle the mouse click
 def mouseClick(event):
-    ball.x = event.x
+    ball.x = (event.x
     ball.y = event.y
     pew1.play()
 
