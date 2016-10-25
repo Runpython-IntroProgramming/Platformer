@@ -8,6 +8,7 @@ https://github.com/HHS-IntroProgramming/Platformer
 """
 #imports
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset
+
 SCREEN_WIDTH=801
 SCREEN_HEIGHT=801
 red = Color(0xff0000, 1.0)
@@ -25,10 +26,8 @@ height=list(range(0,41))
 a=2
 #display grid
 wall = RectangleAsset(20,20,gridline,black)
-wall.create = True
-
-   
-
+mousepositionx=0
+mousepositiony=0
     
     
    
@@ -37,27 +36,25 @@ for x in width:
     for y in height:
         Sprite(grid, (20*x,20*y))
     
-def step():
-    if wall.create:
-        Sprite(wall, (event.x, event.y))
-    else:
-        a=2
 
 
+def drag(event):
+    global mousepositionx
+    global mousepositiony
+    mousepositionx=((event.x//10)*10)
+    mousepositiony=((event.y//10)*10)
+    print("a")
 
 def wKey(event):
-    wall.create
-
-def mouseClick(event):
-    xplace=event.x
-    yplace=event.y
-    
-
+    global mousepositionx
+    global mousepositiony
+    Sprite(wall, (mousepositionx, mousepositiony))
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 # Set up event handlers for the app
 myapp.listenKeyEvent('keydown', 'w', wKey)
-myapp.listenMouseEvent('click', mouseClick)
+myapp.listenMouseEvent('mousemove', drag)
 
 
-myapp.run(step)
+
+myapp.run()
