@@ -53,14 +53,15 @@ pew1 = Sound(pew1_asset)
 pop_asset = SoundAsset("sounds/reappear.mp3")
 pop = Sound(pop_asset)
 
-def closest (mylist, mynum):
+def closest(mylist, mynum):
     myestimation=[]
     myvar=0
     while myvar < len(mylist):
         myestimation.append(mylist[myvar]-mynum)
         myvar+=1
     myvar=0
-   
+    while myvar < len(myestimation)-1:
+        
     return()
 
 def reverse(b):
@@ -85,6 +86,7 @@ def reverseKey(event):
 
 # Handle the mouse click
 def mouseClick(event):
+    
     ball.x = closest(listx, event.x)
     ball.y = closest(listy, event.y)
     pew1.play()
