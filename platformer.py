@@ -1,7 +1,7 @@
 """
 platformer.py
 Author: Andy KOtz
-Credit: <list sources used, if any>
+Credit: milo, $MYMUM
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
@@ -60,9 +60,12 @@ def closest (mylist, mynum):
         myestimation.append(mylist[myvar]-mynum)
         myvar+=1
     myvar=0
+    myestimation2=[]
     while myvar < len(mylist):
-        myestimation.append(mylist[myvar]-mynum)
+        if myestimation[myvar] >= 0:
+            myestimation2.append(myestimation[myvar])
         myvar+=1
+    return(min(myestimation2))
 
 def reverse(b):
     b.dir *= -1
