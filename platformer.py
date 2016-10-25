@@ -35,7 +35,7 @@ pew1 = Sound(pew1_asset)
 pop_asset = SoundAsset("sounds/reappear.mp3")
 pop = Sound(pop_asset)
 # A ball! This is already in the ggame-tutorials repository
-ball_asset = ImageAsset("images/orb-150545_640.png")
+ball_asset = ImageAsset("images/ball.png")
 ball = Sprite(ball_asset, (0, 0))
 # Original image is too big. Scale it to 1/10 its original size
 ball.scale = 0.1
