@@ -28,7 +28,8 @@ a=2
 wall = RectangleAsset(20,20,gridline,black)
 mousepositionx=0
 mousepositiony=0
-    
+a=0
+b=0
     
    
 
@@ -41,8 +42,12 @@ for x in width:
 def drag(event):
     global mousepositionx
     global mousepositiony
-    mousepositionx=((event.x//10)*10)
-    mousepositiony=((event.y//10)*10)
+    global a
+    global b
+    a=event.x%20
+    b=event.y%20
+    mousepositionx=(event.x-a)
+    mousepositiony=(event.y-b)
     print("a")
 
 def wKey(event):
