@@ -41,7 +41,6 @@ for x in width:
     for y in height:
         Sprite(grid, (20*x,20*y))
 
-
 def drag(event):
     global mousepositionx
     global mousepositiony
@@ -51,18 +50,21 @@ def drag(event):
     b=event.y
     mousepositionx=(event.x - event.x%20)
     mousepositiony=(event.y- event.y%20)
-
+'''
 def Wall(Sprite):
+    global a, b
     wall=RectangleAsset(20,20,gridline,black)
     def __init__(self, a, b):
         super().__init__(Wall.wall, (a, b))
         self.x = a
         self.y = b
-
+'''
 def wKey(event):
     global a
     global b
-    wall(0,0)
+    print("Hi")
+    Wall=(RectangleAsset(20,20,gridline,black))
+    Sprite(Wall, a-a%20, b-b%20)
     '''
     Wall((a-a%20, b-b%20))
 '''
