@@ -25,26 +25,23 @@ grid=RectangleAsset(30,30,gridline,white)
 width=list(range(0,41))
 height=list(range(0,41))
 a=2
-#display grid
-wall = RectangleAsset(20,20,gridline,black)
-dude = RectangleAsset(10,20,greenline,green)
+'''
+Dude = RectangleAsset(10,20,greenline,green)
+'''
+wall = None
 mousepositionx=0
 mousepositiony=0
 a=0
 b=0
+dudesprite = None
 
    
 
 for x in width:
     for y in height:
         Sprite(grid, (20*x,20*y))
-    
 
-def pKey(even):
-    global a
-    global b
-    Sprite(dude, (a, b))
-    
+
 def drag(event):
     global mousepositionx
     global mousepositiony
@@ -55,18 +52,62 @@ def drag(event):
     mousepositionx=(event.x - event.x%20)
     mousepositiony=(event.y- event.y%20)
 
+def Wall(Sprite):
+    wall=RectangleAsset(20,20,gridline,black)
+    def __init__(self, a, b):
+        super().__init__(Wall.wall, (a, b))
+        self.x = a
+        self.y = b
+
 def wKey(event):
-    global mousepositionx
-    global mousepositiony
-    Sprite(wall, (mousepositionx, mousepositiony))
+    global a
+    global b
+    wall(0,0)
+    '''
+    Wall((a-a%20, b-b%20))
+'''
+
+def classdude(event):
+    gravity = 0
+    global a, b
+    global dudesprite
+    x = a
+    y = b
+    dudesprite = Dude(x, y)
+
+class Dude(Sprite):
+    dude = RectangleAsset(10,20,greenline,green)
+    def __init__(self, a, b):
+        super().__init__(Dude.dude, (a, b))
+        self.x = a
+        self.y = b
+
+
+def Right(event):
+    if dudesprite:
+        dudesprite.x += 5
+        bump = dudesprite.collidingWithSprites(wall)
+        if bump:
+            charactersprite.x -= 5
+def Left(event):
+    if dudesprite:
+        dudesprite.x -= 5
+       
+def Jump(event):
+    global gravity
+    if dudesprite:
+        gravity = -5
+
 
 
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
-# Set up event handlers for the app
 myapp.listenKeyEvent('keydown', 'w', wKey)
 myapp.listenMouseEvent('mousemove', drag)
-myapp.listenKeyEvent('keydown', 'p', pKey)
+myapp.listenKeyEvent('keydown', 'p', classdude)
 
+myapp.listenKeyEvent('keydown', 'right arrow', Right)
+myapp.listenKeyEvent('keydown', 'left arrow', Left)
+myapp.listenKeyEvent('keydown', 'up arrow', Jump)
 
 myapp.run()
