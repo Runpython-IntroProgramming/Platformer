@@ -80,22 +80,23 @@ def classdude(event):
 
 
 def Right(event):
-    if dudesprite:
-        dudesprite.x += 5
-        bump = dudesprite.collidingWithSprites(Wall)
-        q=0
-        if bump:
-            q=1
-        while q != 0 and while q != 5
+    c=0
+    while c != 5:
+        if dudesprite:
+            dudesprite.x += 1
+            bump = dudesprite.collidingWithSprites(Wall)
             if bump:
-                dudesprite.x -= 1*q
-                q=q+1
-            
+                dudesprite.x -= 1
+        c = c + 1
+    
 
                 
 def Left(event):
     if dudesprite:
         dudesprite.x -= 5
+        bump = dudesprite.collidingWithSprites(Wall)
+        if bump:
+            dudesprite.x += 5
        
 def Jump(event):
     global gravity
