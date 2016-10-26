@@ -55,14 +55,34 @@ pop = Sound(pop_asset)
 
 def closest(mylist, mynum):
     myestimation=[]
+    myestimationordered=[]
     myvar=0
     while myvar < len(mylist):
         myestimation.append(mylist[myvar]-mynum)
         myvar+=1
     myvar=0
-    while myvar < len(myestimation)-1:
-        
-    return()
+    myestimationordered = myestimation
+    myestneg=[]
+    for i in myestimationordered:
+        if i<=0:
+            myestneg.append(i)
+    for j in range(10):
+        for i in myestimationordered:
+            if i<=0:
+                myestimationordered.remove(i)
+    
+    
+"""
+    for i in range(10)
+        while myvar < len(myestimationordered)-1:
+            if myestimationordered[myvar] <= 0
+                if myestimationordered[myvar] > myestimationordered[myvar+1]:
+                    q = myestimationordered[myvar]
+                    myestimationordered[myvar] = myestimationordered[myvar+1]
+                    myestimationordered[myvar+1] = q
+                myvar +=1
+"""
+    
 
 def reverse(b):
     b.dir *= -1
