@@ -28,12 +28,13 @@ a=2
 '''
 Dude = RectangleAsset(10,20,greenline,green)
 '''
-wall = None
+
 mousepositionx=0
 mousepositiony=0
 a=0
 b=0
 dudesprite = None
+wallsprite = None
 
    
 
@@ -50,32 +51,6 @@ def drag(event):
     b=event.y
     mousepositionx=(event.x - event.x%20)
     mousepositiony=(event.y- event.y%20)
-'''
-def Wall(Sprite):
-    global a, b
-    wall=RectangleAsset(20,20,gridline,black)
-    def __init__(self, a, b):
-        super().__init__(Wall.wall, (a, b))
-        self.x = a
-        self.y = b
-'''
-def wKey(event):
-    global a
-    global b
-    print("Hi")
-    Wall=(RectangleAsset(20,20,gridline,black))
-    Sprite(Wall, a-a%20, b-b%20)
-    '''
-    Wall((a-a%20, b-b%20))
-'''
-
-def classdude(event):
-    gravity = 0
-    global a, b
-    global dudesprite
-    x = a
-    y = b
-    dudesprite = Dude(x, y)
 
 class Dude(Sprite):
     dude = RectangleAsset(10,20,greenline,green)
@@ -83,14 +58,38 @@ class Dude(Sprite):
         super().__init__(Dude.dude, (a, b))
         self.x = a
         self.y = b
+        
+class Wall(Sprite):
+    wall = RectangleAsset(20,20,gridline,black)
+    def __init__(self, a, b):
+        super().__init__(Wall.wall, (a, b))
+        self.x = a
+        self.y = b
+
+def classwall(event):
+    gravity=0
+    global a, b, wallsprite
+    wallsprite = Wall(a-a%20, b-b%20)
+
+def classdude(event):
+    gravity = 0
+    global a, b, dudesprite
+    dudesprite = Dude(a, b)
+
+
 
 
 def Right(event):
     if dudesprite:
         dudesprite.x += 5
-        bump = dudesprite.collidingWithSprites(wall)
-        if bump:
-            charactersprite.x -= 5
+        bump = dudesprite.collidingWithSprites(Wall)
+        q=0
+        while q =! 5:
+            if bump:
+                dudesprite.x -= 5-q
+                q = q+1
+
+                
 def Left(event):
     if dudesprite:
         dudesprite.x -= 5
@@ -104,7 +103,7 @@ def Jump(event):
 
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
-myapp.listenKeyEvent('keydown', 'w', wKey)
+myapp.listenKeyEvent('keydown', 'w', classwall)
 myapp.listenMouseEvent('mousemove', drag)
 myapp.listenKeyEvent('keydown', 'p', classdude)
 
