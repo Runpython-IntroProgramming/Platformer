@@ -85,9 +85,12 @@ def Right(event):
         bump = dudesprite.collidingWithSprites(Wall)
         q=0
         if bump:
-            while q != 5:
-                dudesprite.x -= 5-q
-                q = q+1
+            q=1
+        while q != 0 and while q != 5
+            if bump:
+                dudesprite.x -= 1*q
+                q=q+1
+            
 
                 
 def Left(event):
