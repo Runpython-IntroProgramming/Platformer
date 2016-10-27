@@ -70,6 +70,8 @@ def closest(mylist, mynum):
         for i in myestimationordered:
             if i<=0:
                 myestimationordered.remove(i)
+    lowestpos = myestimaitonordered[0]
+    lowestneg = myestneg[(len(myestneg)-1)]
     
     
 """
@@ -119,3 +121,38 @@ myapp.listenMouseEvent('click', mouseClick)
 
 myapp.run(step)
 
+
+"""
+  
+    mynum = int(input("Input "))
+    mylist = [10:0, 20:1, 30:2, 40:3, 50:4, 60:5]
+    
+    myestimation=[]
+    myestimationordered=[]
+    myvar=0
+    while myvar < len(mylist):
+        myestimation.append(mylist[myvar]-mynum)
+        myvar+=1
+    myvar=0
+    myestimationordered = myestimation
+    myestneg=[]
+    for i in myestimationordered:
+        if i<=0:
+            myestneg.append(i)
+    for j in range(10):
+        for i in myestimationordered:
+            if i<=0:
+                myestimationordered.remove(i)
+    lowestpos = myestimationordered[0]
+    lowestneg = myestneg[(len(myestneg)-1)]
+    print (lowestneg)
+    print (lowestpos)
+    ln=lowestneg
+    lp=lowestpos
+    if abs(ln)<abs(lp):
+        final=ln
+    elif abs(lp)<abs(ln):
+        final=lp
+    else:
+        final=(ln+lp)/2
+    print(mylist[final])
