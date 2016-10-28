@@ -24,8 +24,12 @@ from ggame import LineStyle, Color
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480
 
-listx=[0, 40, 80, 120, 160, 200, 240, 280, 320, 360, 400, 440, 480, 520, 560, 600, 640]
-listy=[0, 40, 80, 120, 160, 200, 240, 280, 320, 360, 400, 440, 480]
+listx= list(range(128))
+for i in listx:
+    i = 5*i
+listy= list(range(96))
+for j in listy:
+    j = 5*j
 
 green = Color(0x00ff00, 1)
 black = Color(0, 1)
@@ -153,6 +157,7 @@ myapp.run(step)
         final=ln
     elif abs(lp)<abs(ln):
         final=lp
-    else:
-        final=(ln+lp)/2
-    print(mylist[final])
+    print(final)
+    final = final + mynum
+    print(final)
+
