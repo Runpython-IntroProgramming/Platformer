@@ -15,13 +15,18 @@ https://github.com/HHS-IntroProgramming/Platformer
 from ggame import App, RectangleAsset, ImageAsset, Sprite, LineStyle, Color, Frame
 
 SCREEN_WIDTH = 640
-SCREEN_HEIGHT = 480
+SCREEN_HEIGHT = 640
 
 class Wall(Sprite):
     black = Color(0, 1)
-    noline = LineStyle(0,black)
+    noline = LineStyle(0, black)
     asset = RectangleAsset(25, 25, noline, black)
-
+    
+    def __init__(self, position):
+        super().__init__(Wall.asset, position)
+        self.vx = 0
+        self.vy = 0
+        self.fxcenter = self.fycenter = 0.25
 
 
 class Boxy(Sprite):
@@ -68,12 +73,22 @@ class Platformer(App):
         noline = LineStyle(5, Black)
         Noline = LineStyle(0, Black)
         bg_asset = RectangleAsset(width, height, noline, black)
+        Platformer.listenKeyEvent("keydown", "w", self.Wall)
+        Platformer.listenMouseEvent('mousemove', self.mousemove)
         bg = Sprite(bg_asset, (0,0))
         Boxy((1,1))
+        self.x = 0
+        self.y = 0
         
     def step(self):
         for ship in self.getSpritesbyClass(Boxy):
             ship.step()
+    def mousemove(self, event):
+        self.x = event.x
+        self.y = event.y 
+    def Wall(self, event):
+        Wall((self.x, self.y))
         
+
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
