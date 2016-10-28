@@ -42,19 +42,20 @@ class Boxy(Sprite):
         self.vx = 0
         
         # MAKE A WALL
-    class Wall(Sprite):
-        Black = Color(0,1)
-        noline = LineStyle(0, Black)
-        asset = RectangleAsset(25, 25, noline, Black)
+class Wall(Sprite):
+    Black = Color(0,1)
+    noline = LineStyle(0, Black)
+    asset = RectangleAsset(25, 25, noline, Black)
     
-        def __init__(self, position):
-            super().__init__(Boxy.asset, position)
-            self.vx = 0
-            self.vy = 0
-            self.vr = 0
-            self.fxcenter = self.fycenter = 0.25
-            Platformer.listenKeyEvent("keydown", "w", self.Wall)
-            Platformer.listenKeyEvent("keydup", "w", self.WallOFF)
+    def __init__(self, position):
+        super().__init__(Wall.asset, position)
+        self.vx = 0
+        self.vy = 0
+        self.vr = 0
+        self.fxcenter = self.fycenter = 0
+
+            
+
        
     #THIS IS BOXY'S WORLD
 class Platformer(App):
@@ -67,12 +68,23 @@ class Platformer(App):
         noline=LineStyle(5, Black)
         Noline=LineStyle(0, Black)
         bg_asset=RectangleAsset(width, height, noline, black)
+        Platformer.listenKeyEvent("keydown", "w", self.Wall)
+        Platformer.listenMouseEvent("mousemove" , self.mousemove)
         bg=Sprite(bg_asset, (0, 0))
         Boxy((100, 100))
+        self.x= 0
+        self.y = 0
     
     def step(self):
         for ship in self.getSpritesbyClass(Boxy):
             ship.step()
+    
+    def mousemove(self, event):
+        self.x = event.x
+        self.y = event.y
+        
+    def Wall(self, event):
+        Wall((self.x, self.y))
        
     
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
