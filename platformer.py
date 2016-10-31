@@ -14,26 +14,29 @@ black = Color(0x000000, 1)
 green = Color(0x00ff00, 1)
 white = Color(0xFFFFFF, 1)
 
+thinline = LineStyle(1, black)
+wallplace = RectangleAsset(5, 5, thinline, black)
+
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480
 
 
 listx= list(range(128))
 for i in listx:
-    i = 5*i
-for i in listx:
-    print(i)
+    i = i+1
+    i = i*5
 listy= list(range(96))
 for j in listy:
+    j = j+1
     j = 5*j
 
 
-def closest(mylist, mynum):
+def closestx(listx, numclickx):
     myestimation=[]
     myestimationordered=[]
     myvar=0
-    while myvar < len(mylist):
-        myestimation.append(mylist[myvar]-mynum)
+    while myvar < len(listx):
+        myestimation.append(listx[myvar]-numclickx)
         myvar+=1
     myvar=0
     myestimationordered = myestimation
@@ -53,11 +56,42 @@ def closest(mylist, mynum):
         final=ln
     elif abs(lp)<abs(ln):
         final=lp
-    final = final + mynum
+    final = final + numclickx
+    return(final)
+def closesty(listy, numclicky):
+    myestimation=[]
+    myestimationordered=[]
+    myvar=0
+    while myvar < len(listy):
+        myestimation.append(listy[myvar]-numclicky)
+        myvar+=1
+    myvar=0
+    myestimationordered = myestimation
+    myestneg=[]
+    for i in myestimationordered:
+        if i<=0:
+            myestneg.append(i)
+    for j in range(10):
+        for i in myestimationordered:
+            if i<=0:
+                myestimationordered.remove(i)
+    lowestpos = myestimationordered[0]
+    lowestneg = myestneg[(len(myestneg)-1)]
+    ln=lowestneg
+    lp=lowestpos
+    if abs(ln)<abs(lp):
+        final=ln
+    elif abs(lp)<abs(ln):
+        final=lp
+    final = final + numclicky
     return(final)
     
-    
-"""
+def mouseClick(event):
+    xcoord = closestx(listx, event.x)
+    ycoord = closesty(listy, event.y)
+    Sprite (wallplace, (xcoord, ycoord))
+
+
 def reverse(b):
     b.dir *= -1
     pop.play()
@@ -77,13 +111,6 @@ def spaceKey(event):
 # Handle the "reverse" key
 def reverseKey(event):
     reverse(ball)
-
-# Handle the mouse click
-def mouseClick(event):
-    
-    ball.x = closest(listx, event.x)
-    ball.y = closest(listy, event.y)
-    pew1.play()
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 # Set up event handlers for the app
