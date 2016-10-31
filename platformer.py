@@ -18,6 +18,9 @@ SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 640
 
 class Wall(Sprite):
+    """
+    THIS IS BOXY'S WALL
+    """
     black = Color(0, 1)
     noline = LineStyle(0, black)
     asset = RectangleAsset(25, 25, noline, black)
@@ -27,7 +30,6 @@ class Wall(Sprite):
         self.vx = 0
         self.vy = 0
         self.fxcenter = self.fycenter = 0.25
-
 
 class Boxy(Sprite):
     """
@@ -43,11 +45,14 @@ class Boxy(Sprite):
         self.vx = 0
         self.vy = 0
         self.fxcenter = self.fycenter = 0.25
-        Platformer.listenKeyEvent("keydown", "d", self.moveright)
-        Platformer.listenKeyEvent("keyup", "d", self.moveoff)
-        Platformer.listenKeyEvent("keydown", "a", self.moveleft)
-        Platformer.listenKeyEvent("keyup", "a", self.moveoff)
-
+        Platformer.listenKeyEvent("keydown", "right arrow", self.moveright)
+        Platformer.listenKeyEvent("keyup", "right arrow", self.moveoff)
+        Platformer.listenKeyEvent("keydown", "left arrow", self.moveleft)
+        Platformer.listenKeyEvent("keyup", "left arrow", self.moveoff)
+        Platformer.listenKeyEvent("keydown", "up arrow", self.moveup)
+        Platformer.listenKeyEvent("keyup", "up arrow", self.moveoff)
+        Platformer.listenKeyEvent("keydown", "down arrow", self.movedown)
+        Platformer.listenKeyEvent("keyup", "down arrow", self.moveoff)        
         
     def step(self):
         self.x += self.vx
@@ -56,10 +61,19 @@ class Boxy(Sprite):
     def moveoff(self,event):
         self.vx = self.vy = 0
     def moveright(self, event):
-        self.vx = 5 
+        self.vx = 2.5 
     def moveleft(self,event):
-        self.vx = -5
-    
+        self.vx = -2.5
+    def moveup(self,event):
+        self.vy = -2.5
+    def movedown(self,event):
+        self.vy = 2.5
+    def collidingWithSprites(self, sclass=None):
+        self.vx = 0
+        self.vy = 0
+    def collidingWith(self, obj):
+        self.vx = 0
+        self.vy = 0
         
 class Platformer(App):
     """
