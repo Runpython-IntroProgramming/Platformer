@@ -76,14 +76,15 @@ def closesty(listy, numclicky):
         for i in myestimationordered:
             if i<=0:
                 myestimationordered.remove(i)
-    #lowestpos = myestimationordered[0]
     lowestneg = myestneg[(len(myestneg)-1)]
     ln=lowestneg
-    #lp=lowestpos
-    #if abs(ln)<abs(lp):
-    final=ln
-    #elif abs(lp)<abs(ln):
-        #final=lp
+    if len(myestimationordered) >= 0:
+        lowestpos = myestimationordered[0]
+        lp=lowestpos
+    if abs(ln)<abs(lp):
+        final=ln
+    elif abs(lp)<abs(ln):
+        final=lp
     final = final + numclicky
     return(final)
     
