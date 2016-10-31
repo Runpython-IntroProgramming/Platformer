@@ -48,14 +48,14 @@ def closestx(listx, numclickx):
         for i in myestimationordered:
             if i<=0:
                 myestimationordered.remove(i)
-    lowestpos = myestimationordered[0]
+    #lowestpos = myestimationordered[0]
     lowestneg = myestneg[(len(myestneg)-1)]
     ln=lowestneg
-    lp=lowestpos
-    if abs(ln)<abs(lp):
-        final=ln
-    elif abs(lp)<abs(ln):
-        final=lp
+    #lp=lowestpos
+    #if abs(ln)<abs(lp):
+    final=ln
+    #elif abs(lp)<abs(ln):
+        #final=lp
     final = final + numclickx
     return(final)
 def closesty(listy, numclicky):
@@ -75,49 +75,29 @@ def closesty(listy, numclicky):
         for i in myestimationordered:
             if i<=0:
                 myestimationordered.remove(i)
-    lowestpos = myestimationordered[0]
+    #lowestpos = myestimationordered[0]
     lowestneg = myestneg[(len(myestneg)-1)]
     ln=lowestneg
-    lp=lowestpos
-    if abs(ln)<abs(lp):
-        final=ln
-    elif abs(lp)<abs(ln):
-        final=lp
+    #lp=lowestpos
+    #if abs(ln)<abs(lp):
+    final=ln
+    #elif abs(lp)<abs(ln):
+        #final=lp
     final = final + numclicky
     return(final)
     
 def mouseClick(event):
-    xcoord = closest(listx, event.x)
-    ycoord = closest(listy, event.y)
+    numclickx = event.x
+    numclicky = event.y
+    xcoord = closestx(listx, numclickx)
+    ycoord = closesty(listy, numclicky)
     Sprite (wallplace, (xcoord, ycoord))
-
-
-def reverse(b):
-    b.dir *= -1
-    pop.play()
-
-# Set up function for handling screen refresh
-def step():
-    if ball.go:
-        ball.x += ball.dir
-        if ball.x + ball.width > SCREEN_WIDTH or ball.x < 0:
-            ball.x -= ball.dir
-            reverse(ball)
-
-# Handle the space key
-def spaceKey(event):
-    ball.go = not ball.go
-
-# Handle the "reverse" key
-def reverseKey(event):
-    reverse(ball)
+    print (event.x)
+    print (event.y)
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
-# Set up event handlers for the app
-myapp.listenKeyEvent('keydown', 'space', spaceKey)
-myapp.listenKeyEvent('keydown', 'r', reverseKey)
 myapp.listenMouseEvent('click', mouseClick)
 
-myapp.run(step)
+myapp.run
 
 
