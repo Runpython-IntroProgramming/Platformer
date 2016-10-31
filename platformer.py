@@ -25,6 +25,7 @@ listx= list(range(64))
 for i in listx:
     i = i+1
     i = i*5
+    print (i)
 listy= list(range(48))
 for j in listy:
     j = j+1
@@ -94,6 +95,7 @@ def mouseClick(event):
     Sprite (wallplace, (xcoord, ycoord))
     print (event.x)
     print (event.y)
+    print (closestx(listx, event.x))
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.listenMouseEvent('click', mouseClick)
