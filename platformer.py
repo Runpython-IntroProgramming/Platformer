@@ -1,12 +1,12 @@
 """
 platformer.py
-Author: Andy KOtz
-Credit: milo, $MYMUM
+Author: Andy Kotz
+Credit: milo
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
 """
-"""
+
 from ggame import App, RectangleAsset, Sprite
 from ggame import LineStyle, Color
 
@@ -17,45 +17,16 @@ white = Color(0xFFFFFF, 1)
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480
 
-"""
-from ggame import App, RectangleAsset, ImageAsset, SoundAsset, Sprite, Sound
-from ggame import LineStyle, Color
-
-SCREEN_WIDTH = 640
-SCREEN_HEIGHT = 480
 
 listx= list(range(128))
 for i in listx:
     i = 5*i
+for i in listx:
+    print(i)
 listy= list(range(96))
 for j in listy:
     j = 5*j
 
-green = Color(0x00ff00, 1)
-black = Color(0, 1)
-noline = LineStyle(0, black)
-bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, green)
-bg = Sprite(bg_asset, (0,0))
-
-# Sounds
-pew1_asset = SoundAsset("sounds/pew1.mp3")
-pew1 = Sound(pew1_asset)
-pop_asset = SoundAsset("sounds/reappear.mp3")
-pop = Sound(pop_asset)
-# A ball! This is already in the ggame-tutorials repository
-ball_asset = ImageAsset("images/ball.png")
-ball = Sprite(ball_asset, (0, 0))
-# Original image is too big. Scale it to 1/10 its original size
-ball.scale = 0.1
-ball.y = 200
-# custom attributes
-ball.dir = 1
-ball.go = True
-# Sounds
-pew1_asset = SoundAsset("sounds/pew1.mp3")
-pew1 = Sound(pew1_asset)
-pop_asset = SoundAsset("sounds/reappear.mp3")
-pop = Sound(pop_asset)
 
 def closest(mylist, mynum):
     myestimation=[]
@@ -74,22 +45,19 @@ def closest(mylist, mynum):
         for i in myestimationordered:
             if i<=0:
                 myestimationordered.remove(i)
-    lowestpos = myestimaitonordered[0]
+    lowestpos = myestimationordered[0]
     lowestneg = myestneg[(len(myestneg)-1)]
+    ln=lowestneg
+    lp=lowestpos
+    if abs(ln)<abs(lp):
+        final=ln
+    elif abs(lp)<abs(ln):
+        final=lp
+    final = final + mynum
+    return(final)
     
     
 """
-    for i in range(10)
-        while myvar < len(myestimationordered)-1:
-            if myestimationordered[myvar] <= 0
-                if myestimationordered[myvar] > myestimationordered[myvar+1]:
-                    q = myestimationordered[myvar]
-                    myestimationordered[myvar] = myestimationordered[myvar+1]
-                    myestimationordered[myvar+1] = q
-                myvar +=1
-"""
-    
-
 def reverse(b):
     b.dir *= -1
     pop.play()
@@ -125,39 +93,4 @@ myapp.listenMouseEvent('click', mouseClick)
 
 myapp.run(step)
 
-
-"""
-  
-    mynum = int(input("Input "))
-    mylist = [10:0, 20:1, 30:2, 40:3, 50:4, 60:5]
-    
-    myestimation=[]
-    myestimationordered=[]
-    myvar=0
-    while myvar < len(mylist):
-        myestimation.append(mylist[myvar]-mynum)
-        myvar+=1
-    myvar=0
-    myestimationordered = myestimation
-    myestneg=[]
-    for i in myestimationordered:
-        if i<=0:
-            myestneg.append(i)
-    for j in range(10):
-        for i in myestimationordered:
-            if i<=0:
-                myestimationordered.remove(i)
-    lowestpos = myestimationordered[0]
-    lowestneg = myestneg[(len(myestneg)-1)]
-    print (lowestneg)
-    print (lowestpos)
-    ln=lowestneg
-    lp=lowestpos
-    if abs(ln)<abs(lp):
-        final=ln
-    elif abs(lp)<abs(ln):
-        final=lp
-    print(final)
-    final = final + mynum
-    print(final)
 
