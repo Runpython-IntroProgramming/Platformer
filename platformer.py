@@ -9,7 +9,8 @@ https://github.com/HHS-IntroProgramming/Platformer
 from ggame import App, RectangleAsset, ImageAsset, Sprite, LineStyle, Color, Frame
 
 SCREEN_WIDTH = 640
-SCREEN_HEIGHT = 480
+SCREEN_HEIGHT = 640
+
 # THIS IS BOXY
 class Boxy(Sprite):
     Black=Color(0,1)
@@ -23,11 +24,15 @@ class Boxy(Sprite):
         self.vy = 0
         self.vr = 0
         self.fxcenter = self.fycenter = 0.25
-        Platformer.listenKeyEvent("keydown", "d", self.MoveRIGHT)
-        Platformer.listenKeyEvent("keyup", "d", self.MoveOff)
-        Platformer.listenKeyEvent("keydown", "a", self.MoveLEFT)
-        Platformer.listenKeyEvent("keyup", "a", self.MoveOff)
-      
+        Platformer.listenKeyEvent("keydown", "right arrow", self.MoveRIGHT)
+        Platformer.listenKeyEvent("keyup", "right arrow", self.MoveOff)
+        Platformer.listenKeyEvent("keydown", "left arrow", self.MoveLEFT)
+        Platformer.listenKeyEvent("keyup", "left arrow", self.MoveOff)
+        Platformer.listenKeyEvent("keydown", "up arrow", self.JumpOn)
+        Platformer.listenKeyEvent("keyup", "up arrow", self.JumpOff)
+        Platformer.listenKeyEvent("keydown", "down arrow", self.DownOn)
+        Platformer.listenKeyEvent("keyup", "down arrow", self.JumpOff)
+
     def step(self):
         self.x += self.vx
         self.y += self.vy
@@ -40,6 +45,15 @@ class Boxy(Sprite):
         
     def MoveOff(self, event):
         self.vx = 0
+    
+    def JumpOn(self, event):
+        self.vy = -5
+    
+    def JumpOff(self, event):
+        self. vy = 0
+        
+    def DownOn(self, event):
+        self.vy = 5
         
         # MAKE A WALL
 class Wall(Sprite):
@@ -54,10 +68,7 @@ class Wall(Sprite):
         self.vr = 0
         self.fxcenter = self.fycenter = 0
 
-            
-
-       
-    #THIS IS BOXY'S WORLD
+        #THIS IS BOXY'S WORLD
 class Platformer(App):
     
     def __init__(self, width, height):
@@ -74,7 +85,7 @@ class Platformer(App):
         Boxy((100, 100))
         self.x= 0
         self.y = 0
-    
+        
     def step(self):
         for ship in self.getSpritesbyClass(Boxy):
             ship.step()
@@ -89,3 +100,4 @@ class Platformer(App):
     
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
+
