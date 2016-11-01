@@ -37,20 +37,11 @@ dudesprite = None
 wallsprite = None
 
    
-
 for x in width:
     for y in height:
         Sprite(grid, (20*x,20*y))
 
-def drag(event):
-    global mousepositionx
-    global mousepositiony
-    global a
-    global b
-    a=event.x
-    b=event.y
-    mousepositionx=(event.x - event.x%20)
-    mousepositiony=(event.y- event.y%20)
+
 
 class Dude(Sprite):
     dude = RectangleAsset(10,20,greenline,green)
@@ -58,6 +49,14 @@ class Dude(Sprite):
         super().__init__(Dude.dude, (a, b))
         self.x = a
         self.y = b
+    
+    def step(self):
+        self.gravity += 0.3
+        self.y += self.gravity
+        dudecollisions = self.collidingWithSprites(Wall)
+        if dudecollisions:
+            self.y -= self.gravity
+            self.gravity = 0
         
 class Wall(Sprite):
     wall = RectangleAsset(20,20,gridline,black)
@@ -66,53 +65,81 @@ class Wall(Sprite):
         self.x = a
         self.y = b
 
-def classwall(event):
-    gravity=0
-    global a, b, wallsprite
-    wallsprite = Wall(a-a%20, b-b%20)
 
-def classdude(event):
-    gravity = 0
-    global a, b, dudesprite
-    dudesprite = Dude(a, b)
+
+gravity=0
 
 
 
 
-def Right(event):
-    c=0
-    while c != 5:
-        if dudesprite:
-            dudesprite.x += 1
-            bump = dudesprite.collidingWithSprites(Wall)
-            if bump:
-                dudesprite.x -= 1
-        c = c + 1
+
+
+class Game(App):
+    def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
+        
+        super().__init__()
+        a = 0
+        b = 0
+        self.dudesprite = None
+        self.listenKeyEvent('keydown', 'w', classwall)
+        self.listenMouseEvent('mousemove', drag)
+        self.listenKeyEvent('keydown', 'p', classdude)
+        self.listenKeyEvent('keydown', 'right arrow', Right)
+        self.listenKeyEvent('keydown', 'left arrow', Left)
+        self.listenKeyEvent('keydown', 'up arrow', Jump)
+    
+    def drag(self, event):
+        global mousepositionx
+        global mousepositiony
+        global a
+        global b
+        a=event.x
+        b=event.y
+        mousepositionx=(event.x - event.x%20)
+        mousepositiony=(event.y- event.y%20)
+
+    def classwall(self, event):
+        gravity=0
+        global a, b, wallsprite
+        wallsprite = Wall(a-a%20, b-b%20)
+
+    def classdude(self,event):
+        gravity = 0
+        global a, b, dudesprite
+        dudesprite = Dude(a, b)
+ 
+    def step(self):
+        global gravity
+        if self.dudesprite:
+            gravity += 0.3
+            self.dudesprite.y += gravity
+            collisions = self.dudesprite.collidingWithSprites(Wall)
+            if collisions:
+                self.dogsprite.y -= gravity
+                gravity = 0
+                
+    def Right(self,event):
+        c=0
+        while c != 5:
+            if dudesprite:
+                dudesprite.x += 1
+                bump = dudesprite.collidingWithSprites(Wall)
+                if bump:
+                    dudesprite.x -= 1
+            c = c + 1
     
 
                 
-def Left(event):
-    if dudesprite:
-        dudesprite.x -= 5
-        bump = dudesprite.collidingWithSprites(Wall)
-        if bump:
-            dudesprite.x += 5
+    def Left(self,event):
+        if dudesprite:
+            dudesprite.x -= 5
+            bump = dudesprite.collidingWithSprites(Wall)
+            if bump:
+                dudesprite.x += 5
        
-def Jump(event):
-    global gravity
-    if dudesprite:
-        gravity = -5
-
-
-
-
-myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
-myapp.listenKeyEvent('keydown', 'w', classwall)
-myapp.listenMouseEvent('mousemove', drag)
-myapp.listenKeyEvent('keydown', 'p', classdude)
-
-myapp.listenKeyEvent('keydown', 'right arrow', Right)
-myapp.listenKeyEvent('keydown', 'left arrow', Left)
-myapp.listenKeyEvent('keydown', 'up arrow', Jump)
-
+    def Jump(event):
+        global gravity
+        if dudesprite:
+            gravity = -5
+myapp = Game(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
