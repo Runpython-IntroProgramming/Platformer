@@ -36,6 +36,7 @@ class Boxy(Sprite):
     def step(self):
         self.x += self.vx
         self.y += self.vy
+        self.collideWithSprites(Wall)
         
     def MoveRIGHT(self, event):
         self.vx = 5
@@ -54,6 +55,8 @@ class Boxy(Sprite):
         
     def DownOn(self, event):
         self.vy = 5
+    
+
         
         # MAKE A WALL
 class Wall(Sprite):
@@ -81,14 +84,16 @@ class Platformer(App):
         bg_asset=RectangleAsset(width, height, noline, black)
         Platformer.listenKeyEvent("keydown", "w", self.Wall)
         Platformer.listenMouseEvent("mousemove" , self.mousemove)
+        Platformer.listenKeyEvent("keydown", "p", self.Box)
         bg=Sprite(bg_asset, (0, 0))
-        Boxy((100, 100))
         self.x= 0
         self.y = 0
-        
+        self.YourMom = False
+    
     def step(self):
         for ship in self.getSpritesbyClass(Boxy):
             ship.step()
+        
     
     def mousemove(self, event):
         self.x = event.x
@@ -96,6 +101,13 @@ class Platformer(App):
         
     def Wall(self, event):
         Wall((self.x, self.y))
+    
+   
+    def Box(self, event):
+        if self.YourMom == False:
+            Boxy((self.x, self.y))
+            self.YourMom = True
+    
        
     
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
