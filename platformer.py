@@ -25,7 +25,6 @@ listx= list(range(64))
 for i in listx:
     i = i+1
     i = i*5
-    print (i)
 listy= list(range(48))
 for j in listy:
     j = j+1
@@ -113,4 +112,43 @@ myapp.listenMouseEvent('click', mouseClick)
 
 myapp.run
 
+
+numclicky = int(input("input"))
+listys= list(range(1,49))
+listy=[]
+for j in listys:
+    x = j*5
+    listy.append(x)
+
+myestimation=[]
+myestimationordered=[]
+myvar=0
+while myvar < len(listy):
+    myestimation.append(listy[myvar]-numclicky)
+    myvar+=1
+myvar=0
+myestimationordered = myestimation
+myestneg=[]
+for i in myestimationordered:
+    if i<=0:
+        myestneg.append(i)
+for j in range(10):
+    for i in myestimationordered:
+        if i<=0:
+            myestimationordered.remove(i)
+if len(myestimationordered) > 0 and len(myestneg) > 0:
+    lp = myestimationordered[0]
+    ln = myestneg[len(myestneg)-1]
+    if abs(ln)<abs(lp):
+        final=ln
+    elif abs(lp)<abs(ln):
+        final=lp    
+elif len(myestimationordered) > 0:
+    lowestpos = myestimationordered[0]
+    final=lowestpos
+elif len(myestneg) >0:
+    lowestneg = myestneg[(len(myestneg)-1)]
+    final=lowestneg
+final = final + numclicky
+print (final)
 
