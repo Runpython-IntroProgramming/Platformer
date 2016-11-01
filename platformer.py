@@ -44,6 +44,7 @@ class Boxy(Sprite):
         super().__init__(Boxy.asset, position)
         self.vx = 0
         self.vy = 0
+        self.bricks = self.collidingWithSprites(Wall)
         self.fxcenter = self.fycenter = 0.25
         Platformer.listenKeyEvent("keydown", "right arrow", self.moveright)
         Platformer.listenKeyEvent("keyup", "right arrow", self.moveoff)
@@ -57,6 +58,9 @@ class Boxy(Sprite):
     def step(self):
         self.x += self.vx
         self.y += self.vy
+        bricks =self.collidingWithSprites(Wall)
+        if len(bricks) != 0:
+            self.vx = self.vy = 0
     
     def moveoff(self,event):
         self.vx = self.vy = 0
@@ -67,14 +71,8 @@ class Boxy(Sprite):
     def moveup(self,event):
         self.vy = -2.5
     def movedown(self,event):
+        self.bricks == 0
         self.vy = 2.5
-    def collidingWithSprites(self, sclass=None):
-        self.vx = 0
-        self.vy = 0
-    def collidingWith(self, obj):
-        self.vx = 0
-        self.vy = 0
-        
 class Platformer(App):
     """
     THIS IS BOXY'S WORLD
@@ -88,9 +86,10 @@ class Platformer(App):
         Noline = LineStyle(0, Black)
         bg_asset = RectangleAsset(width, height, noline, black)
         Platformer.listenKeyEvent("keydown", "w", self.Wall)
+        Platformer.listenKeyEvent("keydown", "p", self.Boxy)
         Platformer.listenMouseEvent('mousemove', self.mousemove)
+        self.Robbie = False
         bg = Sprite(bg_asset, (0,0))
-        Boxy((1,1))
         self.x = 0
         self.y = 0
         
@@ -100,8 +99,14 @@ class Platformer(App):
     def mousemove(self, event):
         self.x = event.x
         self.y = event.y 
+        
     def Wall(self, event):
         Wall((self.x, self.y))
+    def Boxy(self, event):
+        if self.Robbie == False:
+            Boxy((self.x, self.y))
+            self.Robbie = True
+    
         
 
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
