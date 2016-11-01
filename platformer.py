@@ -49,14 +49,19 @@ def closestx(listx, numclickx):
         for i in myestimationordered:
             if i<=0:
                 myestimationordered.remove(i)
-    #lowestpos = myestimationordered[0]
-    lowestneg = myestneg[(len(myestneg)-1)]
-    ln=lowestneg
-    #lp=lowestpos
-    #if abs(ln)<abs(lp):
-    final=ln
-    #elif abs(lp)<abs(ln):
-        #final=lp
+    if len(myestimationordered) >= 0 and len(myestneg) >= 0:
+        lp = myestimationordered[0]
+        ln = myestneg[len(myestneg)-1]
+        if abs(ln)<abs(lp):
+            final=ln
+        elif abs(lp)<abs(ln):
+            final=lp    
+    elif len(myestimationordered) >= 0:
+        lowestpos = myestimationordered[0]
+        final=lowestpos
+    elif len(myestneg) >=0:
+        lowestneg = myestneg[(len(myestneg)-1)]
+        final=lowestneg
     final = final + numclickx
     return(final)
 def closesty(listy, numclicky):
@@ -101,6 +106,7 @@ def mouseClick(event):
     print (event.x)
     print (event.y)
     print (closestx(listx, event.x))
+    print (closesty(listy, event.y))
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.listenMouseEvent('click', mouseClick)
