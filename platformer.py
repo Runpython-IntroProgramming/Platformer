@@ -23,6 +23,7 @@ class Boxy(Sprite):
         self.vx = 0
         self.vy = 0
         self.vr = 0
+        self.a = 0
         self.fxcenter = self.fycenter = 0.25
         Platformer.listenKeyEvent("keydown", "right arrow", self.MoveRIGHT)
         Platformer.listenKeyEvent("keyup", "right arrow", self.MoveOff)
@@ -36,10 +37,15 @@ class Boxy(Sprite):
     def step(self):
         self.x += self.vx
         self.y += self.vy
-        self.collideWithSprites(Wall)
+        self.a = self.collidingWithSprites(Wall)
+        if len(a) != 0:
+            self.vx = 0
+            self.vy = 0
+        
         
     def MoveRIGHT(self, event):
-        self.vx = 5
+        if self.a == 0:
+            self.vx = 5
     
     def MoveLEFT(self, event):
         self.vx = -5
@@ -55,9 +61,9 @@ class Boxy(Sprite):
         
     def DownOn(self, event):
         self.vy = 5
-    
-
         
+    
+     
         # MAKE A WALL
 class Wall(Sprite):
     Black = Color(0,1)
