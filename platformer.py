@@ -46,6 +46,7 @@ class Boxy(Sprite):
         self.vy = 0
         self.bricks = self.collidingWithSprites(Wall)
         self.fxcenter = self.fycenter = 0.25
+        self.Matty = True
         Platformer.listenKeyEvent("keydown", "right arrow", self.moveright)
         Platformer.listenKeyEvent("keyup", "right arrow", self.moveoff)
         Platformer.listenKeyEvent("keydown", "left arrow", self.moveleft)
@@ -60,19 +61,35 @@ class Boxy(Sprite):
         self.y += self.vy
         bricks =self.collidingWithSprites(Wall)
         if len(bricks) != 0:
+            self.x -= self.vx
+            self.y -= self.vy
             self.vx = self.vy = 0
+            self.Matty = False
+        else:
+            self.Matty = True
     
     def moveoff(self,event):
         self.vx = self.vy = 0
     def moveright(self, event):
-        self.vx = 2.5 
+        if self.Matty == True:
+            self.vx = 2.5
+        else:
+            self.vx = 0
     def moveleft(self,event):
-        self.vx = -2.5
+        if self.Matty == True:
+            self.vx = -2.5
+        else:
+            self.vx = 0
     def moveup(self,event):
-        self.vy = -2.5
+        if self.Matty == True:
+            self.vy = -2.5
+        else:
+            self.vy = 0
     def movedown(self,event):
-        self.bricks == 0
-        self.vy = 2.5
+        if self.Matty == True:
+            self.vy = 2.5
+        else:
+            self.vy = 0
 class Platformer(App):
     """
     THIS IS BOXY'S WORLD
@@ -101,6 +118,10 @@ class Platformer(App):
         self.y = event.y 
         
     def Wall(self, event):
+        self.x = round(self.x/25)
+        self.y = round(self.y/25)
+        self.x = self.x*25
+        self.y = self.y*25
         Wall((self.x, self.y))
     def Boxy(self, event):
         if self.Robbie == False:
