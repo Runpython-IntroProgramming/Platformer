@@ -23,8 +23,9 @@ class Boxy(Sprite):
         self.vx = 0
         self.vy = 0
         self.vr = 0
-        self.a = 0
+        self.a = self.collidingWithSprites(Wall)
         self.fxcenter = self.fycenter = 0.25
+        self.YourDad = True
         Platformer.listenKeyEvent("keydown", "right arrow", self.MoveRIGHT)
         Platformer.listenKeyEvent("keyup", "right arrow", self.MoveOff)
         Platformer.listenKeyEvent("keydown", "left arrow", self.MoveLEFT)
@@ -38,29 +39,51 @@ class Boxy(Sprite):
         self.x += self.vx
         self.y += self.vy
         self.a = self.collidingWithSprites(Wall)
-        if len(a) != 0:
+        if len(self.a) != 0:
+            self.x -= self.vx
+            self.y -= self.vy
             self.vx = 0
             self.vy = 0
+            self.YourDad = True
         
         
     def MoveRIGHT(self, event):
-        if self.a == 0:
+        if len(self.a) == 0:
+            self.YourDad = False
+        if self.YourDad == False:
             self.vx = 5
+        elif self.YourDad == True:
+            self.vx = 0
     
     def MoveLEFT(self, event):
-        self.vx = -5
+        if len(self.a) == 0:
+            self.YourDad = False
+        if self.YourDad == False:
+            self.vx = -5
+        elif self.YourDad == True:
+            self.vx = 0
         
     def MoveOff(self, event):
         self.vx = 0
     
     def JumpOn(self, event):
-        self.vy = -5
+        if len(self.a) == 0:
+            self.YourDad = False
+        if self.YourDad == False:
+            self.vy = -5
+        elif self.YourDad == True:
+            self.vy = 0
     
     def JumpOff(self, event):
         self. vy = 0
         
     def DownOn(self, event):
-        self.vy = 5
+        if len(self.a) == 0:
+            self.YourDad = False
+        if self.YourDad == False:
+            self.vy = 5
+        elif self.YourDad == True:
+            self.vy = 0
         
     
      
@@ -106,7 +129,12 @@ class Platformer(App):
         self.y = event.y
         
     def Wall(self, event):
-        Wall((self.x, self.y))
+        a = round(self.x/ 25)
+        b = round(self.y / 25)
+      
+        e = a * 25
+        f = b * 25
+        Wall((e, f))
     
    
     def Box(self, event):
