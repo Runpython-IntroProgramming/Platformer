@@ -17,16 +17,16 @@ white = Color(0xFFFFFF, 1.0)
 thinline = LineStyle(1, black)
 wallplace = RectangleAsset(25, 25, thinline, black)
 
-SCREEN_WIDTH = 320
-SCREEN_HEIGHT = 240
+SCREEN_WIDTH = 640
+SCREEN_HEIGHT = 480
 
 
-listxs= list(range(1, 65))
+listxs= list(range(1, 129))
 listx = []
 for i in listxs:
     x = i*25
     listx.append(x)
-listys= list(range(1, 49))
+listys= list(range(1, 97))
 listy = []
 for j in listys:
     y = 25*j
@@ -101,8 +101,8 @@ def closesty(listx, numclicky):
     
     
 def mouseClick(event):
-    numclickx = event.x
-    numclicky = event.y
+    numclickx = event.x-15
+    numclicky = event.y-15
     xcoord = closestx(listx, numclickx)
     ycoord = closesty(listy, numclicky)
     Sprite (wallplace, (xcoord, ycoord))
