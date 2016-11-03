@@ -1,7 +1,7 @@
 """
 platformer.py
 Author: Andy Kotz
-Credit: milo
+Credit: milo, kezar
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
@@ -17,8 +17,8 @@ white = Color(0xFFFFFF, 1.0)
 thinline = LineStyle(1, black)
 wallplace = RectangleAsset(25, 25, thinline, black)
 
-SCREEN_WIDTH = 640
-SCREEN_HEIGHT = 480
+SCREEN_WIDTH = 1300
+SCREEN_HEIGHT = 975
 
 
 listxs= list(range(1, 129))
