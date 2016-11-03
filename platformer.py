@@ -10,15 +10,29 @@ https://github.com/HHS-IntroProgramming/Platformer
 from ggame import App, RectangleAsset, Sprite
 from ggame import LineStyle, Color
 
+SCREEN_WIDTH = 1750
+SCREEN_HEIGHT = 980
+
 black = Color(0x000000, 1.0)
 green = Color(0x00ff00, 1.0)
 white = Color(0xFFFFFF, 1.0)
 
 thinline = LineStyle(1, black)
-wallplace = RectangleAsset(25, 25, thinline, black)
+noline = lineStyle(0, green)
+wallplace = RectangleAsset(35, 35, thinline, black)
+bungo = RectangleAsset(17, 35, noline, green)
 
-SCREEN_WIDTH = 1300
-SCREEN_HEIGHT = 975
+#select mode
+for i in range(1):    
+    mode = "w"
+    def wallPlaceMode(event):
+        mode = "w"
+    def bungoMode(event):
+        mode = "b"
+    def thraxonMode(event):
+        mode = "t"
+    def jumpyMode(event):
+        mode = "j"
 
 #place wall sprites & snap to grid
 for j in range(1):
@@ -27,12 +41,12 @@ for j in range(1):
         listxs= list(range(1, 129))
         listx = []
         for i in listxs:
-            x = i*25
+            x = i*35
             listx.append(x)
         listys= list(range(1, 97))
         listy = []
         for j in listys:
-            y = 25*j
+            y = 35*j
             listy.append(y)
 
     #make closest functions
@@ -105,8 +119,8 @@ for j in range(1):
     
     #make wall sprites   
     def mouseClick(event):
-        numclickx = event.x-15
-        numclicky = event.y-15
+        numclickx = event.x-25
+        numclicky = event.y-25
         xcoord = closestx(listx, numclickx)
         ycoord = closesty(listy, numclicky)
         Sprite (wallplace, (xcoord, ycoord))
@@ -115,7 +129,17 @@ for j in range(1):
         print (closestx(listx, event.x))
         print (closesty(listy, event.y))
 
+#place bungo
+for i in range(1):
+    if 
+
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.listenMouseEvent('click', mouseClick)
+myapp.listenKeyEvent('keydown', 'r', wallPlaceMode)
+myapp.listenKeyEvent('keydown', 'b', bungoMode)
+myapp.listenKeyEvent('keydown', 't', thraxonMode)
+myapp.listenKeyEvent('keydown', 'j', jumpyMode)
+myapp.listenKeyEvent('keydown', 'm', maloogMode)
+
 
 myapp.run()
