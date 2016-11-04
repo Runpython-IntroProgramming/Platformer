@@ -21,7 +21,7 @@ class Boxy(Sprite):
     def __init__(self, position):
         super().__init__(Boxy.asset, position)
         self.vx = 0
-        self.vy = 0
+        self.vy = 5
         self.vr = 0
         self.a = self.collidingWithSprites(Wall)
         self.fxcenter = self.fycenter = 0.25
@@ -32,8 +32,7 @@ class Boxy(Sprite):
         Platformer.listenKeyEvent("keyup", "left arrow", self.MoveOff)
         Platformer.listenKeyEvent("keydown", "up arrow", self.JumpOn)
         Platformer.listenKeyEvent("keyup", "up arrow", self.JumpOff)
-        Platformer.listenKeyEvent("keydown", "down arrow", self.DownOn)
-        Platformer.listenKeyEvent("keyup", "down arrow", self.JumpOff)
+
 
     def step(self):
         self.x += self.vx
@@ -54,6 +53,7 @@ class Boxy(Sprite):
             self.vx = 5
         elif self.YourDad == True:
             self.vx = 0
+          
     
     def MoveLEFT(self, event):
         if len(self.a) == 0:
@@ -75,15 +75,9 @@ class Boxy(Sprite):
             self.vy = 0
     
     def JumpOff(self, event):
-        self. vy = 0
+        self. vy = 5
         
-    def DownOn(self, event):
-        if len(self.a) == 0:
-            self.YourDad = False
-        if self.YourDad == False:
-            self.vy = 5
-        elif self.YourDad == True:
-            self.vy = 0
+  
         
     
      
