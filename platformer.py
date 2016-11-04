@@ -43,7 +43,7 @@ class Boxy(Sprite):
     def __init__(self, position):
         super().__init__(Boxy.asset, position)
         self.vx = 0
-        self.vy = 0
+        self.vy = 5
         self.bricks = self.collidingWithSprites(Wall)
         self.fxcenter = self.fycenter = 0.25
         self.Matty = True
@@ -55,6 +55,9 @@ class Boxy(Sprite):
         Platformer.listenKeyEvent("keyup", "up arrow", self.moveoff)
         Platformer.listenKeyEvent("keydown", "down arrow", self.movedown)
         Platformer.listenKeyEvent("keyup", "down arrow", self.moveoff)        
+        Platformer.listenKeyEvent("keydown", "right arrow", self.Falling)
+        Platformer.listenKeyEvent("keydown", "left arrow", self.Falling)
+        
         
     def step(self):
         self.x += self.vx
@@ -68,28 +71,43 @@ class Boxy(Sprite):
         else:
             self.Matty = True
     
+    def Falling(self,event):
+        if self.Matty == True:
+            self.vy = 5
+    
     def moveoff(self,event):
-        self.vx = self.vy = 0
+        self.vx = 0
+        self.vy = 5
     def moveright(self, event):
+        if len(self.bricks) == 0:
+            self.Matty = True
         if self.Matty == True:
-            self.vx = 2.5
+            self.vx = 5
         else:
             self.vx = 0
+            self.vy = 5
     def moveleft(self,event):
+        if len(self.bricks) == 0:
+            self.Matty = True
         if self.Matty == True:
-            self.vx = -2.5
+            self.vx = -5
         else:
             self.vx = 0
+            self.vy = 5
     def moveup(self,event):
+        if len(self.bricks) == 0:
+            self.Matty = True
         if self.Matty == True:
-            self.vy = -2.5
+            self.vy = -5
         else:
-            self.vy = 0
+            self.vy = 5
     def movedown(self,event):
+        if len(self.bricks) == 0:
+            self.Matty = True
         if self.Matty == True:
-            self.vy = 2.5
+            self.vy = 5
         else:
-            self.vy = 0
+            self.vy = 5
 class Platformer(App):
     """
     THIS IS BOXY'S WORLD
