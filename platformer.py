@@ -22,22 +22,23 @@ noline = LineStyle(0, green)
 wallplace = RectangleAsset(35, 35, thinline, black)
 bungo = RectangleAsset(17, 35, noline, green)
 
+
 #select mode
 for i in range(1):    
     mode = "w"
-    def wallPlaceMode(event):
+    def wallPlaceKey(event):
         mode = "w"
-    def bungoMode(event):
+    def bungoKey(event):
         mode = "b"
-    def thraxonMode(event):
-        mode = "t"
-    def jumpyMode(event):
+    def shooterKey(event):
+        mode = "s"
+    def jumpyKey(event):
         mode = "j"
-    def maloogMode(event):
-        mode = "m"
-    def platformMode(event):
+    def killerKey(event):
+        mode = "k"
+    def platformKey(event):
         mode = "p"
-    def runGameMode(event):
+    def runGameKey(event):
         mode = "r"
 
 #place wall sprites & snap to grid
@@ -139,16 +140,19 @@ if mode == "b" and bungothere == "False":
         numclicky = event.y-25
         Sprite (bungo, (numclickx, numclicky))
         bungothere = "True"
-
+print("g")
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
+print("g")
 myapp.listenMouseEvent('click', mouseClick)
+print("g")
 myapp.listenKeyEvent('keydown', 'w', wallPlaceMode)
-myapp.listenKeyEvent('keydown', 'b', bungoMode)
-myapp.listenKeyEvent('keydown', 't', thraxonMode)
-myapp.listenKeyEvent('keydown', 'j', jumpyMode)
-myapp.listenKeyEvent('keydown', 'm', maloogMode)
-myapp.listenKeyEvent('keydown', 'p', platformMode)
-myapp.listenKeyEvent('keydown', 'r', runGameMode)
+print("g")
+myapp.listenKeyEvent('keydown', 'b', bungoKey)
+myapp.listenKeyEvent('keydown', 's', shooterKey)
+myapp.listenKeyEvent('keydown', 'j', jumpyKey)
+myapp.listenKeyEvent('keydown', 'k', killerKey)
+myapp.listenKeyEvent('keydown', 'p', platformKey)
+myapp.listenKeyEvent('keydown', 'r', runGameKey)
 
 
 myapp.run()
