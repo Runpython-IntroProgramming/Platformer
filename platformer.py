@@ -141,11 +141,12 @@ myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.listenMouseEvent('click', mouseClick)
 myapp.listenKeyEvent('keydown', 'w', wallPlaceKey)
 myapp.listenKeyEvent('keydown', 'b', bungoKey)
-myapp.listenKeyEvent('keydown', 's', shooterKey)
 myapp.listenKeyEvent('keydown', 'j', jumpyKey)
+"""
+myapp.listenKeyEvent('keydown', 's', shooterKey)
 myapp.listenKeyEvent('keydown', 'k', killerKey)
 myapp.listenKeyEvent('keydown', 'p', platformKey)
 myapp.listenKeyEvent('keydown', 'r', runGameKey)
-
+"""
 
 myapp.run()
