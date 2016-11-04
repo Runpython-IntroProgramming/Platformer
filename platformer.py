@@ -41,7 +41,7 @@ for i in range(1):
     def runGameKey(event):
         mode = "r"
 
-#place wall sprites & snap to grid
+#place sprites & snap to grid
 if mode == "r":
     #make lists
     for i in range(1):
@@ -124,22 +124,19 @@ if mode == "r":
         return (final)
         print(final)
     
-    #make wall sprites   
-    def mouseClick(event):
-        numclickx = event.x-25
-        numclicky = event.y-25
+    #make all sprites   
+def mouseClick(event):
+    numclickx = event.x-25
+    numclicky = event.y-25
+    if mode == "b" and bungothere == "false":
+        Sprite (bungo, (numclickx, numclicky))
+        bungothere = "True"
+    if mode == "w":
         xcoord = closestx(listx, numclickx)
         ycoord = closesty(listy, numclicky)
         Sprite (wallplace, (xcoord, ycoord))
 
-#place bungo
-bungothere = "False"
-if mode == "b" and bungothere == "False":
-    def mouseClick(event):
-        numclickx = event.x-25
-        numclicky = event.y-25
-        Sprite (bungo, (numclickx, numclicky))
-        bungothere = "True"
+
 print("g")
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 print("g")
