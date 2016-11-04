@@ -42,7 +42,7 @@ for i in range(1):
         mode = "r"
 
 #place sprites & snap to grid
-if mode == "r":
+if mode == "w":
     #make lists
     for i in range(1):
         listxs= list(range(1, 129))
@@ -137,13 +137,9 @@ def mouseClick(event):
         Sprite (wallplace, (xcoord, ycoord))
 
 
-print("g")
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
-print("g")
 myapp.listenMouseEvent('click', mouseClick)
-print("g")
 myapp.listenKeyEvent('keydown', 'w', wallPlaceKey)
-print("g")
 myapp.listenKeyEvent('keydown', 'b', bungoKey)
 myapp.listenKeyEvent('keydown', 's', shooterKey)
 myapp.listenKeyEvent('keydown', 'j', jumpyKey)
