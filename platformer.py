@@ -27,19 +27,28 @@ bungo = RectangleAsset(17, 35, noline, green)
 for i in range(1):    
     mode = "w"
     def wallPlaceKey(event):
+        global mode
         mode = "w"
     def bungoKey(event):
+        global mode
         mode = "b"
-    def shooterKey(event):
-        mode = "s"
     def jumpyKey(event):
+        global mode
         mode = "j"
+"""
+    def shooterKey(event):
+        global mode
+        mode = "s"
     def killerKey(event):
+        global mode
         mode = "k"
     def platformKey(event):
+        global mode
         mode = "p"
     def runGameKey(event):
+        global mode
         mode = "r"
+"""
 
 #place sprites & snap to grid
 if mode == "w":
@@ -124,13 +133,15 @@ if mode == "w":
         return (final)
         print(final)
     
-#make all sprites   
+#make all sprites
+bungothere = 'false'
 def mouseClick(event):
+    global bungothere
     numclickx = event.x-25
     numclicky = event.y-25
     if mode == "b" and bungothere == "false":
         Sprite (bungo, (numclickx, numclicky))
-        bungothere = "True"
+        bungothere = "true"
     if mode == "w":
         xcoord = closestx(listx, numclickx)
         ycoord = closesty(listy, numclicky)
