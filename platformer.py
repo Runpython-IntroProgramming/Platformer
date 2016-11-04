@@ -18,7 +18,7 @@ green = Color(0x00ff00, 1.0)
 white = Color(0xFFFFFF, 1.0)
 
 thinline = LineStyle(1, black)
-noline = lineStyle(0, green)
+noline = LineStyle(0, green)
 wallplace = RectangleAsset(35, 35, thinline, black)
 bungo = RectangleAsset(17, 35, noline, green)
 
