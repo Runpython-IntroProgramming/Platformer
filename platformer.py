@@ -124,7 +124,7 @@ if mode == "r":
         return (final)
         print(final)
     
-    #make all sprites   
+#make all sprites   
 def mouseClick(event):
     numclickx = event.x-25
     numclicky = event.y-25
@@ -142,7 +142,7 @@ myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 print("g")
 myapp.listenMouseEvent('click', mouseClick)
 print("g")
-myapp.listenKeyEvent('keydown', 'w', wallPlaceMode)
+myapp.listenKeyEvent('keydown', 'w', wallPlaceKey)
 print("g")
 myapp.listenKeyEvent('keydown', 'b', bungoKey)
 myapp.listenKeyEvent('keydown', 's', shooterKey)
