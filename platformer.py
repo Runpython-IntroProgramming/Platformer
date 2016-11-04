@@ -32,7 +32,8 @@ class Boxy(Sprite):
         Platformer.listenKeyEvent("keyup", "left arrow", self.MoveOff)
         Platformer.listenKeyEvent("keydown", "up arrow", self.JumpOn)
         Platformer.listenKeyEvent("keyup", "up arrow", self.JumpOff)
-
+        Platformer.listenKeyEvent("keydown", "right arrow", self.falling)
+        Platformer.listenKeyEvent("keydown", "left arrow", self.falling)
 
     def step(self):
         self.x += self.vx
@@ -44,7 +45,10 @@ class Boxy(Sprite):
             self.vx = 0
             self.vy = 0
             self.YourDad = True
-        
+    
+    def falling(self, event):
+        if self.YourDad == False:
+            self.vy = 5
         
     def MoveRIGHT(self, event):
         if len(self.a) == 0:
@@ -53,6 +57,7 @@ class Boxy(Sprite):
             self.vx = 5
         elif self.YourDad == True:
             self.vx = 0
+            self.vy = 5
           
     
     def MoveLEFT(self, event):
@@ -62,6 +67,7 @@ class Boxy(Sprite):
             self.vx = -5
         elif self.YourDad == True:
             self.vx = 0
+            self.vy = 5
         
     def MoveOff(self, event):
         self.vx = 0
@@ -77,6 +83,7 @@ class Boxy(Sprite):
     def JumpOff(self, event):
         self. vy = 5
         
+    
   
         
     
