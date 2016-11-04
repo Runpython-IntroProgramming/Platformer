@@ -33,9 +33,15 @@ for i in range(1):
         mode = "t"
     def jumpyMode(event):
         mode = "j"
+    def maloogMode(event):
+        mode = "m"
+    def platformMode(event):
+        mode = "p"
+    def runGameMode(event):
+        mode = "r"
 
 #place wall sprites & snap to grid
-for j in range(1):
+if mode == "r":
     #make lists
     for i in range(1):
         listxs= list(range(1, 129))
@@ -124,22 +130,25 @@ for j in range(1):
         xcoord = closestx(listx, numclickx)
         ycoord = closesty(listy, numclicky)
         Sprite (wallplace, (xcoord, ycoord))
-        print (str(event.x) + " = mouseclickX")
-        print (str(event.y) + " = mouseclickY")
-        print (closestx(listx, event.x))
-        print (closesty(listy, event.y))
 
 #place bungo
-for i in range(1):
-    if 
+bungothere = "False"
+if mode == "b" and bungothere == "False":
+    def mouseClick(event):
+        numclickx = event.x-25
+        numclicky = event.y-25
+        Sprite (bungo, (numclickx, numclicky))
+        bungothere = "True"
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.listenMouseEvent('click', mouseClick)
-myapp.listenKeyEvent('keydown', 'r', wallPlaceMode)
+myapp.listenKeyEvent('keydown', 'w', wallPlaceMode)
 myapp.listenKeyEvent('keydown', 'b', bungoMode)
 myapp.listenKeyEvent('keydown', 't', thraxonMode)
 myapp.listenKeyEvent('keydown', 'j', jumpyMode)
 myapp.listenKeyEvent('keydown', 'm', maloogMode)
+myapp.listenKeyEvent('keydown', 'p', platformMode)
+myapp.listenKeyEvent('keydown', 'r', runGameMode)
 
 
 myapp.run()
