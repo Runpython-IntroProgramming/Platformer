@@ -13,16 +13,18 @@ from ggame import LineStyle, Color
 SCREEN_WIDTH = 1750
 SCREEN_HEIGHT = 980
 
-black = Color(0x000000, 1.0)
-green = Color(0x00ff00, 1.0)
-white = Color(0xFFFFFF, 1.0)
-blue = Color(0x0000e5, 1.0)
-
-thinline = LineStyle(1, black)
-noline = LineStyle(0, green)
-wallplace = RectangleAsset(35, 35, thinline, black)
-bungo = RectangleAsset(17, 35, noline, green)
-jumpy = RectangleAsset(16, 2, noline, blue)
+#define colors and sprites
+for i in range(1):
+    black = Color(0x000000, 1.0)
+    green = Color(0x00ff00, 1.0)
+    white = Color(0xFFFFFF, 1.0)
+    blue = Color(0x0000e5, 1.0)
+    
+    thinline = LineStyle(1, black)
+    noline = LineStyle(0, green)
+    wallplace = RectangleAsset(35, 35, thinline, black)
+    bungo = RectangleAsset(17, 35, noline, green)
+    jumpy = RectangleAsset(16, 2, noline, blue)
 
 #select mode
 for i in range(1):    
@@ -36,7 +38,7 @@ for i in range(1):
     def jumpyKey(event):
         global mode
         mode = "j"
-"""
+    """
     def shooterKey(event):
         global mode
         mode = "s"
@@ -50,6 +52,26 @@ for i in range(1):
         global mode
         mode = "r"
 """
+#define arrow key movements
+for p in range(1):
+    left = "false"
+    right = "false"
+    jump = "false"
+    def leftgo(event):
+        global left
+        left = "true"
+    def leftstop(event):
+        global left
+        left = "false"
+    def jumpgo(event):
+        global jump
+        jump = "true"
+    def rightgo(event):
+        global right
+        right = "true"
+    def rightstop(event):
+        global right
+        right = "false"
 
 #snap to grid
 if mode == "w":
@@ -148,7 +170,8 @@ def mouseClick(event):
         ycoord = closesty(listy, numclicky)
         Sprite (wallplace, (xcoord, ycoord))
     if mode == "j":
-        Sprite (jumpy, (numclickx, numclicky+5))
+        Sprite (jumpy, (numclickx+5, numclicky+15))
+
 
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -156,6 +179,11 @@ myapp.listenMouseEvent('click', mouseClick)
 myapp.listenKeyEvent('keydown', 'w', wallPlaceKey)
 myapp.listenKeyEvent('keydown', 'b', bungoKey)
 myapp.listenKeyEvent('keydown', 'j', jumpyKey)
+myapp.listenKeyEvent('keydown', 'up arrow', jumpgo)
+myapp.listenKeyEvent('keydown', 'left arrow', leftgo)
+myapp.listenKeyEvent('keydown', 'right arrow', rightgo)
+myapp.listenKeyEvent('keyup', 'right arrow', rightstop)
+myapp.listenKeyEvent('keyup', 'left arrow', leftstop)
 """
 myapp.listenKeyEvent('keydown', 's', shooterKey)
 myapp.listenKeyEvent('keydown', 'k', killerKey)
