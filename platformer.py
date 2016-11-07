@@ -16,12 +16,13 @@ SCREEN_HEIGHT = 980
 black = Color(0x000000, 1.0)
 green = Color(0x00ff00, 1.0)
 white = Color(0xFFFFFF, 1.0)
+blue = Color(0x0000e5, 1.0)
 
 thinline = LineStyle(1, black)
 noline = LineStyle(0, green)
 wallplace = RectangleAsset(35, 35, thinline, black)
 bungo = RectangleAsset(17, 35, noline, green)
-
+jumpy = RectangleAsset(16, 2, noline, blue)
 
 #select mode
 for i in range(1):    
@@ -50,7 +51,7 @@ for i in range(1):
         mode = "r"
 """
 
-#place sprites & snap to grid
+#snap to grid
 if mode == "w":
     #make lists
     for i in range(1):
@@ -146,6 +147,8 @@ def mouseClick(event):
         xcoord = closestx(listx, numclickx)
         ycoord = closesty(listy, numclicky)
         Sprite (wallplace, (xcoord, ycoord))
+    if mode == "j":
+        Sprite (jumpy, (numclickx, numclicky+5))
 
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
