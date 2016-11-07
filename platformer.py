@@ -45,32 +45,35 @@ class Boxy(Sprite):
             self.vx = 0
             self.vy = 0
             self.YourDad = True
-    
+        else:
+            self.YourDad = False
+
+        
     def falling(self, event):
         if self.YourDad == False:
             self.vy = 5
         
     def MoveRIGHT(self, event):
         if len(self.a) == 0:
-            self.YourDad = False
-        if self.YourDad == False:
+            self.YourDad == False
+        if self.YourDad == True:
             self.vx = 5
-        elif self.YourDad == True:
-            self.vx = 0
+        else:
+            self.vx = 5
             self.vy = 5
-          
     
     def MoveLEFT(self, event):
         if len(self.a) == 0:
             self.YourDad = False
-        if self.YourDad == False:
+        if self.YourDad == True:
             self.vx = -5
-        elif self.YourDad == True:
-            self.vx = 0
+        else:
+            self.vx = -5
             self.vy = 5
         
     def MoveOff(self, event):
         self.vx = 0
+        self.vy = 5
     
     def JumpOn(self, event):
         if len(self.a) == 0:
@@ -82,11 +85,7 @@ class Boxy(Sprite):
     
     def JumpOff(self, event):
         self. vy = 5
-        
-    
-  
-        
-    
+
      
         # MAKE A WALL
 class Wall(Sprite):
