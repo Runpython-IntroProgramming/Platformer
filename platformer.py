@@ -76,8 +76,12 @@ class Boxy(Sprite):
             self.vy = 5
     
     def moveoff(self,event):
-        self.vx = 0
-        self.vy = 5
+        if self.Matty == True:
+            self.vx = 0
+            self.vy = 5
+        if self.Matty == False:
+            self.vy = 0
+        
     def moveright(self, event):
         if len(self.bricks) == 0:
             self.Matty = True
@@ -86,6 +90,7 @@ class Boxy(Sprite):
         else:
             self.vx = 0
             self.vy = 5
+            
     def moveleft(self,event):
         if len(self.bricks) == 0:
             self.Matty = True
@@ -94,6 +99,7 @@ class Boxy(Sprite):
         else:
             self.vx = 0
             self.vy = 5
+            
     def moveup(self,event):
         if len(self.bricks) == 0:
             self.Matty = True
@@ -101,6 +107,7 @@ class Boxy(Sprite):
             self.vy = -5
         else:
             self.vy = 5
+            
     def movedown(self,event):
         if len(self.bricks) == 0:
             self.Matty = True
