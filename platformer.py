@@ -163,7 +163,9 @@ if mode == "w":
     
 #make all sprites
 bungothere = 'false'
+bungo = None
 def mouseClick(event):
+    global bungo
     global bungothere
     numclickx = event.x-25
     numclicky = event.y-25
@@ -181,7 +183,8 @@ def mouseClick(event):
 
 def step():
     print ("step")
-    
+    global bungo
+    bungo.x += 1
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.listenMouseEvent('click', mouseClick)
