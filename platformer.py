@@ -185,7 +185,8 @@ def step():
     print ("step")
     global bungo
     if bungo != None:
-        bungo.x += 1
+        bungo.x += 2*latmove
+    if 
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.listenMouseEvent('click', mouseClick)
