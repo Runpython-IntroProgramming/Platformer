@@ -184,7 +184,8 @@ def mouseClick(event):
 def step():
     print ("step")
     global bungo
-    bungo.x += 1
+    if bungo != None:
+        bungo.x += 1
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.listenMouseEvent('click', mouseClick)
