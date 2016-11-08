@@ -58,7 +58,7 @@ for p in range(1):
     jump = "false"
     def leftgo(event):
         global latmove
-        latmove-1
+        latmove = -1
     def leftstop(event):
         global latmove
         latmove = "0"
