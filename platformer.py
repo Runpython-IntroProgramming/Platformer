@@ -53,13 +53,12 @@ class Boxy(Sprite):
         Platformer.listenKeyEvent("keyup", "left arrow", self.moveoff)
         Platformer.listenKeyEvent("keydown", "up arrow", self.moveup)
         Platformer.listenKeyEvent("keyup", "up arrow", self.moveoff)
-        Platformer.listenKeyEvent("keydown", "down arrow", self.movedown)
-        Platformer.listenKeyEvent("keyup", "down arrow", self.moveoff)        
         Platformer.listenKeyEvent("keydown", "right arrow", self.Falling)
         Platformer.listenKeyEvent("keydown", "left arrow", self.Falling)
         
         
     def step(self):
+        self.vy = self.vy + 1 
         self.x += self.vx
         self.y += self.vy
         bricks =self.collidingWithSprites(Wall)
@@ -70,17 +69,14 @@ class Boxy(Sprite):
             self.Matty = False
         else:
             self.Matty = True
-    
+            
     def Falling(self,event):
         if self.Matty == True:
-            self.vy = 5
+            self.vy = self.vy + 1
     
     def moveoff(self,event):
-        if self.Matty == True:
             self.vx = 0
-            self.vy = 5
-        if self.Matty == False:
-            self.vy = 0
+            self.vy = self.vy + 1
         
     def moveright(self, event):
         if len(self.bricks) == 0:
@@ -104,17 +100,10 @@ class Boxy(Sprite):
         if len(self.bricks) == 0:
             self.Matty = True
         if self.Matty == True:
-            self.vy = -5
+            self.vy = -20
         else:
             self.vy = 5
             
-    def movedown(self,event):
-        if len(self.bricks) == 0:
-            self.Matty = True
-        if self.Matty == True:
-            self.vy = 5
-        else:
-            self.vy = 5
 class Platformer(App):
     """
     THIS IS BOXY'S WORLD
