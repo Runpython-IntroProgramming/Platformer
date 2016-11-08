@@ -61,16 +61,16 @@ for p in range(1):
         latmove = -1
     def leftstop(event):
         global latmove
-        latmove = "0"
+        latmove = 0
     def jumpgo(event):
         global jump
         jump = "true"
     def rightgo(event):
         global latmove
-        latmove = "1"
+        latmove = 1
     def rightstop(event):
         global latmove
-        latmove = "0"
+        latmove = 0
 
 #snap to grid
 if mode == "w":
@@ -173,6 +173,7 @@ def mouseClick(event):
 
 #movement
 if latmove != 0:
+    print (latmove)
     bungo.x += latmove
 
 
