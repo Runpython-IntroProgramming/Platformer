@@ -54,24 +54,23 @@ for i in range(1):
 """
 #define arrow key movements
 for p in range(1):
-    left = "false"
-    right = "false"
+    latmove = 0
     jump = "false"
     def leftgo(event):
-        global left
-        left = "true"
+        global latmove
+        latmove-1
     def leftstop(event):
-        global left
-        left = "false"
+        global latmove
+        latmove = "0"
     def jumpgo(event):
         global jump
         jump = "true"
     def rightgo(event):
-        global right
-        right = "true"
+        global latmove
+        latmove = "1"
     def rightstop(event):
-        global right
-        right = "false"
+        global latmove
+        latmove = "0"
 
 #snap to grid
 if mode == "w":
@@ -172,6 +171,9 @@ def mouseClick(event):
     if mode == "j":
         Sprite (jumpy, (numclickx+5, numclicky+15))
 
+#movement
+if latmove != 0:
+    bungo.x += latmove
 
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
