@@ -72,9 +72,10 @@ class Boxy(Sprite):
             self.vy = 5
         
     def MoveOff(self, event):
-        self.vx = 0
-        self.vy = 5
-    
+            self.vx = 0
+            self.vy = 5
+
+        
     def JumpOn(self, event):
         if len(self.a) == 0:
             self.YourDad = False
@@ -131,7 +132,6 @@ class Platformer(App):
     def Wall(self, event):
         a = round(self.x/ 25)
         b = round(self.y / 25)
-      
         e = a * 25
         f = b * 25
         Wall((e, f))
