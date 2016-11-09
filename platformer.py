@@ -10,7 +10,7 @@ https://github.com/HHS-IntroProgramming/Platformer
 from ggame import App, RectangleAsset, Sprite
 from ggame import LineStyle, Color
 
-SCREEN_WIDTH = 1750
+SCREEN_WIDTH = 1780
 SCREEN_HEIGHT = 980
 
 #define colors and sprites
@@ -25,12 +25,9 @@ for i in range(1):
     wallplace = RectangleAsset(35, 35, thinline, black)
     bungosprite = RectangleAsset(17, 35, noline, green)
     jumpy = RectangleAsset(16, 2, noline, blue)
-class Bungo(Sprite):
-
-    def __init__(self, position):
-        super().__init__(bungosprite, position)
-        
-
+    class Bungo(Sprite):
+        def __init__(self, position):
+            super().__init__(bungosprite, position)
 
 #select mode
 for i in range(1):    
@@ -58,7 +55,10 @@ for i in range(1):
         global mode
         mode = "r"
     """
+
 #define arrow key movements
+vertvel = 0
+jump = False
 for p in range(1):
     latmove = 0
     jump = "false"
@@ -69,8 +69,9 @@ for p in range(1):
         global latmove
         latmove = 0
     def jumpgo(event):
-        global jump
-        jump = "true"
+        global vertvel
+        vertvel = 7
+        jump = True
     def rightgo(event):
         global latmove
         latmove = 1
@@ -180,13 +181,15 @@ def mouseClick(event):
         bouncy = Sprite (jumpy, (numclickx+5, numclicky+15))
 
 #movement
-
 def step():
-    print ("step")
+    global vertvel
     global bungo
     if bungo != None:
         bungo.x += 2*latmove
-    if vertvel != 0
+    if vertvel != 0:
+        bungo.y -= vertvel
+        bungoypos = bungo.y
+        vertvel -= 0.2
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.listenMouseEvent('click', mouseClick)
