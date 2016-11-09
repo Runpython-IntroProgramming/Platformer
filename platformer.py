@@ -23,6 +23,9 @@ for i in range(1):
     thinline = LineStyle(1, black)
     noline = LineStyle(0, green)
     wallplace = RectangleAsset(35, 35, thinline, black)
+    class Wall(Sprite):
+        def __init__(self, position):
+            super().__init__(wallplace, position)
     bungosprite = RectangleAsset(17, 35, noline, green)
     jumpy = RectangleAsset(16, 2, noline, blue)
     class Bungo(Sprite):
@@ -51,9 +54,6 @@ for i in range(1):
     def platformKey(event):
         global mode
         mode = "p"
-    def runGameKey(event):
-        global mode
-        mode = "r"
     """
 
 #define arrow key movements
@@ -176,7 +176,7 @@ def mouseClick(event):
     if mode == "w":
         xcoord = closestx(listx, numclickx)
         ycoord = closesty(listy, numclicky)
-        wall = Sprite (wallplace, (xcoord, ycoord))
+        wall = Wall ((xcoord, ycoord))
     if mode == "j":
         bouncy = Sprite (jumpy, (numclickx+5, numclicky+15))
 
@@ -185,11 +185,16 @@ def step():
     global vertvel
     global bungo
     if bungo != None:
-        bungo.x += 2*latmove
+        bungo.x += 4*latmove
     if vertvel != 0:
         bungo.y -= vertvel
         bungoypos = bungo.y
         vertvel -= 0.2
+        
+def collidingWithSprites(self, sclass=Wall):
+    vertvel = 0
+    latmove = 0
+    
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.listenMouseEvent('click', mouseClick)
@@ -205,7 +210,6 @@ myapp.listenKeyEvent('keyup', 'left arrow', leftstop)
 myapp.listenKeyEvent('keydown', 's', shooterKey)
 myapp.listenKeyEvent('keydown', 'k', killerKey)
 myapp.listenKeyEvent('keydown', 'p', platformKey)
-myapp.listenKeyEvent('keydown', 'r', runGameKey)
 """
 
 myapp.run(step)
