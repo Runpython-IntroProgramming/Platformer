@@ -31,6 +31,7 @@ for i in range(1):
     class Bungo(Sprite):
         def __init__(self, position):
             super().__init__(bungosprite, position)
+            #self.collision = self.collidingWithSprites(Wall)
 
 #select mode
 for i in range(1):    
@@ -182,18 +183,18 @@ def mouseClick(event):
 
 #movement
 def step():
+    #self.collision = self.collidingWithSprites(Wall)
+    #print (collision)
     global vertvel
     global bungo
     if bungo != None:
-        bungo.x += 4*latmove
-    if vertvel != 0:
+        bungo.x += 3*latmove
+    if bungothere == "True":
         bungo.y -= vertvel
-        bungoypos = bungo.y
         vertvel -= 0.2
         
-def collidingWithSprites(self, sclass=Wall):
-    vertvel = 0
-    latmove = 0
+    
+
     
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
