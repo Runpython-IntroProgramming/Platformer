@@ -58,14 +58,20 @@ class Boxy(Sprite):
         
         
     def step(self):
-        self.vy = self.vy + 1 
-        self.x += self.vx
+        self.vy = self.vy + 1
         self.y += self.vy
-        bricks =self.collidingWithSprites(Wall)
+        bricks = self.collidingWithSprites(Wall)
+        if len(bricks) != 0:
+            self.y -= self.vy
+            self.Matty = False
+        else:
+            self.Matty = True
+        
+        self.x += self.vx
+        bricks = self.collidingWithSprites(Wall)
         if len(bricks) != 0:
             self.x -= self.vx
-            self.y -= self.vy
-            self.vx = self.vy = 0
+            self.vx = 0
             self.Matty = False
         else:
             self.Matty = True
@@ -84,7 +90,7 @@ class Boxy(Sprite):
         if self.Matty == True:
             self.vx = 5
         else:
-            self.vx = 0
+            self.vx = 5
             self.vy = 5
             
     def moveleft(self,event):
@@ -93,14 +99,14 @@ class Boxy(Sprite):
         if self.Matty == True:
             self.vx = -5
         else:
-            self.vx = 0
+            self.vx = -5
             self.vy = 5
             
     def moveup(self,event):
         if len(self.bricks) == 0:
             self.Matty = True
         if self.Matty == True:
-            self.vy = -20
+            self.vy = -10000
         else:
             self.vy = 5
             
