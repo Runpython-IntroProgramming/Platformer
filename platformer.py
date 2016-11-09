@@ -63,6 +63,7 @@ class Boxy(Sprite):
         bricks = self.collidingWithSprites(Wall)
         if len(bricks) != 0:
             self.y -= self.vy
+            self.vy = 0
             self.Matty = False
         else:
             self.Matty = True
