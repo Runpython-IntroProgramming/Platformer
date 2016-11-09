@@ -36,14 +36,21 @@ class Boxy(Sprite):
         Platformer.listenKeyEvent("keydown", "left arrow", self.falling)
 
     def step(self):
-        self.x += self.vx
+        self.vy = self.vy + .5
         self.y += self.vy
         self.a = self.collidingWithSprites(Wall)
         if len(self.a) != 0:
-            self.x -= self.vx
             self.y -= self.vy
-            self.vx = 0
             self.vy = 0
+            self.YourDad = True
+        else:
+            self.YourDad = False
+        
+        self.x += self.vx
+        self.a = self.collidingWithSprites(Wall)
+        if len(self.a) != 0:
+            self.x -= self.vx
+            self.vx = 0
             self.YourDad = True
         else:
             self.YourDad = False
@@ -85,7 +92,7 @@ class Boxy(Sprite):
             self.vy = 0
     
     def JumpOff(self, event):
-        self. vy = 5
+        self. vy = -15
 
      
         # MAKE A WALL
