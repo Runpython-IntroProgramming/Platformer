@@ -26,7 +26,6 @@ class Boxy(Sprite):
         self.a = self.collidingWithSprites(Wall)
         self.fxcenter = self.fycenter = 0.25
         self.YourDad = True
-        self.YourUncle = False
         Platformer.listenKeyEvent("keydown", "right arrow", self.MoveRIGHT)
         Platformer.listenKeyEvent("keyup", "right arrow", self.MoveOff)
         Platformer.listenKeyEvent("keydown", "left arrow", self.MoveLEFT)
@@ -46,7 +45,7 @@ class Boxy(Sprite):
             self.YourDad = True
         else:
             self.YourDad = False
-        
+
         self.x += self.vx
         self.a = self.collidingWithSprites(Wall)
         if len(self.a) != 0:
@@ -83,20 +82,15 @@ class Boxy(Sprite):
             self.vx = 0
             self.vy = 5
 
-        
     def JumpOn(self, event):
         if len(self.a) == 0:
             self.YourDad = False
-        if self.YourDad == False and self.YourUncle == True:
+        if self.YourDad == False and self.vy = -15:
             self.vy = -5
-            self.YourUncle == True
-        elif self.YourDad == True or self.YourUncle == False:
-            self.vy = 0
-            self.YourUncle == False
+
     def JumpOff(self, event):
         self. vy = -15
-        self.YourUncle == False
-     
+        
         # MAKE A WALL
 class Wall(Sprite):
     Black = Color(0,1)
