@@ -28,6 +28,9 @@ for i in range(1):
             super().__init__(wallplace, position)
     bungosprite = RectangleAsset(17, 35, noline, green)
     jumpy = RectangleAsset(16, 2, noline, blue)
+    class Jumpy(Sprite):
+        def __init__(self, position):
+            super().__init__(jumpy, position)
     class Bungo(Sprite):
         def __init__(self, position):
             super().__init__(bungosprite, position)
@@ -82,18 +85,16 @@ for p in range(1):
 
 #snap to grid
 if mode == "w":
-    #make lists
-    for i in range(1):
-        listxs= list(range(1, 129))
-        listx = []
-        for i in listxs:
-            x = i*35
-            listx.append(x)
-        listys= list(range(1, 97))
-        listy = []
-        for j in listys:
-            y = 35*j
-            listy.append(y)
+    listxs= list(range(1, 129))
+    listx = []
+    for i in listxs:
+        x = i*35
+        listx.append(x)
+    listys= list(range(1, 97))
+    listy = []
+    for j in listys:
+        y = 35*j
+        listy.append(y)
 
     #make closest functions
     def closestx(listx, numclickx):
@@ -166,12 +167,13 @@ if mode == "w":
 #make all sprites
 bungothere = 'false'
 bungo = None
+bouncy = None
 def mouseClick(event):
     global bungo
     global bungothere
     numclickx = event.x-25
     numclicky = event.y-25
-    if mode == "b" and bungothere == "false":
+    if mode == "b" and bungo != None:
         bungo = Bungo((numclickx, numclicky))
         bungothere = "true"
     if mode == "w":
@@ -179,7 +181,7 @@ def mouseClick(event):
         ycoord = closesty(listy, numclicky)
         wall = Wall ((xcoord, ycoord))
     if mode == "j":
-        bouncy = Sprite (jumpy, (numclickx+5, numclicky+15))
+        bouncy = Jumpy ((numclickx+8, numclicky+15))
 
 #movement
 def step():
@@ -189,10 +191,12 @@ def step():
     global bungo
     if bungo != None:
         bungo.x += 3*latmove
-    if bungothere == "True":
+    if bungo != None:
         bungo.y -= vertvel
         vertvel -= 0.2
-        
+    if bouncy != None:
+        bouncy.y += 0.2
+
     
 
     
