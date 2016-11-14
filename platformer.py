@@ -47,6 +47,7 @@ class Boxy(Sprite):
         self.bricks = self.collidingWithSprites(Wall)
         self.fxcenter = self.fycenter = 0.25
         self.Matty = True
+        self.DonFluffles = False
         Platformer.listenKeyEvent("keydown", "right arrow", self.moveright)
         Platformer.listenKeyEvent("keyup", "right arrow", self.moveoff)
         Platformer.listenKeyEvent("keydown", "left arrow", self.moveleft)
@@ -58,7 +59,7 @@ class Boxy(Sprite):
         
         
     def step(self):
-        self.vy = self.vy + 1
+        self.vy = self.vy + 1.25
         self.y += self.vy
         bricks = self.collidingWithSprites(Wall)
         if len(bricks) != 0:
@@ -67,6 +68,10 @@ class Boxy(Sprite):
             self.Matty = False
         else:
             self.Matty = True
+        if self.Matty == True:
+            self.DonFluffles = True
+        else:
+            self.DonFluffles = False
         
         self.x += self.vx
         bricks = self.collidingWithSprites(Wall)
@@ -106,8 +111,9 @@ class Boxy(Sprite):
     def moveup(self,event):
         if len(self.bricks) == 0:
             self.Matty = True
-        if self.Matty == True:
-            self.vy = -10000
+        if self.DonFluffles == False:
+            if self.Matty == True:
+                self.vy = -15
         else:
             self.vy = 5
             
