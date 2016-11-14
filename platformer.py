@@ -26,6 +26,7 @@ class Boxy(Sprite):
         self.a = self.collidingWithSprites(Wall)
         self.fxcenter = self.fycenter = 0.25
         self.YourDad = True
+        self.YourUncle = False
         Platformer.listenKeyEvent("keydown", "right arrow", self.MoveRIGHT)
         Platformer.listenKeyEvent("keyup", "right arrow", self.MoveOff)
         Platformer.listenKeyEvent("keydown", "left arrow", self.MoveLEFT)
@@ -36,34 +37,39 @@ class Boxy(Sprite):
         Platformer.listenKeyEvent("keydown", "left arrow", self.falling)
 
     def step(self):
-        self.vy = self.vy + .5
+        self.vy = self.vy + 1.25
         self.y += self.vy
         self.a = self.collidingWithSprites(Wall)
         if len(self.a) != 0:
             self.y -= self.vy
             self.vy = 0
-            self.YourDad = True
-        else:
             self.YourDad = False
+        else:
+            self.YourDad = True
+        if self.YourDad == True:
+            self.YourUncle = True
+        else:
+            self.YourUncle = False
+        
 
         self.x += self.vx
         self.a = self.collidingWithSprites(Wall)
         if len(self.a) != 0:
             self.x -= self.vx
             self.vx = 0
-            self.YourDad = True
-        else:
             self.YourDad = False
+        else:
+            self.YourDad = True
 
         
     def falling(self, event):
-        if self.YourDad == False:
-            self.vy = 5
-        
+        if self.YourDad == True:
+            self.vy = self.vy + 1 
+    
     def MoveRIGHT(self, event):
         if len(self.a) == 0:
-            self.YourDad == False
-        if self.YourDad == True:
+            self.YourDad = True
+        if self.YourDad == False:
             self.vx = 5
         else:
             self.vx = 5
@@ -71,8 +77,8 @@ class Boxy(Sprite):
     
     def MoveLEFT(self, event):
         if len(self.a) == 0:
-            self.YourDad = False
-        if self.YourDad == True:
+            self.YourDad = True
+        if self.YourDad == False:
             self.vx = -5
         else:
             self.vx = -5
@@ -84,12 +90,15 @@ class Boxy(Sprite):
 
     def JumpOn(self, event):
         if len(self.a) == 0:
-            self.YourDad = False
-        if self.YourDad == False and self.vy = -15:
-            self.vy = -5
+            self.YourDad = True
+        if self.YourUncle == False:
+            if self.YourDad == True:
+                self.vy = -15
+        else:
+            self.vy = 5
 
     def JumpOff(self, event):
-        self. vy = -15
+        self. vy = self.vy + 1
         
         # MAKE A WALL
 class Wall(Sprite):
