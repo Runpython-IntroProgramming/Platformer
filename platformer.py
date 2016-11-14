@@ -19,15 +19,15 @@ for i in range(1):
     green = Color(0x00ff00, 1.0)
     white = Color(0xFFFFFF, 1.0)
     blue = Color(0x0000e5, 1.0)
+    noline = LineStyle(0, black)
     
-    thinline = LineStyle(1, black)
-    noline = LineStyle(0, green)
-    wallplace = RectangleAsset(35, 35, thinline, black)
+    wallplace = RectangleAsset(35, 35, noline, black)
+    bungosprite = RectangleAsset(17, 35, noline, green)
+    jumpy = RectangleAsset(16, 2, noline, blue)
+    
     class Wall(Sprite):
         def __init__(self, position):
             super().__init__(wallplace, position)
-    bungosprite = RectangleAsset(17, 35, noline, green)
-    jumpy = RectangleAsset(16, 2, noline, blue)
     class Jumpy(Sprite):
         def __init__(self, position):
             super().__init__(jumpy, position)
@@ -61,9 +61,8 @@ for i in range(1):
     """
 
 #define arrow key movements
-vertvel = 0
-jump = False
 for p in range(1):
+    vertvel = 0
     latmove = 0
     jump = "false"
     def leftgo(event):
@@ -75,7 +74,6 @@ for p in range(1):
     def jumpgo(event):
         global vertvel
         vertvel = 7
-        jump = True
     def rightgo(event):
         global latmove
         latmove = 1
@@ -173,9 +171,8 @@ def mouseClick(event):
     global bungothere
     numclickx = event.x-25
     numclicky = event.y-25
-    if mode == "b" and bungo != None:
+    if mode == "b" and bungo == None:
         bungo = Bungo((numclickx, numclicky))
-        bungothere = "true"
     if mode == "w":
         xcoord = closestx(listx, numclickx)
         ycoord = closesty(listy, numclicky)
@@ -185,17 +182,29 @@ def mouseClick(event):
 
 #movement
 def step():
-    #self.collision = self.collidingWithSprites(Wall)
-    #print (collision)
     global vertvel
+    global latmove
     global bungo
     if bungo != None:
+        collision = bungo.collidingWithSprites(Wall)
+        if collision != []:
+            vertvel = 0
+            latmove = 0
         bungo.x += 3*latmove
+        bouncyjump = bungo.collidingWithSprites(Jumpy)
+        if bouncyjump != []:
+            vertvel = 10
+    if bouncy != None:
+        bouncycollision = bouncy.collidingWithSprites(Wall)
+        #if bouncycollision != []:
     if bungo != None:
         bungo.y -= vertvel
         vertvel -= 0.2
+        if vertvel <= -8:
+            vertvel = -8
     if bouncy != None:
-        bouncy.y += 0.2
+        bouncy.y += 1
+
 
     
 
