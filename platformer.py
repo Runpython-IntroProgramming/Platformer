@@ -113,6 +113,19 @@ class Wall(Sprite):
         self.vr = 0
         self.fxcenter = self.fycenter = 0
 
+# MAKE DAT SPRUNG
+class Spring(Sprite):
+    Purple = Color(0xFF33FF, 1)
+    noline = LineStyle(0, Purple)
+    asset = RectangleAsset(25, 5, noline, Purple)
+    
+    def __init__ (self, posistion):
+        super().__init__(Spring.asset, position)
+        self.vx = 0
+        self.vy = 0
+        self.vr = 0
+        self.fxcenter = self.fycenter = 0
+
         #THIS IS BOXY'S WORLD
 class Platformer(App):
     
@@ -127,6 +140,7 @@ class Platformer(App):
         Platformer.listenKeyEvent("keydown", "w", self.Wall)
         Platformer.listenMouseEvent("mousemove" , self.mousemove)
         Platformer.listenKeyEvent("keydown", "p", self.Box)
+        Platformer.listenKeyEvent("keydown", "s", self.Spring)
         bg=Sprite(bg_asset, (0, 0))
         self.x= 0
         self.y = 0
@@ -147,6 +161,14 @@ class Platformer(App):
         e = a * 25
         f = b * 25
         Wall((e, f))
+    
+    def Spring(self, event):
+        a = round(self.x/ 25)
+        b = round(self.y / 25)
+        e = a * 25
+        f = b * 25
+        Spring((e, f))
+        
     
    
     def Box(self, event):
