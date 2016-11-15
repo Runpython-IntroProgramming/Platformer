@@ -19,11 +19,13 @@ for i in range(1):
     green = Color(0x00ff00, 1.0)
     white = Color(0xFFFFFF, 1.0)
     blue = Color(0x5D5DFF, 1.0)
+    red = Color(0xff0000, 1.0)
     noline = LineStyle(0, black)
     
     wallplace = RectangleAsset(35, 35, noline, black)
     bungosprite = RectangleAsset(17, 35, noline, green)
     jumpy = RectangleAsset(18, 3, noline, blue)
+    endzonesprite = RectangleAsset(23, 23, noline, red)
     
     class Wall(Sprite):
         def __init__(self, position):
@@ -35,6 +37,9 @@ for i in range(1):
     class Bungo(Sprite):
         def __init__(self, position):
             super().__init__(bungosprite, position)
+    class EndZoneClass(Sprite):
+        def __init__(self, position):
+            super().__init__(endzonesprite, position)
 
 #select mode
 for i in range(1):    
@@ -48,6 +53,9 @@ for i in range(1):
     def jumpyKey(event):
         global mode
         mode = "j"
+    def EndZoneMode(event):
+        global mode
+        mode = "e"
     """
     def shooterKey(event):
         global mode
@@ -166,7 +174,9 @@ if mode == "w":
 bungothere = 'false'
 bungo = None
 bouncy = None
+endzone = None
 def mouseClick(event):
+    global endzone
     global bungo
     global bungothere
     global bouncy
@@ -177,9 +187,14 @@ def mouseClick(event):
     if mode == "w":
         xcoord = closestx(listx, numclickx)
         ycoord = closesty(listy, numclicky)
-        wall = Wall ((xcoord, ycoord))
+        wall = Wall((xcoord, ycoord))
     if mode == "j":
         bouncy = Jumpy ((numclickx+8, numclicky+15))
+    if mode == "e" and endzone == None:
+        endzonex = closestx(listx, numclickx)
+        endzoney = closesty(listy, numclicky)
+        EndZoneClass((endzonex+6,endzoney+6))
+
 
 #movement
 posendtickx = 0
@@ -194,8 +209,8 @@ def step():
     if bungo != None:
         collision = bungo.collidingWithSprites(Wall)
         if collision != []:
-            vertvel = 0
-            latmove = 0
+            bungo.y = posendticky
+            bungo.x = posendtickx
         bungo.x += 3*latmove
         bouncyjump = bungo.collidingWithSprites(Jumpy)
         if bouncyjump != []:
@@ -211,7 +226,14 @@ def step():
             bouncy.vertvel = 0
             ycoordbouncy = closesty(listy, bouncy.y)
             bouncy.y = ycoordbouncy-3
-            
+    if endzone != None:
+        finish = bungo.collidingWithSprites(EndZoneClass)
+        if finish != []:
+            vertvel = 0
+            latmove = 0
+    
+
+
 
 #app stuff
 for j in range(1):
@@ -225,6 +247,7 @@ for j in range(1):
     myapp.listenKeyEvent('keydown', 'right arrow', rightgo)
     myapp.listenKeyEvent('keyup', 'right arrow', rightstop)
     myapp.listenKeyEvent('keyup', 'left arrow', leftstop)
+    myapp.listenKeyEvent('keydown', 'e', EndZoneMode)
     """
     myapp.listenKeyEvent('keydown', 's', shooterKey)
     myapp.listenKeyEvent('keydown', 'k', killerKey)
