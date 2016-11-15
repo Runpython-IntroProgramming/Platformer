@@ -10,8 +10,8 @@ https://github.com/HHS-IntroProgramming/Platformer
 from ggame import App, RectangleAsset, Sprite
 from ggame import LineStyle, Color
 
-SCREEN_WIDTH = 1780
-SCREEN_HEIGHT = 980
+SCREEN_WIDTH = 1225
+SCREEN_HEIGHT = 700
 
 #define colors and sprites
 for i in range(1):
@@ -31,7 +31,7 @@ for i in range(1):
     class Jumpy(Sprite):
         def __init__(self, position):
             super().__init__(jumpy, position)
-            self.vertvel = 4
+            self.vertvel = 3
     class Bungo(Sprite):
         def __init__(self, position):
             super().__init__(bungosprite, position)
@@ -200,6 +200,10 @@ def step():
         bouncyjump = bungo.collidingWithSprites(Jumpy)
         if bouncyjump != []:
             vertvel = 10
+        bungo.y -= vertvel
+        vertvel -= 0.2
+        if vertvel <= -9:
+            vertvel = -9
     if bouncy != None:
         bouncy.y += bouncy.vertvel
         bouncycollision = bouncy.collidingWithSprites(Wall)
@@ -207,12 +211,7 @@ def step():
             bouncy.vertvel = 0
             ycoordbouncy = closesty(listy, bouncy.y)
             bouncy.y = ycoordbouncy-3
-    if bungo != None:
-        bungo.y -= vertvel
-        vertvel -= 0.2
-        if vertvel <= -8:
-            vertvel = -8
-    
+            
 
 #app stuff
 for j in range(1):
@@ -233,3 +232,5 @@ for j in range(1):
     """
     
     myapp.run(step)
+    
+    
