@@ -18,7 +18,7 @@ for i in range(1):
     black = Color(0x000000, 1.0)
     green = Color(0x00ff00, 1.0)
     white = Color(0xFFFFFF, 1.0)
-    blue = Color(0x0000e5, 1.0)
+    blue = Color(0x5D5DFF, 1.0)
     noline = LineStyle(0, black)
     
     wallplace = RectangleAsset(35, 35, noline, black)
@@ -31,10 +31,10 @@ for i in range(1):
     class Jumpy(Sprite):
         def __init__(self, position):
             super().__init__(jumpy, position)
+            self.vertvel = 4
     class Bungo(Sprite):
         def __init__(self, position):
             super().__init__(bungosprite, position)
-            #self.collision = self.collidingWithSprites(Wall)
 
 #select mode
 for i in range(1):    
@@ -128,7 +128,7 @@ if mode == "w":
         final = final + numclickx
         return (final)
         print (final)
-    def closesty(listx, numclicky):
+    def closesty(listy, numclicky):
         myestimation=[]
         myestimationordered=[]
         myvar=0
@@ -169,6 +169,7 @@ bouncy = None
 def mouseClick(event):
     global bungo
     global bungothere
+    global bouncy
     numclickx = event.x-25
     numclicky = event.y-25
     if mode == "b" and bungo == None:
@@ -185,6 +186,7 @@ def step():
     global vertvel
     global latmove
     global bungo
+    global bouncy
     if bungo != None:
         collision = bungo.collidingWithSprites(Wall)
         if collision != []:
@@ -195,15 +197,16 @@ def step():
         if bouncyjump != []:
             vertvel = 10
     if bouncy != None:
+        bouncy.y += bouncy.vertvel
         bouncycollision = bouncy.collidingWithSprites(Wall)
-        #if bouncycollision != []:
+        if bouncycollision != []:
+            bouncy.vertvel = 0
+        
     if bungo != None:
         bungo.y -= vertvel
         vertvel -= 0.2
         if vertvel <= -8:
             vertvel = -8
-    if bouncy != None:
-        bouncy.y += 1
 
 #app stuff
 for j in range(1):
