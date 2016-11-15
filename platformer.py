@@ -205,25 +205,22 @@ def step():
     if bouncy != None:
         bouncy.y += 1
 
-
+#app stuff
+for j in range(1):
+    myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
+    myapp.listenMouseEvent('click', mouseClick)
+    myapp.listenKeyEvent('keydown', 'w', wallPlaceKey)
+    myapp.listenKeyEvent('keydown', 'b', bungoKey)
+    myapp.listenKeyEvent('keydown', 'j', jumpyKey)
+    myapp.listenKeyEvent('keydown', 'up arrow', jumpgo)
+    myapp.listenKeyEvent('keydown', 'left arrow', leftgo)
+    myapp.listenKeyEvent('keydown', 'right arrow', rightgo)
+    myapp.listenKeyEvent('keyup', 'right arrow', rightstop)
+    myapp.listenKeyEvent('keyup', 'left arrow', leftstop)
+    """
+    myapp.listenKeyEvent('keydown', 's', shooterKey)
+    myapp.listenKeyEvent('keydown', 'k', killerKey)
+    myapp.listenKeyEvent('keydown', 'p', platformKey)
+    """
     
-
-    
-
-myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
-myapp.listenMouseEvent('click', mouseClick)
-myapp.listenKeyEvent('keydown', 'w', wallPlaceKey)
-myapp.listenKeyEvent('keydown', 'b', bungoKey)
-myapp.listenKeyEvent('keydown', 'j', jumpyKey)
-myapp.listenKeyEvent('keydown', 'up arrow', jumpgo)
-myapp.listenKeyEvent('keydown', 'left arrow', leftgo)
-myapp.listenKeyEvent('keydown', 'right arrow', rightgo)
-myapp.listenKeyEvent('keyup', 'right arrow', rightstop)
-myapp.listenKeyEvent('keyup', 'left arrow', leftstop)
-"""
-myapp.listenKeyEvent('keydown', 's', shooterKey)
-myapp.listenKeyEvent('keydown', 'k', killerKey)
-myapp.listenKeyEvent('keydown', 'p', platformKey)
-"""
-
-myapp.run(step)
+    myapp.run(step)
