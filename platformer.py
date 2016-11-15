@@ -24,6 +24,7 @@ class Boxy(Sprite):
         self.vy = 5
         self.vr = 0
         self.a = self.collidingWithSprites(Wall)
+
         self.fxcenter = self.fycenter = 0.25
         self.YourDad = True
         self.YourUncle = False
@@ -50,8 +51,6 @@ class Boxy(Sprite):
             self.YourUncle = True
         else:
             self.YourUncle = False
-        
-
         self.x += self.vx
         self.a = self.collidingWithSprites(Wall)
         if len(self.a) != 0:
@@ -60,6 +59,8 @@ class Boxy(Sprite):
             self.YourDad = False
         else:
             self.YourDad = True
+        
+            
 
         
     def falling(self, event):
@@ -119,12 +120,42 @@ class Spring(Sprite):
     noline = LineStyle(0, Purple)
     asset = RectangleAsset(25, 5, noline, Purple)
     
-    def __init__ (self, posistion):
+    def __init__ (self, position):
         super().__init__(Spring.asset, position)
         self.vx = 0
-        self.vy = 0
+        self.vy = 5
         self.vr = 0
-        self.fxcenter = self.fycenter = 0
+        self.YourDad  = True
+        self.a = self.collidingWithSprites(Wall)
+        self.fxcenter = self.fycenter = 0.25
+        Platformer.listenKeyEvent("keyup" , "s", self.fall)
+        
+    def stop(self):
+        self.vy = self.vy + 1.25
+        self.y += self.vy
+        self.a = self.collidingWithSprites(Wall)
+        if len(self.a) != 0:
+            self.y -= self.vy
+            self.vy = 0
+            self.YourDad = False
+        else:
+            self.YourDad = True
+        if self.YourDad == True:
+            self.YourUncle = True
+        else:
+            self.YourUncle = False
+        self.x += self.vx
+        self.a = self.collidingWithSprites(Wall)
+        if len(self.a) != 0:
+            self.x -= self.vx
+            self.vx = 0
+            self.YourDad = False
+        else:
+            self.YourDad = True
+            
+    def fall (self, event):
+        if self.YourDad == True:
+            self.vy = self.vy + 1
 
         #THIS IS BOXY'S WORLD
 class Platformer(App):
@@ -144,12 +175,16 @@ class Platformer(App):
         bg=Sprite(bg_asset, (0, 0))
         self.x= 0
         self.y = 0
+        self.YourDad = True
         self.YourMom = False
     
     def step(self):
         for ship in self.getSpritesbyClass(Boxy):
             ship.step()
         
+    def stop(self):
+        for hip in self.getSpritesbyClass(Spring):
+            hip.stop()
     
     def mousemove(self, event):
         self.x = event.x
@@ -163,14 +198,12 @@ class Platformer(App):
         Wall((e, f))
     
     def Spring(self, event):
-        a = round(self.x/ 25)
-        b = round(self.y / 25)
-        e = a * 25
-        f = b * 25
-        Spring((e, f))
+        t = round(self.x/ 25)
+        h = round(self.y / 25)
+        j = t * 25
+        k = h * 25
+        Spring((j, k))
         
-    
-   
     def Box(self, event):
         if self.YourMom == False:
             Boxy((self.x, self.y))
