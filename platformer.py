@@ -17,6 +17,47 @@ from ggame import App, RectangleAsset, ImageAsset, Sprite, LineStyle, Color, Fra
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 640
 
+class Springo(Sprite):
+    """
+    THIS IS BOXY'S SPRING
+    """
+    plurple = Color(0xff33ff, 1)
+    noline = LineStyle(0, plurple)
+    asset = RectangleAsset(25,5, noline, plurple)
+    
+    
+    def __init__(self, position):
+        super().__init__(Springo.asset, position)
+        self.vx = 0
+        self.vy = 5
+        self.fxcenter = self.fycenter = 0.25
+        bricks = self.collidingWithSprites(Wall)
+        Platformer.listenKeyEvent("keyup","s", self.Falling)
+        self.Matty = True
+   
+    def step(self):
+        self.vy = self.vy + 1.25
+        self.y += self.vy
+        bricks = self.collidingWithSprites(Wall)
+        if len(bricks) != 0:
+            self.y -= self.vy
+            self.vy = 0
+            self.Matty = False
+        else: 
+            self.Matty = True
+        self.x += self.vx
+        bricks = self.collidingWithSprites(Wall)
+        if len(bricks) != 0:
+            self.x -= self.vx
+            self.vx = 0
+            self.Matty = False
+        else:
+            self.Matty = True
+        
+    def Falling(self,event):
+        if self.Matty == True:
+            self.vy = self.vy + 1    
+
 class Wall(Sprite):
     """
     THIS IS BOXY'S WALL
@@ -131,6 +172,7 @@ class Platformer(App):
         bg_asset = RectangleAsset(width, height, noline, black)
         Platformer.listenKeyEvent("keydown", "w", self.Wall)
         Platformer.listenKeyEvent("keydown", "p", self.Boxy)
+        Platformer.listenKeyEvent("keydown", "s", self.Springo)
         Platformer.listenMouseEvent('mousemove', self.mousemove)
         self.Robbie = False
         bg = Sprite(bg_asset, (0,0))
@@ -140,6 +182,9 @@ class Platformer(App):
     def step(self):
         for ship in self.getSpritesbyClass(Boxy):
             ship.step()
+    def stoop(self):
+        for hip in self.getSpritesbyClass(Springo):
+            hip.step()
     def mousemove(self, event):
         self.x = event.x
         self.y = event.y 
@@ -150,6 +195,14 @@ class Platformer(App):
         self.x = self.x*25
         self.y = self.y*25
         Wall((self.x, self.y))
+    
+    def Springo(self, event):
+        self.x = round(self.x/25)
+        self.y = round(self.y/25)
+        self.x = self.x*25
+        self.y = self.y*25
+        Springo((self.x, self.y))
+        
     def Boxy(self, event):
         if self.Robbie == False:
             Boxy((self.x, self.y))
