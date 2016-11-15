@@ -194,8 +194,8 @@ def step():
     if bungo != None:
         collision = bungo.collidingWithSprites(Wall)
         if collision != []:
-            bungo.x = posendtickx
-            bungo.y = posendticky
+            vertvel = 0
+            latmove = 0
         bungo.x += 3*latmove
         bouncyjump = bungo.collidingWithSprites(Jumpy)
         if bouncyjump != []:
@@ -212,8 +212,8 @@ def step():
         vertvel -= 0.2
         if vertvel <= -8:
             vertvel = -8
-    posendtickx = bungo.x
-    posendticky = bungo.y
+    
+
 #app stuff
 for j in range(1):
     myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
