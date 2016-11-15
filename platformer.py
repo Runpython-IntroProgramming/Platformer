@@ -23,7 +23,7 @@ for i in range(1):
     
     wallplace = RectangleAsset(35, 35, noline, black)
     bungosprite = RectangleAsset(17, 35, noline, green)
-    jumpy = RectangleAsset(16, 2, noline, blue)
+    jumpy = RectangleAsset(18, 3, noline, blue)
     
     class Wall(Sprite):
         def __init__(self, position):
@@ -182,16 +182,20 @@ def mouseClick(event):
         bouncy = Jumpy ((numclickx+8, numclicky+15))
 
 #movement
+posendtickx = 0
+posendticky = 0
 def step():
     global vertvel
     global latmove
     global bungo
     global bouncy
+    global posendtickx
+    global posendticky
     if bungo != None:
         collision = bungo.collidingWithSprites(Wall)
         if collision != []:
-            vertvel = 0
-            latmove = 0
+            bungo.x = posendtickx
+            bungo.y = posendticky
         bungo.x += 3*latmove
         bouncyjump = bungo.collidingWithSprites(Jumpy)
         if bouncyjump != []:
@@ -201,13 +205,15 @@ def step():
         bouncycollision = bouncy.collidingWithSprites(Wall)
         if bouncycollision != []:
             bouncy.vertvel = 0
-        
+            ycoordbouncy = closesty(listy, bouncy.y)
+            bouncy.y = ycoordbouncy-3
     if bungo != None:
         bungo.y -= vertvel
         vertvel -= 0.2
         if vertvel <= -8:
             vertvel = -8
-
+    posendtickx = bungo.x
+    posendticky = bungo.y
 #app stuff
 for j in range(1):
     myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
