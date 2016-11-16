@@ -69,22 +69,29 @@ for i in range(1):
     """
 
 #define arrow key movements
+stopmo = False
 for p in range(1):
     vertvel = 0
     latmove = 0
     jump = "false"
     def leftgo(event):
+        global stopmo
         global latmove
-        latmove = -1
+        if stopmo == False:
+            latmove = -1
     def leftstop(event):
         global latmove
         latmove = 0
     def jumpgo(event):
+        global stopmo
         global vertvel
-        vertvel = 7
+        if stopmo == False:
+            vertvel = 7
     def rightgo(event):
+        global stopmo
         global latmove
-        latmove = 1
+        if stopmo == False:
+            latmove = 1
     def rightstop(event):
         global latmove
         latmove = 0
@@ -193,12 +200,15 @@ def mouseClick(event):
     if mode == "e" and endzone == None:
         endzonex = closestx(listx, numclickx)
         endzoney = closesty(listy, numclicky)
-        endzone = EndZoneClass((endzonex+6,endzoney+6))
+        EndZoneClass((endzonex+6,endzoney+6))
+        endzone = 5
 
 
 #movement
 posendtickx = 0
 posendticky = 0
+finish = []
+finishstop = False
 def step():
     global vertvel
     global latmove
@@ -206,6 +216,18 @@ def step():
     global bouncy
     global posendtickx
     global posendticky
+    global finish
+    global finishstop
+    global stopmo
+    if endzone == 5:
+        finish = bungo.collidingWithSprites(EndZoneClass)
+        if finish != []:
+            vertvel = 0
+            latmove = 0
+            finishstop = True
+    if finishstop == True:
+        print ("you win!")
+        stopmo = True
     if bungo != None:
         collision = bungo.collidingWithSprites(Wall)
         if collision != []:
@@ -226,11 +248,7 @@ def step():
             bouncy.vertvel = 0
             ycoordbouncy = closesty(listy, bouncy.y)
             bouncy.y = ycoordbouncy-3
-    if endzone != None:
-        finish = bungo.collidingWithSprites(EndZoneClass)
-        if finish != []:
-            vertvel = 0
-            latmove = 0
+
     
 
 
@@ -256,4 +274,6 @@ for j in range(1):
     
     myapp.run(step)
     
+   
+   
     
