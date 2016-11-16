@@ -235,7 +235,7 @@ def step():
             latmove = 0
         bungo.x += 3*latmove
         bouncyjump = bungo.collidingWithSprites(Jumpy)
-        if bouncyjump != []:
+        if bouncyjump != [] and stopmo == False:
             vertvel = 10
         bungo.y -= vertvel
         vertvel -= 0.2
