@@ -24,7 +24,6 @@ class Boxy(Sprite):
         self.vy = 5
         self.vr = 0
         self.a = self.collidingWithSprites(Wall)
-
         self.fxcenter = self.fycenter = 0.25
         self.YourDad = True
         self.YourUncle = False
@@ -59,10 +58,7 @@ class Boxy(Sprite):
             self.YourDad = False
         else:
             self.YourDad = True
-        
-            
 
-        
     def falling(self, event):
         if self.YourDad == True:
             self.vy = self.vy + 1 
@@ -124,10 +120,9 @@ class Spring(Sprite):
         super().__init__(Spring.asset, position)
         self.vx = 0
         self.vy = 5
-        self.vr = 0
         self.YourDad  = True
         self.a = self.collidingWithSprites(Wall)
-        self.fxcenter = self.fycenter = 0.25
+        self.fxcenter = self.fycenter = .25
         Platformer.listenKeyEvent("keyup" , "s", self.fall)
         
     def stop(self):
