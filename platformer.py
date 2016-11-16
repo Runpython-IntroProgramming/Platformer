@@ -10,8 +10,8 @@ https://github.com/HHS-IntroProgramming/Platformer
 from ggame import App, RectangleAsset, Sprite
 from ggame import LineStyle, Color
 
-SCREEN_WIDTH = 1225
-SCREEN_HEIGHT = 700
+SCREEN_WIDTH = 1715
+SCREEN_HEIGHT = 980
 
 #define colors and sprites
 for i in range(1):
@@ -25,7 +25,6 @@ for i in range(1):
     wallplace = RectangleAsset(35, 35, noline, black)
     bungosprite = RectangleAsset(17, 35, noline, green)
     jumpy = RectangleAsset(18, 3, noline, blue)
-    endzonesprite = RectangleAsset(23, 23, noline, red)
     
     class Wall(Sprite):
         def __init__(self, position):
@@ -37,9 +36,6 @@ for i in range(1):
     class Bungo(Sprite):
         def __init__(self, position):
             super().__init__(bungosprite, position)
-    class EndZoneClass(Sprite):
-        def __init__(self, position):
-            super().__init__(endzonesprite, position)
 
 #select mode
 for i in range(1):    
@@ -53,9 +49,6 @@ for i in range(1):
     def jumpyKey(event):
         global mode
         mode = "j"
-    def EndZoneMode(event):
-        global mode
-        mode = "e"
     """
     def shooterKey(event):
         global mode
@@ -75,23 +68,17 @@ for p in range(1):
     latmove = 0
     jump = "false"
     def leftgo(event):
-        global stopmo
         global latmove
-        if stopmo == False:
-            latmove = -1
+        latmove = -1
     def leftstop(event):
         global latmove
         latmove = 0
     def jumpgo(event):
-        global stopmo
         global vertvel
-        if stopmo == False:
-            vertvel = 7
+        vertvel = 7
     def rightgo(event):
-        global stopmo
         global latmove
-        if stopmo == False:
-            latmove = 1
+        latmove = 1
     def rightstop(event):
         global latmove
         latmove = 0
@@ -197,18 +184,11 @@ def mouseClick(event):
         wall = Wall((xcoord, ycoord))
     if mode == "j":
         bouncy = Jumpy ((numclickx+8, numclicky+15))
-    if mode == "e" and endzone == None:
-        endzonex = closestx(listx, numclickx)
-        endzoney = closesty(listy, numclicky)
-        EndZoneClass((endzonex+6,endzoney+6))
-        endzone = 5
 
 
 #movement
 posendtickx = 0
 posendticky = 0
-finish = []
-finishstop = False
 def step():
     global vertvel
     global latmove
@@ -216,31 +196,12 @@ def step():
     global bouncy
     global posendtickx
     global posendticky
-    global finish
-    global finishstop
-    global stopmo
-    if endzone == 5:
-        finish = bungo.collidingWithSprites(EndZoneClass)
-        if finish != []:
-            vertvel = 0
-            latmove = 0
-            finishstop = True
-    if finishstop == True:
-        print ("you win!")
-        stopmo = True
     if bungo != None:
         collision = bungo.collidingWithSprites(Wall)
         if collision != []:
-            vertvel = 0
-            latmove = 0
-        bungo.x += 3*latmove
-        bouncyjump = bungo.collidingWithSprites(Jumpy)
-        if bouncyjump != [] and stopmo == False:
-            vertvel = 10
-        bungo.y -= vertvel
-        vertvel -= 0.2
-        if vertvel <= -9:
-            vertvel = -9
+            bungo.x = posendtickx
+            bungo.y = posendticky
+            print (posendtickx + "," + posendticky)
     if bouncy != None:
         bouncy.y += bouncy.vertvel
         bouncycollision = bouncy.collidingWithSprites(Wall)
@@ -248,6 +209,19 @@ def step():
             bouncy.vertvel = 0
             ycoordbouncy = closesty(listy, bouncy.y)
             bouncy.y = ycoordbouncy-3
+    if bungo != None:
+        bungo.y -= vertvel
+        vertvel -= 0.2
+        if vertvel <= -9:
+            vertvel = -9
+        bungo.x += 3*latmove
+        if bouncy != None:
+            bouncyjump = bungo.collidingWithSprites(Jumpy)
+            if bouncyjump != []:
+                vertvel = 10
+    if bungo != None:
+        posendtickx = bungo.x
+        posendticky = bungo.y
 
     
 
@@ -265,7 +239,6 @@ for j in range(1):
     myapp.listenKeyEvent('keydown', 'right arrow', rightgo)
     myapp.listenKeyEvent('keyup', 'right arrow', rightstop)
     myapp.listenKeyEvent('keyup', 'left arrow', leftstop)
-    myapp.listenKeyEvent('keydown', 'e', EndZoneMode)
     """
     myapp.listenKeyEvent('keydown', 's', shooterKey)
     myapp.listenKeyEvent('keydown', 'k', killerKey)
