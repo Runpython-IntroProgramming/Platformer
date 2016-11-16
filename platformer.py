@@ -125,7 +125,7 @@ class Spring(Sprite):
         self.fxcenter = self.fycenter = .25
         Platformer.listenKeyEvent("keyup" , "s", self.fall)
         
-    def stop(self):
+    def stpp(self):
         self.vy = self.vy + 1.25
         self.y += self.vy
         self.a = self.collidingWithSprites(Wall)
@@ -167,19 +167,21 @@ class Platformer(App):
         Platformer.listenMouseEvent("mousemove" , self.mousemove)
         Platformer.listenKeyEvent("keydown", "p", self.Box)
         Platformer.listenKeyEvent("keydown", "s", self.Spring)
+        Platformer.listenKeyEvent("keyup", "p", self.ByeBye)
+
+
         bg=Sprite(bg_asset, (0, 0))
         self.x= 0
         self.y = 0
-        self.YourDad = True
         self.YourMom = False
     
     def step(self):
         for ship in self.getSpritesbyClass(Boxy):
             ship.step()
         
-    def stop(self):
+    def stpp(self):
         for hip in self.getSpritesbyClass(Spring):
-            hip.stop()
+            hip.stpp()
     
     def mousemove(self, event):
         self.x = event.x
@@ -199,10 +201,17 @@ class Platformer(App):
         k = h * 25
         Spring((j, k))
         
+    def ByeBye(self, event):
+        if self.y > 640:
+            destroy(Boxy)
+            self.YourMom = False
+    
     def Box(self, event):
         if self.YourMom == False:
             Boxy((self.x, self.y))
             self.YourMom = True
+            
+    
     
        
     
