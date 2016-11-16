@@ -90,7 +90,7 @@ for p in range(1):
         latmove = 0
 
 #snap to grid
-if mode == "w":
+for p in range(1):
     listxs= list(range(1, 129))
     listx = []
     for i in listxs:
@@ -193,7 +193,7 @@ def mouseClick(event):
     if mode == "e" and endzone == None:
         endzonex = closestx(listx, numclickx)
         endzoney = closesty(listy, numclicky)
-        EndZoneClass((endzonex+6,endzoney+6))
+        endzone = EndZoneClass((endzonex+6,endzoney+6))
 
 
 #movement
@@ -209,8 +209,8 @@ def step():
     if bungo != None:
         collision = bungo.collidingWithSprites(Wall)
         if collision != []:
-            bungo.y = posendticky
-            bungo.x = posendtickx
+            vertvel = 0
+            latmove = 0
         bungo.x += 3*latmove
         bouncyjump = bungo.collidingWithSprites(Jumpy)
         if bouncyjump != []:
