@@ -74,7 +74,7 @@ for p in range(1):
         latmove = 0
     def jumpgo(event):
         global vertvel
-        vertvel = 7
+        vertvel = 6
     def rightgo(event):
         global latmove
         latmove = 1
@@ -195,19 +195,14 @@ def step():
     global bouncy
     global posendtickx
     global posendticky
-    if bungo != None:
-        collision = bungo.collidingWithSprites(Wall)
-        if collision != []:
-            bungo.x = posendtickx
-            bungo.y = posendticky
-            print (posendtickx + "," + posendticky)
-    if bouncy != None and bungo != None:
+    if bouncy != None:
         bouncy.y += bouncy.vertvel
         bouncycollision = bouncy.collidingWithSprites(Wall)
         if bouncycollision != []:
             bouncy.vertvel = 0
             ycoordbouncy = closesty(listy, bouncy.y)
-            bouncy.y = ycoordbouncy-3
+    if bungo != None:
+        posendticky = bungo.y
     if bungo != None:
         bungo.y -= vertvel
         vertvel -= 0.2
@@ -219,8 +214,11 @@ def step():
             if bouncyjump != []:
                 vertvel = 10
     if bungo != None:
-        posendtickx = bungo.x
-        posendticky = bungo.y
+        collision = bungo.collidingWithSprites(Wall)
+        if collision != []:
+            bungo.y = posendticky
+            if bungo.x == collision[0].x-17:
+            print (collision)
 
     
 
