@@ -10,8 +10,8 @@ https://github.com/HHS-IntroProgramming/Platformer
 from ggame import App, RectangleAsset, Sprite
 from ggame import LineStyle, Color
 
-SCREEN_WIDTH = 1715
-SCREEN_HEIGHT = 980
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 700
 
 #define colors and sprites
 for i in range(1):
@@ -63,9 +63,9 @@ for i in range(1):
 
 #define arrow key movements
 for p in range(1):
+    jump = 0
     vertvel = 0
     latmove = 0
-    jump = "false"
     def leftgo(event):
         global latmove
         latmove = -1
@@ -73,8 +73,11 @@ for p in range(1):
         global latmove
         latmove = 0
     def jumpgo(event):
+        global jump
         global vertvel
-        vertvel = 6
+        if jump == 0 or jump == 1:
+            vertvel = 8
+        jump += 1
     def rightgo(event):
         global latmove
         latmove = 1
@@ -195,6 +198,7 @@ def step():
     global bouncy
     global posendtickx
     global posendticky
+    global jump
     if bouncy != None:
         bouncy.y += bouncy.vertvel
         bouncycollision = bouncy.collidingWithSprites(Wall)
@@ -203,6 +207,7 @@ def step():
             ycoordbouncy = closesty(listy, bouncy.y)
     if bungo != None:
         posendticky = bungo.y
+        posendtickx = bungo.x
     if bungo != None:
         bungo.y -= vertvel
         vertvel -= 0.2
@@ -216,9 +221,19 @@ def step():
     if bungo != None:
         collision = bungo.collidingWithSprites(Wall)
         if collision != []:
+            vertvel = 0
+            jump = 0
             bungo.y = posendticky
-            if bungo.x == collision[0].x-17:
-            print (collision)
+            print (collision[0].x-13)
+            print (bungo.x)
+            if bungo.x == collision[0].x-13 or bungo.x == collision[0].x+17:
+                bungo.x = posendtickx
+        if bungo.y >= 665 or bungo.y <= 0:
+            bungo.y = posendticky
+            jump = 0
+        if bungo.x >= 983 or bungo.x <= 0:
+            bungo.x = posendtickx
+
 
     
 
