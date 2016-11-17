@@ -62,7 +62,6 @@ for i in range(1):
     """
 
 #define arrow key movements
-stopmo = False
 for p in range(1):
     vertvel = 0
     latmove = 0
@@ -202,7 +201,7 @@ def step():
             bungo.x = posendtickx
             bungo.y = posendticky
             print (posendtickx + "," + posendticky)
-    if bouncy != None:
+    if bouncy != None and bungo != None:
         bouncy.y += bouncy.vertvel
         bouncycollision = bouncy.collidingWithSprites(Wall)
         if bouncycollision != []:
