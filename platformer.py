@@ -131,7 +131,6 @@ for p in range(1):
             final=lowestneg
         final = final + numclickx
         return (final)
-        print (final)
     def closesty(listy, numclicky):
         myestimation=[]
         myestimationordered=[]
@@ -164,7 +163,6 @@ for p in range(1):
             final=lowestneg
         final = final + numclicky
         return (final)
-        print(final)
     
 #make all sprites
 bungothere = 'false'
@@ -202,7 +200,7 @@ def step():
     if bouncy != None:
         bouncy.y += bouncy.vertvel
         bouncycollision = bouncy.collidingWithSprites(Wall)
-        if bouncycollision != []:
+        if bouncycollision != [] or bouncy.y >= 690:
             bouncy.vertvel = 0
             ycoordbouncy = closesty(listy, bouncy.y)
     if bungo != None:
@@ -221,18 +219,23 @@ def step():
     if bungo != None:
         collision = bungo.collidingWithSprites(Wall)
         if collision != []:
-            vertvel = 0
             jump = 0
-            bungo.y = posendticky
             print (collision[0].x-17)
             print (bungo.x)
-            if bungo.x == collision[0].x-17 or bungo.x == collision[0].x+17:
-                bungo.x = posendtickx
-        if bungo.y >= 665 or bungo.y <= 0:
+            if bungo.y >= collision[0].y-50:
+                bungo.y = posendticky
+                vertvel = 0
+            # if bungo.y <= collision.y:
+            #if bungo.x == collision[0].x-17 or bungo.x == collision[0].x+17:
+                #bungo.x = posendtickx
+        if bungo.y >= 665:
             bungo.y = posendticky
             jump = 0
+        if bungo.y <= 0:
+            bungo.y = posendticky
         if bungo.x >= 983 or bungo.x <= 0:
             bungo.x = posendtickx
+        
 
 
     
