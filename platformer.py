@@ -27,6 +27,7 @@ class Boxy(Sprite):
         self.fxcenter = self.fycenter = 0.25
         self.YourDad = True
         self.YourUncle = False
+        self.YourAunt = False
         Platformer.listenKeyEvent("keydown", "right arrow", self.MoveRIGHT)
         Platformer.listenKeyEvent("keyup", "right arrow", self.MoveOff)
         Platformer.listenKeyEvent("keydown", "left arrow", self.MoveLEFT)
@@ -111,6 +112,8 @@ class Wall(Sprite):
         self.fxcenter = self.fycenter = 0
 
 # MAKE DAT SPRUNG
+
+
 class Spring(Sprite):
     Purple = Color(0xFF33FF, 1)
     noline = LineStyle(0, Purple)
@@ -125,7 +128,7 @@ class Spring(Sprite):
         self.fxcenter = self.fycenter = .25
         Platformer.listenKeyEvent("keyup" , "s", self.fall)
         
-    def stpp(self):
+    def step(self):
         self.vy = self.vy + 1.25
         self.y += self.vy
         self.a = self.collidingWithSprites(Wall)
@@ -167,7 +170,6 @@ class Platformer(App):
         Platformer.listenMouseEvent("mousemove" , self.mousemove)
         Platformer.listenKeyEvent("keydown", "p", self.Box)
         Platformer.listenKeyEvent("keydown", "s", self.Spring)
-        Platformer.listenKeyEvent("keyup", "p", self.ByeBye)
 
 
         bg=Sprite(bg_asset, (0, 0))
@@ -178,11 +180,15 @@ class Platformer(App):
     def step(self):
         for ship in self.getSpritesbyClass(Boxy):
             ship.step()
-        
-    def stpp(self):
+            if ship.y > 640:
+                ship.destroy()
+                self.YourMom = False
         for hip in self.getSpritesbyClass(Spring):
-            hip.stpp()
-    
+            hip.step()
+            if hip. y > 640:
+                hip.destroy()
+        
+
     def mousemove(self, event):
         self.x = event.x
         self.y = event.y
@@ -201,17 +207,13 @@ class Platformer(App):
         k = h * 25
         Spring((j, k))
         
-    def ByeBye(self, event):
-        if self.y > 640:
-            destroy(Boxy)
-            self.YourMom = False
+
     
     def Box(self, event):
         if self.YourMom == False:
             Boxy((self.x, self.y))
             self.YourMom = True
             
-    
     
        
     
