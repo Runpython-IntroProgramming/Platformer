@@ -86,9 +86,11 @@ class Boxy(Sprite):
         self.vx = 0
         self.vy = 5
         self.bricks = self.collidingWithSprites(Wall)
+        self.boing = self.collidingWithSprites(Springo)
         self.fxcenter = self.fycenter = 0.25
         self.Matty = True
         self.DonFluffles = False
+        self.Melly = False
         Platformer.listenKeyEvent("keydown", "right arrow", self.moveright)
         Platformer.listenKeyEvent("keyup", "right arrow", self.moveoff)
         Platformer.listenKeyEvent("keydown", "left arrow", self.moveleft)
@@ -103,6 +105,10 @@ class Boxy(Sprite):
         self.vy = self.vy + 1.25
         self.y += self.vy
         bricks = self.collidingWithSprites(Wall)
+        boing = self.collidingWithSprites(Springo)
+        if len(boing) != 0:
+            self.Melly = True
+            
         if len(bricks) != 0:
             self.y -= self.vy
             self.vy = 0
@@ -130,6 +136,9 @@ class Boxy(Sprite):
     def moveoff(self,event):
             self.vx = 0
             self.vy = self.vy + 1
+            if self.Melly == True:
+                self.vy = -30
+                self.Melly = False
         
     def moveright(self, event):
         if len(self.bricks) == 0:
@@ -139,6 +148,9 @@ class Boxy(Sprite):
         else:
             self.vx = 5
             self.vy = 5
+        if self.Melly == True:
+            self.vy = -30
+            self.Melly = False
             
     def moveleft(self,event):
         if len(self.bricks) == 0:
@@ -148,13 +160,20 @@ class Boxy(Sprite):
         else:
             self.vx = -5
             self.vy = 5
+        if self.Melly == True:
+            self.vy = -30
+            self.Melly = False
             
     def moveup(self,event):
         if len(self.bricks) == 0:
             self.Matty = True
         if self.DonFluffles == False:
             if self.Matty == True:
-                self.vy = -15
+                if self.Melly == False:    
+                    self.vy = -15
+                if self.Melly == True:
+                    self.vy = -30
+                    self.Melly = False
         else:
             self.vy = 5
             
@@ -182,9 +201,10 @@ class Platformer(App):
     def step(self):
         for ship in self.getSpritesbyClass(Boxy):
             ship.step()
-    def stoop(self):
         for hip in self.getSpritesbyClass(Springo):
             hip.step()
+            
+            
     def mousemove(self, event):
         self.x = event.x
         self.y = event.y 
