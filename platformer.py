@@ -25,6 +25,12 @@ for i in range(1):
     wallplace = RectangleAsset(35, 35, noline, black)
     bungosprite = RectangleAsset(17, 35, noline, green)
     jumpy = RectangleAsset(18, 3, noline, blue)
+    bottomof = RectangleAsset(1000, 1, noline, black)
+    sideof = RectangleAsset(1, 700, noline, black)
+    Sprite (bottomof, (0, 0))
+    Sprite (bottomof, (0, 699))
+    Sprite (sideof, (0, 0))
+    Sprite (sideof, (999, 0))
     
     class Wall(Sprite):
         def __init__(self, position):
@@ -209,8 +215,8 @@ def step():
     if bungo != None:
         bungo.y -= vertvel
         vertvel -= 0.2
-        if vertvel <= -9:
-            vertvel = -9
+        if vertvel <= -8:
+            vertvel = -8
         bungo.x += 3*latmove
         if bouncy != None:
             bouncyjump = bungo.collidingWithSprites(Jumpy)
@@ -220,15 +226,13 @@ def step():
         collision = bungo.collidingWithSprites(Wall)
         if collision != []:
             jump = 0
-            print (collision[0].x-17)
-            print (bungo.x)
-            if bungo.y >= collision[0].y-50:
+            if bungo.y >= collision[0].y-35 and bungo.y <= collision[0].y+35:
                 bungo.y = posendticky
-                vertvel = 0
-            # if bungo.y <= collision.y:
+                vertvel = 0 
+            #if bungo.y <= collision.y:
             #if bungo.x == collision[0].x-17 or bungo.x == collision[0].x+17:
                 #bungo.x = posendtickx
-        if bungo.y >= 665:
+        if bungo.y >= 667:
             bungo.y = posendticky
             jump = 0
         if bungo.y <= 0:
