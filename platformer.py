@@ -94,11 +94,6 @@ class Boxy(Sprite):
     def MoveOff(self, event):
         self.vx = 0
         self.vy = 5
-            
-    def fly(self, event):
-        if self.You == True:
-            self.vy = -30
-            self.You = False
 
     def JumpOn(self, event):
         if len(self.a) == 0:
@@ -184,8 +179,6 @@ class Platformer(App):
         Platformer.listenMouseEvent("mousemove" , self.mousemove)
         Platformer.listenKeyEvent("keydown", "p", self.Box)
         Platformer.listenKeyEvent("keydown", "s", self.Spring)
-
-
         bg=Sprite(bg_asset, (0, 0))
         self.x= 0
         self.y = 0
@@ -202,7 +195,6 @@ class Platformer(App):
             if hip. y > 640:
                 hip.destroy()
         
-
     def mousemove(self, event):
         self.x = event.x
         self.y = event.y
@@ -220,16 +212,11 @@ class Platformer(App):
         j = t * 25
         k = h * 25
         Spring((j, k))
-        
-
     
     def Box(self, event):
         if self.YourMom == False:
             Boxy((self.x, self.y))
             self.YourMom = True
-            
-    
-       
     
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
