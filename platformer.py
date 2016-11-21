@@ -53,7 +53,7 @@ class Boxy(Sprite):
             self.YourDad = False
         else:
             self.YourDad = True
-        if self.You:
+        if self.You == True:
             self.vy = -30
             self.You = False
         if self.YourDad == True:
