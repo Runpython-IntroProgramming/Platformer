@@ -38,7 +38,7 @@ for i in range(1):
     class Jumpy(Sprite):
         def __init__(self, position):
             super().__init__(jumpy, position)
-            self.vertvel = 3
+            self.vertvel = 20
     class Bungo(Sprite):
         def __init__(self, position):
             super().__init__(bungosprite, position)
@@ -230,7 +230,7 @@ def step():
             if bungo.y >= collision[0].y-35 and bungo.y <= collision[0].y+35:
                 bungo.y = posendticky
                 vertvel = 0
-            if bungo.x >= collision[0].y-33 and bungo.x <= collision[0].x+33 or bungo.x >= collision[1].y-33 and bungo.x <= collision[1].x+33:
+            if bungo.x >= collision[0].y-33 and bungo.x <= collision[0].x+33:
                 bungo.x = posendtickx
         if bungo.y >= 667:
             bungo.y = posendticky
@@ -239,6 +239,12 @@ def step():
             bungo.y = posendticky
         if bungo.x >= 983 or bungo.x <= 0:
             bungo.x = posendtickx
+        
+
+
+    
+
+
 
 #app stuff
 for j in range(1):
