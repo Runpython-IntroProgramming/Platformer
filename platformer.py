@@ -192,7 +192,7 @@ def mouseClick(event):
         bouncy = Jumpy ((numclickx+8, numclicky+15))
 
 
-#movement and collisions
+#movement
 posendtickx = 0
 posendticky = 0
 def step():
@@ -230,7 +230,7 @@ def step():
             if bungo.y >= collision[0].y-35 and bungo.y <= collision[0].y+35:
                 bungo.y = posendticky
                 vertvel = 0
-            if bungo.x >= collision[0].y-33 and bungo.x <= collision[0].x+33:
+            if bungo.x >= collision[0].y-33 and bungo.x <= collision[0].x+33 or bungo.x >= collision[1].y-33 and bungo.x <= collision[1].x+33:
                 bungo.x = posendtickx
         if bungo.y >= 667:
             bungo.y = posendticky
@@ -259,4 +259,7 @@ for j in range(1):
     """
     
     myapp.run(step)
+    
+   
+   
     
