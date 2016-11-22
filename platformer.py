@@ -206,7 +206,7 @@ def step():
     if bouncy != None:
         bouncy.y += bouncy.vertvel
         bouncycollision = bouncy.collidingWithSprites(Wall)
-        if bouncycollision != [] or bouncy.y >= 690:
+        if bouncycollision != [] or bouncy.y >= 693:
             bouncy.vertvel = 0
             ycoordbouncy = closesty(listy, bouncy.y)
     if bungo != None:
@@ -222,6 +222,7 @@ def step():
             bouncyjump = bungo.collidingWithSprites(Jumpy)
             if bouncyjump != []:
                 vertvel = 10
+                jump = 0
     if bungo != None:
         collision = bungo.collidingWithSprites(Wall)
         if collision != []:
