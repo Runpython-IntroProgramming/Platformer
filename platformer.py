@@ -185,6 +185,7 @@ def mouseClick(event):
 posendtickx = 0
 posendticky = 0
 def step():
+    jum = 0
     global vertvel
     global latmove
     global bungo
@@ -192,6 +193,7 @@ def step():
     global posendtickx
     global posendticky
     global jump
+    global jum
     if bouncy != None:
         bouncy.y += bouncy.vertvel
         bouncycollision = bouncy.collidingWithSprites(Wall)
@@ -216,11 +218,13 @@ def step():
         collision = bungo.collidingWithSprites(Wall)
         if collision != []:
             jump = 0
-            if bungo.y >= collision[0].y-35 and bungo.y <= collision[0].y+35:
-                bungo.y = posendticky
-                vertvel = 0
-            if bungo.x >= collision[0].y-33 and bungo.x <= collision[0].x+33:
-                bungo.x = posendtickx
+            while jum <= len(collision)-1:
+                if bungo.y >= collision[0].y-35 and bungo.y <= collision[0].y+35:
+                    bungo.y = posendticky
+                    vertvel = 0
+                if bungo.x >= collision[0].y-33 and bungo.x <= collision[0].x+33:
+                    bungo.x = posendtickx
+                jum += 1
         if bungo.y >= 667:
             bungo.y = posendticky
             jump = 0
