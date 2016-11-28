@@ -102,13 +102,12 @@ class Boxy(Sprite):
         
         
     def step(self):
-        self.vy = self.vy + 1.25
+        self.vy = self.vy + .75
         self.y += self.vy
         bricks = self.collidingWithSprites(Wall)
         boing = self.collidingWithSprites(Springo)
         if len(boing) != 0:
             self.Melly = True
-            
         if len(bricks) != 0:
             self.y -= self.vy
             self.vy = 0
@@ -119,7 +118,9 @@ class Boxy(Sprite):
             self.DonFluffles = True
         else:
             self.DonFluffles = False
-        
+        if self.Melly == True:
+            self.vy = self.vy * -2
+            self.Melly = False        
         self.x += self.vx
         bricks = self.collidingWithSprites(Wall)
         if len(bricks) != 0:
@@ -147,10 +148,6 @@ class Boxy(Sprite):
             self.vx = 5
         else:
             self.vx = 5
-            self.vy = 5
-        if self.Melly == True:
-            self.vy = -30
-            self.Melly = False
             
     def moveleft(self,event):
         if len(self.bricks) == 0:
@@ -159,23 +156,15 @@ class Boxy(Sprite):
             self.vx = -5
         else:
             self.vx = -5
-            self.vy = 5
-        if self.Melly == True:
-            self.vy = -30
-            self.Melly = False
             
     def moveup(self,event):
         if len(self.bricks) == 0:
             self.Matty = True
         if self.DonFluffles == False:
             if self.Matty == True:
-                if self.Melly == False:    
-                    self.vy = -15
-                if self.Melly == True:
-                    self.vy = -30
-                    self.Melly = False
+                self.vy = -15
         else:
-            self.vy = 5
+            self.vy = self.vy
             
 class Platformer(App):
     """
@@ -201,8 +190,13 @@ class Platformer(App):
     def step(self):
         for ship in self.getSpritesbyClass(Boxy):
             ship.step()
+            if ship.y > 640:
+                ship.y = -50
+                ship.vy = 0
         for hip in self.getSpritesbyClass(Springo):
             hip.step()
+            if hip.y > 640:
+                hip.destroy()
             
             
     def mousemove(self, event):
