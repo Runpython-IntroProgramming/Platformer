@@ -55,17 +55,6 @@ for i in range(1):
     def jumpyKey(event):
         global mode
         mode = "j"
-    """
-    def shooterKey(event):
-        global mode
-        mode = "s"
-    def killerKey(event):
-        global mode
-        mode = "k"
-    def platformKey(event):
-        global mode
-        mode = "p"
-    """
 
 #define arrow key movements
 for p in range(1):
@@ -236,6 +225,7 @@ def step():
             bungo.y = posendticky
             jump = 0
         if bungo.y <= 0:
+            vertvel = 0
             bungo.y = posendticky
         if bungo.x >= 983 or bungo.x <= 0:
             bungo.x = posendtickx
@@ -258,12 +248,7 @@ for j in range(1):
     myapp.listenKeyEvent('keydown', 'right arrow', rightgo)
     myapp.listenKeyEvent('keyup', 'right arrow', rightstop)
     myapp.listenKeyEvent('keyup', 'left arrow', leftstop)
-    """
-    myapp.listenKeyEvent('keydown', 's', shooterKey)
-    myapp.listenKeyEvent('keydown', 'k', killerKey)
-    myapp.listenKeyEvent('keydown', 'p', platformKey)
-    """
-    
+
     myapp.run(step)
     
    
