@@ -218,7 +218,7 @@ def step():
         collision = bungo.collidingWithSprites(Wall)
         if collision != []:
             jump = 0
-            while jum <= len(collision):
+            while jum <= len(collision)-1:
                 if bungo.y >= collision[jum].y-35 and bungo.y <= collision[jum].y+35:
                     bungo.y = posendticky
                     vertvel = 0
