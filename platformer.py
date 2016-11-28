@@ -233,11 +233,6 @@ def step():
             bungo.y = posendticky
         if bungo.x >= 983 or bungo.x <= 0:
             bungo.x = posendtickx
-        
-
-
-    
-
 
 
 #app stuff
@@ -254,7 +249,3 @@ for j in range(1):
     myapp.listenKeyEvent('keyup', 'left arrow', leftstop)
 
     myapp.run(step)
-    
-   
-   
-    
