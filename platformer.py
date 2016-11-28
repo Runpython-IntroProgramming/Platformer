@@ -219,10 +219,10 @@ def step():
         if collision != []:
             jump = 0
             while jum <= len(collision):
-                if bungo.y >= collision[0].y-35 and bungo.y <= collision[0].y+35:
+                if bungo.y >= collision[jum].y-35 and bungo.y <= collision[jum].y+35:
                     bungo.y = posendticky
                     vertvel = 0
-                if bungo.x >= collision[0].y-33 and bungo.x <= collision[0].x+33:
+                if bungo.x >= collision[jum].y-33 and bungo.x <= collision[jum].x+33:
                     bungo.x = posendtickx
                 jum += 1
         if bungo.y >= 667:
