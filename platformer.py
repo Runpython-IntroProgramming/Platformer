@@ -31,8 +31,6 @@ for i in range(1):
     Sprite (bottomof, (0, 699))
     Sprite (sideof, (0, 0))
     Sprite (sideof, (1014, 0))
-    Sprite (sideof, (445, 0))
-    Sprite (bottomof, (0, 470))
     
     class Wall(Sprite):
         def __init__(self, position):
@@ -222,8 +220,9 @@ def step():
             jump = 0
             while jum <= len(collision)-1:
                 if bungo.y >= collision[jum].y-35 and bungo.y <= collision[jum].y+35:
-                    bungo.y = posendticky
-                    vertvel = 0
+                    if bungo.x >= collision[jum].x-35 and bungo.x <= collision[jum].x+35:
+                        bungo.y = posendticky
+                        vertvel = 0
                 if bungo.x >= collision[jum].x-35 and bungo.x <= collision[jum].x+35:
                     if bungo.y >= collision[jum].y-35 and bungo.y <= collision[jum].y+35:
                         bungo.x = posendtickx
