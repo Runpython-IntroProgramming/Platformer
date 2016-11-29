@@ -213,7 +213,7 @@ def step():
             bouncyjump = bungo.collidingWithSprites(Jumpy)
             if bouncyjump != []:
                 vertvel = 10
-                jump = 0
+                jump = 1
     if bungo != None:
         collision = bungo.collidingWithSprites(Wall)
         if collision != []:
