@@ -25,12 +25,14 @@ for i in range(1):
     wallplace = RectangleAsset(35, 35, noline, black)
     bungosprite = RectangleAsset(17, 33, noline, green)
     jumpy = RectangleAsset(18, 3, noline, blue)
-    bottomof = RectangleAsset(1000, 1, noline, black)
+    bottomof = RectangleAsset(1015, 1, noline, black)
     sideof = RectangleAsset(1, 700, noline, black)
     Sprite (bottomof, (0, 0))
     Sprite (bottomof, (0, 699))
     Sprite (sideof, (0, 0))
-    Sprite (sideof, (999, 0))
+    Sprite (sideof, (1014, 0))
+    Sprite (sideof, (445, 0))
+    Sprite (bottomof, (0, 470))
     
     class Wall(Sprite):
         def __init__(self, position):
@@ -222,7 +224,7 @@ def step():
                 if bungo.y >= collision[jum].y-35 and bungo.y <= collision[jum].y+35:
                     bungo.y = posendticky
                     vertvel = 0
-                if bungo.x >= collision[jum].y-33 and bungo.x <= collision[jum].x+33:
+                if bungo.x >= collision[jum].x-35 and bungo.x <= collision[jum].x+35:
                     if bungo.y <= collision[jum].y-35 and bungo.y >= collision[jum].y+35:
                         bungo.x = posendtickx
                 jum += 1
@@ -232,7 +234,7 @@ def step():
         if bungo.y <= 0:
             vertvel = 0
             bungo.y = posendticky
-        if bungo.x >= 983 or bungo.x <= 0:
+        if bungo.x >= 998 or bungo.x <= 0:
             bungo.x = posendtickx
 
 
