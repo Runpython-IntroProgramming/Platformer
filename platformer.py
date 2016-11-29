@@ -10,7 +10,7 @@ https://github.com/HHS-IntroProgramming/Platformer
 from ggame import App, RectangleAsset, Sprite
 from ggame import LineStyle, Color
 
-SCREEN_WIDTH = 1000
+SCREEN_WIDTH = 1015
 SCREEN_HEIGHT = 700
 
 #define colors and sprites
@@ -23,7 +23,7 @@ for i in range(1):
     noline = LineStyle(0, black)
     
     wallplace = RectangleAsset(35, 35, noline, black)
-    bungosprite = RectangleAsset(17, 35, noline, green)
+    bungosprite = RectangleAsset(17, 33, noline, green)
     jumpy = RectangleAsset(18, 3, noline, blue)
     bottomof = RectangleAsset(1000, 1, noline, black)
     sideof = RectangleAsset(1, 700, noline, black)
@@ -223,7 +223,8 @@ def step():
                     bungo.y = posendticky
                     vertvel = 0
                 if bungo.x >= collision[jum].y-33 and bungo.x <= collision[jum].x+33:
-                    bungo.x = posendtickx
+                    if bungo.y <= collision[jum].y-35 and bungo.y >= collision[jum].y+35:
+                        bungo.x = posendtickx
                 jum += 1
         if bungo.y >= 667:
             bungo.y = posendticky
