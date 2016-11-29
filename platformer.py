@@ -225,7 +225,7 @@ def step():
                     bungo.y = posendticky
                     vertvel = 0
                 if bungo.x >= collision[jum].x-35 and bungo.x <= collision[jum].x+35:
-                    if bungo.y <= collision[jum].y-35 and bungo.y >= collision[jum].y+35:
+                    if bungo.y >= collision[jum].y-35 and bungo.y <= collision[jum].y+35:
                         bungo.x = posendtickx
                 jum += 1
         if bungo.y >= 667:
