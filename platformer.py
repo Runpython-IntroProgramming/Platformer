@@ -18,8 +18,17 @@ backcol = Color(0xd9ffcc, 1.0)
 noline = LineStyle(0, black)
 bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, backcol)
 bg = Sprite(bg_asset, (0,0))
+thinline = LineStyle(1, black)
+sq = RectangleAsset (50, 20, thinline, black)
 
-sq = Sprite(rectangle, (200, 50))
+while 'w' is pressed:
+    
+    if mouse is at (0>=x>=50) and (0>=y>=50):
+        Sprite (sq, (25, 25))
+    if mouse is at (0>=x>=50) and (50>=y>=100):
+        Sprite (sq, (25, 75))
+
+
 
 
 
