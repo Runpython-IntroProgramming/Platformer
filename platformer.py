@@ -20,9 +20,9 @@ bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, backcol)
 bg = Sprite(bg_asset, (0,0))
 thinline = LineStyle(1, black)
 sq = RectangleAsset (50, 20, thinline, black)
-wup=0
+wub=0
 
-def wup:
+def wup(event):
     wub = 1
 
 
@@ -59,7 +59,7 @@ if wub == 1:
 
 
 
-myapp.listenKeyEvent('keydown', 'p', pup)
+#myapp.listenKeyEvent('keydown', 'p', pup)
 myapp.listenKeyEvent('keydown', 'w', wup)
 myapp.listenMouseEvent('move', mousemo)
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
