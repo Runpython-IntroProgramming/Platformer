@@ -27,6 +27,10 @@ mousey=0
 def wup(event):
     global wub
     wub = 1
+    if wub == 1:
+        mousexr=mousex-((mousex)%50)
+        mouseyr=mousey-((mousex)%50)
+        block = Sprite (sq, mouserx, mousery)
 
 def mousemo(event):
     global mousex
@@ -34,8 +38,7 @@ def mousemo(event):
     mousex=mouse.x
     mousey=mouse.y
 
-if wub == 1:
-    block = Sprite (sq, mousex-((mousex)%50), mousey-((mousey)%50))
+
     
 
 
@@ -67,8 +70,8 @@ if wub == 1:
 
 
 
-#myapp.listenKeyEvent('keydown', 'p', pup)
-myapp.listenKeyEvent('keydown', 'w', wup)
+#myapp.listenKeyEvent('keyup', 'p', pup)
+myapp.listenKeyEvent('keyup', 'w', wup)
 myapp.listenMouseEvent('move', mousemo)
 
 myapp.run()
