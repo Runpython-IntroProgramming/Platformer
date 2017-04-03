@@ -23,6 +23,7 @@ sq = RectangleAsset (50, 20, thinline, black)
 wub=0
 
 def wup(event):
+    global wub
     wub = 1
 
 
