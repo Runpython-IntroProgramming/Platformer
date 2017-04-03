@@ -19,24 +19,30 @@ noline = LineStyle(0, black)
 bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, backcol)
 bg = Sprite(bg_asset, (0,0))
 thinline = LineStyle(1, black)
-sq = RectangleAsset (50, 50, noline, black)
+sq = RectangleAsset (75,75, noline, black)
 wub=0
 mousex=0
 mousey=0
+mousexround=0
+mouseyround=0
 
 def wup(event):
     global wub
+    global mousexround
+    global mouseyround
     wub = 1
     if wub == 1:
-        mousexr=mousex-((mousex)%50)
-        mouseyr=mousey-((mousex)%50)
-        block = Sprite (sq, mouserx, mousery)
+        mousexround=mousex-((mousex)%75)
+        mouseyround=mousey-((mousey)%75)
+        block = Sprite (sq, (mousexround, mouseyround))
 
 def mousemo(event):
     global mousex
     global mousey
-    mousex=mouse.x
-    mousey=mouse.y
+    mousex=event.x
+    mousey=event.y
+    
+
 
 
     
@@ -72,6 +78,6 @@ def mousemo(event):
 
 #myapp.listenKeyEvent('keyup', 'p', pup)
 myapp.listenKeyEvent('keyup', 'w', wup)
-myapp.listenMouseEvent('move', mousemo)
+myapp.listenMouseEvent('mousemove', mousemo)
 
 myapp.run()
