@@ -1,7 +1,7 @@
 """
 platformer.py
 Author: Jasper Meyer
-Credit: Will, you, the internet, Brendan
+Credit: You, the internet, Brendan
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
@@ -19,7 +19,7 @@ noline = LineStyle(0, black)
 bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, backcol)
 bg = Sprite(bg_asset, (0,0))
 thinline = LineStyle(1, black)
-sq = RectangleAsset (50, 20, thinline, black)
+sq = RectangleAsset (50, 50, noline, black)
 wub=0
 
 def wup(event):
@@ -28,7 +28,7 @@ def wup(event):
 
 
 if wub == 1:
-    block = Sprite (sq, mouse.x, mouse.y)
+    block = Sprite (sq, mouse.x-((mouse.x)%50), mouse.y-((mouse.y)%50))
     
 
 
