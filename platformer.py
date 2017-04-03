@@ -28,6 +28,7 @@ while 'w' is pressed:
     if mouse is at (0>=x>=50) and (50>=y>=100):
         Sprite (sq, (25, 75))
 
+test for commit
 
 
 
