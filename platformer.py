@@ -20,15 +20,15 @@ bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, backcol)
 bg = Sprite(bg_asset, (0,0))
 thinline = LineStyle(1, black)
 sq = RectangleAsset (50, 20, thinline, black)
+wup=0
 
-while 'w' is pressed:
+def wup:
+    wub = 1
+
+
+if wub == 1:
+    block = Sprite (sq, mouse.x, mouse.y)
     
-    if mouse is at (0>=x>=50) and (0>=y>=50):
-        Sprite (sq, (25, 25))
-    if mouse is at (0>=x>=50) and (50>=y>=100):
-        Sprite (sq, (25, 75))
-
-test for commit
 
 
 
@@ -59,7 +59,8 @@ test for commit
 
 
 
-
-
+myapp.listenKeyEvent('keydown', 'p', pup)
+myapp.listenKeyEvent('keydown', 'w', wup)
+myapp.listenMouseEvent('move', mousemo)
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
