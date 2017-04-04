@@ -30,6 +30,10 @@ mouseyround=0
 play = RectangleAsset (25,50, noline, purp)
 vy=0
 player=0
+acc = 0
+ti = 0
+rupx=0
+vx=0
 
 def wup(event):
     global wub
@@ -52,6 +56,7 @@ def pup(event):
     global pub
     global mousex
     global mouseyround
+    global player
     pub = 1
     if pub == 1:
         mouseyround=mousey-((mousey)%75)+25
@@ -59,11 +64,28 @@ def pup(event):
             player = Sprite (play, (mousex, mouseyround))
 
 
+def rup(event):
+    global rupx
+    rupx=1
+    
+
 def step():
     if player != 0:
         global vy
-        vy = 0.2+player.y
-        player.y = player.y+vy
+        global acc
+        global ti
+        global rupx
+        global vx
+        acc = 0.02
+        vy = 0.2*ti
+        ti=ti+.1
+        player.y=player.y+vy
+        player.x=player.x+vx
+        if rupx == 1:
+            vx = vx+0.1
+        
+            
+        
 
 
 
@@ -91,7 +113,7 @@ def step():
 
 
 
-
+myapp.listenKeyEvent('keyup', 'right arrow', rup)
 myapp.listenKeyEvent('keyup', 'p', pup)
 myapp.listenKeyEvent('keyup', 'w', wup)
 myapp.listenMouseEvent('mousemove', mousemo)
