@@ -33,7 +33,9 @@ player=0
 acc = 0
 ti = 0
 rupx=0
+lupx=0
 vx=0
+up=0
 
 def wup(event):
     global wub
@@ -68,6 +70,14 @@ def rup(event):
     global rupx
     rupx=1
     
+def lup(event):
+    global lupx
+    lupx=1
+    
+def uup(event):
+    global up
+    up=1
+    
 
 def step():
     if player != 0:
@@ -76,13 +86,25 @@ def step():
         global ti
         global rupx
         global vx
+        global lupx
+        global up
         acc = 0.02
         vy = 0.2*ti
         ti=ti+.1
         player.y=player.y+vy
         player.x=player.x+vx
         if rupx == 1:
-            vx = vx+0.1
+            vx=vx+1
+            lupx=0
+            rupx=0
+        if lupx == 1:
+            vx=vx-1
+            rupx=0
+            lupx=0
+        if up == 1:
+            vy=vy+1
+        
+            
         
             
         
@@ -111,9 +133,9 @@ def step():
 
 
 
-
-
-myapp.listenKeyEvent('keyup', 'right arrow', rup)
+myapp.listenKeyEvent('keydown', 'up arrow', uup)
+myapp.listenKeyEvent('keydown', 'left arrow', lup)
+myapp.listenKeyEvent('keydown', 'right arrow', rup)
 myapp.listenKeyEvent('keyup', 'p', pup)
 myapp.listenKeyEvent('keyup', 'w', wup)
 myapp.listenMouseEvent('mousemove', mousemo)
