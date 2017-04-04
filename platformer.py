@@ -49,12 +49,11 @@ def mousemo(event):
 def pup(event):
     global pub
     global mousexround
-    global mouseyround
+    global mousey
     pub = 1
     if pub == 1:
         mousexround=mousex-((mousex)%75)
-        mouseyround=mousey-((mousey)%75)
-        block = Sprite (sq, (mousexround, mouseyround))
+        block = Sprite (sq, (mousexround, mousey))
 
 
 
