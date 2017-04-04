@@ -36,6 +36,7 @@ rupx=0
 lupx=0
 vx=0
 up=0
+upup=0
 
 def wup(event):
     global wub
@@ -77,6 +78,7 @@ def lup(event):
 def uup(event):
     global up
     up=1
+
     
 
 def step():
@@ -88,8 +90,9 @@ def step():
         global vx
         global lupx
         global up
+        global upup
         acc = 0.02
-        vy = 0.2*ti
+        vy = (0.2*ti)-upup
         ti=ti+.1
         player.y=player.y+vy
         player.x=player.x+vx
@@ -102,7 +105,8 @@ def step():
             rupx=0
             lupx=0
         if up == 1:
-            vy=vy+1
+            upup = 2
+            up=0
         
             
         
