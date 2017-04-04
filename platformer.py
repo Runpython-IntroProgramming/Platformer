@@ -28,6 +28,8 @@ mousey=0
 mousexround=0
 mouseyround=0
 play = RectangleAsset (25,50, noline, purp)
+vy=0
+player=0
 
 def wup(event):
     global wub
@@ -53,22 +55,20 @@ def pup(event):
     pub = 1
     if pub == 1:
         mouseyround=mousey-((mousey)%75)+25
-        player = Sprite (play, (mousex, mouseyround))
-    
+        if player == 0:
+            player = Sprite (play, (mousex, mouseyround))
+
+
 def step():
-    event.x
+    if player != 0:
+        global vy
+        vy = 0.2+player.y
+        player.y = player.y+vy
+
+
+
+
     
-
-
-
-    
-
-
-
-
-
-
-
 
 
 
