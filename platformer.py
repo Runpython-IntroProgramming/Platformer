@@ -37,6 +37,7 @@ lupx=0
 vx=0
 up=0
 upup=0
+stop = 0
 
 def wup(event):
     global wub
@@ -91,8 +92,10 @@ def step():
         global lupx
         global up
         global upup
+        global stop
         acc = 0.02
-        vy = (0.2*ti)-upup
+        if stop != 1:
+            vy = (0.2*ti)-upup
         ti=ti+.1
         player.y=player.y+vy
         player.x=player.x+vx
@@ -107,6 +110,11 @@ def step():
         if up == 1:
             upup = 2
             up=0
+        col = player.collidingWithSprites(Sprite)
+        if len(col) > 1:
+            stop=1
+        if stop == 1:
+            vy=0
         
             
         
