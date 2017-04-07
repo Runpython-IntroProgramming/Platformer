@@ -94,9 +94,9 @@ def step():
         global upup
         global stop
         acc = 0.02
-        if stop != 1:
+        if stop == 0:
+            ti=ti+.2
             vy = (0.2*ti)-upup
-        ti=ti+.1
         player.y=player.y+vy
         player.x=player.x+vx
         if rupx == 1:
@@ -113,10 +113,13 @@ def step():
         col = player.collidingWithSprites(Sprite)
         if len(col) > 1:
             stop=1
+        else:
+            stop=0
         if stop == 1:
             vy=0
-        
-            
+            ti=0
+        if len(col) > 2:
+            vx=0
         
             
         
