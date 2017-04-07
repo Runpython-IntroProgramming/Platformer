@@ -113,13 +113,15 @@ def step():
         col = player.collidingWithSprites(Sprite)
         if len(col) > 1:
             stop=1
+            #player.y=player.y-2
         else:
             stop=0
         if stop == 1:
             vy=0
             ti=0
         if len(col) > 2:
-            vx=0
+            if col[2].y<player.y+1:
+                vx=-0.5*vx
         
             
         
