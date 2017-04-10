@@ -16,6 +16,7 @@ myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 black = Color(0, 1)
 backcol = Color(0xd9ffcc, 1.0)
 purp = Color(0x9900cc, 1.0)
+blue = Color(0x3399ff,1.0)
 noline = LineStyle(0, black)
 bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, backcol)
 bg = Sprite(bg_asset, (0,0))
@@ -28,6 +29,7 @@ mousey=0
 mousexround=0
 mouseyround=0
 play = RectangleAsset (25,50, noline, purp)
+spr = RectangleAsset (3,4, noline, blue)
 vy=0
 player=0
 acc = 0
@@ -38,6 +40,7 @@ vx=0
 up=0
 upup=0
 stop = 0
+shutup=0
 
 def wup(event):
     global wub
@@ -93,27 +96,37 @@ def step():
         global up
         global upup
         global stop
+        global shutup
         acc = 0.02
         if stop == 0:
-            ti=ti+.2
-            vy = (0.2*ti)-upup
+            ti=ti+.5
+            if upup==4.5:
+                vy = (0.2*ti)-upup
+            else: 
+                vy = (0.2*ti)
         player.y=player.y+vy
         player.x=player.x+vx
         if rupx == 1:
-            vx=vx+1
+            vx=vx+1.5
             lupx=0
             rupx=0
         if lupx == 1:
-            vx=vx-1
+            vx=vx-1.5
             rupx=0
             lupx=0
+        if vx > 3:
+            vx = 3
+        if vx < -3:
+            vx =-3
         if up == 1:
-            upup = 2
+            upup = 4.5
             up=0
+        if up == 0:
+            upup =4.5
         col = player.collidingWithSprites(Sprite)
         if len(col) > 1:
             stop=1
-            #player.y=player.y-2
+            player.y=player.y-0.2
         else:
             stop=0
         if stop == 1:
