@@ -38,14 +38,14 @@ bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, black)
 bg = Sprite(bg_asset, (0,0))
 
 class Wall(Sprite):
-    wall = RectangleAsset(40, 40, thinline, grey)
+    wall = RectangleAsset(20, 20, thinline, grey)
     def __init__(self, x, y):
         super().__init__(Wall.wall, (x, y))
         self.x = x
         self.y = y
 
 class Dude(Sprite):
-    dude = RectangleAsset(30, 30, redline, green)
+    dude = RectangleAsset(15, 15, redline, green)
     def __init__(self, x, y):
         super().__init__(Dude.dude, (x, y))
         self.x = x
@@ -61,6 +61,7 @@ class Dude(Sprite):
             self.gravity = 0
 
 gravity = 0
+q=20
 
 class Platformer(App):
     def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
@@ -76,6 +77,8 @@ class Platformer(App):
         self.listenKeyEvent('keydown', 'left arrow', self.L)
         self.listenKeyEvent('keydown', 'up arrow', self.U)
         self.listenKeyEvent('keydown', 'down arrow', self.D)
+        self.listenKeyEvent('keydown', 'j', self.J)
+        self.listenKeyEvent('keydown', 'k', self.K)
     
     def motion(self, event):
         self.mousex = event.x
@@ -89,13 +92,8 @@ class Platformer(App):
         self.dudesprite = Dude(self.mousex - 15, self.mousey - 15)
     
     def buildWall(self, event):
-        x = self.mousex - self.mousex%40
-        y = self.mousey - self.mousey%40
-        Wall(x-10, y-10)
-        
-    def destroyWall(self, event):
-        x = self.mousex - self.mousex%40
-        y = self.mousey - self.mousey%40
+        x = self.mousex - self.mousex%20
+        y = self.mousey - self.mousey%20
         Wall(x-10, y-10)
         
         
@@ -125,8 +123,23 @@ class Platformer(App):
         if collisions:
             self.dudesprite.y -= 5
             
+    def J(self, event):
+        global gravity
+        global q
+        if q > 0:
+            gravity = -3
+            q = q-1
+            
+    def K(self, event):
+        global gravity
+        if q == 0:
+            gravity = -1
+        
+
+            
     def step(self):
         global gravity
+        global q
         if self.dudesprite:
             gravity += 0.3
             self.dudesprite.y += gravity
@@ -134,6 +147,9 @@ class Platformer(App):
             if collisions:
                 self.dudesprite.y -= gravity
                 gravity = 0
+                q = 20
             
+            
+    
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
