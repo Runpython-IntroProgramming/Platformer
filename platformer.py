@@ -113,6 +113,7 @@ def step():
         global stop
         global shutup
         global springlist
+        global player
         acc = 0.02
         for s in springlist:
             if player.collidingWith(s):
@@ -144,7 +145,7 @@ def step():
         if up == 0:
             upup =4.5
         col = player.collidingWithSprites(Sprite)
-        if len(col) > 1:
+        if len(col) > 1 and col[1].y<player.y+500:
             stop=1
             player.y=player.y-0.2
         else:
@@ -155,6 +156,9 @@ def step():
         if len(col) > 1:
             if col[1].y<player.y+50:
                 vx=-0.5*vx
+        if player.y > 2000:
+            player = 0
+            ti=0
         
                 
             
