@@ -43,7 +43,7 @@ stop = 0
 shutup=0
 spring = 0
 sub = 0
-springlist = [0]
+springlist = []
 
 def wup(event):
     global wub
@@ -69,6 +69,7 @@ def spri(event):
     global mousey
     global mouseyround
     global sub
+    global springlist
     sub =1
     if sub == 1:
         mouseyround=mousey-((mousey)%75)+65
@@ -111,6 +112,7 @@ def step():
         global upup
         global stop
         global shutup
+        global springlist
         acc = 0.02
         if stop == 0:
             ti=ti+.5
@@ -138,7 +140,6 @@ def step():
         if up == 0:
             upup =4.5
         col = player.collidingWithSprites(Sprite)
-        print col
         if len(col) > 1:
             stop=1
             player.y=player.y-0.2
