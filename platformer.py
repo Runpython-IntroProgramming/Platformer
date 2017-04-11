@@ -153,7 +153,7 @@ def step():
             vy=0
             ti=0
         if len(col) > 1:
-            if col[1].y<player.y+75:
+            if col[1].y<player.y+50:
                 vx=-0.5*vx
         
                 
