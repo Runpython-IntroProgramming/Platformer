@@ -152,7 +152,7 @@ def step():
             if col[1].y<player.y+75:
                 vx=-0.5*vx
         for s in springlist:
-            if player.collidingwith(s):
+            if player.collidingWith(s):
                 vy=vy-5
                 
             
