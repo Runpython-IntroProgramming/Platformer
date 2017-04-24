@@ -70,7 +70,6 @@ class Platformer(App):
         self.mousey = 0
         self.dude = 0
         self.dudesprite = None
-        self.listenKeyEvent('keydown', 'p', self.buildDude)
         self.listenKeyEvent('keydown', 'w', self.buildWall)
         self.listenMouseEvent('mousemove', self.motion)
         self.listenKeyEvent('keydown', 'right arrow', self.R)
