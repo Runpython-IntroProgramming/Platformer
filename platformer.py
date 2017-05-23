@@ -38,5 +38,14 @@ black = Color(0, 1)
 bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, black)
 bg = Sprite(bg_asset, (0,0))
 
+class Brick(Sprite):
+    brick = RectangleAsset(30, 30, thinline, pink)
+    def __init__(self, x, y):
+        super().__init__(Brick.brick, (x, y))
+        self.x = x
+        self.y = y
+
+
+
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
