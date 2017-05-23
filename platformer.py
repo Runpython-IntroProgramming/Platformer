@@ -44,6 +44,13 @@ class Brick(Sprite):
         super().__init__(Brick.brick, (x, y))
         self.x = x
         self.y = y
+        
+class Guy(Sprite):
+    guy = RectangleAsset(20, 20, thinline, green)
+    def __init__(self, x, y):
+        super().__init__(Guy.guy, (x, y))
+        self.x = x
+        self.y = y
 
 
 
