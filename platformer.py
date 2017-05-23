@@ -33,3 +33,10 @@ greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
 grid=RectangleAsset(30,30,gridline,white)
 
+
+black = Color(0, 1)
+bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, black)
+bg = Sprite(bg_asset, (0,0))
+
+myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
+myapp.run()
