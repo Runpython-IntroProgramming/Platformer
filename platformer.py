@@ -51,6 +51,16 @@ class Guy(Sprite):
         super().__init__(Guy.guy, (x, y))
         self.x = x
         self.y = y
+        
+    def step(self):
+        self.grav += 0.2
+        self.y += self.grav
+        collide = self.collidingWithSprites(brick)
+        if collide:
+            self.y -= self.grav
+            self.grav = 0
+            
+grav=0
 
 
 
