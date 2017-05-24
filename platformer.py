@@ -62,7 +62,78 @@ class Brick(Sprite):
             
 grav=0
 
+class Pform(App):
+    def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
+        super().__init__()
+        self.mousex = 0
+        self.mousey = 0
+        self.guy = 0
+        self.guysprite = None
+        self.listenKeyEvent('keydown', 'p', self.createGuy)
+        self.listenKeyEvent('keydown', 'w', self.createBrick)
+        self.listenMouseEvent('mousemove', self.motion)
+        self.listenKeyEvent('keydown', 'right arrow', self.R)
+        self.listenKeyEvent('keydown', 'left arrow', self.L)
+        self.listenKeyEvent('keydown', 'up arrow', self.U)
+        self.listenKeyEvent('keydown', 'down arrow', self.D)
 
+
+
+
+def motion(self, event):
+        self.mousex = event.x
+        self.mousey = event.y
+    
+    def createGuy (self, event):
+        global grav
+        if self.guysprite:
+            self.guysprite.destroy()
+            grav = 0
+        self.guysprite = Guy(self.mousex - 15, self.mousey - 15)
+    
+    def createWall(self, event):
+        x = self.mousex - self.mousex%20
+        y = self.mousey - self.mousey%20
+        Brick(x-10, y-10)
+        
+        
+    def R(self, event):
+        self.guysprite.x += 5
+        collisions = self.guysprite.collidingWithSprites(Brick)
+        if collisions:
+            self.guysprite.x -= 5
+            
+    def L(self, event):
+        self.guysprite.x -= 5
+        collisions = self.guysprite.collidingWithSprites(Brick)
+        if collisions:
+            self.guysprite.x += 5
+            
+    def U(self, event):
+        global grav
+        if grav == 0:
+            grav = -7
+            collisions = self.guysprite.collidingWithSprites(Brick)
+            if collisions:
+                self.guysprite.y += 50
+
+    def D(self, event):
+        self.guysprite.y += 5
+        collisions = self.guysprite.collidingWithSprites(Brick)
+        if collisions:
+            self.guysprite.y -= 5
+            
+
+            
+    def step(self):
+        global grav
+        if self.guysprite:
+            grav += 0.3
+            self.guysprite.y += grav
+            collisions = self.guysprite.collidingWithSprites(Brick)
+            if collisions:
+                self.guysprite.y -= grav
+                grav = 0
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
