@@ -80,7 +80,7 @@ class Pform(App):
 
 
 
-def motion(self, event):
+    def motion(self, event):
         self.mousex = event.x
         self.mousey = event.y
     
