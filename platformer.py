@@ -69,6 +69,7 @@ class Pform(App):
         self.mousey = 0
         self.guy = 0
         self.guysprite = None
+        self.brick = None
         self.listenKeyEvent('keydown', 'p', self.createGuy)
         self.listenKeyEvent('keydown', 'w', self.createBrick)
         self.listenMouseEvent('mousemove', self.motion)
@@ -91,7 +92,7 @@ class Pform(App):
             grav = 0
         self.guysprite = Guy(self.mousex - 15, self.mousey - 15)
     
-    def createWall(self, event):
+    def createBrick(self, event):
         x = self.mousex - self.mousex%20
         y = self.mousey - self.mousey%20
         Brick(x-10, y-10)
@@ -123,17 +124,21 @@ class Pform(App):
         if collisions:
             self.guysprite.y -= 5
             
-
-            
     def step(self):
         global grav
+        print('a')
         if self.guysprite:
             grav += 0.3
+            print('a')
             self.guysprite.y += grav
+            print('a')
             collisions = self.guysprite.collidingWithSprites(Brick)
+            print('a')
             if collisions:
                 self.guysprite.y -= grav
                 grav = 0
+            
+
 
 myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
