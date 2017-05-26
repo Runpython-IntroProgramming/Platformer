@@ -53,7 +53,7 @@ class Brick(Sprite):
         self.y = y
         
     def step(self):
-        self.grav += 0.2
+        self.grav += 0.25
         self.y += self.grav
         collide = self.collidingWithSprites(brick)
         if collide:
@@ -62,7 +62,7 @@ class Brick(Sprite):
             
 grav=0
 
-class Pform(App):
+class Platformer(App):
     def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
         super().__init__()
         self.mousex = 0
@@ -85,31 +85,18 @@ class Pform(App):
         self.mousex = event.x
         self.mousey = event.y
     
+    def createBrick(self, event):
+        x = self.mousex - self.mousex%20
+        y = self.mousey - self.mousey%20
+        Brick(x-10, y-10)
+        
     def createGuy (self, event):
         global grav
         if self.guysprite:
             self.guysprite.destroy()
             grav = 0
         self.guysprite = Guy(self.mousex - 15, self.mousey - 15)
-    
-    def createBrick(self, event):
-        x = self.mousex - self.mousex%20
-        y = self.mousey - self.mousey%20
-        Brick(x-10, y-10)
-        
-        
-    def R(self, event):
-        self.guysprite.x += 5
-        collisions = self.guysprite.collidingWithSprites(Brick)
-        if collisions:
-            self.guysprite.x -= 5
-            
-    def L(self, event):
-        self.guysprite.x -= 5
-        collisions = self.guysprite.collidingWithSprites(Brick)
-        if collisions:
-            self.guysprite.x += 5
-            
+
     def U(self, event):
         global grav
         if grav == 0:
@@ -124,16 +111,24 @@ class Pform(App):
         if collisions:
             self.guysprite.y -= 5
             
+    def R(self, event):
+        self.guysprite.x += 5
+        collisions = self.guysprite.collidingWithSprites(Brick)
+        if collisions:
+            self.guysprite.x -= 5
+            
+    def L(self, event):
+        self.guysprite.x -= 5
+        collisions = self.guysprite.collidingWithSprites(Brick)
+        if collisions:
+            self.guysprite.x += 5
+            
     def step(self):
         global grav
-        print('a')
         if self.guysprite:
-            grav += 0.3
-            print('a')
+            grav += 0.25
             self.guysprite.y += grav
-            print('a')
             collisions = self.guysprite.collidingWithSprites(Brick)
-            print('a')
             if collisions:
                 self.guysprite.y -= grav
                 grav = 0
