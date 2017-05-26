@@ -55,7 +55,7 @@ class Brick(Sprite):
     def step(self):
         self.grav += 0.25
         self.y += self.grav
-        collide = self.collidingWithSprites(brick)
+        collide = self.collidingWithSprites(Brick)
         if collide:
             self.y -= self.grav
             self.grav = 0
@@ -86,8 +86,8 @@ class Platformer(App):
         self.mousey = event.y
     
     def createBrick(self, event):
-        x = self.mousex - self.mousex%20
-        y = self.mousey - self.mousey%20
+        x = self.mousex - self.mousex%30
+        y = self.mousey - self.mousey%30
         Brick(x-10, y-10)
         
     def createGuy (self, event):
@@ -95,7 +95,7 @@ class Platformer(App):
         if self.guysprite:
             self.guysprite.destroy()
             grav = 0
-        self.guysprite = Guy(self.mousex - 15, self.mousey - 15)
+        self.guysprite = Guy(self.mousex - 30, self.mousey - 30)
 
     def U(self, event):
         global grav
@@ -135,5 +135,5 @@ class Platformer(App):
             
 
 
-myapp = App(SCREEN_WIDTH, SCREEN_HEIGHT)
+myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
 myapp.run()
