@@ -26,20 +26,20 @@ grey = Color(0xC0C0C0, 1.0)
 thinline = LineStyle(2, black)
 blkline = LineStyle(1, black)
 noline = LineStyle(0, white)
-coolline = LineStyle(1, grey)
+coolline = LineStyle(1, black)
 blueline = LineStyle(2, blue)
 redline = LineStyle(1, red)
-greenline = LineStyle(1, green)
+greenline = LineStyle(1, pink)
 gridline = LineStyle(1, grey)
 grid=RectangleAsset(30,30,gridline,white)
 
 
 black = Color(0, 1)
-bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, black)
+bg_asset = RectangleAsset(SCREEN_WIDTH, SCREEN_HEIGHT, noline, red)
 bg = Sprite(bg_asset, (0,0))
         
 class Guy(Sprite):
-    guy = RectangleAsset(20, 20, thinline, green)
+    guy = RectangleAsset(20, 40, coolline, green)
     def __init__(self, x, y):
         super().__init__(Guy.guy, (x, y))
         self.x = x
@@ -100,7 +100,7 @@ class Platformer(App):
     def U(self, event):
         global grav
         if grav == 0:
-            grav = -7
+            grav = -10
             collisions = self.guysprite.collidingWithSprites(Brick)
             if collisions:
                 self.guysprite.y += 50
@@ -112,21 +112,21 @@ class Platformer(App):
             self.guysprite.y -= 5
             
     def R(self, event):
-        self.guysprite.x += 5
+        self.guysprite.x += 15
         collisions = self.guysprite.collidingWithSprites(Brick)
         if collisions:
-            self.guysprite.x -= 5
+            self.guysprite.x -= 15
             
     def L(self, event):
-        self.guysprite.x -= 5
+        self.guysprite.x -= 15
         collisions = self.guysprite.collidingWithSprites(Brick)
         if collisions:
-            self.guysprite.x += 5
+            self.guysprite.x += 15
             
     def step(self):
         global grav
         if self.guysprite:
-            grav += 0.25
+            grav += 0.5
             self.guysprite.y += grav
             collisions = self.guysprite.collidingWithSprites(Brick)
             if collisions:
