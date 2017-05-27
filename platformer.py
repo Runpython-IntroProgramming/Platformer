@@ -112,16 +112,16 @@ class Platformer(App):
             self.guysprite.y -= 5
             
     def R(self, event):
-        self.guysprite.x += 15
+        self.guysprite.x += 10
         collisions = self.guysprite.collidingWithSprites(Brick)
         if collisions:
-            self.guysprite.x -= 15
+            self.guysprite.x -= 10
             
     def L(self, event):
-        self.guysprite.x -= 15
+        self.guysprite.x -= 10
         collisions = self.guysprite.collidingWithSprites(Brick)
         if collisions:
-            self.guysprite.x += 15
+            self.guysprite.x += 10
             
     def step(self):
         global grav
