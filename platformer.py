@@ -1,7 +1,7 @@
 """
 platformer.py
-Author: 
-Credit: 
+Author: Brian S
+Credit: Finn H
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
@@ -59,8 +59,14 @@ class Brick(Sprite):
         if collide:
             self.y -= self.grav
             self.grav = 0
-            
+class Spring(Sprite):
+    spring = RectangleAsset(30, 5, thinline, blue)
+    def __init__(self, x, y):
+        super().__init__(Spring.spring, (x, y))
+        self.x = x
+        self.y = y
 grav=0
+springgrav = 0
 
 class Platformer(App):
     def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
@@ -70,6 +76,7 @@ class Platformer(App):
         self.guy = 0
         self.guysprite = None
         self.brick = None
+        self.spring = None
         self.listenKeyEvent('keydown', 'p', self.createGuy)
         self.listenKeyEvent('keydown', 'w', self.createBrick)
         self.listenMouseEvent('mousemove', self.motion)
@@ -77,6 +84,7 @@ class Platformer(App):
         self.listenKeyEvent('keydown', 'left arrow', self.L)
         self.listenKeyEvent('keydown', 'up arrow', self.U)
         self.listenKeyEvent('keydown', 'down arrow', self.D)
+        self.listenKeyEvent('keydown', 's', self.createSpring)
 
 
 
@@ -89,6 +97,12 @@ class Platformer(App):
         x = self.mousex - self.mousex%30
         y = self.mousey - self.mousey%30
         Brick(x-10, y-10)
+    
+    def createSpring(self, event):
+        global springgrav
+        x = self.mousex
+        y = self.mousey
+        Spring(x, y)
         
     def createGuy (self, event):
         global grav
@@ -122,9 +136,11 @@ class Platformer(App):
         collisions = self.guysprite.collidingWithSprites(Brick)
         if collisions:
             self.guysprite.x += 10
+    
             
     def step(self):
         global grav
+        global springgrav
         if self.guysprite:
             grav += 0.5
             self.guysprite.y += grav
@@ -132,7 +148,12 @@ class Platformer(App):
             if collisions:
                 self.guysprite.y -= grav
                 grav = 0
-            
+            sprang = self.guysprite.collidingWithSprites(Spring)
+            if sprang:
+                grav -= 10
+                self.guysprite.y += grav
+
+
 
 
 myapp = Platformer(SCREEN_WIDTH, SCREEN_HEIGHT)
