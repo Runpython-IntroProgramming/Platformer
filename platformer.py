@@ -83,11 +83,11 @@ class Platform(App):
         
     # Handle the mouse click
     def mouseMove(self, event):
-        self.asset[0] = 30*floor((event.x)/30)
-        self.asset[1] = 30*floor((event.y)/30)
-        
+        self.asset[0] = event.x
+        self.asset[1] = event.y
+
     def wallMaker(self, event):
-        Wall((self.asset[0],self.asset[1]))
+        Wall((30*floor((self.asset[0])/30),30*floor((self.asset[1])/30)))
         
     def playerMaker(self, event):
         Player((self.asset[0],self.asset[1]))
