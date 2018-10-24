@@ -37,33 +37,45 @@ grid=RectangleAsset(50,50,gridline,white)
 Dimensions of Workspace = 1000 - 800
 Number of Blocks in Dimensions = 25 - 15
 """
-#==Grid=========================================================================
-x = 0 
-y = 0 
-for b in range(15):
-    for a in range(25):
-        Sprite(grid, (x,y))
-        x = x + 50
-    x = 0
-    Sprite(grid, (x,y))
-    y = y + 50
-    
-#==Player=======================================================================  
+
+#===============================================================================  
 myapp = App()
 
 playerasset = RectangleAsset(15, 35, noline, green)
 player = Sprite(playerasset)
-player.direction = 1
+player.direction = 2
 
+class GameSprites(Sprite):    
+    def __init__(self):
+        playerasset = RectangleAsset(15, 35, noline, green)
+        player = Sprite(playerasset)
 
-def forward(a):
+class GameControls(App):
+    def __init__(self):
+        x = 0 
+        y = 0 
+        for b in range(15):
+            for a in range(25):
+                Sprite(grid, (x,y))
+                x = x + 50
+            x = 0
+            Sprite(grid, (x,y))
+            y = y + 50
+    
+
+        
+
+"""
+def forward(event):
     player.x += player.direction
 
 myapp.listenKeyEvent('keydown','d', forward)
 
 def backward(b):
-    player.x -= player.direction
+    player.x += player.direction
 
 myapp.listenKeyEvent('keydown','a', backward)
 
-myapp.run(player.x)
+"""
+
+myapp.run(GameControls)
