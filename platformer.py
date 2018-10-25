@@ -25,8 +25,9 @@ blue = Color(0x0000ff, 1.0)
 black = Color(0x000000, 1.0)
 white = Color(0xffffff, 1.0)
 grey = Color(0x5b6672, 1.0)
-teal = Color(0x9fffff, .9)
+teal = Color(0x9fffff, 1.0)
 coral = Color(0xff9664, 1.0)
+clear = Color(0x000000, 0.0)
 
 thinline = LineStyle(2, black)
 blkline = LineStyle(1, black)
@@ -36,6 +37,8 @@ blueline = LineStyle(2, blue)
 redline = LineStyle(1, red)
 greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
+clearline = LineStyle(1, clear)
+tealline =  LineStyle(1, teal)
 grid=RectangleAsset(30,30,gridline,white)
 
 
@@ -56,39 +59,68 @@ class Spring(Sprite):
 
     def __init__(self, position):
         super().__init__(Spring.asset, position)
-        self.vx = 1
-        self.vy = 1
+        self.vx = 0
+        self.vy = 0
        
 
 class Player(Sprite):
     """
     Create Player
     """
-    asset = RectangleAsset(15,30,gridline,teal)
+    asset = RectangleAsset(15,30,tealline,teal)
 
     def __init__(self, position):
         super().__init__(Player.asset, position)
-        self.vx = 1
-        self.vy = 1
-        
-        Platform.listenKeyEvent("keydown", "right arrow", self.right)
-        Platform.listenKeyEvent("keyup", "right arrow", self.right2)
-        Platform.listenKeyEvent("keydown", "left arrow", self.left)
-        Platform.listenKeyEvent("keyup", "left arrow", self.left2)
 
-    def right(self, event):
-        self.vx = 1
-        
-    def left(self, event):
-        self.vx = -1
-        
-    def right2(self, event):
-        self.vx=0
-        
-    def left2(self, event):
-        self.vx=0                
+        self.vx = 0
+        self.vy = 0
+class PlayerL(Sprite):
+    """
+    Create Player surface
+    """
+    asset = RectangleAsset(1,20,redline,teal)
 
+    def __init__(self, position):
+        super().__init__(PlayerL.asset, position)
+
+        self.vx = 0
+        self.vy = 0
         
+class PlayerR(Sprite):
+    """
+    Create Player surface
+    """
+    asset = RectangleAsset(1,20,redline,teal)
+
+    def __init__(self, position):
+        super().__init__(PlayerR.asset, position)
+
+        self.vx = 0
+        self.vy = 0
+        
+        
+class PlayerD(Sprite):
+    """
+    Create Player surface
+    """
+    asset = RectangleAsset(10,1,redline,teal)
+
+    def __init__(self, position):
+        super().__init__(PlayerD.asset, position)
+
+        self.vx = 0
+        self.vy = 0
+class PlayerU(Sprite):
+    """
+    Create Player surface
+    """
+    asset = RectangleAsset(10,1,redline,teal)
+
+    def __init__(self, position):
+        super().__init__(PlayerU.asset, position)
+
+        self.vx = 0
+        self.vy = 0
 class Platform(App):
     """
     Tutorial4 space game example.
@@ -104,6 +136,11 @@ class Platform(App):
         Platform.listenKeyEvent("keydown", "s", self.springMaker)
         self.asset = [0,0]
         Platform.listenMouseEvent('mousemove', self.mouseMove)
+        Platform.listenKeyEvent("keydown", "right arrow", self.right)
+        Platform.listenKeyEvent("keyup", "right arrow", self.right2)
+        Platform.listenKeyEvent("keydown", "left arrow", self.left)
+        Platform.listenKeyEvent("keyup", "left arrow", self.left2)
+        Platform.listenKeyEvent("keydown", "up arrow", self.up)
 
     # Handle the mouse click
     def mouseMove(self, event):
@@ -116,24 +153,92 @@ class Platform(App):
     def playerMaker(self, event):
         for a in Platform.getSpritesbyClass(Player):
             a.destroy()
+        for a in Platform.getSpritesbyClass(PlayerL):
+            a.destroy()
+        for a in Platform.getSpritesbyClass(PlayerR):
+            a.destroy()
+        for a in Platform.getSpritesbyClass(PlayerU):
+            a.destroy()
+        for a in Platform.getSpritesbyClass(PlayerD):
+            a.destroy()
         Player((self.asset[0],self.asset[1]))
-
+        PlayerL((self.asset[0],self.asset[1]+7))
+        PlayerR((self.asset[0]+13,self.asset[1]+7))
+        PlayerD((self.asset[0]+3,self.asset[1]+29))
+        PlayerU((self.asset[0]+3,self.asset[1]))
+        
     def springMaker(self, event):
         Spring((self.asset[0],self.asset[1]))
         
     def step(self):
+        
         for player in self.getSpritesbyClass(Player):
-            m=0
-            for wall in self.getSpritesbyClass(Wall):
-                if player.collidingWith(wall):
-                    m+=1
-            if m>0:
-                player.vy =0    
-            else:
-                player.vy = player.vy+.5        
-            player.y += player.vy
-            if player.y>2000:
-                player.destroy()
+            for playerL in self.getSpritesbyClass(PlayerL):
+                for playerR in self.getSpritesbyClass(PlayerR):
+                    for playerU in self.getSpritesbyClass(PlayerU):
+                        for playerD in self.getSpritesbyClass(PlayerD):
+                            m=0
+                            n=0
+                            o=0
+                            p=0
+                            for wall in self.getSpritesbyClass(Wall):
+                                if playerL.collidingWith(wall):
+                                    m+=1
+                                elif playerR.collidingWith(wall):
+                                    p+=1
+                                elif playerD.collidingWith(wall):
+                                    n+=2
+                                elif playerU.collidingWith(wall):
+                                    n+=1
+                            for spring in self.getSpritesbyClass(Spring):
+                                if playerD.collidingWith(spring):
+                                    o+=1
+                            if n>0 and player.vy>=0:
+                                player.vy =0
+                                playerL.vy =0
+                                playerR.vy =0
+                                playerD.vy =0
+                                playerU.vy =0
+                            else:
+                                player.vy = player.vy+.5  
+                                playerL.vy = playerL.vy+.5
+                                playerR.vy =playerR.vy+.5
+                                playerD.vy =playerD.vy+.5
+                                playerU.vy =playerU.vy+.5
+                            if m>0:
+                                player.vx =((player.vx)**2)**(1/2)
+                                playerL.vx =((playerL.vx)**2)**(1/2)
+                                playerR.vx =((playerR.vx)**2)**(1/2)
+                                playerD.vx =((playerD.vx)**2)**(1/2)
+                                playerU.vx =((playerU.vx)**2)**(1/2)
+                            if p>0:
+                                player.vx =-1*((player.vx)**2)**(1/2)
+                                playerL.vx =-1*((playerL.vx)**2)**(1/2)
+                                playerR.vx =-1*((playerR.vx)**2)**(1/2)
+                                playerD.vx =-1*((playerD.vx)**2)**(1/2)
+                                playerU.vx =-1*((playerU.vx)**2)**(1/2)
+                            if o>0:
+                                player.vy =-1*player.vy
+                                playerL.vy =-1*playerL.vy
+                                playerR.vy =-1*playerR.vy
+                                playerD.vy =-1*playerD.vy
+                                playerU.vy =-1*playerU.vy
+                            player.y += player.vy
+                            playerL.y += playerL.vy
+                            playerR.y += playerR.vy
+                            playerD.y += playerD.vy
+                            playerU.y += playerU.vy
+                            player.x += player.vx
+                            playerL.x += playerL.vx
+                            playerR.x += playerR.vx
+                            playerD.x += playerD.vx
+                            playerU.x += playerU.vx
+                            if player.y>1000:
+                                player.destroy()
+                                playerL.destroy()
+                                playerR.destroy()
+                                playerD.destroy()
+                                playerU.destroy()
         for spring in self.getSpritesbyClass(Spring):        
             m=0
             for wall in self.getSpritesbyClass(Wall):
@@ -144,18 +249,69 @@ class Platform(App):
             else:
                 spring.vy = spring.vy+.5        
             spring.y += spring.vy
-            if spring.y>2000:
+            if spring.y>1000:
                 spring.destroy()
-    
+             
+        
+    def right(self, event):
+        for player in self.getSpritesbyClass(Player):
+            player.vx = 2
+        for playerL in self.getSpritesbyClass(PlayerL):
+            playerL.vx = 2
+        for playerR in self.getSpritesbyClass(PlayerR):
+            playerR.vx = 2
+        for playerD in self.getSpritesbyClass(PlayerD):
+            playerD.vx = 2
+        for playerU in self.getSpritesbyClass(PlayerU):
+            playerU.vx = 2
+    def left(self, event):
+        for player in self.getSpritesbyClass(Player):
+            player.vx = -2
+        for playerL in self.getSpritesbyClass(PlayerL):
+            playerL.vx = -2
+        for playerR in self.getSpritesbyClass(PlayerR):
+            playerR.vx = -2
+        for playerD in self.getSpritesbyClass(PlayerD):
+            playerD.vx = -2
+        for playerU in self.getSpritesbyClass(PlayerU):
+            playerU.vx = -2
+    def right2(self, event):
+        for player in self.getSpritesbyClass(Player):
+            player.vx=0
+        for playerL in self.getSpritesbyClass(PlayerL):
+            playerL.vx = 0
+        for playerR in self.getSpritesbyClass(PlayerR):
+            playerR.vx = 0
+        for playerD in self.getSpritesbyClass(PlayerD):
+            playerD.vx = 0
+        for playerU in self.getSpritesbyClass(PlayerU):
+            playerU.vx = 0
+    def left2(self, event):
+        for player in self.getSpritesbyClass(Player):
+            player.vx=0 
+        for playerL in self.getSpritesbyClass(PlayerL):
+            playerL.vx = 0
+        for playerR in self.getSpritesbyClass(PlayerR):
+            playerR.vx = 0
+        for playerD in self.getSpritesbyClass(PlayerD):
+            playerD.vx = 0
+        for playerU in self.getSpritesbyClass(PlayerU):
+            playerU.vx = 0
+    def up(self, event):
+        for player in self.getSpritesbyClass(Player):
+            if player.vy==0:
+                for player in self.getSpritesbyClass(Player):
+                    player.vy = -10
+                for playerL in self.getSpritesbyClass(PlayerL):
+                    playerL.vy = -10
+                for playerR in self.getSpritesbyClass(PlayerR):
+                    playerR.vy = -10
+                for playerD in self.getSpritesbyClass(PlayerD):
+                    playerD.vy = -10
+                for playerU in self.getSpritesbyClass(PlayerU):
+                    playerU.vy = -10
 myapp = Platform()
 myapp.run()
-
-
-
-
-
-
-
 
 
 
