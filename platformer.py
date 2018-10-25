@@ -184,11 +184,11 @@ class Platform(App):
                             for wall in self.getSpritesbyClass(Wall):
                                 if playerL.collidingWith(wall):
                                     m+=1
-                                elif playerR.collidingWith(wall):
+                                if playerR.collidingWith(wall):
                                     p+=1
-                                elif playerD.collidingWith(wall):
+                                if playerD.collidingWith(wall):
                                     n+=2
-                                elif playerU.collidingWith(wall):
+                                if playerU.collidingWith(wall):
                                     n+=1
                             for spring in self.getSpritesbyClass(Spring):
                                 if playerD.collidingWith(spring):
