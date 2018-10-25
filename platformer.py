@@ -31,5 +31,39 @@ blueline = LineStyle(2, blue)
 redline = LineStyle(1, red)
 greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
-grid=RectangleAsset(30,30,gridline,white)
+grid = RectangleAsset(30,30,gridline,white)
+
+#keys = ['up arrow', 'down arrow', 'right arrow', 'left arrow']
+class Character(Sprite):
+    box = RectangleAsset(15, 25, greenline, green)
+    def __init__(self, position):
+        super().__init__(SpaceShip.ship, position)
+        self.vx = 0
+        self.vy = 0
+        for i in keys:
+        platformer.listenKeyEvent("keyup", "up arrow", self.up)
+        platformer.listenKeyEvent("keydown", "up arrow", self.down)
+        platformer.listenKeyEvent("keyup", "down arrow", self.right)
+        platformer.listenKeyEvent("keydown", "down arrow", self.left)
+        platformer.listenKeyEvent("keyup", "right arrow", self.down)
+        platformer.listenKeyEvent("keydown", "right arrow", self.up)
+        platformer.listenKeyEvent("keyup", "left arrow", self.left)
+        platformer.listenKeyEvent("keydown", "left arrow", self.right)
+        
+        
+        
+'''
+myApp = App
+myApp.run()
+'''
+
+
+
+
+
+
+
+
+
+
 
