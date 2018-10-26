@@ -78,11 +78,12 @@ class PlayerL(Sprite):
     """
     Create Player surface
     """
-    asset = RectangleAsset(1,20,redline,teal)
+    asset = RectangleAsset(1,10,redline,teal)
 
     def __init__(self, position):
+    
         super().__init__(PlayerL.asset, position)
-
+        self.visible=False
         self.vx = 0
         self.vy = 0
         
@@ -90,11 +91,12 @@ class PlayerR(Sprite):
     """
     Create Player surface
     """
-    asset = RectangleAsset(1,20,redline,teal)
+    asset = RectangleAsset(1,10,redline,teal)
 
     def __init__(self, position):
+        
         super().__init__(PlayerR.asset, position)
-
+        self.visible=False
         self.vx = 0
         self.vy = 0
         
@@ -103,22 +105,24 @@ class PlayerD(Sprite):
     """
     Create Player surface
     """
-    asset = RectangleAsset(10,1,redline,teal)
+    asset = RectangleAsset(10,10,redline,teal)
 
     def __init__(self, position):
+        
         super().__init__(PlayerD.asset, position)
-
+        self.visible=False
         self.vx = 0
         self.vy = 0
 class PlayerU(Sprite):
     """
     Create Player surface
     """
-    asset = RectangleAsset(10,1,redline,teal)
+    asset = RectangleAsset(10,10,redline,teal)
 
     def __init__(self, position):
+        
         super().__init__(PlayerU.asset, position)
-
+        self.visible=False
         self.vx = 0
         self.vy = 0
 class Platform(App):
@@ -162,10 +166,10 @@ class Platform(App):
         for a in Platform.getSpritesbyClass(PlayerD):
             a.destroy()
         Player((self.asset[0],self.asset[1]))
-        PlayerL((self.asset[0],self.asset[1]+7))
-        PlayerR((self.asset[0]+13,self.asset[1]+7))
-        PlayerD((self.asset[0]+3,self.asset[1]+29))
-        PlayerU((self.asset[0]+3,self.asset[1]))
+        PlayerL((self.asset[0]-1,self.asset[1]+7))
+        PlayerR((self.asset[0]+16,self.asset[1]+7))
+        PlayerD((self.asset[0]+3,self.asset[1]+22))
+        PlayerU((self.asset[0]+3,self.asset[1]-1))
         
     def springMaker(self, event):
         Spring((self.asset[0],self.asset[1]))
@@ -181,19 +185,20 @@ class Platform(App):
                             n=0
                             o=0
                             p=0
+                            q=0
                             for wall in self.getSpritesbyClass(Wall):
                                 if playerL.collidingWith(wall):
                                     m+=1
                                 if playerR.collidingWith(wall):
                                     p+=1
                                 if playerD.collidingWith(wall):
-                                    n+=2
-                                if playerU.collidingWith(wall):
                                     n+=1
+                                if playerU.collidingWith(wall):
+                                    q+=1
                             for spring in self.getSpritesbyClass(Spring):
                                 if playerD.collidingWith(spring):
                                     o+=1
-                            if n>0 and player.vy>=0:
+                            if n>0 and player.vy>=0 and o==0:
                                 player.vy =0
                                 playerL.vy =0
                                 playerR.vy =0
@@ -218,11 +223,17 @@ class Platform(App):
                                 playerD.vx =-1*((playerD.vx)**2)**(1/2)
                                 playerU.vx =-1*((playerU.vx)**2)**(1/2)
                             if o>0:
-                                player.vy =-1*player.vy
-                                playerL.vy =-1*playerL.vy
-                                playerR.vy =-1*playerR.vy
-                                playerD.vy =-1*playerD.vy
-                                playerU.vy =-1*playerU.vy
+                                player.vy =-1*((player.vy)**2)**(1/2)
+                                playerL.vy =-1*((playerL.vy)**2)**(1/2)
+                                playerR.vy =-1*((playerR.vy)**2)**(1/2)
+                                playerD.vy =-1*((playerD.vy)**2)**(1/2)
+                                playerU.vy =-1*((playerU.vy)**2)**(1/2)
+                            if q>0:
+                                player.vy = .5*((player.vy)**2)**(1/2)+.5  
+                                playerL.vy =.5*((playerL.vy)**2)**(1/2)+.5
+                                playerR.vy =.5*((playerR.vy)**2)**(1/2)+.5
+                                playerD.vy =.5*((playerD.vy)**2)**(1/2)+.5
+                                playerU.vy =.5*((playerU.vy)**2)**(1/2)+.5
                             player.y += player.vy
                             playerL.y += playerL.vy
                             playerR.y += playerR.vy
@@ -245,7 +256,8 @@ class Platform(App):
                 if spring.collidingWith(wall):
                     m+=1
             if m>0:
-                spring.vy =0    
+                spring.vy =0 
+                spring.y-=1
             else:
                 spring.vy = spring.vy+.5        
             spring.y += spring.vy
