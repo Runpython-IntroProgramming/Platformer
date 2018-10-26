@@ -7,7 +7,6 @@ https://runpython.org/?user=BrythonServer&repo=Platformer&name=platformer.py
 Noah
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
-
 """
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
 from math import floor
@@ -186,6 +185,7 @@ class Platform(App):
                             o=0
                             p=0
                             q=0
+
                             for wall in self.getSpritesbyClass(Wall):
                                 if playerL.collidingWith(wall):
                                     m+=1
@@ -195,6 +195,8 @@ class Platform(App):
                                     n+=1
                                 if playerU.collidingWith(wall):
                                     q+=1
+
+                            
                             for spring in self.getSpritesbyClass(Spring):
                                 if playerD.collidingWith(spring):
                                     o+=1
@@ -324,6 +326,5 @@ class Platform(App):
                     playerU.vy = -10
 myapp = Platform()
 myapp.run()
-
 
 
