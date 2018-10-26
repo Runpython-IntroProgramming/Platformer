@@ -37,20 +37,23 @@ grid = RectangleAsset(30,30,gridline,white)
 class Character(Sprite):
     box = RectangleAsset(15, 25, greenline, green)
     def __init__(self, position):
-        super().__init__(SpaceShip.ship, position)
+        super().__init__(Character.box, position)
         keydown = 0
         self.vx = 0
         self.vy = 0
-        platformer.listenKeyEvent("keyup", "up arrow", self.up)
-        platformer.listenKeyEvent("keydown", "up arrow", self.stop)
-        platformer.listenKeyEvent("keyup", "down arrow", self.right)
-        platformer.listenKeyEvent("keydown", "down arrow", self.stop)
-        platformer.listenKeyEvent("keyup", "right arrow", self.down)
-        platformer.listenKeyEvent("keydown", "right arrow", self.stop)
-        platformer.listenKeyEvent("keyup", "left arrow", self.left)
-        platformer.listenKeyEvent("keydown", "left arrow", self.stop)
+        Platformer.listenKeyEvent("keyup", "up arrow", self.up)
+        Platformer.listenKeyEvent("keydown", "up arrow", self.stop)
+        Platformer.listenKeyEvent("keyup", "down arrow", self.down)
+        Platformer.listenKeyEvent("keydown", "down arrow", self.stop)
+        Platformer.listenKeyEvent("keyup", "right arrow", self.right)
+        Platformer.listenKeyEvent("keydown", "right arrow", self.stop)
+        Platformer.listenKeyEvent("keyup", "left arrow", self.left)
+        Platformer.listenKeyEvent("keydown", "left arrow", self.stop)
      
-    def keycheck(self, event):
+    def step(self):
+        print('s')
+        self.x += self.vx
+        self.y += self.vy
         if self.keydown == 0:
             if self.vy != 0:
                 if self.vy > 0:
@@ -71,13 +74,15 @@ class Character(Sprite):
     def down(self, event):
         if self.vy > -2:
             self.vy -= 0.2
+            print('s')
         self.keydown = 1
-        print('a')        
+        
     def right(self, event):
         if self.vx < 2:
             self.vx += 0.2
+            print('a', self.vx)
         self.keydown = 1
-        print('a')        
+        
     def left(self, event):
         if self.vx > -2:
             self.vx -= 0.2
@@ -86,20 +91,27 @@ class Character(Sprite):
     def stop(self, event):
         self.keydown = 0
         
-class platformer(Sprite):
+class Platformer(App):
     global black, white, grey
     def __init__(self):
         super().__init__()
         noline = LineStyle(0, grey)
         bg_asset = RectangleAsset(self.width, self.height, noline, black)
         bg = Sprite(bg_asset, (0,0))
+        
+        Character ((100,100))
+    
+    def step(self):
+        for box in getClassbySprites(Character):
+            box.step()
+        
 
 
 
 
 
 
-myApp = platformer
+myApp = Platformer()
 myApp.run()
 
 
