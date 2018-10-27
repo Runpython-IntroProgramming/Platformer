@@ -6,6 +6,8 @@ Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
 """
+
+
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
 
 SCREEN_WIDTH = 1000
@@ -35,7 +37,7 @@ grid = RectangleAsset(30,30,gridline,white)
 
 #keys = ['up arrow', 'down arrow', 'right arrow', 'left arrow']
 class Character(Sprite):
-    Box = RectangleAsset(15, 25, noline, green)
+    Box = RectangleAsset(15, 25, noline, blue)
     def __init__(self, position):
         super().__init__(Character.Box, position)
         
@@ -69,36 +71,36 @@ class Character(Sprite):
                         self.vy = 0
                     
             if self.vx != 0:
+                print(self.vx)
                 if self.vx >= 0:
                     self.vx -= 0.2
-                    if self.vy < 0.3:
-                        self.vy = 0
+                    if self.vx < 0.3:
+                        self.vx = 0
                 else:
                     self.vx += 0.2
-                    if self.vy > -0.3:
-                        self.vy = 0
+                    if self.vx > -0.3:
+                        self.vx = 0
                     
 
     def down(self, event):
         self.keydown = 1
         if self.vy < 2:
-            self.vy += 0.4
+            self.vy += 0.5
         
     def up(self, event):
         self.keydown = 1
         if self.vy > -2:
-            self.vy -= 0.4
+            self.vy -= 0.5
         
     def right(self, event):
         self.keydown = 1
         if self.vx < 2:
-            self.vx += 0.4
-        print('r', self.vx)
+            self.vx += 0.5
         
     def left(self, event):
         self.keydown = 1
         if self.vx > -2:
-            self.vx -= 0.4
+            self.vx -= 0.5
         
         
     def stop(self, event):
@@ -111,8 +113,8 @@ class Platformer(App):
         noline = LineStyle(0, grey)
         bg_asset = RectangleAsset(self.width, self.height, noline, grey)
         bg = Sprite(bg_asset, (0,0))
-        
-        Character((100,100))
+    Character((100,100))
+
     
     def step(self):
         for Box in self.getSpritesbyClass(Character):
@@ -124,6 +126,7 @@ class SpaceGame(App):
     """
     def __init__(self):
         super().__init__()
+        
         # Background
         black = Color(0, 1)
         noline = LineStyle(0, black)
