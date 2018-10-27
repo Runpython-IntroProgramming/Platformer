@@ -9,7 +9,6 @@ https://github.com/HHS-IntroProgramming/Platformer
 
 
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
-
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
 
@@ -33,7 +32,7 @@ blueline = LineStyle(2, blue)
 redline = LineStyle(1, red)
 greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
-grid = RectangleAsset(30,30,gridline,white)
+grid = RectangleAsset(40,40,gridline,white)
 
 #keys = ['up arrow', 'down arrow', 'right arrow', 'left arrow']
 class Character(Sprite):
@@ -53,6 +52,7 @@ class Character(Sprite):
         Platformer.listenKeyEvent("keydown", "right arrow", self.right)
         Platformer.listenKeyEvent("keyup", "left arrow", self.stop)
         Platformer.listenKeyEvent("keydown", "left arrow", self.left)
+        Platformer.listenMouseEvent("mousedown", self.yeet)
      
     def step(self):
         self.x += self.vx
@@ -80,7 +80,6 @@ class Character(Sprite):
                     if self.vx > -0.3:
                         self.vx = 0
                     
-
     def down(self, event):
         self.keydown = 1
         if self.vy < 2:
@@ -101,10 +100,24 @@ class Character(Sprite):
         if self.vx > -2:
             self.vx -= 0.5
         
-        
     def stop(self, event):
         self.keydown = 0
+    
+    def yeet(self, event):
+        ex = round(event.x)
+        print(round(round(event.x)/40),round(round(event.y)/40))
+        #print(((ex/40) - (ex % 40)), round(event.y))
         
+class Block(Sprite):
+    def __init__(self, position):
+        super().__init__(Block.grid, position)
+        Block.listenKeyEvent("mousedown", self.getmousepos)
+    
+    def getmousepos(self, event):
+        self.mpx = round(round(event.x)/40)
+        self.mpy = round(round(event.y)/40)
+        
+    
 class Platformer(App):
     global black, white, grey
     def __init__(self):
@@ -134,7 +147,9 @@ class SpaceGame(App):
         SpaceShip((100,100))
         SpaceShip((150,150))
         SpaceShip((200,50))
-
+        for i in range(0, (self.width/40)):
+            grid((100,100))
+        
     def step(self):
         for ship in self.getSpritesbyClass(SpaceShip):
             ship.step()
