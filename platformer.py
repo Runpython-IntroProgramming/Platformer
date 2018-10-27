@@ -35,58 +35,71 @@ grid = RectangleAsset(30,30,gridline,white)
 
 #keys = ['up arrow', 'down arrow', 'right arrow', 'left arrow']
 class Character(Sprite):
-    box = RectangleAsset(15, 25, greenline, green)
+    Box = RectangleAsset(15, 25, noline, green)
     def __init__(self, position):
-        super().__init__(Character.box, position)
-        keydown = 0
+        super().__init__(Character.Box, position)
+        
         self.vx = 0
         self.vy = 0
-        Platformer.listenKeyEvent("keyup", "up arrow", self.up)
-        Platformer.listenKeyEvent("keydown", "up arrow", self.stop)
-        Platformer.listenKeyEvent("keyup", "down arrow", self.down)
-        Platformer.listenKeyEvent("keydown", "down arrow", self.stop)
-        Platformer.listenKeyEvent("keyup", "right arrow", self.right)
-        Platformer.listenKeyEvent("keydown", "right arrow", self.stop)
-        Platformer.listenKeyEvent("keyup", "left arrow", self.left)
-        Platformer.listenKeyEvent("keydown", "left arrow", self.stop)
+        self.keydown = 0
+        
+        Platformer.listenKeyEvent("keyup", "up arrow", self.stop)
+        Platformer.listenKeyEvent("keydown", "up arrow", self.up)
+        Platformer.listenKeyEvent("keyup", "down arrow", self.stop)
+        Platformer.listenKeyEvent("keydown", "down arrow", self.down)
+        Platformer.listenKeyEvent("keyup", "right arrow", self.stop)
+        Platformer.listenKeyEvent("keydown", "right arrow", self.right)
+        Platformer.listenKeyEvent("keyup", "left arrow", self.stop)
+        Platformer.listenKeyEvent("keydown", "left arrow", self.left)
      
     def step(self):
-        print('s')
         self.x += self.vx
         self.y += self.vy
         if self.keydown == 0:
+            if round(self.vy, 3 == 5.551):
+                self.vy = self.vy
             if self.vy != 0:
-                if self.vy > 0:
+                if self.vy >= 0:
                     self.vy -= 0.2
+                    if self.vy < 0.3:
+                        self.vy = 0
                 else:
                     self.vy += 0.2
+                    if self.vy > -0.3:
+                        self.vy = 0
+                    
             if self.vx != 0:
-                if self.vx > 0:
+                if self.vx >= 0:
                     self.vx -= 0.2
+                    if self.vy < 0.3:
+                        self.vy = 0
                 else:
                     self.vx += 0.2
+                    if self.vy > -0.3:
+                        self.vy = 0
+                    
 
-    def up(self, event):
-        if self.vy < 2:
-            self.vy += 0.2
-        self.keydown = 1
-        print('a')
     def down(self, event):
-        if self.vy > -2:
-            self.vy -= 0.2
-            print('s')
         self.keydown = 1
+        if self.vy < 2:
+            self.vy += 0.4
+        
+    def up(self, event):
+        self.keydown = 1
+        if self.vy > -2:
+            self.vy -= 0.4
         
     def right(self, event):
-        if self.vx < 2:
-            self.vx += 0.2
-            print('a', self.vx)
         self.keydown = 1
+        if self.vx < 2:
+            self.vx += 0.4
+        print('r', self.vx)
         
     def left(self, event):
-        if self.vx > -2:
-            self.vx -= 0.2
         self.keydown = 1
+        if self.vx > -2:
+            self.vx -= 0.4
+        
         
     def stop(self, event):
         self.keydown = 0
@@ -96,23 +109,37 @@ class Platformer(App):
     def __init__(self):
         super().__init__()
         noline = LineStyle(0, grey)
-        bg_asset = RectangleAsset(self.width, self.height, noline, black)
+        bg_asset = RectangleAsset(self.width, self.height, noline, grey)
         bg = Sprite(bg_asset, (0,0))
         
-        Character ((100,100))
+        Character((100,100))
     
     def step(self):
-        for box in getClassbySprites(Character):
-            box.step()
+        for Box in self.getSpritesbyClass(Character):
+            Box.step()
         
+class SpaceGame(App):
+    """
+    Tutorial4 space game example.
+    """
+    def __init__(self):
+        super().__init__()
+        # Background
+        black = Color(0, 1)
+        noline = LineStyle(0, black)
+        bg_asset = RectangleAsset(self.width, self.height, noline, black)
+        bg = Sprite(bg_asset, (0,0))
+        SpaceShip((100,100))
+        SpaceShip((150,150))
+        SpaceShip((200,50))
+
+    def step(self):
+        for ship in self.getSpritesbyClass(SpaceShip):
+            ship.step()
 
 
-
-
-
-
-myApp = Platformer()
-myApp.run()
+myapp = Platformer()
+myapp.run()
 
 
 
