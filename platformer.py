@@ -71,7 +71,6 @@ class Character(Sprite):
                         self.vy = 0
                     
             if self.vx != 0:
-                print(self.vx)
                 if self.vx >= 0:
                     self.vx -= 0.2
                     if self.vx < 0.3:
@@ -113,7 +112,7 @@ class Platformer(App):
         noline = LineStyle(0, grey)
         bg_asset = RectangleAsset(self.width, self.height, noline, grey)
         bg = Sprite(bg_asset, (0,0))
-    Character((100,100))
+        Character((100,100))
 
     
     def step(self):
