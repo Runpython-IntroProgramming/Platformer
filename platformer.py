@@ -33,6 +33,16 @@ greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
 from math import floor
 
+class player(Sprite):
+    def __init__(self):
+        player = RectangleAsset(15,35, noline,green)
+        self.vx = 1
+        super().__init__(player, position)
+        
+    def step(self):
+        self.x += self.vx
+        self.y -= self.vx
+
 class Box(Sprite):
     def __init__(self, position):
         box = RectangleAsset(50,50, noline, black)
@@ -52,20 +62,16 @@ class Game(App):
             Sprite(grid,(x,y))
             y = y + 50
         Game.listenMouseEvent('click', self.click)
+        Game.listenKeyEvent('keydown', 'p',  self.placement)
     
     def click(self,event):
         x = floor(event.x / 50) * 50
         y = floor(event.y / 50) * 50
         Box((x,y))
 
-class player(Sprite):
-    def __init__(self):
-        player = RectangleAsset(15,35, noline,green)
-        
     
-
-
-    
+    def placement(self,event):    
+        player((0,0))
 
 myapp = Game()
 myapp.run()
