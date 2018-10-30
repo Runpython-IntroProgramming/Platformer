@@ -39,9 +39,9 @@ class Player(Sprite):
         super().__init__(player, position)
         
     def step(self):
-        self.vx = 1
+        self.vx = 2.5
         self.x += self.vx
-        self.y -= self.vx
+        
 
 class Box(Sprite):
     def __init__(self, position):
@@ -63,15 +63,19 @@ class Game(App):
             y = y + 50
         Game.listenMouseEvent('click', self.click)
         Game.listenKeyEvent('keydown', 'p',  self.placement)
-    
-    def click(self,event):
-        x = floor(event.x / 50) * 50
-        y = floor(event.y / 50) * 50
-        Box((x,y))
+        Game.listenKeyEvent('keydown', 'd', self.step)
 
+    def click(self,event):
+        x = floor(event.x/50)*50
+        y = floor(event.y/50)*50
+        Box((x,y))
     
     def placement(self,event):    
         Player((0,0))
+    
+    def step(self):
+        for a in self.getSpritesbyClass(Player):
+            a.step()
 
 myapp = Game()
 myapp.run()
