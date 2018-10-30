@@ -33,13 +33,13 @@ greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
 from math import floor
 
-class player(Sprite):
+class Player(Sprite):
     def __init__(self):
         player = RectangleAsset(15,35, noline,green)
-        self.vx = 1
         super().__init__(player, position)
         
     def step(self):
+        self.vx = 1
         self.x += self.vx
         self.y -= self.vx
 
@@ -71,7 +71,7 @@ class Game(App):
 
     
     def placement(self,event):    
-        player((0,0))
+        Player((0,0))
 
 myapp = Game()
 myapp.run()
