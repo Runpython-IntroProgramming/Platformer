@@ -34,7 +34,7 @@ gridline = LineStyle(1, grey)
 from math import floor
 
 class Player(Sprite):
-    def __init__(self):
+    def __init__(self, position):
         player = RectangleAsset(15,35, noline,green)
         super().__init__(player, position)
         
