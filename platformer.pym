@@ -30,8 +30,8 @@ coolline = LineStyle(1, grey)
 blueline = LineStyle(2, blue)
 redline = LineStyle(1, red)
 greenline = LineStyle(1, green)
-gridline = LineStyle(1, grey)
-grid=RectangleAsset(30, 30, gridline, white)
+gridline = LineStyle(1, black)
+grid = RectangleAsset(30, 30, gridline, white)
 box = RectangeAsset(30, 30, gridline, black)
 
 class plateformer(App):
@@ -40,15 +40,21 @@ class plateformer(App):
         self.b = block()
         self.s = spring()
     
-    
     class player(object):
-        def __init__(color, width
+        def __init__(color, height, width)
+            self.c = color()
+            self.h = height()
+            self.w = width()
         
-        
+        def appearance(self)
+            box = RectangeAsset(self.w, self.h, gridline, self.c)
+            return Sprite(box, (30, 30))
+                
+            jeff = player(red, 10, 5)
+            print(player.appearance())
+
     def __init__(self):
         super().__init__()
-    
-
-
+        
 myapp = App()
 myapp.run()
