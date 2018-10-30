@@ -30,31 +30,26 @@ coolline = LineStyle(1, grey)
 blueline = LineStyle(2, blue)
 redline = LineStyle(1, red)
 greenline = LineStyle(1, green)
-gridline = LineStyle(1, black)
+gridline = LineStyle(2, black)
 grid = RectangleAsset(30, 30, gridline, white)
-box = RectangeAsset(30, 30, gridline, black)
+box = RectangleAsset(30, 30, gridline, black)
 
-class plateformer(App):
-    def __init__(player, block, spring):
+class platformer(App):
+    def __init__(self, player, block, spring):
         self.p = player()
         self.b = block()
         self.s = spring()
-    
-    class player(object):
-        def __init__(color, height, width)
-            self.c = color()
-            self.h = height()
-            self.w = width()
-        
-        def appearance(self)
-            box = RectangeAsset(self.w, self.h, gridline, self.c)
-            return Sprite(box, (30, 30))
-                
-            jeff = player(red, 10, 5)
-            print(player.appearance())
+        player(black, 200, 200)
 
-    def __init__(self):
-        super().__init__()
+class player(Sprite):
+    def __init__(self, color, height, width):
+        self.c = color
+        self.h = height
+        self.w = width
+        box = RectangleAsset(self.w, self.h, gridline, self.c)
+        super().__init__(box, (200, 200))
+
+
         
 myapp = App()
 myapp.run()
