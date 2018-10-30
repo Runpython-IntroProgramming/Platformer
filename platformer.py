@@ -23,7 +23,6 @@ blue = Color(0x0000ff, 1.0)
 black = Color(0x000000, 1.0)
 white = Color(0xffffff, 1.0)
 grey = Color(0xC0C0C0, 1.0)
-
 thinline = LineStyle(2, black)
 blkline = LineStyle(1, black)
 noline = LineStyle(0, white)
@@ -32,38 +31,41 @@ blueline = LineStyle(2, blue)
 redline = LineStyle(1, red)
 greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
-grid = RectangleAsset(50,50,gridline,white)
+from math import floor
 
-#==Grid=========================================================================
-x = 0 
-y = 0 
-for b in range(15):
-    for a in range(25):
-        Sprite(grid, (x,y))
-        x = x + 50
-    x = 0
-    Sprite(grid, (x,y))
-    y = y + 50
+class Box(Sprite):
+    def __init__(self, position):
+        box = RectangleAsset(50,50, noline, black)
+        super().__init__(box, position)
+
+class Game(App):
+    def __init__(self):
+        super().__init__()
+        grid = RectangleAsset(50,50,gridline,white)
+        x = 0 
+        y = 0 
+        for b in range(15):
+            for a in range(25):
+                Sprite(grid, (x,y))
+                x = x + 50
+            x = 0
+            Sprite(grid,(x,y))
+            y = y + 50
+        Game.listenMouseEvent('click', self.click)
     
-#==Player=======================================================================  
-myapp = App()
+    def click(self,event):
+        x = floor(event.x / 50) * 50
+        y = floor(event.y / 50) * 50
+        Box((x,y))
 
-playerasset = RectangleAsset(15, 35, noline, green)
-player = Sprite(playerasset)
-player.direction = 1
-player.go = True
-
-def forward():
-    if player.go == True:
-        player.x += player.direction
-
-myapp.listenKeyEvent('keydown','d', forward)
+class player(Sprite):
+    def __init__(self):
+        player = RectangleAsset(15,35, noline,green)
+        
+    
 
 
-def backward(b):
-    if player.go == True:
-        player.x -= player.direction
+    
 
-myapp.listenKeyEvent('keydown','a', backward)
-
+myapp = Game()
 myapp.run()
