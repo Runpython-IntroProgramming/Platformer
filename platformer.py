@@ -1,7 +1,7 @@
 """
 platformer.py
-Author: 
-Credit: 
+Author: Johari 
+Credit: Meggie, Noah 
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
@@ -33,3 +33,6 @@ greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
 grid=RectangleAsset(30,30,gridline,white)
 
+
+bg_asset = RectangleAsset(myapp.width, myapp.height, noline, black)
+bg = Sprite(bg_asset, (0,0))
