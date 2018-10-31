@@ -63,7 +63,7 @@ class Game(App):
             y = y + 50
         Game.listenMouseEvent('click', self.click)
         Game.listenKeyEvent('keydown', 'p',  self.placement)
-        Game.listenKeyEvent('keydown', 'd', self.step)
+        Game.listenKeyEvent('keydown', 'd', self.spawn)
 
     def click(self,event):
         x = floor(event.x/50)*50
@@ -73,7 +73,7 @@ class Game(App):
     def placement(self,event):    
         Player((0,0))
     
-    def step(self):
+    def spawn(self,event):
         for a in self.getSpritesbyClass(Player):
             a.step()
 
