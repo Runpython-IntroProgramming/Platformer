@@ -31,16 +31,15 @@ blueline = LineStyle(2, blue)
 redline = LineStyle(1, red)
 greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
+
 from math import floor
 
 class Player(Sprite):
     def __init__(self, position):
         player = RectangleAsset(15,35, noline,green)
+        self.vx = 0
+        self.vy = 5
         super().__init__(player, position)
-        
-    def step(self):
-        self.vx = 2.5
-        self.x += self.vx
         
 
 class Box(Sprite):
@@ -63,8 +62,13 @@ class Game(App):
             y = y + 50
         Game.listenMouseEvent('click', self.click)
         Game.listenKeyEvent('keydown', 'p',  self.placement)
-        Game.listenKeyEvent('keydown', 'd', self.spawn)
-
+        Game.listenKeyEvent('keydown', 'd', self.right)
+        Game.listenKeyEvent('keyup', 'd', self.stop)
+        Game.listenKeyEvent('keydown', 'a', self.left)
+        Game.listenKeyEvent('keyup', 'a', self.stop)
+        Game.listenKeyEvent('keydown', 'w', self.jump)
+        Game.listenKeyEvent('keyup', 'w', self.stop)
+        
     def click(self,event):
         x = floor(event.x/50)*50
         y = floor(event.y/50)*50
@@ -73,9 +77,33 @@ class Game(App):
     def placement(self,event):    
         Player((0,0))
     
-    def spawn(self,event):
+    def right(self, event):
         for a in self.getSpritesbyClass(Player):
-            a.step()
-
+            a.vx = 2.5
+    
+    def left(self,event):
+        for a in self.getSpritesbyClass(Player):
+            a.vx = -2.5
+            
+    def jump(self,event):
+        for a in self.getSpritesbyClass(Player):
+            a.vy = -2.5
+    
+    def stop(self, event):
+        for a in self.getSpritesbyClass(Player):
+            a.vx = 0
+            
+            
+    def step(self):
+        for a in self.getSpritesbyClass(Player):
+            a.x += a.vx
+            a.y += a.vy
+    
+            if a.collidingWithSprites(Box):
+                a.vy = 0
+            
+            else:
+                a.vy = 5
+                
 myapp = Game()
 myapp.run()
