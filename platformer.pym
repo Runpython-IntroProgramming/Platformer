@@ -34,6 +34,7 @@ gridline = LineStyle(2, black)
 grid = RectangleAsset(30, 30, gridline, white)
 box = RectangleAsset(30, 30, gridline, black)
 
+
 class platformer(App):
     def __init__(self, player, block, spring):
         self.p = player()
@@ -46,15 +47,18 @@ class player(Sprite):
         self.h = height
         self.w = width
         box = RectangleAsset(self.w, self.h, gridline, self.c)
-        super().__init__(box, (200, 200))
+        super().__init__(box, (0, 0))
+        
+def mouseClick(event):
+    block(blue, 20, 20, event.x, event.y)
 
 class block(Sprite):
-    def __init__(self, color1, height1, width1):
+    def __init__(self, color1, height1, width1, x, y):
         self.c = color
         self.h = height
         self.w = width
         box = RectangleAsset(self.w, self.h, gridline, self.c)
-        super().__init__(box, (100, 100))
+        super().__init__(box, (x, y))
 
 
 myapp = App()
