@@ -50,7 +50,9 @@ class player(Sprite):
         super().__init__(box, (0, 0))
         
 def mouseClick(event):
-    block(green, 50, 50, event.x, event.y)
+    for i in range(0, 1000, 50):
+        for j in range(0, 800, 50):
+            block(green, i, j, event.x, event.y)
 
 class block(Sprite):
     def __init__(self, color1, height1, width1, x, y):
