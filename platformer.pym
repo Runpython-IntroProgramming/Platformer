@@ -50,6 +50,7 @@ class player(Sprite):
         super().__init__(box, (0, 0))
         
 def mouseClick(event):
+    print("click")
     block(blue, 20, 20, event.x, event.y)
 
 class block(Sprite):
@@ -62,4 +63,5 @@ class block(Sprite):
 
 
 myapp = App()
+myapp.listenMouseEvent('click', mouseClick)
 myapp.run()
