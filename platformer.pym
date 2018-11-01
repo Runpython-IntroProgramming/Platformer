@@ -50,14 +50,13 @@ class player(Sprite):
         super().__init__(box, (0, 0))
         
 def mouseClick(event):
-    print("click")
-    block(blue, 20, 20, event.x, event.y)
+    block(green, 50, 50, event.x, event.y)
 
 class block(Sprite):
     def __init__(self, color1, height1, width1, x, y):
-        self.c = color
-        self.h = height
-        self.w = width
+        self.c = color1
+        self.h = height1
+        self.w = width1
         box = RectangleAsset(self.w, self.h, gridline, self.c)
         super().__init__(box, (x, y))
 
