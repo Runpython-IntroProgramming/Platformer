@@ -52,16 +52,17 @@ grid=RectangleAsset(30,30,gridline,white)
 #class Gravity(Sprite):
    # def 
     
-def wallKey(event):
-    wall_asset = RectangleAsset(10, 10, noline, black)
-    wall = Sprite(wall_asset, (event.x, event.y))
-    wall.scale = .1
+
+wall_asset = RectangleAsset(10, 10, noline, black)
+wall = Sprite(wall_asset, (x, y))
+
     
 def mouseClick(event):
     Sprite(wall)
     wall.x = event.x
     wall.y = event.y
     
+
 myapp.listenKeyEvent('click', mouseClick)
 
 #def playaKey(event):
