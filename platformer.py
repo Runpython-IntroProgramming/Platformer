@@ -8,6 +8,8 @@ https://github.com/HHS-IntroProgramming/Platformer
 """
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
 
+myapp = App()
+
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
 
@@ -35,20 +37,41 @@ grid=RectangleAsset(30,30,gridline,white)
 
 
 #class Wall(Sprite):
-    def __init__(self, x, y, w, h, color):
-        place = lambda X = X - % w
-        super().__init__(
-            RectangleAsset(50, 50, blackLine, black)
-            (snapfunc(x), snapffunc(y))
+    #def __init__(self, x, y, w, h, color):
+       # place = lambda X = X - % w
+       # super().__init__(
+        #    RectangleAsset(50, 50, blackLine, black)
+        #    (snapfunc(x), snapffunc(y))
     
 #class Player(Sprite):
-    def 
+  #  def 
     
 #class Spring(Sprite):
-    def 
+   # def 
     
 #class Gravity(Sprite):
-    def 
+   # def 
     
-    
+def wallKey(event):
+    wall_asset = RectangleAsset(10, 10, noline, black)
+    wall = Sprite(wall_asset, (event.x, event.y))
+    wall.scale = .1
 
+#def playaKey(event):
+    
+#def springKey(event):
+
+#myapp.listenKeyEvent('keydown', 'w', wallKey)
+
+#myapp.run()
+
+
+# A super wall class for wall-ish behaviors
+#class GenericWall(Sprite):
+    #def __init__(self, x, y, w, h, color):
+        #snapfunc = lambda X : X - X % w
+       # super().__init__(
+            #RectangleAsset(w-1,h-1,LineStyle(0,Color(0, 1.0)), color),
+            #(snapfunc(x), snapfunc(y)))
+
+myapp.run()
