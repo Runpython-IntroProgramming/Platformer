@@ -12,6 +12,9 @@ from math import floor
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
 
+i = None
+j = None
+
 blue = Color(0x2EFEC8, 1.0)
 black = Color(0x000000, 1.0)
 pink = Color(0xFF00FF, 1.0)
@@ -42,14 +45,19 @@ class platformer(App):
         self.s = spring()
 
 class player(Sprite):
-    def __init__(self, color, height, width):
+    def __init__(self, color, height, width, x, y):
         self.c = color
         self.h = height
         self.w = width
         box = RectangleAsset(self.w, self.h, gridline, self.c)
-        super().__init__(box, (0, 0))
-#def spaceKey(event):
- #   player(red, 10, 30, event.x, event.y)
+        super().__init__(box, (x, y))
+def mouseMove(event):
+    global i 
+    global j
+    i = event.x
+    j = event.y
+def spaceKey(event):
+    player(red, 30, 10, i, j)
 
 class block(Sprite):
     def __init__(self, color1, height1, width1, x, y):
@@ -59,11 +67,12 @@ class block(Sprite):
         box = RectangleAsset(self.w, self.h, gridline, self.c)
         super().__init__(box, (x, y))
 def mouseClick(event):
-    i = floor(event.x/1)*1
-    j = floor(event.y/1)*1
-    block(black, 1, 1, i, j)
+    i = floor(event.x/50)*50
+    j = floor(event.y/50)*50
+    block(black, 50, 50, i, j)
 
 myapp = App()
 myapp.listenMouseEvent('click', mouseClick)
-#myapp.listenKeyEvent('space', spaceKey)
+myapp.listenMouseEvent('mousemove', mouseMove)
+myapp.listenKeyEvent('keydown', 'space', spaceKey)
 myapp.run()
