@@ -56,6 +56,13 @@ def wallKey(event):
     wall_asset = RectangleAsset(10, 10, noline, black)
     wall = Sprite(wall_asset, (event.x, event.y))
     wall.scale = .1
+    
+def mouseClick(event):
+    Sprite(wall)
+    wall.x = event.x
+    wall.y = event.y
+    
+myapp.listenKeyEvent('click', mouseClick)
 
 #def playaKey(event):
     
