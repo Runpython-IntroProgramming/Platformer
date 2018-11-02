@@ -57,7 +57,7 @@ def mouseMove(event):
     i = event.x
     j = event.y
 def spaceKey(event):
-    player(red, 30, 10, i, j)
+    player(red, 5, 5, i, j)
 
 class block(Sprite):
     def __init__(self, color1, height1, width1, x, y):
