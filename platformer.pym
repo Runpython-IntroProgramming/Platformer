@@ -7,6 +7,7 @@ Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
 """
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
+from math import floor
 
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
@@ -50,9 +51,9 @@ class player(Sprite):
         super().__init__(box, (0, 0))
         
 def mouseClick(event):
-    for i in range(0, 1000, 50):
-        for j in range(0, 800, 50):
-            block(green, i, j, event.x, event.y)
+    i = floor(event.x/50)*50
+    j = floor(event.y/50)*50
+    block(black, 50, 50, i, j)
 
 class block(Sprite):
     def __init__(self, color1, height1, width1, x, y):
