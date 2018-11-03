@@ -32,18 +32,10 @@ blueline = LineStyle(2, blue)
 redline = LineStyle(1, red)
 greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
+
 grid = RectangleAsset(40,40,gridline,white)
 
 #keys = ['up arrow', 'down arrow', 'right arrow', 'left arrow']
-class Block(Sprite):
-    grid = RectangleAsset(40,40,gridline,white)
-    def __init__(self, position):
-        super().__init__(Block.grid, position)
-        Block.listenKeyEvent("mousedown", self.getmousepos)
-    
-    def getmousepos(self, event):
-        self.mpx = round(round(event.x)/40)
-        self.mpy = round(round(event.y)/40)
         
 class Character(Sprite):
     Box = RectangleAsset(15, 25, noline, blue)
@@ -114,12 +106,19 @@ class Character(Sprite):
         self.keydown = 0
     
     def yeet(self, event):
-        ex = round(event.x)
-        print(round(round(event.x)/40),round(round(event.y)/40))
-        #print(((ex/40) - (ex % 40)), round(event.y))
+        epos = round(round(event.x)/40),round(round(event.y)/40)
+        #print(round(round(event.x)/40),round(round(event.y)/40))
+        #print(epos[0],epos[1])
         
+class Block(Sprite):
+    Grid = RectangleAsset(40,40,gridline,grey)
+    def __init__(self, position):
+        super().__init__(Block.Grid, position)
 
-        
+        Block.listenMouseEvent("mousedon", self.yeet)
+
+    def yeet(self, event):
+        epos = round(round(event.x)/40),round(round(event.y)/40)
     
 class Platformer(App):
     global black, white, grey
@@ -128,14 +127,20 @@ class Platformer(App):
         noline = LineStyle(0, grey)
         bg_asset = RectangleAsset(self.width, self.height, noline, grey)
         bg = Sprite(bg_asset, (0,0))
-        Character((100,100))
 
+        #for w in range(24):
+        #    for h in range(20):
+        #        Block(((w*40), (h*40)))
+                
+        Character((100,100))
+        Block((100,100))
     
     def step(self):
         for Box in self.getSpritesbyClass(Character):
             Box.step()
         
 class SpaceGame(App):
+    
     """
     Tutorial4 space game example.
     """
@@ -150,8 +155,9 @@ class SpaceGame(App):
         SpaceShip((100,100))
         SpaceShip((150,150))
         SpaceShip((200,50))
+        print(epos)
         for i in range(0, (self.width/40)):
-            grid((100,100))
+            Block(())
         
     def step(self):
         for ship in self.getSpritesbyClass(SpaceShip):
