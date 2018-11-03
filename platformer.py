@@ -111,12 +111,17 @@ class Character(Sprite):
         #print(epos[0],epos[1])
         
 class Block(Sprite):
-    Grid = RectangleAsset(40,40,gridline,grey)
+    
+    grid = RectangleAsset(40,40,gridline,grey)
+    
     def __init__(self, position):
-        super().__init__(Block.Grid, position)
+        super().__init__(Block.grid, position)
 
-        Block.listenMouseEvent("mousedon", self.yeet)
-
+        Block.listenKeyEvent("keydown", "space", self.a)
+        Block.listenKeyEvent("keyup", "space", self.a)
+        
+    def a(self, event):
+        print('a')
     def yeet(self, event):
         epos = round(round(event.x)/40),round(round(event.y)/40)
     
