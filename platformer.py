@@ -35,6 +35,16 @@ gridline = LineStyle(1, grey)
 grid = RectangleAsset(40,40,gridline,white)
 
 #keys = ['up arrow', 'down arrow', 'right arrow', 'left arrow']
+class Block(Sprite):
+    grid = RectangleAsset(40,40,gridline,white)
+    def __init__(self, position):
+        super().__init__(Block.grid, position)
+        Block.listenKeyEvent("mousedown", self.getmousepos)
+    
+    def getmousepos(self, event):
+        self.mpx = round(round(event.x)/40)
+        self.mpy = round(round(event.y)/40)
+        
 class Character(Sprite):
     Box = RectangleAsset(15, 25, noline, blue)
     def __init__(self, position):
@@ -108,14 +118,7 @@ class Character(Sprite):
         print(round(round(event.x)/40),round(round(event.y)/40))
         #print(((ex/40) - (ex % 40)), round(event.y))
         
-class Block(Sprite):
-    def __init__(self, position):
-        super().__init__(Block.grid, position)
-        Block.listenKeyEvent("mousedown", self.getmousepos)
-    
-    def getmousepos(self, event):
-        self.mpx = round(round(event.x)/40)
-        self.mpy = round(round(event.y)/40)
+
         
     
 class Platformer(App):
