@@ -82,14 +82,14 @@ class spring(Sprite):
         self.w = width2
         spring = RectangleAsset(self.w, self.h, gridline, self.c)
         super().__init__(spring, (x, y))
-    def spaceKey(event):
+    def sKey(event):
         i = floor(event.x)
         j = floor(event.y/50)*50
-        spring(blue, 10, 51, i, j)
+        spring(blue, 10, 50, i, j)
 
 myapp = App()
 myapp.listenMouseEvent('click', mouseClick)
 myapp.listenMouseEvent('mousemove', mouseMove)
 myapp.listenKeyEvent('keydown', 'space', spaceKey)
-#myapp.listenKeyEvent('keydown', 'up arrow', arrowKey)
+myapp.listenKeyEvent('keydown', 's', sKey)
 myapp.run()
