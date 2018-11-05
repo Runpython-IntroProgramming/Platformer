@@ -1,8 +1,8 @@
 """
 platformer.py
-Author: 
+Author: Nick lee
 Credit: 
-Assignment:
+Assignment: Level 3 project
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
 """
@@ -32,7 +32,7 @@ blueline = LineStyle(2, blue)
 redline = LineStyle(1, red)
 greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
-
+bcolor = black
 grid = RectangleAsset(40,40,gridline,white)
 
 #keys = ['up arrow', 'down arrow', 'right arrow', 'left arrow']
@@ -111,39 +111,51 @@ class Character(Sprite):
         #print(epos[0],epos[1])
         
 class Block(Sprite):
-    
-    grid = RectangleAsset(40,40,gridline,grey)
-    
+    global grey, black, bcolor
     def __init__(self, position):
-        super().__init__(Block.grid, position)
+        self.color = black
+        super().__init__(RectangleAsset(39, 39, noline, white), position)
 
-        Block.listenKeyEvent("keydown", "space", self.a)
-        Block.listenKeyEvent("keyup", "space", self.a)
-        
-    def a(self, event):
+        Platformer.listenMouseEvent("mousedown", self.go)
+        Platformer.listenMouseEvent("mouseup", self.stop)
+    def go(self,event):
+        self.Color = (0x000000, 1.0)
+        bcolor = 'black'
         print('a')
-    def yeet(self, event):
-        epos = round(round(event.x)/40),round(round(event.y)/40)
-    
+    def stop(self,event):
+        bcolor = 'grey'
+        self.Color = (0xffffff, 1.0)
+        print('s')
+
 class Platformer(App):
-    global black, white, grey
+    global black, white, grey, bcolor
     def __init__(self):
         super().__init__()
         noline = LineStyle(0, grey)
+        go = 0
         bg_asset = RectangleAsset(self.width, self.height, noline, grey)
         bg = Sprite(bg_asset, (0,0))
-
         #for w in range(24):
         #    for h in range(20):
         #        Block(((w*40), (h*40)))
                 
         Character((100,100))
-        Block((100,100))
-    
+        Block((200,100))
+        
+        
     def step(self):
         for Box in self.getSpritesbyClass(Character):
             Box.step()
-        
+            '''
+        Platformer.listenMouseEvent("mousedown", self.go)
+        Platformer.listenMouseEvent("mouseup", self.stop)
+    def go(Block,event):
+        Block.color = black
+        print('a')
+    def stop(Block,event):
+        Block.color = grey
+        print('s')
+'''
 class SpaceGame(App):
     
     """
@@ -160,7 +172,6 @@ class SpaceGame(App):
         SpaceShip((100,100))
         SpaceShip((150,150))
         SpaceShip((200,50))
-        print(epos)
         for i in range(0, (self.width/40)):
             Block(())
         
