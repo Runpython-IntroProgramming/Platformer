@@ -54,16 +54,15 @@ grid=RectangleAsset(30,30,gridline,white)
     
 
 wall_asset = RectangleAsset(10, 10, noline, black)
-wall = Sprite(wall_asset, (event.x,event.y)
+Sprite(wall_asset, (200,50))
 
     
 def mouseClick(event):
     Sprite(wall)
-    wall.x = event.x
-    wall.y = event.y
+
     
 
-myapp.listenKeyEvent('click', mouseClick)
+myapp.listenMouseEvent('click', mouseClick)
 
 #def playaKey(event):
     
@@ -81,5 +80,4 @@ myapp.listenKeyEvent('click', mouseClick)
        # super().__init__(
             #RectangleAsset(w-1,h-1,LineStyle(0,Color(0, 1.0)), color),
             #(snapfunc(x), snapfunc(y)))
-
 myapp.run()
