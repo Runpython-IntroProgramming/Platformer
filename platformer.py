@@ -39,8 +39,7 @@ rectangle = RectangleAsset(50, 20, thinline, blue)
 Sprite(rectangle) 
 class Platform(Sprite):
     
-    asset = Rectang leAsset((35, 35, thinline, red)
-        Frame(227,0,65,125), 4, 'vertical')
+    asset = RectangleAsset(35, 35, thinline, red)
 
     def __init__(self, position):
         super().__init__(Platform.asset, position)
