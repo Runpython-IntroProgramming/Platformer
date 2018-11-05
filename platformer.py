@@ -81,6 +81,11 @@ class Newton(Sprite):
         if len(collisioncontra):
             self.destroy()
 
+class playah(Newton):
+    def __init__(self, x, y, app):
+        x = 
+        y = 
+
 def wallKey(event):
     Sprite(wall,)
 
