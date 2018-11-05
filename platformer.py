@@ -32,8 +32,8 @@ blueline = LineStyle(2, blue)
 redline = LineStyle(1, red)
 greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
-bcolor = black
-grid = RectangleAsset(40,40,gridline,white)
+bcolor = white
+grid = RectangleAsset(40,40,gridline, bcolor)
 
 #keys = ['up arrow', 'down arrow', 'right arrow', 'left arrow']
         
@@ -57,7 +57,6 @@ class Character(Sprite):
         Platformer.listenMouseEvent("mousedown", self.yeet)
      
     def step(self):
-        print('a')
         self.x += self.vx
         self.y += self.vy
         if self.keydown == 0:
@@ -111,11 +110,24 @@ class Character(Sprite):
         #print(round(round(event.x)/40),round(round(event.y)/40))
         #print(epos[0],epos[1])
         
-class Block(Sprite):
+class Plainwall(Sprite):
+    def __init__(self, x, y, color):
+        super().__init__(
+            RectangleAsset(39, 39, noline, color))
+        # destroy any overlapping walls
+        collideswith = self.collidingWithSprites(type(self))
+        if len(collideswith):
+            collideswith[0].destroy()  
+
+class bsquare(Plainwall):
+    def __init__(self, x, y):
+        super().__init__(x, y, 50, 50, Color(0, 1.0))
+        
+class Block(Plainwall):
     global grey, black, bcolor
-    cube = RectangleAsset(39, 39, noline, grey)
-    def __init__(self, position):
-        super().__init__(Block.cube, position)
+    #cube = RectangleAsset(39, 39, noline, grey)
+    def __init__(self, x, y):
+        super().__init__(self, x, y)
         self.color = blue
         self.on = 0
 
@@ -125,6 +137,9 @@ class Block(Sprite):
     def step(self):
         if self.on == 1:
             self.color = black
+            bcolor = black
+            print('a')
+            
     def go(self,event):
         self.on = 1
         bcolor = 'black'
@@ -141,14 +156,20 @@ class Platformer(App):
         super().__init__()
         noline = LineStyle(0, grey)
         go = 0
+        mousepos = 0
         bg_asset = RectangleAsset(self.width, self.height, noline, grey)
         bg = Sprite(bg_asset, (0,0))
+        Platformer.listenMouseEvent("mousemove", self.getmousepos)
+        Platformer.listenMouseEvent("mouseup", self.stop)
         #for w in range(24):
         #    for h in range(20):
         #        Block(((w*40), (h*40)))
                 
         Character((100,100))
         Block((200,100))
+    def getmousepos(self,event):
+        self.mousepos = (event.x, event.y)
+        print(round(self.mousepos, 5))
         
     def step(self):
 
