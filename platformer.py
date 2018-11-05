@@ -35,9 +35,6 @@ greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
 grid=RectangleAsset(30,30,gridline,white)
 
-rectangle = RectangleAsset(50, 20, thinline, blue)
-Sprite(rectangle) 
-
 class Wall(Sprite):
     
     asset = RectangleAsset(35, 35, thinline, red)
@@ -64,7 +61,6 @@ class Platformer(App):
         super().__init__()
         bg_asset = RectangleAsset(1000, 800, noline, green)
         bg = Sprite(bg_asset, (0,0))
-        Wall((100,100))
         self.asset = [0,0] 
         Platformer.listenMouseEvent('mousemove', self.mouse) 
         Platformer.listenKeyEvent('keydown', 'w', self.wall)
