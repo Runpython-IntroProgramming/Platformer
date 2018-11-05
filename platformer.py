@@ -9,6 +9,8 @@ https://github.com/HHS-IntroProgramming/Platformer
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
 myapp = App()
 
+from math import floor
+
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
 
@@ -44,14 +46,14 @@ class Wall(Sprite):
 
 class Player(Sprite):
     
-    asset = RectangleAsset(10, 20, thinline, blue)
+    asset = RectangleAsset(12, 28, thinline, purple)
 
     def __init__(self, position):
         super().__init__(Player.asset, position)
-        
+    
 class Spring(Sprite):
     
-    asset = RectangleAsset(10, 5, thinline, red)
+    asset = RectangleAsset(15, 5, thinline, blue)
 
     def __init__(self, position):
         super().__init__(Spring.asset, position)
@@ -66,13 +68,18 @@ class Platformer(App):
         Platformer.listenKeyEvent('keydown', 'w', self.wall)
         Platformer.listenKeyEvent('keydown', 's', self.spring)
         Platformer.listenKeyEvent('keydown', 'p', self.player)
-        
+    
+    def step(self):
+        for pplayer in getSpritesbyClass(Player): 
+            pplayer.x += pplayer.vx
+            pplayer.y += pplayer.vy
+            
     def mouse(self, event):
         self.asset[0]= event.x
         self.asset[1] = event.y
     
     def wall(self, event):
-        Wall((self.asset[0], self.asset[1]))
+        Wall(((35*(floor((self.asset[0])/35))), (35*(floor((self.asset[1])/35)))))
     
     def player(self, event):
         Player((self.asset[0], self.asset[1]))
