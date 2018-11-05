@@ -86,4 +86,81 @@ class Player(pygame.sprite.Sprite):
         if self.rect.y >= SCREEN_HEIGHT - self.rect.height and self.change_y >= 0:
             self.change_y = 0
             self.rect.y = SCREEN_HEIGHT - self.rect.height
+            
+            
+class Level(object):
+ 
+    def __init__(self, player):
+   
+        self.platform_list = pygame.sprite.Group()
+        self.enemy_list = pygame.sprite.Group()
+        self.player = player
+         
+        self.background = None
+ 
+    def update(self):
+        self.platform_list.update()
+        self.enemy_list.update()
+ 
+    def draw(self, screen):
+
+        screen.fill(BLUE)
+
+        self.platform_list.draw(screen)
+        self.enemy_list.draw(screen)
+ 
+ 
+class Level_01(Level):
+ 
+    def __init__(self, player):
+ 
+
+        Level.__init__(self, player)
+
+        level = [[210, 70, 500, 500],
+                 [210, 70, 200, 400],
+                 [210, 70, 600, 300],
+                 ]
+ 
+        for platform in level:
+            block = Platform(platform[0], platform[1])
+            block.rect.x = platform[2]
+            block.rect.y = platform[3]
+            block.player = self.player
+            self.platform_list.add(block)
+ 
+ 
+def main():
+   
+    pygame.init()
+ 
+    size = [SCREEN_WIDTH, SCREEN_HEIGHT]
+    screen = pygame.display.set_mode(size)
+ 
+    pygame.display.set_caption("Platformer Jumper")
+ 
+    player = Player()
+ 
+    level_list = []
+    level_list.append( Level_01(player) )
+ 
+    current_level_no = 0
+    current_level = level_list[current_level_no]
+ 
+    active_sprite_list = pygame.sprite.Group()
+    player.level = current_level
+ 
+    player.rect.x = 340
+    player.rect.y = SCREEN_HEIGHT - player.rect.height
+    active_sprite_list.add(player)
+
+    done = False
+
+    
+    clock = pygame.time.Clock()
+ 
+    while not done:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done = True
  
