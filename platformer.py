@@ -68,6 +68,14 @@ class Platformer(App):
         Platformer.listenKeyEvent('keydown', 'w', self.wall)
         Platformer.listenKeyEvent('keydown', 's', self.spring)
         Platformer.listenKeyEvent('keydown', 'p', self.player)
+       
+    def step(self):
+        m = 1
+        for pplayer in getSpritesbyClass(Player): 
+            pplayer.x += pplayer.vx
+            pplayer.y += pplayer.vy
+            if m < 0: 
+                pplayer.vy = pplayer.vy +1
 
     def mouse(self, event):
         self.asset[0]= event.x
@@ -82,14 +90,6 @@ class Platformer(App):
     def spring(self, event):
         Spring((self.asset[0], self.asset[1]))
 
-'''   
-    def step(self):
-        m = 1
-        for pplayer in getSpritesbyClass(Player): 
-            pplayer.x += pplayer.vx
-            pplayer.y += pplayer.vy
-            if m < 0: 
-                pplayer.vy = pplayer.vy +1
-'''
+
 myapp = Platformer()
 myapp.run()
