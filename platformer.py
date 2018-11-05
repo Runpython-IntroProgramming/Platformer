@@ -51,27 +51,45 @@ grid=RectangleAsset(30,30,gridline,white)
     
 #class Gravity(Sprite):
    # def 
+class Blocks(Sprite):
+    def __init__(self, x, y, w, h, color):
+        grid = lambda X : X - X % w
+        super().__init__(
+            RectangleAsset(w-1, h-1, LineStyle(0,Color(0, 1.0)), color),(grid(x), grid(y)))
+        #collisions
+        collisionsontra=self.collidingWithSprites(type(self))
+        if len(collisioncontra):
+            collisioncontra[0].destroy()
+            
+
+class wall(Blocks):
+    def __init__(self,x,y):
+        super().__init__(x,y,60,60,Color(0,1.0))      #(self, x, y, w, h, color)
+        
+class Newton(Sprite):
+     def __init__(self, x, y, width, height, color, app):
+        self.stuck = False
+        self.app = app                          # app, need to know
+        self.resting = False                    # whether resting on wall
+        super().__init__(
+            RectangleAsset(
+                width, height, 
+                LineStyle(0, Color(0, 1.0)),
+                color), (x, y)) 
+                
+        collisionsontra=self.collidingWithSprites()
+        if len(collisioncontra):
+            self.destroy()
+
+def wallKey(event):
+    Sprite(wall,)
+
     
-
-wall_asset = RectangleAsset(10, 10, noline, black)
-Sprite(wall_asset, (event.x,event.y))
-
-    
-def mouseClick(event):
-    Sprite(wall)
-
-    
-
-myapp.listenMouseEvent('click', mouseClick)
+myapp.listenKeyEvent('keydown','w',wallKey)
 
 #def playaKey(event):
     
 #def springKey(event):
-
-#myapp.listenKeyEvent('keydown', 'w', wallKey)
-
-#myapp.run()
-
 
 # A super wall class for wall-ish behaviors
 #class GenericWall(Sprite):
