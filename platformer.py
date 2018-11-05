@@ -76,7 +76,7 @@ class Platformer(App):
             pplayer.y += pplayer.vy
             if m < 0: 
                 pplayer.vy = pplayer.vy +1
-            
+
     def mouse(self, event):
         self.asset[0]= event.x
         self.asset[1] = event.y
