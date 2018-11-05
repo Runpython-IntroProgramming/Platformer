@@ -15,7 +15,7 @@ SCREEN_HEIGHT = 800
 i = None
 j = None
 
-for i in range(1):
+for i in range(69):
     blue = Color(0x2EFEC8, 1.0)
     black = Color(0x000000, 1.0)
     pink = Color(0xFF00FF, 1.0)
@@ -27,8 +27,6 @@ for i in range(1):
     black = Color(0x000000, 1.0)
     white = Color(0xffffff, 1.0)
     grey = Color(0xC0C0C0, 1.0)
-
-for i in range(1):
     thinline = LineStyle(2, black)
     blkline = LineStyle(1, black)
     noline = LineStyle(0, white)
@@ -58,19 +56,12 @@ def mouseMove(event):
     global j
     i = event.x
     j = floor(event.y/50)*50
-
 def spaceKey(event):
     global Player
     global i
     global j
     if not Player:
         Player = player(red, 50, 20, i, j)
-        
-'''def upArrow(event):
-    i = event.x
-    j = floor(event.y/50)*50
-    for l in range(1000):
-        player(red, 50+l, 20, i, j)'''
 
 class block(Sprite):
     def __init__(self, color1, height1, width1, x, y):
@@ -83,6 +74,18 @@ def mouseClick(event):
     i = floor(event.x/50)*50
     j = floor(event.y/50)*50
     block(black, 50, 50, i, j)
+    
+class spring(Sprite):
+    def __init__(self, color2, height2, width2, x, y):
+        self.c = color2
+        self.h = height2
+        self.w = width2
+        spring = RectangleAsset(self.w, self.h, gridline, self.c)
+        super().__init__(spring, (x, y))
+    def spaceKey(event):
+        i = floor(event.x)
+        j = floor(event.y/50)*50
+        spring(blue, 10, 51, i, j)
 
 myapp = App()
 myapp.listenMouseEvent('click', mouseClick)
