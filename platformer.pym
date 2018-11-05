@@ -82,10 +82,10 @@ class spring(Sprite):
         self.w = width2
         spring = RectangleAsset(self.w, self.h, gridline, self.c)
         super().__init__(spring, (x, y))
-    def sKey(event):
-        i = floor(event.x)
-        j = floor(event.y/50)*50
-        spring(blue, 10, 50, i, j)
+def sKey(event):
+    i = floor(event.x)
+    j = floor(event.y/50)*50
+    spring(blue, 10, 50, i, j)
 
 myapp = App()
 myapp.listenMouseEvent('click', mouseClick)
