@@ -112,20 +112,29 @@ class Character(Sprite):
         
 class Block(Sprite):
     global grey, black, bcolor
+    cube = RectangleAsset(39, 39, noline, grey)
     def __init__(self, position):
-        self.color = black
-        super().__init__(RectangleAsset(39, 39, noline, white), position)
+        super().__init__(Block.cube, position)
+        self.color = blue
+        self.on = 0
 
         Platformer.listenMouseEvent("mousedown", self.go)
         Platformer.listenMouseEvent("mouseup", self.stop)
+        
+    def step(self):
+        if self.on == 1:
+            print('a')
+            self.color = black
+    
     def go(self,event):
-        self.Color = (0x000000, 1.0)
+        self.on = 1
         bcolor = 'black'
-        print('a')
+        print('S')
+        
     def stop(self,event):
+        self.on = 0
         bcolor = 'grey'
-        self.Color = (0xffffff, 1.0)
-        print('s')
+        print('5')
 
 class Platformer(App):
     global black, white, grey, bcolor
@@ -146,16 +155,8 @@ class Platformer(App):
     def step(self):
         for Box in self.getSpritesbyClass(Character):
             Box.step()
-            '''
-        Platformer.listenMouseEvent("mousedown", self.go)
-        Platformer.listenMouseEvent("mouseup", self.stop)
-    def go(Block,event):
-        Block.color = black
-        print('a')
-    def stop(Block,event):
-        Block.color = grey
-        print('s')
-'''
+        for cube in self.getSpritesbyClass(Block):
+            cube.step()
 class SpaceGame(App):
     
     """
@@ -178,7 +179,8 @@ class SpaceGame(App):
     def step(self):
         for ship in self.getSpritesbyClass(SpaceShip):
             ship.step()
-
+        for cube in self.getSpritesbyClass(Block):
+            cube.step()
 
 myapp = Platformer()
 myapp.run()
