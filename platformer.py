@@ -54,7 +54,7 @@ grid=RectangleAsset(30,30,gridline,white)
     
 
 wall_asset = RectangleAsset(10, 10, noline, black)
-wall = Sprite(wall_asset, (x, y))
+wall = Sprite(wall_asset, (event.x,event.y)
 
     
 def mouseClick(event):
