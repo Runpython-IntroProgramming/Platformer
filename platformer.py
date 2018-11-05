@@ -57,6 +57,7 @@ class Character(Sprite):
         Platformer.listenMouseEvent("mousedown", self.yeet)
      
     def step(self):
+        print('a')
         self.x += self.vx
         self.y += self.vy
         if self.keydown == 0:
@@ -123,14 +124,11 @@ class Block(Sprite):
         
     def step(self):
         if self.on == 1:
-            print('a')
             self.color = black
-    
     def go(self,event):
         self.on = 1
         bcolor = 'black'
         print('S')
-        
     def stop(self,event):
         self.on = 0
         bcolor = 'grey'
@@ -138,6 +136,7 @@ class Block(Sprite):
 
 class Platformer(App):
     global black, white, grey, bcolor
+    
     def __init__(self):
         super().__init__()
         noline = LineStyle(0, grey)
@@ -151,12 +150,13 @@ class Platformer(App):
         Character((100,100))
         Block((200,100))
         
-        
     def step(self):
+
         for Box in self.getSpritesbyClass(Character):
             Box.step()
         for cube in self.getSpritesbyClass(Block):
             cube.step()
+
 class SpaceGame(App):
     
     """
@@ -179,8 +179,6 @@ class SpaceGame(App):
     def step(self):
         for ship in self.getSpritesbyClass(SpaceShip):
             ship.step()
-        for cube in self.getSpritesbyClass(Block):
-            cube.step()
 
 myapp = Platformer()
 myapp.run()
