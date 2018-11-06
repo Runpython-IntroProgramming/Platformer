@@ -59,7 +59,6 @@ class Character(Sprite):
         Platformer.listenMouseEvent("mousedown", self.yeet)
      
     def step(self, h):
-        print(sh,sw)
         self.x += self.vx
         self.y += self.vy
         if self.keydown == 0:
@@ -85,9 +84,15 @@ class Character(Sprite):
                     if self.vx > -0.3:
                         self.vx = 0
         if self.y > h :
-            
+            self.go()
             self.destroy()
-                    
+        bcollide = self.collidingWithSprites(self, sclass=None)
+        if len(bcollide):
+            print('r')
+            self.vx *=  -1
+            self.vy *= -1
+            
+   
     def down(self, event):
         self.keydown = 1
         if self.vy < 2:
@@ -178,6 +183,8 @@ class Platformer(App):
         #        Block(((w*40), (h*40)))
                 
         Character((100,100))
+    def yeetblock(sef,event):
+        Block((100,100))
         
     def getmousepos(self,event):
         self.mxp = round((event.x-20)/40)
