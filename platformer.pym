@@ -55,10 +55,25 @@ class player(Sprite):
         box = RectangleAsset(self.w, self.h, gridline, self.c)
         super().__init__(box, (x, y))
     def step(self):
-        global Player
-        def arrowKey(event):
-            global Player
-            Player.x += 1
+        pass
+
+def rightKey(event):
+    global Player
+    Player.x += 8
+def leftKey(event):
+    global Player
+    Player.x += -8
+    
+def upKey(event):
+    global Player
+    for m in range (-10, 10):
+    #a = (-16*(m**2))+5
+    #a = int(a)
+        player.y += (-16*(m**2))+5
+        player.x += 1    
+def downKey(event):
+    global Player
+    Player.y += 8
 
 def mouseMove(event):
     global i 
@@ -107,9 +122,9 @@ myapp = platformer()
 myapp.listenMouseEvent('click', mouseClick)
 myapp.listenMouseEvent('mousemove', mouseMove)
 myapp.listenKeyEvent('keydown', 'space', spaceKey)
-#myapp.listenKeyEvent('keydown', 'up arrow', upKey)
-#myapp.listenKeyEvent('keydown', 'down arrow', downKey)
-myapp.listenKeyEvent('keydown', 'right arrow', arrowKey)
-#myapp.listenKeyEvent('keydown', 'left arrow', leftKey)
+myapp.listenKeyEvent('keydown', 'up arrow', upKey)
+myapp.listenKeyEvent('keydown', 'down arrow', downKey)
+myapp.listenKeyEvent('keydown', 'right arrow', rightKey)
+myapp.listenKeyEvent('keydown', 'left arrow', leftKey)
 myapp.listenKeyEvent('keydown', 's', sKey)
 myapp.run()
