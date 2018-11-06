@@ -93,6 +93,9 @@ class Character(Sprite):
             self.x += self.vx*2
             self.y += self.vy*2
         if len(tcollide):
+            self.y -= self.vy
+            self.vy = 0
+            print('a')
             
             
    
