@@ -40,11 +40,10 @@ grid = RectangleAsset(40,40,gridline, bcolor)
 #keys = ['up arrow', 'down arrow', 'right arrow', 'left arrow']
         
 class Character(Sprite):
-    global sh, sw
     Box = RectangleAsset(15, 25, noline, blue)
     def __init__(self, position):
         super().__init__(Character.Box, position)
-        
+        global sh, sw
         self.vx = 0
         self.vy = 0
         self.keydown = 0
@@ -60,6 +59,7 @@ class Character(Sprite):
         Platformer.listenMouseEvent("mousedown", self.yeet)
      
     def step(self, h):
+        print(sh,sw)
         self.x += self.vx
         self.y += self.vy
         if self.keydown == 0:
@@ -85,7 +85,8 @@ class Character(Sprite):
                     if self.vx > -0.3:
                         self.vx = 0
         if self.y > h :
-            print('aaa', h)
+            
+            self.destroy()
                     
     def down(self, event):
         self.keydown = 1
@@ -129,10 +130,10 @@ class bsquare(Plainwall):
         super().__init__(x, y, 50, 50, black)
 """
 class Block(Sprite):
-    global grey, black, bcolor
     cube = RectangleAsset(39, 39, noline, black)
     def __init__(self, position):
         super().__init__(Block.cube,position)
+        global grey, black, bcolor
         self.color = blue
         self.on = 0
 
@@ -158,11 +159,10 @@ class Block(Sprite):
             self.destroy()
           """  
 class Platformer(App):
-    global black, white, grey, bcolor, sw, sh
     noline = LineStyle(0, grey)
     def __init__(self):
         super().__init__()
-        
+        global black, white, grey, bcolor, sw, sh
         go = 0
         mxp = 0
         myp = 0
@@ -197,8 +197,6 @@ class Platformer(App):
             Box.step(sh)
         for cube in self.getSpritesbyClass(Block):
             cube.step()
-        if bcolor == 1:
-            print('q')
 
 class SpaceGame(App):
     
