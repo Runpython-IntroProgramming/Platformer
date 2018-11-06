@@ -43,6 +43,12 @@ class platformer(App):
         self.p = player()
         self.b = block()
         self.s = spring()
+    
+    def step(self):
+        global Player
+        if Player:
+            Player.step()
+        
 
 class player(Sprite):
     def __init__(self, color, height, width, x, y):
@@ -51,6 +57,10 @@ class player(Sprite):
         self.w = width
         box = RectangleAsset(self.w, self.h, gridline, self.c)
         super().__init__(box, (x, y))
+        
+    def step(self):
+        print("step")
+
 def mouseMove(event):
     global i 
     global j
@@ -62,6 +72,9 @@ def spaceKey(event):
     global j
     if not Player:
         Player = player(red, 50, 20, i, j)
+
+
+
 
 class block(Sprite):
     def __init__(self, color1, height1, width1, x, y):
@@ -80,12 +93,19 @@ class spring(Sprite):
         self.c = color2
         self.h = height2
         self.w = width2
-        spring = RectangleAsset(self.w, self.h, gridline, self.c)
-        super().__init__(spring, (x, y))
-def sKey(event):
-    i = floor(event.x)
+        box = RectangleAsset(self.w, self.h, gridline, self.c)
+        super().__init__(box, (x, y))
+def mouseMove(event):
+    global i 
+    global j
+    i = event.x
     j = floor(event.y/50)*50
-    spring(blue, 10, 50, i, j)
+def sKey(event):
+    global Spring
+    global i
+    global j
+    if not Spring:
+        Spring = spring(blue, 10, 20, i, j)
 
 myapp = App()
 myapp.listenMouseEvent('click', mouseClick)
