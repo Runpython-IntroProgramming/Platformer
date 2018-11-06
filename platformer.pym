@@ -54,9 +54,11 @@ class player(Sprite):
         self.w = width
         box = RectangleAsset(self.w, self.h, gridline, self.c)
         super().__init__(box, (x, y))
-        
     def step(self):
-        print("step")
+        global Player
+        def arrowKey(event):
+            global Player
+            Player.x += 1
 
 def mouseMove(event):
     global i 
@@ -69,9 +71,6 @@ def spaceKey(event):
     global j
     if not Player:
         Player = player(red, 50, 20, i, j)
-
-
-
 
 class block(Sprite):
     def __init__(self, color1, height1, width1, x, y):
@@ -108,5 +107,9 @@ myapp = platformer()
 myapp.listenMouseEvent('click', mouseClick)
 myapp.listenMouseEvent('mousemove', mouseMove)
 myapp.listenKeyEvent('keydown', 'space', spaceKey)
+#myapp.listenKeyEvent('keydown', 'up arrow', upKey)
+#myapp.listenKeyEvent('keydown', 'down arrow', downKey)
+myapp.listenKeyEvent('keydown', 'right arrow', arrowKey)
+#myapp.listenKeyEvent('keydown', 'left arrow', leftKey)
 myapp.listenKeyEvent('keydown', 's', sKey)
 myapp.run()
