@@ -84,13 +84,12 @@ class Character(Sprite):
                     if self.vx > -0.3:
                         self.vx = 0
         if self.y > h :
-            self.go()
             self.destroy()
-        bcollide = self.collidingWithSprites(self, sclass=None)
+        bcollide = self.collidingWithSprites(Block)
         if len(bcollide):
             print('r')
-            self.vx *=  -1
-            self.vy *= -1
+            self.vx = 0 
+            self.vy = 0
             
    
     def down(self, event):
