@@ -40,11 +40,7 @@ for i in range(69):
     box = RectangleAsset(30, 30, gridline, black)
 
 class platformer(App):
-    def __init__(self, player, block, spring):
-        self.p = player()
-        self.b = block()
-        self.s = spring()
-    
+
     def step(self):
         global Player
         if Player:
@@ -108,7 +104,7 @@ def sKey(event):
     if not Spring:
         Spring = spring(blue, 10, 20, i, j)
 
-myapp = App()
+myapp = platformer()
 myapp.listenMouseEvent('click', mouseClick)
 myapp.listenMouseEvent('mousemove', mouseMove)
 myapp.listenKeyEvent('keydown', 'space', spaceKey)
