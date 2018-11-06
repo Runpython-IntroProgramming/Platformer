@@ -11,6 +11,8 @@ https://github.com/HHS-IntroProgramming/Platformer
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
+sw = 0
+sh = 0
 
 blue = Color(0x2EFEC8, 1.0)
 black = Color(0x000000, 1.0)
@@ -38,6 +40,7 @@ grid = RectangleAsset(40,40,gridline, bcolor)
 #keys = ['up arrow', 'down arrow', 'right arrow', 'left arrow']
         
 class Character(Sprite):
+    global sh, sw
     Box = RectangleAsset(15, 25, noline, blue)
     def __init__(self, position):
         super().__init__(Character.Box, position)
@@ -56,7 +59,7 @@ class Character(Sprite):
         Platformer.listenKeyEvent("keydown", "left arrow", self.left)
         Platformer.listenMouseEvent("mousedown", self.yeet)
      
-    def step(self):
+    def step(self, h):
         self.x += self.vx
         self.y += self.vy
         if self.keydown == 0:
@@ -81,6 +84,8 @@ class Character(Sprite):
                     self.vx += 0.2
                     if self.vx > -0.3:
                         self.vx = 0
+        if self.y > h :
+            print('aaa', h)
                     
     def down(self, event):
         self.keydown = 1
@@ -141,11 +146,11 @@ class Block(Sprite):
             
     def go(self,event):
         self.on = 1
-        bcolor = 'black'
+        bcolor = 1
         print('S')
     def stop(self,event):
         self.on = 0
-        bcolor = 'grey'
+        bcolor = 0
         print('5')
     """   
     collideswith = self.collidingWithSprites(Block)
@@ -153,11 +158,11 @@ class Block(Sprite):
             self.destroy()
           """  
 class Platformer(App):
-    global black, white, grey, bcolor
-    
+    global black, white, grey, bcolor, sw, sh
+    noline = LineStyle(0, grey)
     def __init__(self):
         super().__init__()
-        noline = LineStyle(0, grey)
+        
         go = 0
         mxp = 0
         myp = 0
@@ -173,7 +178,6 @@ class Platformer(App):
         #        Block(((w*40), (h*40)))
                 
         Character((100,100))
-        Block((200,100))
         
     def getmousepos(self,event):
         self.mxp = round((event.x-20)/40)
@@ -187,11 +191,14 @@ class Platformer(App):
         Character(((self.mxp*40),(self.myp*40)))
         
     def step(self):
-
+        sw = self.width
+        sh = self.height
         for Box in self.getSpritesbyClass(Character):
-            Box.step()
+            Box.step(sh)
         for cube in self.getSpritesbyClass(Block):
             cube.step()
+        if bcolor == 1:
+            print('q')
 
 class SpaceGame(App):
     
