@@ -96,12 +96,8 @@ class Character(Sprite):
         if len(tcollide):
             self.y -= self.vy
             self.vy = 0
-            print('a')
         else:
             self.vy += 0.8
-            
-            
-   
         
     def up(self, event):
         if self.keydown == 0:
