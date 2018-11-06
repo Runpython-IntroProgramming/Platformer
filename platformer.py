@@ -50,8 +50,8 @@ class Character(Sprite):
         
         Platformer.listenKeyEvent("keyup", "up arrow", self.stop)
         Platformer.listenKeyEvent("keydown", "up arrow", self.up)
-        Platformer.listenKeyEvent("keyup", "down arrow", self.stop)
-        Platformer.listenKeyEvent("keydown", "down arrow", self.down)
+        #Platformer.listenKeyEvent("keyup", "down arrow", self.stop)
+        #Platformer.listenKeyEvent("keydown", "down arrow", self.down)
         Platformer.listenKeyEvent("keyup", "right arrow", self.stop)
         Platformer.listenKeyEvent("keydown", "right arrow", self.right)
         Platformer.listenKeyEvent("keyup", "left arrow", self.stop)
@@ -83,6 +83,7 @@ class Character(Sprite):
                     self.vx += 0.2
                     if self.vx > -0.3:
                         self.vx = 0
+            
         if self.y > h :
             self.destroy()
         bcollide = self.collidingWithSprites(Block)
@@ -96,29 +97,28 @@ class Character(Sprite):
             self.y -= self.vy
             self.vy = 0
             print('a')
+        else:
+            self.vy += 0.8
             
             
    
-    def down(self, event):
-        self.keydown = 1
-        self.vy = 2
         
     def up(self, event):
+        if self.keydown == 0:
+            self.vy = -15
         self.keydown = 1
-        self.vy = -2
         
     def right(self, event):
         self.keydown = 1
-        self.vx = 2
+        self.vx = 3
         
     def left(self, event):
         self.keydown = 1
-        self.vx = -2
+        self.vx = -3
         
     def stop(self, event):
         self.keydown = 0
         self.vx = 0
-        self.vy = 0
     
     def yeet(self, event):
         epos = round(round(event.x)/40),round(round(event.y)/40)
