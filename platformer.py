@@ -61,7 +61,7 @@ class Character(Sprite):
     def step(self, h):
         self.x += self.vx
         self.y += self.vy
-        if self.keydown == 0:
+        if self.keydown == 2:
             if round(self.vy, 3 == 5.551):
                 self.vy = self.vy
             if self.vy != 0:
@@ -86,34 +86,36 @@ class Character(Sprite):
         if self.y > h :
             self.destroy()
         bcollide = self.collidingWithSprites(Block)
+        tcollide = self.collidingWithSprites(top)
         if len(bcollide):
-            print('r')
             self.vx = 0 
             self.vy = 0
+            self.x += self.vx*2
+            self.y += self.vy*2
+        if len(tcollide):
+            
             
    
     def down(self, event):
         self.keydown = 1
-        if self.vy < 2:
-            self.vy += 0.5
+        self.vy = 2
         
     def up(self, event):
         self.keydown = 1
-        if self.vy > -2:
-            self.vy -= 0.5
+        self.vy = -2
         
     def right(self, event):
         self.keydown = 1
-        if self.vx < 2:
-            self.vx += 0.5
+        self.vx = 2
         
     def left(self, event):
         self.keydown = 1
-        if self.vx > -2:
-            self.vx -= 0.5
+        self.vx = -2
         
     def stop(self, event):
         self.keydown = 0
+        self.vx = 0
+        self.vy = 0
     
     def yeet(self, event):
         epos = round(round(event.x)/40),round(round(event.y)/40)
@@ -133,30 +135,27 @@ class bsquare(Plainwall):
     def __init__(self, x, y):
         super().__init__(x, y, 50, 50, black)
 """
+class top(Sprite):
+    r =  RectangleAsset(39,10,noline,black)
+    def __init__(self, position):
+        super().__init__(top.r, position)
+    def step(self):
+        die = self.collidingWithSprites(top)
+        if len(die):
+            self.destroy()
+
 class Block(Sprite):
-    cube = RectangleAsset(39, 39, noline, black)
+    cube = (RectangleAsset(39, 20, noline, black))
+    
     def __init__(self, position):
         super().__init__(Block.cube,position)
         global grey, black, bcolor
-        self.color = blue
-        self.on = 0
-
-        Platformer.listenMouseEvent("mousedown", self.go)
-        Platformer.listenMouseEvent("mouseup", self.stop)
         
     def step(self):
-        if self.on == 1:
-            self.color = black
-            bcolor = black
-            
-    def go(self,event):
-        self.on = 1
-        bcolor = 1
-        print('S')
-    def stop(self,event):
-        self.on = 0
-        bcolor = 0
-        print('5')
+        die = self.collidingWithSprites(Block)
+        if len(die):
+            self.destroy()
+
     """   
     collideswith = self.collidingWithSprites(Block)
         if len(collideswith):
@@ -182,6 +181,7 @@ class Platformer(App):
         #        Block(((w*40), (h*40)))
                 
         Character((100,100))
+        top((300,100))
     def yeetblock(sef,event):
         Block((100,100))
         
@@ -191,7 +191,9 @@ class Platformer(App):
         self.mousepos = (self.mxp, self.myp)
     
     def placeblock(self, event):
-        Block(((self.mxp*40),(self.myp*40)))
+        Block((((self.mxp*40)),((self.myp*40)+9)))
+        top((self.mxp*40, self.myp*40))
+        top((self.mxp*40, self.myp*40 + 29))
     
     def placeuser(self, event):
         Character(((self.mxp*40),(self.myp*40)))
@@ -203,6 +205,8 @@ class Platformer(App):
             Box.step(sh)
         for cube in self.getSpritesbyClass(Block):
             cube.step()
+        for r in self.getSpritesbyClass(top):
+            r.step()
 
 class SpaceGame(App):
     
