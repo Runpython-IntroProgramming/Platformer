@@ -109,7 +109,7 @@ class Character(Sprite):
         epos = round(round(event.x)/40),round(round(event.y)/40)
         #print(round(round(event.x)/40),round(round(event.y)/40))
         #print(epos[0],epos[1])
-        
+"""
 class Plainwall(Sprite):
     def __init__(self, x, y, color):
         super().__init__(
@@ -121,13 +121,13 @@ class Plainwall(Sprite):
 
 class bsquare(Plainwall):
     def __init__(self, x, y):
-        super().__init__(x, y, 50, 50, Color(0, 1.0))
-        
-class Block(Plainwall):
+        super().__init__(x, y, 50, 50, black)
+"""
+class Block(Sprite):
     global grey, black, bcolor
-    #cube = RectangleAsset(39, 39, noline, grey)
-    def __init__(self, x, y):
-        super().__init__(self, x, y)
+    cube = RectangleAsset(39, 39, noline, black)
+    def __init__(self, position):
+        super().__init__(Block.cube,position)
         self.color = blue
         self.on = 0
 
@@ -138,7 +138,6 @@ class Block(Plainwall):
         if self.on == 1:
             self.color = black
             bcolor = black
-            print('a')
             
     def go(self,event):
         self.on = 1
@@ -148,7 +147,11 @@ class Block(Plainwall):
         self.on = 0
         bcolor = 'grey'
         print('5')
-
+    """   
+    collideswith = self.collidingWithSprites(Block)
+        if len(collideswith):
+            self.destroy()
+          """  
 class Platformer(App):
     global black, white, grey, bcolor
     
@@ -156,20 +159,32 @@ class Platformer(App):
         super().__init__()
         noline = LineStyle(0, grey)
         go = 0
-        mousepos = 0
+        mxp = 0
+        myp = 0
         bg_asset = RectangleAsset(self.width, self.height, noline, grey)
         bg = Sprite(bg_asset, (0,0))
+        Platformer.listenKeyEvent("keydown", "w", self.placeblock)
+        Platformer.listenKeyEvent("keydown", "p", self.placeuser)
+        
         Platformer.listenMouseEvent("mousemove", self.getmousepos)
-        Platformer.listenMouseEvent("mouseup", self.stop)
+        
         #for w in range(24):
         #    for h in range(20):
         #        Block(((w*40), (h*40)))
                 
         Character((100,100))
         Block((200,100))
+        
     def getmousepos(self,event):
-        self.mousepos = (event.x, event.y)
-        print(round(self.mousepos, 5))
+        self.mxp = round((event.x-20)/40)
+        self.myp = round((event.y-20)/40)
+        self.mousepos = (self.mxp, self.myp)
+    
+    def placeblock(self, event):
+        Block(((self.mxp*40),(self.myp*40)))
+    
+    def placeuser(self, event):
+        Character(((self.mxp*40),(self.myp*40)))
         
     def step(self):
 
