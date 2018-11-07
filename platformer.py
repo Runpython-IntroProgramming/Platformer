@@ -116,7 +116,6 @@ class Game(App):
         self.pos = (0,0)
         self.listenKeyEvent("keydown", "w", self.newWall)
         self.listenKeyEvent("keydown", "p", self.newPlayer)
-        self.listenKeyEvent("keydown", "f", self.newFloor)
         self.listenKeyEvent("keydown", "left arrow", self.moveKey)
         self.listenKeyEvent("keydown", "right arrow", self.moveKey)
         self.listenKeyEvent("keydown", "up arrow", self.moveKey)
@@ -130,7 +129,7 @@ class Game(App):
         self.pos = (event.x, event.y)
     
     def newWall(self, event):
-        Wall(self.pos[0], self.pos[1])
+        wall(self.pos[0], self.pos[1])
         
     def newPlayer(self, event):
         for p in Platformer.getSpritesbyClass(Player):
