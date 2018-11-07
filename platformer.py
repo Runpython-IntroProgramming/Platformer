@@ -100,13 +100,13 @@ class Platformer(App):
     
     def down(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
-            pplayer.vy = -1
-    def dow2(self, event): 
+            pplayer.vy = 1
+    def down2(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
             pplayer.vy = 0
     def jump(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
-            pplayer.vy = 1
+            pplayer.vy = -1
     def jump2(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
             pplayer.vy = 0
