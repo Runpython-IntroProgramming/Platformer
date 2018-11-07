@@ -51,6 +51,16 @@ class Box(Sprite):
     def __init__(self, position):
         box = RectangleAsset(50,50, noline, black)
         super().__init__(box, position)
+        
+class Line(Sprite):
+    def __init__(self, position):
+        line = RectangleAsset(1,40, noline, black)
+        super().__init__(line, position)
+        
+class Line2(Sprite):
+    def __init__(self, position):
+        line = RectangleAsset(1,40, noline, black)
+        super().__init__(line, position)
 
 class Game(App):
     def __init__(self):
@@ -80,6 +90,14 @@ class Game(App):
         x = floor(event.x/50)*50
         y = floor(event.y/50)*50
         Box((x,y))
+        
+        x = floor(event.x/50)*50
+        y = (floor(event.y/50)*50)+5
+        Line((x,y))
+        
+        x = (floor(event.x/50)*50)+50
+        y = (floor(event.y/50)*50)+5
+        Line2((x,y))
     
     def playerplacement(self,event):    
         Player((0,0))
@@ -101,7 +119,8 @@ class Game(App):
             
     def jump(self,event):
         for a in self.getSpritesbyClass(Player):
-            a.vy = -5
+            if a.collidingWithSprites(Box):
+                a.vy = -6
 
     def jumpstop(self, event):
         for a in self.getSpritesbyClass(Player):
@@ -122,11 +141,16 @@ class Game(App):
             a.y += a.vy
     
             if a.collidingWithSprites(Box):
-                #put shit in here
                 a.vy = 0
+                
+            elif a.collidingWithSprites(Line):
+                a.vx = -1
+                
+            elif a.collidingWithSprites(Line2):
+                a.vx = 1
             
-            if a.collidingWithSprites(Spring):
-                a.vy = -10    
+            elif a.collidingWithSprites(Spring):
+                a.vy = -8.5    
             
             else:
                 a.vy += 0.2
