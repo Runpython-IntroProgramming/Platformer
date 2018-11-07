@@ -74,7 +74,10 @@ class Platformer(App):
         Platformer.listenKeyEvent('keyup', 'left arrow', self.lvelocity2)
         Platformer.listenKeyEvent('keydown', 'right arrow', self.rvelocity)
         Platformer.listenKeyEvent('keyup', 'right arrow', self.rvelocity2)
-      
+        Platformer.listenKeyEvent('keydown', 'down arrow', self.down)
+        Platformer.listenKeyEvent('keyup', 'down arrow', self.down2)
+        Platformer.listenKeyEvent('keydown', 'up arrow', self.jump)
+        Platformer.listenKeyEvent('keyup', 'up arrow', self.jump2)
     def step(self):
         m = 1
         for pplayer in self.getSpritesbyClass(Player): 
@@ -94,7 +97,20 @@ class Platformer(App):
     def rvelocity2(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
             pplayer.vx = 0
-   
+    
+    def down(self, event): 
+        for pplayer in self.getSpritesbyClass(Player):
+            pplayer.vy = -1
+    def dow2(self, event): 
+        for pplayer in self.getSpritesbyClass(Player):
+            pplayer.vy = 0
+    def jump(self, event): 
+        for pplayer in self.getSpritesbyClass(Player):
+            pplayer.vy = 1
+    def jump2(self, event): 
+        for pplayer in self.getSpritesbyClass(Player):
+            pplayer.vy = 0
+            
     def mouse(self, event):
         self.asset[0]= event.x
         self.asset[1] = event.y
