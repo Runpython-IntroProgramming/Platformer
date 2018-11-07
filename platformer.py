@@ -43,7 +43,7 @@ class Player(Sprite):
         
 class Spring(Sprite):
     def __init__(self,position):
-        spring = RectangleAsset(10,5, noline,blue)
+        spring = RectangleAsset(15,8, noline,blue)
         self.vy = 5
         super().__init__(spring, position)
 
@@ -54,12 +54,12 @@ class Box(Sprite):
         
 class Line(Sprite):
     def __init__(self, position):
-        line = RectangleAsset(1,40, noline, black)
+        line = RectangleAsset(1,30, noline, black)
         super().__init__(line, position)
         
 class Line2(Sprite):
     def __init__(self, position):
-        line = RectangleAsset(1,40, noline, black)
+        line = RectangleAsset(1,30, noline, black)
         super().__init__(line, position)
 
 class Game(App):
@@ -84,7 +84,7 @@ class Game(App):
         Game.listenKeyEvent('keyup', 'a', self.stop)
         Game.listenKeyEvent('keydown', 'w', self.jump)
         Game.listenKeyEvent('keyup', 'w', self.jumpstop)
-        
+        Game.listenKeyEvent('mousemove', 'w', self.jumpstop)
         
     def click(self,event):
         x = floor(event.x/50)*50
@@ -92,14 +92,15 @@ class Game(App):
         Box((x,y))
         
         x = floor(event.x/50)*50
-        y = (floor(event.y/50)*50)+5
+        y = (floor(event.y/50)*50)+10
         Line((x,y))
         
-        x = (floor(event.x/50)*50)+50
-        y = (floor(event.y/50)*50)+5
+        x = (floor(event.x/50)*50)+49
+        y = (floor(event.y/50)*50)+10
         Line2((x,y))
     
     def playerplacement(self,event):    
+        self.destory
         Player((0,0))
         
     def springplacement(self,event):
@@ -107,11 +108,11 @@ class Game(App):
     
     def right(self, event):
         for a in self.getSpritesbyClass(Player):
-            a.vx = 2.5
+            a.vx = 1.8
     
     def left(self,event):
         for a in self.getSpritesbyClass(Player):
-            a.vx = -2.5
+            a.vx = -1.8
             
     def stop(self, event):
         for a in self.getSpritesbyClass(Player):
@@ -120,7 +121,7 @@ class Game(App):
     def jump(self,event):
         for a in self.getSpritesbyClass(Player):
             if a.collidingWithSprites(Box):
-                a.vy = -6
+                a.vy = -4.3
 
     def jumpstop(self, event):
         for a in self.getSpritesbyClass(Player):
@@ -142,20 +143,22 @@ class Game(App):
     
             if a.collidingWithSprites(Box):
                 a.vy = 0
-                
-            elif a.collidingWithSprites(Line):
-                a.vx = -1
-                
-            elif a.collidingWithSprites(Line2):
-                a.vx = 1
-            
-            elif a.collidingWithSprites(Spring):
-                a.vy = -8.5    
             
             else:
                 a.vy += 0.2
+             
+            for a in self.getSpritesbyClass(Player):
+                a.x += a.vx
+                a.y += a.vy  
                 
-    
+                if a.collidingWithSprites(Line):
+                    a.vx = -1
+                
+                if a.collidingWithSprites(Line2):
+                    a.vx = 1
+                
+                if a.collidingWithSprites(Spring):
+                    a.vy = -6   
                 
 myapp = Game()
 myapp.run()
