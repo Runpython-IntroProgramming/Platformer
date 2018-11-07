@@ -70,7 +70,6 @@ class Platformer(App):
         Platformer.listenKeyEvent('keydown', 'w', self.wall)
         Platformer.listenKeyEvent('keydown', 's', self.spring)
         Platformer.listenKeyEvent('keydown', 'p', self.player)
-        
         Platformer.listenKeyEvent('keydown', 'left arrow', self.lvelocity)
         Platformer.listenKeyEvent('keyup', 'left arrow', self.lvelocity2)
         Platformer.listenKeyEvent('keydown', 'right arrow', self.rvelocity)
