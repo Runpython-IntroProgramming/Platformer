@@ -149,7 +149,7 @@ class Game(App):
         self.pos = (event.x, event.y)
     
     def newWall(self, event):
-        wall(self.pos[0], self.pos[1])
+        Wall(self.pos[0], self.pos[1])
         
     def newPlayah(self, event):
         for p in Game.getSpritesbyClass(Playah):
