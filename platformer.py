@@ -77,7 +77,7 @@ class Newton(Sprite):
                 LineStyle(0, Color(0, 1.0)),
                 color), (x, y)) 
                 
-        collisionsontra=self.collidingWithSprites()
+        collisioncontra=self.collidingWithSprites()
         if len(collisioncontra):
             self.destroy()
 
