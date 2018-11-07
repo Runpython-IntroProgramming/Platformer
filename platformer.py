@@ -67,7 +67,7 @@ class wall(Blocks):
         super().__init__(x,y,60,60,Color(0,1.0))      #(self, x, y, w, h, color)
         
 class Newton(Sprite):
-     def __init__(self, x, y, width, height, color, app):
+    def __init__(self, x, y, width, height, color, app):
         self.stuck = False
         self.app = app                          # app, need to know
         self.resting = False                    # whether resting on wall
@@ -80,6 +80,39 @@ class Newton(Sprite):
         collisioncontra=self.collidingWithSprites()
         if len(collisioncontra):
             self.destroy()
+    def step(self):
+        # process movement in vertical direction
+        self.y += self.vy
+        collides = self.collidingWithSprites(Wall)
+        collides.extend(self.collidingWithSprites(Platform))
+        for collider in collides:
+            if self.vy > 0 or self.vy < 0:
+                if self.vy > 0:
+                    self.y = collider.y - self.height - 1
+                    if not self.resting:
+                        self.vx = 0
+                    self.resting = True
+                    self.vy = 0
+                # upward collisions for true Wall only
+                elif isinstance(collider, Wall):
+                    self.y = collider.y + collider.height
+                    self.vy = 0
+        # process movement in horizontal direction second
+        self.x += self.vx
+        collides = self.collidingWithSprites(Wall)
+        collides.extend(self.collidingWithSprites(Platform))
+        for collider in collides:
+            if self.vx > 0 or self.vx < 0:
+                if self.vx > 0:
+                    self.x = collider.x - self.width
+                else:
+                    self.x = collider.x + collider.width
+                self.vx = 0
+        # adjust vertical velocity for acceleration due to gravity
+        self.vy += 1
+        # check for out of bounds
+        if self.y > self.app.height:
+            self.app.killMe(self)
 
 class Playah(Newton):
     def __init__(self, x, y, app):
