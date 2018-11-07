@@ -44,20 +44,13 @@ class Character(Sprite):
     def __init__(self, position):
         super().__init__(Character.Box, position)
         global sh, sw
+        self.bcollide = 0
+        self.tcollide = 0
         self.vx = 0
         self.vy = 0
         self.keydown = 0
         self.inair = 0
         
-        '''
-        Platformer.listenKeyEvent("keyup", "up arrow", self.stop)
-        Platformer.listenKeyEvent("keydown", "up arrow", self.up)
-        Platformer.listenKeyEvent("keyup", "right arrow", self.stop)
-        Platformer.listenKeyEvent("keydown", "right arrow", self.right)
-        Platformer.listenKeyEvent("keyup", "left arrow", self.stop)
-        Platformer.listenKeyEvent("keydown", "left arrow", self.left)
-        Platformer.listenMouseEvent("mousedown", self.yeet)
-        '''
         Platformer.listenKeyEvent("keydown", "right arrow", self.checkmove)
         Platformer.listenKeyEvent("keydown", "left arrow", self.checkmove)
         Platformer.listenKeyEvent("keydown", "up arrow", self.checkmove)
@@ -68,19 +61,16 @@ class Character(Sprite):
     def step(self, h):
         self.x += self.vx
         self.y += self.vy
-        bcollide = self.collidingWithSprites(Block)
-        tcollide = self.collidingWithSprites(top)    
-        
+        self.bcollide = self.collidingWithSprites(Block)
+        self.tcollide = self.collidingWithSprites(top)   
         if self.y > h :
             self.destroy()
 
-        if len(bcollide):
+        if len(self.bcollide):
+            self.x -= self.vx
             self.vx = 0 
-            self.vy = 0
-            self.x += self.vx*2
-            self.y += self.vy*2
-
-        if len(tcollide):
+            
+        if len(self.tcollide):
             self.y -= self.vy
             self.vy = 0
             self.inair = 0
@@ -88,13 +78,14 @@ class Character(Sprite):
             self.vy += 0.9
 
     def checkmove(self, event):
-        if event.key == "right arrow":
-            self.vx = 3
-        if event.key == "left arrow":
-            self.vx = -3
+        if len(self.bcollide) == 0:
+            if event.key == "right arrow":
+                self.vx = 3
+            if event.key == "left arrow":
+                self.vx = -3
         if event.key == "up arrow":
-            if self.inair < 2:
-                self.vy = -10
+            if self.inair < 1:
+                self.vy = -13
                 self.inair += 1
         
     def stop(self, event):
@@ -118,20 +109,25 @@ class bsquare(Plainwall):
         super().__init__(x, y, 50, 50, black)
 """
 class spring(Sprite):
-    s = RectangleAsset(15,2,noline,red)
+    s = RectangleAsset(15,5,noline,red)
     def __init__(self, position):
         super().__init__(spring.s, position)
         self.vy = 0
-        '''
-    def step(self, event):
+        self.stopcollide = 0
+        
+    def step(self, h):
+        
         self.y += self.vy
-        stopcollide = self.collidingWithSprites(Block)
-        if len(stopcollide):
+        self.stopcollide = self.collidingWithSprites(top)
+        if len(self.stopcollide):
             self.vy = 0
             self.y += self.vy
         else:
             self.vy += 0.8
-        '''
+        if self.y > h:
+            self.destroy()
+            print('z')
+        
 class top(Sprite):
     r =  RectangleAsset(39,10,noline,white)
     def __init__(self, position):
@@ -191,7 +187,7 @@ class Platformer(App):
         for Box in self.getSpritesbyClass(Character):
             Box.step(sh)
         for s in self.getSpritesbyClass(spring):
-            s.step()
+            s.step(sh)
 
 class SpaceGame(App):
     
