@@ -131,11 +131,11 @@ class Game(App):
     def newWall(self, event):
         wall(self.pos[0], self.pos[1])
         
-    def newPlayer(self, event):
-        for p in Platformer.getSpritesbyClass(Player):
+    def newPlayah(self, event):
+        for p in Game.getSpritesbyClass(Playah):
             p.destroy()
             self.p = None
-        self.p = Player(self.pos[0], self.pos[1], self)
+        self.p = Playah(self.pos[0], self.pos[1], self)
         
     def moveKey(self, event):
         if self.p:
