@@ -101,34 +101,23 @@ class Character(Sprite):
     
     def yeet(self, event):
         epos = round(round(event.x)/40),round(round(event.y)/40)
-"""
-class Plainwall(Sprite):
-    def __init__(self, x, y, color):
-        super().__init__(
-            RectangleAsset(39, 39, noline, color))
-        # destroy any overlapping walls
-        collideswith = self.collidingWithSprites(type(self))
-        if len(collideswith):
-            collideswith[0].destroy()  
 
-class bsquare(Plainwall):
-    def __init__(self, x, y):
-        super().__init__(x, y, 50, 50, black)
-"""
 class spring(Sprite):
     s = RectangleAsset(15,5,noline,red)
-    def __init__(self, position, h):
+    def __init__(self, position):
         super().__init__(spring.s, position)
         self.vy = 0
-    def init(self, h)
+    '''
+    def init(self, h):
         self.stopcollide = self.collidingWithSprites(top)
-        while self.y < h:
-            self.vy += 0.8
+        while self.y < h or len(self.stopcollide) == 0:
+            print('a')
+            self.vy  = 1
             self.y += self.vy
             if self.y > h:
                 self.destroy()
                 break
-    
+    '''
     def step(self, h):
         self.y += self.vy
         self.stopcollide = self.collidingWithSprites(top)
@@ -194,13 +183,14 @@ class Platformer(App):
     
     def placespring(self, event):
         spring((self.mx, self.my))
+        
     def step(self):
         sw = self.width
         sh = self.height
         for Box in self.getSpritesbyClass(Character):
             Box.step(sh)
         for s in self.getSpritesbyClass(spring):
-            s.init(sh)
+            s.step(sh)
 
 myapp = Platformer()
 myapp.run()
