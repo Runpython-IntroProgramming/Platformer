@@ -46,7 +46,7 @@ class Blocks(Sprite):
             collisioncontra[0].destroy()
             
 
-class wall(Blocks):
+class Wall(Blocks):
     def __init__(self,x,y):
         super().__init__(x,y,60,60,grey)      #(self, x, y, w, h, color)
         
@@ -125,7 +125,7 @@ class Playah(Newton):
                 self.vx = 0
 
 def wallKey(event):
-    Sprite(wall,)
+    Sprite(Wall,)
 
 
 #Index/Glossarix
