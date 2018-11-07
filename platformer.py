@@ -74,10 +74,12 @@ class Character(Sprite):
         if len(self.scollide):
             
             self.vy = -17
-            self.y -= 10
+
         if len(self.tcollide):
-            self.y -= self.vy
-            self.vy = 0
+            
+            if len(self.scollide) == 0:
+                self.y -= self.vy
+                self.vy = 0
             self.inair = 0
         else:
             self.vy += 0.9
@@ -90,7 +92,7 @@ class Character(Sprite):
                 self.vx = -3
         if event.key == "up arrow":
             if self.inair < 1:
-                self.vy = -13
+                self.vy = -11
                 self.inair += 1
         
     def stop(self, event):
@@ -115,11 +117,18 @@ class bsquare(Plainwall):
 """
 class spring(Sprite):
     s = RectangleAsset(15,5,noline,red)
-    def __init__(self, position):
+    def __init__(self, position, h):
         super().__init__(spring.s, position)
         self.vy = 0
-        self.stopcollide = 0
-        
+    def init(self, h)
+        self.stopcollide = self.collidingWithSprites(top)
+        while self.y < h:
+            self.vy += 0.8
+            self.y += self.vy
+            if self.y > h:
+                self.destroy()
+                break
+    
     def step(self, h):
         self.y += self.vy
         self.stopcollide = self.collidingWithSprites(top)
@@ -191,30 +200,7 @@ class Platformer(App):
         for Box in self.getSpritesbyClass(Character):
             Box.step(sh)
         for s in self.getSpritesbyClass(spring):
-            s.step(sh)
-
-class SpaceGame(App):
-    
-    """
-    Tutorial4 space game example.
-    """
-    def __init__(self):
-        super().__init__()
-        
-        # Background
-        black = Color(0, 1)
-        noline = LineStyle(0, black)
-        bg_asset = RectangleAsset(self.width, self.height, noline, black)
-        bg = Sprite(bg_asset, (0,0))
-        SpaceShip((100,100))
-        SpaceShip((150,150))
-        SpaceShip((200,50))
-        for i in range(0, (self.width/40)):
-            Block(())
-        
-    def step(self):
-        for ship in self.getSpritesbyClass(SpaceShip):
-            ship.step()
+            s.init(sh)
 
 myapp = Platformer()
 myapp.run()
