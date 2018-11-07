@@ -1,7 +1,7 @@
 """
 platformer.py
 Author: Nick lee
-Credit: 
+Credit: ggame documentation, Mr. Dennison, original platormer example (nothing copied and pasted)
 Assignment: Level 3 project
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
@@ -47,70 +47,57 @@ class Character(Sprite):
         self.vx = 0
         self.vy = 0
         self.keydown = 0
+        self.inair = 0
         
+        '''
         Platformer.listenKeyEvent("keyup", "up arrow", self.stop)
         Platformer.listenKeyEvent("keydown", "up arrow", self.up)
-        #Platformer.listenKeyEvent("keyup", "down arrow", self.stop)
-        #Platformer.listenKeyEvent("keydown", "down arrow", self.down)
         Platformer.listenKeyEvent("keyup", "right arrow", self.stop)
         Platformer.listenKeyEvent("keydown", "right arrow", self.right)
         Platformer.listenKeyEvent("keyup", "left arrow", self.stop)
         Platformer.listenKeyEvent("keydown", "left arrow", self.left)
         Platformer.listenMouseEvent("mousedown", self.yeet)
-     
+        '''
+        Platformer.listenKeyEvent("keydown", "right arrow", self.checkmove)
+        Platformer.listenKeyEvent("keydown", "left arrow", self.checkmove)
+        Platformer.listenKeyEvent("keydown", "up arrow", self.checkmove)
+        Platformer.listenKeyEvent("keyup", "right arrow", self.stop)
+        Platformer.listenKeyEvent("keyup", "left arrow", self.stop)
+        Platformer.listenKeyEvent("keyup", "up arrow", self.stop)
+
     def step(self, h):
         self.x += self.vx
         self.y += self.vy
-        if self.keydown == 2:
-            if round(self.vy, 3 == 5.551):
-                self.vy = self.vy
-            if self.vy != 0:
-                if self.vy >= 0:
-                    self.vy -= 0.2
-                    if self.vy < 0.3:
-                        self.vy = 0
-                else:
-                    self.vy += 0.2
-                    if self.vy > -0.3:
-                        self.vy = 0
-                    
-            if self.vx != 0:
-                if self.vx >= 0:
-                    self.vx -= 0.2
-                    if self.vx < 0.3:
-                        self.vx = 0
-                else:
-                    self.vx += 0.2
-                    if self.vx > -0.3:
-                        self.vx = 0
-            
+        bcollide = self.collidingWithSprites(Block)
+        tcollide = self.collidingWithSprites(top)    
+        
         if self.y > h :
             self.destroy()
-        bcollide = self.collidingWithSprites(Block)
-        tcollide = self.collidingWithSprites(top)
+        
+        
+        
         if len(bcollide):
             self.vx = 0 
             self.vy = 0
             self.x += self.vx*2
             self.y += self.vy*2
+
         if len(tcollide):
             self.y -= self.vy
             self.vy = 0
+            self.inair = 0
         else:
-            self.vy += 0.8
-        
-    def up(self, event):
-        if self.keydown == 0:
-            self.vy = -15
-        self.keydown = 1
-        
-    def right(self, event):
-        self.keydown = 1
-        self.vx = 3
-        
-    def left(self, event):
-        self.keydown = 1
-        self.vx = -3
+            self.vy += 0.9
+
+    def checkmove(self, event):
+        if event.key == "right arrow":
+            self.vx = 3
+        if event.key == "left arrow":
+            self.vx = -3
+        if event.key == "up arrow":
+            if self.inair < 2:
+                self.vy = -10  
+                self.inair += 1
         
     def stop(self, event):
         self.keydown = 0
@@ -118,8 +105,6 @@ class Character(Sprite):
     
     def yeet(self, event):
         epos = round(round(event.x)/40),round(round(event.y)/40)
-        #print(round(round(event.x)/40),round(round(event.y)/40))
-        #print(epos[0],epos[1])
 """
 class Plainwall(Sprite):
     def __init__(self, x, y, color):
@@ -138,6 +123,9 @@ class top(Sprite):
     r =  RectangleAsset(39,10,noline,black)
     def __init__(self, position):
         super().__init__(top.r, position)
+        die = self.collidingWithSprites(top)
+        if len(die):
+            self.destroy()
     def step(self):
         die = self.collidingWithSprites(top)
         if len(die):
@@ -152,17 +140,7 @@ class Block(Sprite):
         die = self.collidingWithSprites(Block)
         if len(die):
             self.destroy()
-            """
-    def step(self):
-        die = self.collidingWithSprites(Block)
-        if len(die):
-            self.destroy()
 
-     
-    collideswith = self.collidingWithSprites(Block)
-        if len(collideswith):
-            self.destroy()
-          """  
 class Platformer(App):
     noline = LineStyle(0, grey)
     def __init__(self):
@@ -177,11 +155,7 @@ class Platformer(App):
         Platformer.listenKeyEvent("keydown", "p", self.placeuser)
         
         Platformer.listenMouseEvent("mousemove", self.getmousepos)
-        
-        #for w in range(24):
-        #    for h in range(20):
-        #        Block(((w*40), (h*40)))
-        
+
     def getmousepos(self,event):
         self.mxp = round((event.x-20)/40)
         self.myp = round((event.y-20)/40)
@@ -200,10 +174,6 @@ class Platformer(App):
         sh = self.height
         for Box in self.getSpritesbyClass(Character):
             Box.step(sh)
-        for cube in self.getSpritesbyClass(Block):
-            cube.step()
-        for r in self.getSpritesbyClass(top):
-            r.step()
 
 class SpaceGame(App):
     
