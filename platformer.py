@@ -38,7 +38,7 @@ class Player(Sprite):
     def __init__(self, position):
         player = RectangleAsset(15,35, noline,green)
         self.vx = 0
-        self.vy = 5
+        self.vy = 0
         super().__init__(player, position)
         
 class Spring(Sprite):
@@ -95,13 +95,17 @@ class Game(App):
         for a in self.getSpritesbyClass(Player):
             a.vx = -2.5
             
-    def jump(self,event):
-        for a in self.getSpritesbyClass(Player):
-            a.vy = -2.5
-    
     def stop(self, event):
         for a in self.getSpritesbyClass(Player):
-            a.vx = 0
+            a.vx = 0  
+            
+    def jump(self,event):
+        for a in self.getSpritesbyClass(Player):
+            a.vy = -5.5
+    
+    def jumpstop(self, event):
+        for a in self.getSpritesbyClass(Player):
+            a.vy += 0.2
     
     def step(self):
         for b in self.getSpritesbyClass(Spring):
@@ -121,7 +125,7 @@ class Game(App):
                 a.vy = 0
             
             else:
-                a.vy = 5
+                a.vy += 0.2
                 
     
                 
