@@ -115,7 +115,7 @@ class Game(App):
         self.p = None
         self.pos = (0,0)
         self.listenKeyEvent("keydown", "w", self.newWall)
-        self.listenKeyEvent("keydown", "p", self.newPlayer)
+        self.listenKeyEvent("keydown", "p", self.newPlayah)
         self.listenKeyEvent("keydown", "left arrow", self.moveKey)
         self.listenKeyEvent("keydown", "right arrow", self.moveKey)
         self.listenKeyEvent("keydown", "up arrow", self.moveKey)
