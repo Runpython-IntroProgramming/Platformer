@@ -109,7 +109,7 @@ class playah(Newton):
 def wallKey(event):
     Sprite(wall,)
 
-class Platformer(App):
+class Game(App):
     def __init__(self):
         super().__init__()
         self.p = None
@@ -158,5 +158,5 @@ class Platformer(App):
             self.KillList.append(obj)
 
 
-
-myapp.run()
+app = Game()
+app.run()
