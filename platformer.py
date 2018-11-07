@@ -83,8 +83,28 @@ class Newton(Sprite):
 
 class playah(Newton):
     def __init__(self, x, y, app):
-        x = 
-        y = 
+        w = 10 
+        h = 20
+        super().__init__(x-w//2, y-h//2, w, h, black, app)
+    def move(self, key):
+        if key == "left arrow":
+            if self.vx > 0:
+                self.vx = 0
+            else:
+                self.vx = -5
+        elif key == "right arrow":
+            if self.vx < 0:
+                self.vx = 0
+            else:
+                self.vx = 5
+        elif key == "up arrow" and self.resting:
+            self.vy = -10
+            self.resting = False
+            
+    def stopMove(self, key):
+        if key == "left arrow" or key == "right arrow":
+            if self.resting:
+                self.vx = 0
 
 def wallKey(event):
     Sprite(wall,)
