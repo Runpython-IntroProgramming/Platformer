@@ -52,7 +52,7 @@ class Player(Sprite):
         self.vx = 0 
         self.vy = 0
         super().__init__(Player.asset, position)
-    
+        
 class Spring(Sprite):
     
     asset = RectangleAsset(15, 5, thinline, blue)
