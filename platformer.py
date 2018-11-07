@@ -116,12 +116,12 @@ class spring(Sprite):
         self.stopcollide = 0
         
     def step(self, h):
-        
         self.y += self.vy
         self.stopcollide = self.collidingWithSprites(top)
         if len(self.stopcollide):
+            self.y -= self.vy
             self.vy = 0
-            self.y += self.vy
+           
         else:
             self.vy += 0.8
         if self.y > h:
