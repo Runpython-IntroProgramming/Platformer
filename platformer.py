@@ -149,13 +149,16 @@ class Block(Sprite):
     def __init__(self, position):
         super().__init__(Block.cube,position)
         global grey, black, bcolor
-        
+        die = self.collidingWithSprites(Block)
+        if len(die):
+            self.destroy()
+            """
     def step(self):
         die = self.collidingWithSprites(Block)
         if len(die):
             self.destroy()
 
-    """   
+     
     collideswith = self.collidingWithSprites(Block)
         if len(collideswith):
             self.destroy()
@@ -178,11 +181,6 @@ class Platformer(App):
         #for w in range(24):
         #    for h in range(20):
         #        Block(((w*40), (h*40)))
-                
-        Character((100,100))
-        top((300,100))
-    def yeetblock(sef,event):
-        Block((100,100))
         
     def getmousepos(self,event):
         self.mxp = round((event.x-20)/40)
