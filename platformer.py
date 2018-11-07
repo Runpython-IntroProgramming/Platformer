@@ -116,9 +116,7 @@ class Game(App):
         self.pos = (0,0)
         self.listenKeyEvent("keydown", "w", self.newWall)
         self.listenKeyEvent("keydown", "p", self.newPlayer)
-        self.listenKeyEvent("keydown", "s", self.newSpring)
         self.listenKeyEvent("keydown", "f", self.newFloor)
-        self.listenKeyEvent("keydown", "l", self.newLaser)
         self.listenKeyEvent("keydown", "left arrow", self.moveKey)
         self.listenKeyEvent("keydown", "right arrow", self.moveKey)
         self.listenKeyEvent("keydown", "up arrow", self.moveKey)
@@ -126,7 +124,6 @@ class Game(App):
         self.listenKeyEvent("keyup", "right arrow", self.stopMoveKey)
         self.listenKeyEvent("keyup", "up arrow", self.stopMoveKey)
         self.listenMouseEvent("mousemove", self.moveMouse)
-        self.FallingSprings = []
         self.KillList = []
 
     def moveMouse(self, event):
