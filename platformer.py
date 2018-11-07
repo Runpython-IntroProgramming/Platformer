@@ -73,7 +73,7 @@ class Game(App):
         Game.listenKeyEvent('keydown', 'a', self.left)
         Game.listenKeyEvent('keyup', 'a', self.stop)
         Game.listenKeyEvent('keydown', 'w', self.jump)
-        Game.listenKeyEvent('keyup', 'w', self.stop)
+        Game.listenKeyEvent('keyup', 'w', self.jumpstop)
         
         
     def click(self,event):
@@ -101,21 +101,21 @@ class Game(App):
             
     def jump(self,event):
         for a in self.getSpritesbyClass(Player):
-            a.vy = -5.5
-    
+            a.vy = -5
+
     def jumpstop(self, event):
         for a in self.getSpritesbyClass(Player):
             a.vy += 0.2
     
     def step(self):
         for b in self.getSpritesbyClass(Spring):
-            b.y +=  b.vy
+            b.y += b.vy
     
             if b.collidingWithSprites(Box):
                 b.vy = 0
             
             else:
-                b.vy = 5    
+                b.vy += 0.2    
     
         for a in self.getSpritesbyClass(Player):
             a.x += a.vx
