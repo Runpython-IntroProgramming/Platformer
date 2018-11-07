@@ -35,22 +35,6 @@ greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
 grid=RectangleAsset(30,30,gridline,white)
 
-
-#class Wall(Sprite):
-    #def __init__(self, x, y, w, h, color):
-       # place = lambda X = X - % w
-       # super().__init__(
-        #    RectangleAsset(50, 50, blackLine, black)
-        #    (snapfunc(x), snapffunc(y))
-    
-#class Player(Sprite):
-  #  def 
-    
-#class Spring(Sprite):
-   # def 
-    
-#class Gravity(Sprite):
-   # def 
 class Blocks(Sprite):
     def __init__(self, x, y, w, h, color):
         grid = lambda X : X - X % w
@@ -142,6 +126,8 @@ class Playah(Newton):
 def wallKey(event):
     Sprite(wall,)
 
+
+#Index/Glossarix
 class Game(App):
     def __init__(self):
         super().__init__()
