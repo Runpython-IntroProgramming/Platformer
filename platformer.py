@@ -84,7 +84,6 @@ class Game(App):
         Game.listenKeyEvent('keyup', 'a', self.stop)
         Game.listenKeyEvent('keydown', 'w', self.jump)
         Game.listenKeyEvent('keyup', 'w', self.jumpstop)
-        Game.listenKeyEvent('mousemove', 'w', self.jumpstop)
         
     def click(self,event):
         x = floor(event.x/50)*50
@@ -99,8 +98,7 @@ class Game(App):
         y = (floor(event.y/50)*50)+10
         Line2((x,y))
     
-    def playerplacement(self,event):    
-        self.destory
+    def playerplacement(self,event):
         Player((0,0))
         
     def springplacement(self,event):
