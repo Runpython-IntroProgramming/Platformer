@@ -73,9 +73,7 @@ class Character(Sprite):
         
         if self.y > h :
             self.destroy()
-        
-        
-        
+
         if len(bcollide):
             self.vx = 0 
             self.vy = 0
@@ -96,7 +94,7 @@ class Character(Sprite):
             self.vx = -3
         if event.key == "up arrow":
             if self.inair < 2:
-                self.vy = -10  
+                self.vy = -10
                 self.inair += 1
         
     def stop(self, event):
@@ -119,14 +117,25 @@ class bsquare(Plainwall):
     def __init__(self, x, y):
         super().__init__(x, y, 50, 50, black)
 """
+class spring(Sprite):
+    s = RectangleAsset(15,2,noline,red)
+    def __init__(self, position):
+        super().__init__(spring.s, position)
+        self.vy = 0
+        '''
+    def step(self, event):
+        self.y += self.vy
+        stopcollide = self.collidingWithSprites(Block)
+        if len(stopcollide):
+            self.vy = 0
+            self.y += self.vy
+        else:
+            self.vy += 0.8
+        '''
 class top(Sprite):
-    r =  RectangleAsset(39,10,noline,black)
+    r =  RectangleAsset(39,10,noline,white)
     def __init__(self, position):
         super().__init__(top.r, position)
-        die = self.collidingWithSprites(top)
-        if len(die):
-            self.destroy()
-    def step(self):
         die = self.collidingWithSprites(top)
         if len(die):
             self.destroy()
@@ -149,14 +158,19 @@ class Platformer(App):
         go = 0
         mxp = 0
         myp = 0
+        mx = 0
+        my = 0
         bg_asset = RectangleAsset(self.width, self.height, noline, grey)
         bg = Sprite(bg_asset, (0,0))
         Platformer.listenKeyEvent("keydown", "w", self.placeblock)
         Platformer.listenKeyEvent("keydown", "p", self.placeuser)
+        Platformer.listenKeyEvent("keydown", "s", self.placespring)
         
         Platformer.listenMouseEvent("mousemove", self.getmousepos)
 
     def getmousepos(self,event):
+        self.mx = event.x
+        self.my = event.y
         self.mxp = round((event.x-20)/40)
         self.myp = round((event.y-20)/40)
         self.mousepos = (self.mxp, self.myp)
@@ -168,12 +182,16 @@ class Platformer(App):
     
     def placeuser(self, event):
         Character(((self.mxp*40),(self.myp*40)))
-        
+    
+    def placespring(self, event):
+        spring((self.mx, self.my))
     def step(self):
         sw = self.width
         sh = self.height
         for Box in self.getSpritesbyClass(Character):
             Box.step(sh)
+        for s in self.getSpritesbyClass(spring):
+            s.step()
 
 class SpaceGame(App):
     
