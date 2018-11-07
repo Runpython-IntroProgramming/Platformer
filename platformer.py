@@ -49,6 +49,8 @@ class Player(Sprite):
     asset = RectangleAsset(12, 28, thinline, purple)
 
     def __init__(self, position):
+        self.vx = 0 
+        self.vy = 0
         super().__init__(Player.asset, position)
     
 class Spring(Sprite):
@@ -68,15 +70,17 @@ class Platformer(App):
         Platformer.listenKeyEvent('keydown', 'w', self.wall)
         Platformer.listenKeyEvent('keydown', 's', self.spring)
         Platformer.listenKeyEvent('keydown', 'p', self.player)
+        Platformer.listenKeyEvent('keydown', 'left arrow', self.velocity)
      
     def step(self):
-        m = 1
+        #m = 1
         for pplayer in self.getSpritesbyClass(Player): 
             pplayer.x += pplayer.vx
             pplayer.y += pplayer.vy
-            if m < 0: 
-                pplayer.vy = pplayer.vy +1
-
+            #if m < 0: 
+            #    pplayer.vy = pplayer.vy +1
+    def velocity(self, event): 
+        
     def mouse(self, event):
         self.asset[0]= event.x
         self.asset[1] = event.y
