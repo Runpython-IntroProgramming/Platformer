@@ -48,7 +48,7 @@ class Blocks(Sprite):
 
 class wall(Blocks):
     def __init__(self,x,y):
-        super().__init__(x,y,60,60,Color(0,1.0))      #(self, x, y, w, h, color)
+        super().__init__(x,y,60,60,grey)      #(self, x, y, w, h, color)
         
 class Newton(Sprite):
     def __init__(self, x, y, width, height, color, app):
@@ -103,7 +103,7 @@ class Playah(Newton):
     def __init__(self, x, y, app):
         w = 10 
         h = 20
-        super().__init__(x-w//2, y-h//2, w, h, black, app)
+        super().__init__(x-w//2, y-h//2, w, h, green, app)
     def move(self, key):
         if key == "left arrow":
             if self.vx > 0:
