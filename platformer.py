@@ -59,7 +59,7 @@ class Newton(Sprite):
         super().__init__(
             RectangleAsset(
                 width, height, 
-                LineStyle(0, Color(0, 1.0)),
+                LineStyle(0, black),
                 color), (x, y)) 
                 
         collisioncontra=self.collidingWithSprites()
