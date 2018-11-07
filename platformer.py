@@ -62,7 +62,8 @@ class Character(Sprite):
         self.x += self.vx
         self.y += self.vy
         self.bcollide = self.collidingWithSprites(Block)
-        self.tcollide = self.collidingWithSprites(top)   
+        self.tcollide = self.collidingWithSprites(top)
+        self.scollide = self.collidingWithSprites(spring)
         if self.y > h :
             self.destroy()
 
@@ -129,7 +130,7 @@ class spring(Sprite):
             print('z')
         
 class top(Sprite):
-    r =  RectangleAsset(39,10,noline,white)
+    r =  RectangleAsset(39,10,noline,black)
     def __init__(self, position):
         super().__init__(top.r, position)
         die = self.collidingWithSprites(top)
@@ -145,6 +146,7 @@ class Block(Sprite):
         die = self.collidingWithSprites(Block)
         if len(die):
             self.destroy()
+            print('a')
 
 class Platformer(App):
     noline = LineStyle(0, grey)
