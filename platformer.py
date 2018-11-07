@@ -115,14 +115,18 @@ class Game(App):
                 b.vy = 0
             
             else:
-                b.vy += 0.2    
+                b.vy = 5    
     
         for a in self.getSpritesbyClass(Player):
             a.x += a.vx
             a.y += a.vy
     
             if a.collidingWithSprites(Box):
+                #put shit in here
                 a.vy = 0
+            
+            if a.collidingWithSprites(Spring):
+                a.vy = -10    
             
             else:
                 a.vy += 0.2
