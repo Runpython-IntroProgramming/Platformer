@@ -109,18 +109,54 @@ class playah(Newton):
 def wallKey(event):
     Sprite(wall,)
 
-    
-myapp.listenKeyEvent('keydown','w',wallKey)
+class Platformer(App):
+    def __init__(self):
+        super().__init__()
+        self.p = None
+        self.pos = (0,0)
+        self.listenKeyEvent("keydown", "w", self.newWall)
+        self.listenKeyEvent("keydown", "p", self.newPlayer)
+        self.listenKeyEvent("keydown", "s", self.newSpring)
+        self.listenKeyEvent("keydown", "f", self.newFloor)
+        self.listenKeyEvent("keydown", "l", self.newLaser)
+        self.listenKeyEvent("keydown", "left arrow", self.moveKey)
+        self.listenKeyEvent("keydown", "right arrow", self.moveKey)
+        self.listenKeyEvent("keydown", "up arrow", self.moveKey)
+        self.listenKeyEvent("keyup", "left arrow", self.stopMoveKey)
+        self.listenKeyEvent("keyup", "right arrow", self.stopMoveKey)
+        self.listenKeyEvent("keyup", "up arrow", self.stopMoveKey)
+        self.listenMouseEvent("mousemove", self.moveMouse)
+        self.FallingSprings = []
+        self.KillList = []
 
-#def playaKey(event):
+    def moveMouse(self, event):
+        self.pos = (event.x, event.y)
     
-#def springKey(event):
+    def newWall(self, event):
+        Wall(self.pos[0], self.pos[1])
+        
+    def newPlayer(self, event):
+        for p in Platformer.getSpritesbyClass(Player):
+            p.destroy()
+            self.p = None
+        self.p = Player(self.pos[0], self.pos[1], self)
+        
+    def moveKey(self, event):
+        if self.p:
+            self.p.move(event.key)
+        
+    def stopMoveKey(self, event):
+        if self.p:
+            self.p.stopMove(event.key)
+            
+    def killMe(self, obj):
+        if obj in self.FallingSprings:
+            self.FallingSprings.remove(obj)
+        elif obj == self.p:
+            self.p = None
+        if not obj in self.KillList:
+            self.KillList.append(obj)
 
-# A super wall class for wall-ish behaviors
-#class GenericWall(Sprite):
-    #def __init__(self, x, y, w, h, color):
-        #snapfunc = lambda X : X - X % w
-       # super().__init__(
-            #RectangleAsset(w-1,h-1,LineStyle(0,Color(0, 1.0)), color),
-            #(snapfunc(x), snapfunc(y)))
+
+
 myapp.run()
