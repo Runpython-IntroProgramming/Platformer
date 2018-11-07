@@ -61,6 +61,7 @@ class Character(Sprite):
     def step(self, h):
         self.x += self.vx
         self.y += self.vy
+        
         self.bcollide = self.collidingWithSprites(Block)
         self.tcollide = self.collidingWithSprites(top)
         self.scollide = self.collidingWithSprites(spring)
@@ -70,7 +71,10 @@ class Character(Sprite):
         if len(self.bcollide):
             self.x -= self.vx
             self.vx = 0 
+        if len(self.scollide):
             
+            self.vy = -17
+            self.y -= 10
         if len(self.tcollide):
             self.y -= self.vy
             self.vy = 0
@@ -122,12 +126,10 @@ class spring(Sprite):
         if len(self.stopcollide):
             self.y -= self.vy
             self.vy = 0
-           
         else:
             self.vy += 0.8
         if self.y > h:
             self.destroy()
-            print('z')
         
 class top(Sprite):
     r =  RectangleAsset(39,10,noline,black)
