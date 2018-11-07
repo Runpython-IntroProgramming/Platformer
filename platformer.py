@@ -85,7 +85,7 @@ class Newton(Sprite):
         # process movement in horizontal direction second
         self.x += self.vx
         collides = self.collidingWithSprites(Wall)
-        collides.extend(self.collidingWithSprites(Platform))
+        collides.extend(self.collidingWithSprites(Game))
         for collider in collides:
             if self.vx > 0 or self.vx < 0:
                 if self.vx > 0:
