@@ -81,7 +81,7 @@ class Newton(Sprite):
         if len(collisioncontra):
             self.destroy()
 
-class playah(Newton):
+class Playah(Newton):
     def __init__(self, x, y, app):
         w = 10 
         h = 20
