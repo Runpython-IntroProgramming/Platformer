@@ -84,6 +84,10 @@ class Game(App):
         Game.listenKeyEvent('keyup', 'a', self.stop)
         Game.listenKeyEvent('keydown', 'w', self.jump)
         Game.listenKeyEvent('keyup', 'w', self.jumpstop)
+        Game.listenMouseEvent("mousemove", self.moveMouse)
+    
+    def moveMouse(self, event):
+        self.pos = (event.x, event.y)
         
     def click(self,event):
         x = floor(event.x/50)*50
