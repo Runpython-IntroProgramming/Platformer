@@ -104,11 +104,11 @@ class Character(Sprite):
 
 class spring(Sprite):
     s = RectangleAsset(15,5,noline,red)
-    falling = 1
+
     def __init__(self, position):
         super().__init__(spring.s, position)
         self.vy = 0
-        Platformer.springfall = 1
+        #Platformer.springfall = 1
     '''
     def init(self, h):
         self.stopcollide = self.collidingWithSprites(top)
@@ -120,20 +120,18 @@ class spring(Sprite):
                 self.destroy()
                 break
     '''
-    print('a')
     def step(self, h):
+        print('a')
         self.y += self.vy
         self.stopcollide = self.collidingWithSprites(top)
         if len(self.stopcollide):
-            self.y -= self.vy
             self.vy = 0
-            #Platformer.springfall = 0
+            Platformer.sc()
         else:
             self.vy += 0.8
-
         if self.y > h:
             self.destroy()
-    print('a')
+            
 class top(Sprite):
     r =  RectangleAsset(39,10,noline,black)
     def __init__(self, position):
@@ -153,11 +151,11 @@ class Block(Sprite):
             self.destroy()
 
 class Platformer(App):
-    springfall = 1
     noline = LineStyle(0, grey)
     def __init__(self):
         super().__init__()
         global black, white, grey, bcolor, sw, sh
+        self.springfall = 1
         go = 0
         mxp = 0
         myp = 0
@@ -189,15 +187,17 @@ class Platformer(App):
     def placespring(self, event):
         spring((self.mx, self.my))
         
+    def sc(self, event):
+        self.springfall = 0
+    
     def step(self):
         sw = self.width
         sh = self.height
         for Box in self.getSpritesbyClass(Character):
             Box.step(sh)
-        for s in self.getSpritesbyClass(spring):
-            if springfall == 1:
-                print('a')
-            s.step(sh)
+        if self.springfall == 1:
+            for s in self.getSpritesbyClass(spring):
+                s.step(sh)
 
 myapp = Platformer()
 myapp.run()
