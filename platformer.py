@@ -104,9 +104,12 @@ class Character(Sprite):
 
 class spring(Sprite):
     s = RectangleAsset(15,5,noline,red)
-
+    assign = 0
     def __init__(self, position):
         super().__init__(spring.s, position)
+        self.num = self.assign
+        self.assign
+        self.listi = []
         self.vy = 0
         #Platformer.springfall = 1
     '''
@@ -121,12 +124,18 @@ class spring(Sprite):
                 break
     '''
     def step(self, h):
-        print('a')
         self.y += self.vy
         self.stopcollide = self.collidingWithSprites(top)
         if len(self.stopcollide):
+            self.y -= self.vy
             self.vy = 0
-            Platformer.sc()
+            Platformer.go = 1
+            for i in range(len(Platformer.alive)):
+                self.listi = Platformer.alive[i]
+                self.listi = self.listi[1]
+                if self.listi == self.num:
+                    del Platformer.alive[i]
+                    break
         else:
             self.vy += 0.8
         if self.y > h:
@@ -151,12 +160,14 @@ class Block(Sprite):
             self.destroy()
 
 class Platformer(App):
+    alive = []
+    springnum = 0
+    go = 0
     noline = LineStyle(0, grey)
     def __init__(self):
         super().__init__()
         global black, white, grey, bcolor, sw, sh
-        self.springfall = 1
-        go = 0
+        springfall = 1
         mxp = 0
         myp = 0
         mx = 0
@@ -185,20 +196,30 @@ class Platformer(App):
         Character(((self.mxp*40),(self.myp*40)))
     
     def placespring(self, event):
-        spring((self.mx, self.my))
-        
-    def sc(self, event):
-        self.springfall = 0
-    
+        self.alive.append([spring((self.mx, self.my)), self.springnum])
+        self.springnum += 1
+        spring.assign = self.springnum
+
     def step(self):
         sw = self.width
         sh = self.height
         for Box in self.getSpritesbyClass(Character):
             Box.step(sh)
-        if self.springfall == 1:
-            for s in self.getSpritesbyClass(spring):
-                s.step(sh)
 
+#        for s in self.alive:
+#            s.step(sh)
+
+        for s in self.getSpritesbyClass(spring):
+            oioi = 0
+            print(oioi)
+            oioi +=1 
+            s.step(sh)
+        '''
+            if self.springfall == 1 or self.springfall == 0:
+                s.step(sh)
+            else:
+                print('s')
+        '''
 myapp = Platformer()
 myapp.run()
 
