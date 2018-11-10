@@ -207,6 +207,8 @@ class Platformer(App):
         sh = self.height
         for Box in self.getSpritesbyClass(Character):
             Box.step(sh)
+            print('s')
+        '''
         if len(self.alive) > 0:
             for i in self.alive:
                 print(len(self.alive))
@@ -214,7 +216,7 @@ class Platformer(App):
                 for s in getSpritesbyClass(spring):
                     s.step(sh)
                     print('a')
-            
+            '''
 
         #for s in self.getSpritesbyClass(spring):
          #   s.step(sh)
