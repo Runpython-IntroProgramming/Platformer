@@ -208,15 +208,15 @@ class Platformer(App):
         for Box in self.getSpritesbyClass(Character):
             Box.step(sh)
             print('s')
-        '''
-        if len(self.alive) > 0:
-            for i in self.alive:
-                print(len(self.alive))
-                print(i[1])
-                for s in getSpritesbyClass(spring):
-                    s.step(sh)
-                    print('a')
-            '''
+        
+        for i in self.alive:
+            print(len(self.alive))
+            print(i[1])
+        for s in getSpritesbyClass(spring):
+            print('a')
+            s.step(sh)
+            print('a')
+            
 
         #for s in self.getSpritesbyClass(spring):
          #   s.step(sh)
