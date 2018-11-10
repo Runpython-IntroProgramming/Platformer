@@ -101,7 +101,12 @@ class Character(Sprite):
     
     def yeet(self, event):
         epos = round(round(event.x)/40),round(round(event.y)/40)
-
+class dspring(Sprite):
+    #S = RectangleAsset(15,5,noline,red)
+    def __init__(self, position):
+        super().__init__(spring.s, position)
+        print(' hit all the yeet')
+    
 class spring(Sprite):
     s = RectangleAsset(15,5,noline,red)
     assign = 0
@@ -124,24 +129,37 @@ class spring(Sprite):
                 break
     '''
     def step(self, h):
-        print('yeet')
         self.y += self.vy
         self.stopcollide = self.collidingWithSprites(top)
         if len(self.stopcollide):
             self.y -= self.vy
             self.vy = 0
             Platformer.go = 1
+            dspring((self.x+10, self.y + 10))
+            self.delete()
+
+            '''
             for i in range(len(Platformer.alive)):
                 self.listi = Platformer.alive[i]
                 self.listi = self.listi[1]
                 if self.listi == self.num:
                     del Platformer.alive[i]
                     break
+            '''
         else:
             self.vy += 0.8
         if self.y > h:
+            self.delete()
             self.destroy()
-            
+    def delete(self):
+        for i in range(len(Platformer.alive)):
+                self.listi = Platformer.alive[i]
+                self.listi = self.listi[1]
+                if self.listi == self.num:
+                    del Platformer.alive[i]
+                    break
+
+
 class top(Sprite):
     r =  RectangleAsset(39,10,noline,black)
     def __init__(self, position):
@@ -209,14 +227,10 @@ class Platformer(App):
             Box.step(sh)
             print('s')
         
-        for i in self.alive:
+        for i in range(len(self.alive)):
             print(len(self.alive))
-            print(i[1])
-        for s in getSpritesbyClass(spring):
-            print('a')
-            s.step(sh)
-            print('a')
-            
+            for s in self.getSpritesbyClass(spring):
+                s.step(sh)
 
         #for s in self.getSpritesbyClass(spring):
          #   s.step(sh)
