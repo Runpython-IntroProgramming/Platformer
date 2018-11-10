@@ -189,6 +189,7 @@ class Platformer(App):
         self.mousepos = (self.mxp, self.myp)
     
     def placeblock(self, event):
+        print('a')
         Block((((self.mxp*40)),((self.myp*40)+9)))
         top((self.mxp*40, self.myp*40))
         top((self.mxp*40, self.myp*40 + 29))
@@ -206,13 +207,13 @@ class Platformer(App):
         sh = self.height
         for Box in self.getSpritesbyClass(Character):
             Box.step(sh)
-
-        for i in self.alive:
-            print(len(self.alive))
-            print(i[1])
-            for s in getSpritesbyClass(spring):
-                s.step(sh)
-                print('a')
+        if len(self.alive) > 0:
+            for i in self.alive:
+                print(len(self.alive))
+                print(i[1])
+                for s in getSpritesbyClass(spring):
+                    s.step(sh)
+                    print('a')
             
 
         #for s in self.getSpritesbyClass(spring):
