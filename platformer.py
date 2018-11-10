@@ -124,6 +124,7 @@ class spring(Sprite):
                 break
     '''
     def step(self, h):
+        print('yeet')
         self.y += self.vy
         self.stopcollide = self.collidingWithSprites(top)
         if len(self.stopcollide):
@@ -206,14 +207,16 @@ class Platformer(App):
         for Box in self.getSpritesbyClass(Character):
             Box.step(sh)
 
-#        for s in self.alive:
-#            s.step(sh)
+        for i in self.alive:
+            print(len(self.alive))
+            print(i[1])
+            for s in getSpritesbyClass(spring):
+                s.step(sh)
+                print('a')
+            
 
-        for s in self.getSpritesbyClass(spring):
-            oioi = 0
-            print(oioi)
-            oioi +=1 
-            s.step(sh)
+        #for s in self.getSpritesbyClass(spring):
+         #   s.step(sh)
         '''
             if self.springfall == 1 or self.springfall == 0:
                 s.step(sh)
