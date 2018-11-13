@@ -89,9 +89,16 @@ class Game(App):
         
         m = 0
         n = 0
+
+        print("Press 'e' to sqawn a player")
+        print("Press 'q' to sqawn a block")
+        print("Press 's' to sqawn a spring")
+        print("Press 'a' to move left")
+        print("Press 'd' to move eight")
+        print("Press 'w' to jump")
         
-        Game.listenMouseEvent('click', self.click)
-        Game.listenKeyEvent('keydown', 'p',  self.playerplacement)
+        Game.listenKeyEvent('keydown', 'q',  self.Square)
+        Game.listenKeyEvent('keydown', 'e',  self.playerplacement)
         Game.listenKeyEvent('keydown', 's', self.springplacement)
         Game.listenKeyEvent('keydown', 'd', self.right)
         Game.listenKeyEvent('keyup', 'd', self.stop)
@@ -100,27 +107,26 @@ class Game(App):
         Game.listenKeyEvent('keydown', 'w', self.jump)
         Game.listenKeyEvent('keyup', 'w', self.jumpstop)
         Game.listenMouseEvent("mousemove", self.moveMouse)
-    
   
     def moveMouse(self, event):
         self.m = event.x
         self.n = event.y
         
-    def click(self,event):
-        x = floor(event.x/50)*50
-        y = floor(event.y/50)*50
+    def Square(self,event):
+        x = floor(self.m/50)*50
+        y = floor(self.n/50)*50
         Box((x,y))
         
-        x = floor(event.x/50)*50
-        y = (floor(event.y/50)*50)+10
+        x = floor(self.m/50)*50
+        y = (floor(self.n/50)*50)+10
         Line((x,y))
         
-        x = (floor(event.x/50)*50)+49
-        y = (floor(event.y/50)*50)+10
+        x = (floor(self.m/50)*50)+49
+        y = (floor(self.n/50)*50)+10
         Line2((x,y))
         
-        x = (floor(event.x/50)*50)+1
-        y = (floor(event.y/50)*50)+49
+        x = (floor(self.m/50)*50)+1
+        y = (floor(self.n/50)*50)+49
         Line3((x,y))
     
     def playerplacement(self,event):
