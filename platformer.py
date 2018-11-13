@@ -104,10 +104,11 @@ class Character(Sprite):
 
 class spring(Sprite):
     s = RectangleAsset(15,5,noline,red)
+    falling = 1
     assign = 0
     def __init__(self, position):
         super().__init__(spring.s, position)
-        self.falling = 1
+
         self.num = self.assign
         self.assign
         self.listi = []
@@ -132,8 +133,9 @@ class spring(Sprite):
             self.y -= self.vy
             self.vy = 0
             #Platformer.go = 1
-            if len(Platformer.alive) > 1:
+            if len(Platformer.alive) > 0:
                 del Platformer.alive[len(Platformer.alive)-1]
+                self.falling = 0
             
             '''
             for i in range(len(Platformer.alive)+1):
@@ -147,6 +149,7 @@ class spring(Sprite):
                     '''
         else:
             self.vy += 0.98
+            self.falling = 1
         if self.y > h:
             del Platformer.alive[len(Platformer.alive)-1]
             self.destroy()
@@ -219,7 +222,7 @@ class Platformer(App):
         for Box in self.getSpritesbyClass(Character):
             Box.step(sh)
         
-        if len(self.alive) > 0:
+        if len(self.alive) > 1:
             for i in self.alive:
                 for s in self.getSpritesbyClass(spring):
                     s.step(sh)
