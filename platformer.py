@@ -115,7 +115,6 @@ class Game(App):
         Line2((x,y))
     
     def playerplacement(self,event):
-        Player.destroy()
         Player((self.m,self.n))
         
     def springplacement(self,event):
