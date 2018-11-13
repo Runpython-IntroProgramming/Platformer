@@ -41,7 +41,7 @@ class Blocks(Sprite):
         super().__init__(
             RectangleAsset(w-1, h-1, LineStyle(0,Color(0, 1.0)), color),(grid(x), grid(y)))
         #collisions
-        collisionsontra=self.collidingWithSprites(type(self))
+        collisionontra =self.collidingWithSprites(type(self))
         if len(collisioncontra):
             collisioncontra[0].destroy()
             
