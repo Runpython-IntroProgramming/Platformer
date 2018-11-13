@@ -32,6 +32,9 @@ redline = LineStyle(1, red)
 greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
 
+
+    
+
 from math import floor
 
 class Player(Sprite):
@@ -79,6 +82,9 @@ class Game(App):
         self.p = None
         self.pos = (0,0)
         
+        m = 0
+        n = 0
+        
         Game.listenMouseEvent('click', self.click)
         Game.listenKeyEvent('keydown', 'p',  self.playerplacement)
         Game.listenKeyEvent('keydown', 's', self.springplacement)
@@ -90,8 +96,10 @@ class Game(App):
         Game.listenKeyEvent('keyup', 'w', self.jumpstop)
         Game.listenMouseEvent("mousemove", self.moveMouse)
     
+  
     def moveMouse(self, event):
-        self.pos = (event.x, event.y)
+        self.m = event.x
+        self.n = event.y
         
     def click(self,event):
         x = floor(event.x/50)*50
@@ -107,11 +115,11 @@ class Game(App):
         Line2((x,y))
     
     def playerplacement(self,event):
-        self.destroy()
-        Player((0,0))
+        Player.destroy()
+        Player((self.m,self.n))
         
     def springplacement(self,event):
-        Spring((0,0))
+        Spring((self.m,self.n))
     
     def right(self, event):
         for a in self.getSpritesbyClass(Player):
