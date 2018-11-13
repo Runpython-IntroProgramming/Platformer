@@ -73,7 +73,7 @@ class Character(Sprite):
             self.vx = 0 
             
         if len(self.scollide):
-            self.vy = -17
+            self.vy = -16
 
         if len(self.tcollide):
             if len(self.scollide) == 0:
