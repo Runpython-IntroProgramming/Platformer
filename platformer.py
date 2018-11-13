@@ -74,8 +74,6 @@ class Platformer(App):
         Platformer.listenKeyEvent('keyup', 'left arrow', self.lvelocity2)
         Platformer.listenKeyEvent('keydown', 'right arrow', self.rvelocity)
         Platformer.listenKeyEvent('keyup', 'right arrow', self.rvelocity2)
-        Platformer.listenKeyEvent('keydown', 'down arrow', self.down)
-        Platformer.listenKeyEvent('keyup', 'down arrow', self.down2)
         Platformer.listenKeyEvent('keydown', 'up arrow', self.jump)
         Platformer.listenKeyEvent('keyup', 'up arrow', self.jump2)
     
@@ -88,15 +86,15 @@ class Platformer(App):
             pplayer.x += pplayer.vx
             pplayer.y += pplayer.vy
             m = 0
-            for Wall in self.getSpritesbyClass(Wall):
-                if pplayer.collidingWith(Wall): 
+            
+            for wwall in self.getSpritesbyClass(Wall):
+                if pplayer.collidingWith(wwall): 
                     m+=1
             if m > 0: 
-               pplayer.vy = pplayer.vy +1
+               pplayer.vy=0
             else:
-                pplayer.vy=0
+                pplayer.vy = pplayer.vy +.6
             
-        
     def lvelocity(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
             pplayer.vx = -1
@@ -109,16 +107,9 @@ class Platformer(App):
     def rvelocity2(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
             pplayer.vx = 0
-    
-    def down(self, event): 
-        for pplayer in self.getSpritesbyClass(Player):
-            pplayer.vy = 1
-    def down2(self, event): 
-        for pplayer in self.getSpritesbyClass(Player):
-            pplayer.vy = 0
     def jump(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
-            pplayer.vy = -1
+            pplayer.vy = -10
     def jump2(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
             pplayer.vy = 0
