@@ -202,7 +202,7 @@ class Spring(Newton):
     def __init__(self, x, y, app):
         w = 10
         h = 4
-        super().__init__(x-w//2, y-h//2, w, h, Color(0x0000ff, 1.0), app)
+        super().__init__(x-w//2, y-h//2, w, h,green, app)
         
     def step(self):
         if self.resting:
