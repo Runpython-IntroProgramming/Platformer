@@ -36,14 +36,13 @@ greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
 bcolor = white
 grid = RectangleAsset(40,40,gridline, bcolor)
-
-#keys = ['up arrow', 'down arrow', 'right arrow', 'left arrow']
-        
+alivew = 0
 class Character(Sprite):
     Box = RectangleAsset(15, 25, noline, blue)
     def __init__(self, position):
         super().__init__(Character.Box, position)
         global sh, sw
+        Platformer.charon = 1
         self.bcollide = 0
         self.tcollide = 0
         self.vx = 0
@@ -66,17 +65,17 @@ class Character(Sprite):
         self.tcollide = self.collidingWithSprites(top)
         self.scollide = self.collidingWithSprites(spring)
         if self.y > h :
+            Platformer.charon = 0
             self.destroy()
 
         if len(self.bcollide):
             self.x -= self.vx
             self.vx = 0 
-        if len(self.scollide):
             
+        if len(self.scollide):
             self.vy = -17
 
         if len(self.tcollide):
-            
             if len(self.scollide) == 0:
                 self.y -= self.vy
                 self.vy = 0
@@ -98,9 +97,6 @@ class Character(Sprite):
     def stop(self, event):
         self.keydown = 0
         self.vx = 0
-    
-    def yeet(self, event):
-        epos = round(round(event.x)/40),round(round(event.y)/40)
 
 class spring(Sprite):
     s = RectangleAsset(15,5,noline,red)
@@ -112,49 +108,23 @@ class spring(Sprite):
         self.assign
         self.listi = []
         self.vy = 0
-        #Platformer.springfall = 1
-    '''
-    def init(self, h):
-        self.stopcollide = self.collidingWithSprites(top)
-        while self.y < h or len(self.stopcollide) == 0:
-            print('a')
-            self.vy  = 1
-            self.y += self.vy
-            if self.y > h:
-                self.destroy()
-                break
-    '''
+        
     def step(self, h):
-        print(self.num, len(Platformer.alive))
         self.y += self.vy
         self.stopcollide = self.collidingWithSprites(top)
         if len(self.stopcollide):
-            self.y -= self.vy
+            self.y -= self.vy/2
             self.vy = 0
-            #Platformer.go = 1
+            
             if len(Platformer.alive) > 0 and self.falling == 1:
                 del Platformer.alive[len(Platformer.alive)-1]
-                self.falling = 0
-            
-            '''
-            for i in range(len(Platformer.alive)+1):
-                self.listi = Platformer.alive[i-1]
-                print('check1 passed')
-                self.listi = self.listi[1]
-                print(self.listi, len(Platformer.alive))
-                if self.listi == self.num:
-                    del Platformer.alive[i-1]
-                    print(i, 'check2 passed')
-                    '''
+            self.falling = 0
         else:
             self.vy += 0.98
         if self.y > h:
             del Platformer.alive[len(Platformer.alive)-1]
             self.destroy()
-        
-        
-        
-        
+
 class top(Sprite):
     r =  RectangleAsset(39,10,noline,black)
     def __init__(self, position):
@@ -177,21 +147,22 @@ class Platformer(App):
     alive = []
     springnum = 0
     go = 0
+    charon = 0
     noline = LineStyle(0, grey)
     def __init__(self):
         super().__init__()
         global black, white, grey, bcolor, sw, sh
+        Character.alive2 = 0
         springfall = 1
         mxp = 0
         myp = 0
         mx = 0
         my = 0
-        bg_asset = RectangleAsset(self.width, self.height, noline, grey)
+        bg_asset = RectangleAsset(self.width, self.height, noline, white)
         bg = Sprite(bg_asset, (0,0))
         Platformer.listenKeyEvent("keydown", "w", self.placeblock)
         Platformer.listenKeyEvent("keydown", "p", self.placeuser)
         Platformer.listenKeyEvent("keydown", "s", self.placespring)
-        
         Platformer.listenMouseEvent("mousemove", self.getmousepos)
 
     def getmousepos(self,event):
@@ -205,9 +176,15 @@ class Platformer(App):
         Block((((self.mxp*40)),((self.myp*40)+9)))
         top((self.mxp*40, self.myp*40))
         top((self.mxp*40, self.myp*40 + 29))
-    
+        
+    def chargo(self):
+        self.charon = 1
+        print('t')
+        
     def placeuser(self, event):
-        Character(((self.mxp*40),(self.myp*40)))
+        if Platformer.charon == 0:
+            Character(((self.mxp*40),(self.myp*40)))
+            self.charon = 0
     
     def placespring(self, event):
         self.alive.append([spring((self.mx, self.my)), self.springnum])
@@ -220,21 +197,11 @@ class Platformer(App):
         for Box in self.getSpritesbyClass(Character):
             Box.step(sh)
         
-        if len(self.alive)-1 != 0:
+        if len(self.alive) != 0:
             for i in self.alive:
                 for s in self.getSpritesbyClass(spring):
                     s.step(sh)
-                
-            
 
-        #for s in self.getSpritesbyClass(spring):
-         #   s.step(sh)
-        '''
-            if self.springfall == 1 or self.springfall == 0:
-                s.step(sh)
-            else:
-                print('s')
-        '''
 myapp = Platformer()
 myapp.run()
 
