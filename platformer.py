@@ -66,7 +66,7 @@ class Newton(Sprite):
         if len(collisioncontra):
             self.destroy()
     def step(self):
-        # process movement in vertical direction
+        # vertical movements
         self.y += self.vy
         collides = self.collidingWithSprites(Wall)
         collides.extend(self.collidingWithSprites(Platform))
