@@ -107,6 +107,7 @@ class spring(Sprite):
     assign = 0
     def __init__(self, position):
         super().__init__(spring.s, position)
+        self.falling = 1
         self.num = self.assign
         self.assign
         self.listi = []
@@ -124,31 +125,31 @@ class spring(Sprite):
                 break
     '''
     def step(self, h):
-        print('dropping', self.num)
+        print(self.num, len(Platformer.alive))
         self.y += self.vy
         self.stopcollide = self.collidingWithSprites(top)
         if len(self.stopcollide):
             self.y -= self.vy
             self.vy = 0
             #Platformer.go = 1
+            if len(Platformer.alive) > 1:
+                del Platformer.alive[len(Platformer.alive)-1]
             
-            for i in range(len(Platformer.alive)):
-                self.listi = Platformer.alive[i]
+            '''
+            for i in range(len(Platformer.alive)+1):
+                self.listi = Platformer.alive[i-1]
+                print('check1 passed')
                 self.listi = self.listi[1]
                 print(self.listi, len(Platformer.alive))
                 if self.listi == self.num:
-                    del Platformer.alive[i]
-                    self.die
-                    
-                
+                    del Platformer.alive[i-1]
+                    print(i, 'check2 passed')
+                    '''
         else:
-            self.vy += 0.8
+            self.vy += 0.98
         if self.y > h:
+            del Platformer.alive[len(Platformer.alive)-1]
             self.destroy()
-    def die(self, event):
-        print('y')
-        self.destroy()
-        print('y')
         
         
         
@@ -200,7 +201,6 @@ class Platformer(App):
         self.mousepos = (self.mxp, self.myp)
     
     def placeblock(self, event):
-        print('a')
         Block((((self.mxp*40)),((self.myp*40)+9)))
         top((self.mxp*40, self.myp*40))
         top((self.mxp*40, self.myp*40 + 29))
@@ -218,18 +218,11 @@ class Platformer(App):
         sh = self.height
         for Box in self.getSpritesbyClass(Character):
             Box.step(sh)
-        '''
-        #if len(self.alive) > 0:
-        for s in self.getSpritesbyClass(spring):
-            s.step(sh)
-            print('yeootd')
-            '''
-        for i in self.alive:
-            #print(len(self.alive))
-            #print(i[1])
-            for s in self.getSpritesbyClass(spring):
-                s.step(sh)
-                print('a')
+        
+        if len(self.alive) > 0:
+            for i in self.alive:
+                for s in self.getSpritesbyClass(spring):
+                    s.step(sh)
                 
             
 
