@@ -56,7 +56,7 @@ class Ghost(Block):
     def __init__(self, x, y):
         super().__init__(x, y, 45, 10, darkBlue)
     
-# super class for anything that falls and lands or bumps into walls
+# collision with a block
 class Newton(Sprite):
     def __init__(self, x, y, width, height, color, app):
         self.vx = self.vy = 0
@@ -66,7 +66,7 @@ class Newton(Sprite):
         super().__init__(
             RectangleAsset(
                 width, height, 
-                LineStyle(0, Color(0, 1.0)),
+                noline,
                 color),
             (x, y)) 
         # destroy self if overlapping with anything
