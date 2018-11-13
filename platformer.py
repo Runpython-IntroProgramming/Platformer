@@ -164,8 +164,8 @@ class Turret(Newton):
 # The player class. only one instance of this is allowed.
 class Playah(Newton):
     def __init__(self, x, y, app):
-        w = 15
-        h = 30
+        w = 10
+        h = 20
         super().__init__(x-w//2, y-h//2, w, h, lightBlue, app)
 
     def step(self):
