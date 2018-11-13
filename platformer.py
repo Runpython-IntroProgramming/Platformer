@@ -75,6 +75,10 @@ class Game(App):
             x = 0
             Sprite(grid,(x,y))
             y = y + 50
+        
+        self.p = None
+        self.pos = (0,0)
+        
         Game.listenMouseEvent('click', self.click)
         Game.listenKeyEvent('keydown', 'p',  self.playerplacement)
         Game.listenKeyEvent('keydown', 's', self.springplacement)
@@ -103,10 +107,11 @@ class Game(App):
         Line2((x,y))
     
     def playerplacement(self,event):
+        self.destroy()
         Player((0,0))
         
     def springplacement(self,event):
-        Spring((50,50))
+        Spring((0,0))
     
     def right(self, event):
         for a in self.getSpritesbyClass(Player):
