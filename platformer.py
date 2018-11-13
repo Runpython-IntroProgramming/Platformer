@@ -78,13 +78,25 @@ class Platformer(App):
         Platformer.listenKeyEvent('keyup', 'down arrow', self.down2)
         Platformer.listenKeyEvent('keydown', 'up arrow', self.jump)
         Platformer.listenKeyEvent('keyup', 'up arrow', self.jump2)
-    def step(self):
-        m = 1
-        for pplayer in self.getSpritesbyClass(Player): 
+    
+    def step(self):  
+        
+        for pplayer in self.getSpritesbyClass(Player):
+            if pplayer.y>1000:
+                pplayer.destroy()
+            
             pplayer.x += pplayer.vx
             pplayer.y += pplayer.vy
-            if m < 0: 
+            m = 0
+            for Wall in self.getSpritesbyClass(Wall):
+                if pplayer.collidingWith(Wall): 
+                    m+=1
+            if m > 0: 
                pplayer.vy = pplayer.vy +1
+            else:
+                pplayer.vy=0
+            
+        
     def lvelocity(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
             pplayer.vx = -1
@@ -119,8 +131,10 @@ class Platformer(App):
         Wall(((35*(floor((self.asset[0])/35))), (35*(floor((self.asset[1])/35)))))
     
     def player(self, event):
+        for a in Platformer.getSpritesbyClass(Player):
+            a.destroy()
         Player((self.asset[0], self.asset[1]))
-    
+        
     def spring(self, event):
         Spring((self.asset[0], self.asset[1]))
 
