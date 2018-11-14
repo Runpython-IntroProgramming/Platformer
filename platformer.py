@@ -43,6 +43,7 @@ class Player(Sprite):
         self.vx = 0
         self.vy = 0
         super().__init__(player, position)
+    
         
 class Spring(Sprite):
     def __init__(self,position):
@@ -90,15 +91,15 @@ class Game(App):
         m = 0
         n = 0
 
-        print("Press 'e' to sqawn a player")
-        print("Press 'q' to sqawn a block")
+        print("Press 'q' to sqawn a player")
+        print("Press 'e' to sqawn a block")
         print("Press 's' to sqawn a spring")
         print("Press 'a' to move left")
         print("Press 'd' to move eight")
         print("Press 'w' to jump")
         
-        Game.listenKeyEvent('keydown', 'q',  self.Square)
-        Game.listenKeyEvent('keydown', 'e',  self.playerplacement)
+        Game.listenKeyEvent('keydown', 'e',  self.Square)
+        Game.listenKeyEvent('keydown', 'q',  self.playerplacement)
         Game.listenKeyEvent('keydown', 's', self.springplacement)
         Game.listenKeyEvent('keydown', 'd', self.right)
         Game.listenKeyEvent('keyup', 'd', self.stop)
@@ -130,7 +131,6 @@ class Game(App):
         Line3((x,y))
     
     def playerplacement(self,event):
-        Player.destroy
         Player((self.m,self.n))
         
     def springplacement(self,event):
