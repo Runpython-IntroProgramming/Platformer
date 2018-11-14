@@ -61,8 +61,8 @@ class Newton(Sprite):
     def __init__(self, x, y, width, height, color, app):
         self.vx = self.vy = 0
         self.stuck = False
-        self.app = app                          # app, need to know
-        self.resting = False                    # whether resting on wall
+        self.app = app                      
+        self.resting = False                    
         super().__init__(
             RectangleAsset(
                 width, height, 
