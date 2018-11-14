@@ -153,7 +153,7 @@ class Pewpew(Newton):
         super().step()
         self.time += 1
         if self.time % 100 == 0:
-            (self.direction, 
+            Pellet(self.direction, 
                  self.x+self.width//2,
                  self.y+10,
                  self.app)
