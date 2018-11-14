@@ -201,7 +201,7 @@ class Playah(Newton):
 class Spring(Newton):
     def __init__(self, x, y, app):
         w = 10
-        h = 4
+        h = t
         super().__init__(x-w//2, y-h//2, w, h,green, app)
         
     def step(self):
