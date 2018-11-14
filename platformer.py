@@ -197,7 +197,7 @@ class Playah(Newton):
                 self.vx = 0
 
   
-# 
+# High Jump
 class Spring(Newton):
     def __init__(self, x, y, app):
         w = 10
