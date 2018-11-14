@@ -108,8 +108,8 @@ class Newton(Sprite):
         if self.y > self.app.height:
             self.app.killMe(self)
 
-# "bullets" to f 
-class Bolt(Sprite):
+# ammo 
+class Pellet(Sprite):
     def __init__(self, direction, x, y, app):
         w = 15
         h = 5
@@ -153,7 +153,7 @@ class Pewpew(Newton):
         super().step()
         self.time += 1
         if self.time % 100 == 0:
-            Bolt(self.direction, 
+            (self.direction, 
                  self.x+self.width//2,
                  self.y+10,
                  self.app)
