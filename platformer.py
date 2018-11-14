@@ -139,8 +139,8 @@ class Bolt(Sprite):
             self.app.killMe(self)
 
 
-# An object that generates bolts (laser shots)
-class Turret(Newton):
+# Laser machina
+class Pewpew(Newton):
     def __init__(self, x, y, app):
         w = 20
         h = 35
