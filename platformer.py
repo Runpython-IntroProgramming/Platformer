@@ -209,7 +209,7 @@ class Spring(Newton):
             self.app.FallingSprings.remove(self)
         super().step()
 
-# The application class. Subclass of App
+# final playthrough buttons
 class Platformer(App):
     def __init__(self):
         super().__init__()
