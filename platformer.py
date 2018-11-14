@@ -75,7 +75,7 @@ class Newton(Sprite):
             self.destroy()
         
     def step(self):
-        # process movement in vertical direction
+        # v-movement
         self.y += self.vy
         collides = self.collidingWithSprites(Wall)
         collides.extend(self.collidingWithSprites(Ghost))
@@ -87,11 +87,11 @@ class Newton(Sprite):
                         self.vx = 0
                     self.resting = True
                     self.vy = 0
-                # upward collisions for true Wall only
+                # upcollide
                 elif isinstance(collider, Wall):
                     self.y = collider.y + collider.height
                     self.vy = 0
-        # process movement in horizontal direction second
+        # h-movement
         self.x += self.vx
         collides = self.collidingWithSprites(Wall)
         collides.extend(self.collidingWithSprites(Ghost))
