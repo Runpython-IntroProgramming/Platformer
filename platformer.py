@@ -92,7 +92,7 @@ class Platformer(App):
             for wwall in self.getSpritesbyClass(Wall):
                 if pplayer.collidingWith(wwall): 
                     m+=1
-                
+        
             if m > 0: 
                pplayer.vy=0
             else:
