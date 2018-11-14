@@ -1,7 +1,7 @@
 """
 platformer.py
 Author: Jack Meehan
-Credit: 
+Credit: Mr. Dennison (no other credit because specific to ggame)
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
@@ -46,34 +46,33 @@ class platformer(App):
         if Player:
             Player.step()
         
-
 class player(Sprite):
     def __init__(self, color, height, width, x, y):
         self.c = color
         self.h = height
         self.w = width
+        self.vy = 0
         box = RectangleAsset(self.w, self.h, gridline, self.c)
         super().__init__(box, (x, y))
     def step(self):
-        pass
+        self.vy += .2
+        self.y += self.vy
+
+def step():
+    global Player
+    if Player:
+        Player.step()
 
 def rightKey(event):
     global Player
-    Player.x += 8
+    Player.x += 15
 def leftKey(event):
     global Player
-    Player.x += -8
+    Player.x += -15
     
 def upKey(event):
     global Player
-    for m in range (-10, 10):
-    #a = (-16*(m**2))+5
-    #a = int(a)
-        player.y += (-16*(m**2))+5
-        player.x += 1    
-def downKey(event):
-    global Player
-    Player.y += 8
+    Player.vy = -10
 
 def mouseMove(event):
     global i 
@@ -123,8 +122,7 @@ myapp.listenMouseEvent('click', mouseClick)
 myapp.listenMouseEvent('mousemove', mouseMove)
 myapp.listenKeyEvent('keydown', 'space', spaceKey)
 myapp.listenKeyEvent('keydown', 'up arrow', upKey)
-myapp.listenKeyEvent('keydown', 'down arrow', downKey)
 myapp.listenKeyEvent('keydown', 'right arrow', rightKey)
 myapp.listenKeyEvent('keydown', 'left arrow', leftKey)
 myapp.listenKeyEvent('keydown', 's', sKey)
-myapp.run()
+myapp.run(step)
