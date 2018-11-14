@@ -1,7 +1,7 @@
 """
 platformer.py
 Author: Jack Meehan
-Credit: Mr. Dennison (no other credit because specific to ggame)
+Credit: Mr. Dennison's Sample Program (no other credit because specific to ggame)
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
@@ -45,7 +45,7 @@ class platformer(App):
         global Player
         if Player:
             Player.step()
-        
+
 class player(Sprite):
     def __init__(self, color, height, width, x, y):
         self.c = color
@@ -57,6 +57,11 @@ class player(Sprite):
     def step(self):
         self.vy += .2
         self.y += self.vy
+        collidinglist = player.collidingWishSprites(block)
+        if collidinglist:
+          self.vy = 0
+          self.vx = 0
+        
 
 def step():
     global Player
@@ -103,7 +108,7 @@ class spring(Sprite):
         self.h = height2
         self.w = width2
         box = RectangleAsset(self.w, self.h, gridline, self.c)
-        super().__init__(box, (x, y))
+        super().__init__(box, (x, y)) 
 def mouseMove(event):
     global i 
     global j
