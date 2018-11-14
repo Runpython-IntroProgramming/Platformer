@@ -108,7 +108,7 @@ class Newton(Sprite):
         if self.y > self.app.height:
             self.app.killMe(self)
 
-# "bullets" to fire from Turrets.
+# "bullets" to f 
 class Bolt(Sprite):
     def __init__(self, direction, x, y, app):
         w = 15
@@ -219,6 +219,7 @@ class Platformer(App):
         self.listenKeyEvent("keydown", "p", self.newPlayah)
         self.listenKeyEvent("keydown", "s", self.newSpring)
         self.listenKeyEvent("keydown", "f", self.newFloor)
+        self.listenKeyEvent(“keydown”, “z”, self.newLazer)
         self.listenKeyEvent("keydown", "left arrow", self.moveKey)
         self.listenKeyEvent("keydown", "right arrow", self.moveKey)
         self.listenKeyEvent("keydown", "up arrow", self.moveKey)
@@ -247,7 +248,7 @@ class Platformer(App):
     def newFloor(self, event):
         Ghost(self.pos[0], self.pos[1])
         
-    def newLaser(self, event):
+    def newLazer(self, event):
         Turret(self.pos[0], self.pos[1], self)
         
     def moveKey(self, event):
