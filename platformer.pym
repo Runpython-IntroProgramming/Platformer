@@ -65,11 +65,10 @@ def step():
 
 def rightKey(event):
     global Player
-    Player.x += 15
+    Player.x += 9
 def leftKey(event):
     global Player
-    Player.x += -15
-    
+    Player.x += -9
 def upKey(event):
     global Player
     Player.vy = -10
