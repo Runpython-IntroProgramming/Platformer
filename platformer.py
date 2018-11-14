@@ -249,7 +249,7 @@ class Platformer(App):
         Ghost(self.pos[0], self.pos[1])
         
     def newLazer(self, event):
-        Turret(self.pos[0], self.pos[1], self)
+        Pewpew(self.pos[0], self.pos[1], self)
         
     def moveKey(self, event):
         if self.p:
