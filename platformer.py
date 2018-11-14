@@ -119,7 +119,7 @@ class spring(Sprite):
             self.y -= self.vy
             self.vy = 0
             self.falling = 0
-            self.destroy()
+            #self.destroy()
             
             if  self.falling == 0:
                 del Platformer.alive[len(Platformer.alive)-1]
@@ -204,6 +204,7 @@ class Platformer(App):
         
         if len(self.alive) != 0:
             #for i in self.alive:
+            i.step(sh) #this is in progress
             for s in self.getSpritesbyClass(spring):
                 #print(i[1])
                 s.step(sh)
