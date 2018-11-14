@@ -90,10 +90,20 @@ class Platformer(App):
             for wwall in self.getSpritesbyClass(Wall):
                 if pplayer.collidingWith(wwall): 
                     m+=1
+                
             if m > 0: 
                pplayer.vy=0
             else:
                 pplayer.vy = pplayer.vy +.6
+            n=0
+            for sspring in self.getSpritesbyClass(Spring):
+                if pplayer.collidingWith(sspring): 
+                    n+=1
+            if n > 0: 
+               pplayer.vy=  -10
+            else:
+                pplayer.vy = pplayer.vy
+        
             '''
             l = 0
             for wwall in self.getSpritesbyClass(Wall):
@@ -104,14 +114,23 @@ class Platformer(App):
             else:
                 pplayer.vx = pplayer.vx
             '''
-            n=0
-            for sspring in self.getSpritesbyClass(Spring):
-                if pplayer.collidingWith(sspring): 
-                    n+=1
-            if n > 0: 
-               pplayer.vy=  -10
+        for springg in self.getSpritesbyClass(Spring):
+            if springg.y>1000:
+                springg.destroy()
+            
+            springg.x += springg.vx
+            springg.y += springg.vy
+            mm = 0
+            
+            for walll in self.getSpritesbyClass(Wall):
+                if springg.collidingWith(walll): 
+                    mm+=1
+                
+            if mm > 0: 
+               springg.vy=0
             else:
-                pplayer.vy = pplayer.vy
+                springg.vy = springg.vy +.6
+            
     def lvelocity(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
             pplayer.vx = -1
