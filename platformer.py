@@ -58,7 +58,9 @@ class Spring(Sprite):
     asset = RectangleAsset(15, 5, thinline, blue)
 
     def __init__(self, position):
+        self.vy = 0
         super().__init__(Spring.asset, position)
+        
 class Platformer(App):
     
     def __init__(self):
@@ -104,6 +106,21 @@ class Platformer(App):
             else:
                 pplayer.vy = pplayer.vy
         
+        
+        for s in self.getSpritesbyClass(Spring):
+            if s.y>1000:
+                s.destroy()
+            s.y += s.vy
+            mm = 0
+            
+            for w in self.getSpritesbyClass(Wall):
+                if s.collidingWith(w): 
+                    mm+=1
+                
+            if mm > 0: 
+               s.vy=0
+            else:
+                s.vy = s.vy +.6
             '''
             l = 0
             for wwall in self.getSpritesbyClass(Wall):
@@ -114,23 +131,9 @@ class Platformer(App):
             else:
                 pplayer.vx = pplayer.vx
             '''
-        for springg in self.getSpritesbyClass(Spring):
-            if springg.y>1000:
-                springg.destroy()
-            
-            springg.x += springg.vx
-            springg.y += springg.vy
-            mm = 0
-            
-            for walll in self.getSpritesbyClass(Wall):
-                if springg.collidingWith(walll): 
-                    mm+=1
-                
-            if mm > 0: 
-               springg.vy=0
-            else:
-                springg.vy = springg.vy +.6
-            
+    
+        
+
     def lvelocity(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
             pplayer.vx = -1
