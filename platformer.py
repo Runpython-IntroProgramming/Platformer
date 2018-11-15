@@ -102,15 +102,16 @@ class Character(Sprite):
         self.vx = 0
 
 class spring(Sprite):
-    s = RectangleAsset(15,5,noline,red)
     assign = 0
+    s = RectangleAsset(15,5,noline,red)
     def __init__(self, position):
         super().__init__(spring.s, position)
         self.falling = 1
-        self.num = self.assign
+        self.num = assign
         #self.assign
         self.listi = []
         self.vy = 0
+        print(self.num)
         
     def step(self, h):
         self.y += self.vy
@@ -119,26 +120,30 @@ class spring(Sprite):
             self.y -= self.vy
             self.vy = 0
             self.falling = 0
-            
+            for i in Platformer.alive:
+                if self.num == i[1]:
+                    del Platformer.alive[self.num]
+            '''
             if  self.falling == 0:
                 del Platformer.alive[len(Platformer.alive)-1]
                 print(len(Platformer.alive))
             self.falling = 0
+            '''
         else:
             if self.vy < 5:
                 self.vy += 0.98
 
         if self.y > h:
+            print(len(Platformer.alive), 'a')
             #del Platformer.alive[len(Platformer.alive)-1]
             #self.delself
             for i in Platformer.alive:
-                #self.listi = i[1]
-                #self.listi = self.list[1]
+                
                 if self.num == i[1]:
-                    del Platformer.alive[self.num]
-                    print(self.listi, self.num)
-            #print(len(Platformer.alive))
-            #self.destroy()
+                    print(i[1], 'b')
+                    print(self.num, i[1], len(Platformer.alive))
+                    del Platformer.alive[i]
+                    
 
     def delself(self, event):
         print('a')
@@ -169,7 +174,7 @@ class Block(Sprite):
 
 class Platformer(App):
     alive = []
-    springnum = 0
+    springnum = 1
     go = 0
     charon = 0
     noline = LineStyle(0, grey)
