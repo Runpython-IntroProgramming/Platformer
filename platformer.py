@@ -1,7 +1,7 @@
 """
 platformer.py
 Author: Nick lee
-Credit: ggame documentation, Mr. Dennison, original platormer example (nothing copied and pasted)
+Credit: ggame documentation, Mr. Dennison, original platormer example
 Assignment: Level 3 project
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
@@ -37,7 +37,6 @@ greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
 bcolor = white
 grid = RectangleAsset(40,40,gridline, bcolor)
-alivew = 0
 class Character(Sprite):
     Box = RectangleAsset(15, 35, noline, green)
     def __init__(self, position):
@@ -107,11 +106,14 @@ class spring(Sprite):
     def __init__(self, position):
         super().__init__(spring.s, position)
         self.falling = 1
-        self.num = assign
+        Platformer.springnum += 1
+        self.num = Platformer.springnum
+        print(Platformer.springnum)
+        self.t = 0
         #self.assign
         self.listi = []
         self.vy = 0
-        print(self.num)
+        #print(self.num)
         
     def step(self, h):
         self.y += self.vy
@@ -138,13 +140,14 @@ class spring(Sprite):
             #del Platformer.alive[len(Platformer.alive)-1]
             #self.delself
             for i in Platformer.alive:
-                
-                if self.num == i[1]:
-                    print(i[1], 'b')
+                self.t = i[1]
+                if self.num == self.t:
                     print(self.num, i[1], len(Platformer.alive))
-                    del Platformer.alive[i]
-                    
-
+                    del Platformer.alive[i[1]]
+                    print('deleted')
+    def varplus(self, event):
+        self.assign += 1
+        
     def delself(self, event):
         print('a')
         for i in range(len(Platformer.alive)):
@@ -174,7 +177,7 @@ class Block(Sprite):
 
 class Platformer(App):
     alive = []
-    springnum = 1
+    springnum = 0
     go = 0
     charon = 0
     noline = LineStyle(0, grey)
@@ -212,9 +215,10 @@ class Platformer(App):
             self.charon = 0
     
     def placespring(self, event):
+        
         self.alive.append([spring((self.mx, self.my)), self.springnum])
         self.springnum += 1
-        spring.assign = self.springnum
+        #spring.assign = self.springnum
 
     def step(self):
         sw = self.width
