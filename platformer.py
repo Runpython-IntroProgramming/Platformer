@@ -85,9 +85,6 @@ class Game(App):
             Sprite(grid,(x,y))
             y = y + 50
         
-        self.p = None
-        self.pos = (0,0)
-        
         m = 0
         n = 0
 
@@ -131,7 +128,10 @@ class Game(App):
         Line3((x,y))
     
     def playerplacement(self,event):
+        for a in Game.getSpritesbyClass(Player):
+            a.destroy()
         Player((self.m,self.n))
+
         
     def springplacement(self,event):
         Spring((self.m,self.n))
