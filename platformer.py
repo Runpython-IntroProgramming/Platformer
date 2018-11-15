@@ -108,8 +108,8 @@ class spring(Sprite):
         super().__init__(spring.s, position)
         self.falling = 1
         self.num = self.assign
-        self.assign
-        ##self.listi = []
+        #self.assign
+        self.listi = []
         self.vy = 0
         
     def step(self, h):
@@ -119,7 +119,6 @@ class spring(Sprite):
             self.y -= self.vy
             self.vy = 0
             self.falling = 0
-            #self.destroy()
             
             if  self.falling == 0:
                 del Platformer.alive[len(Platformer.alive)-1]
@@ -130,9 +129,25 @@ class spring(Sprite):
                 self.vy += 0.98
 
         if self.y > h:
-            del Platformer.alive[len(Platformer.alive)-1]
-            print(len(Platformer.alive))
-            self.destroy()
+            #del Platformer.alive[len(Platformer.alive)-1]
+            #self.delself
+            for i in Platformer.alive:
+                #self.listi = i[1]
+                #self.listi = self.list[1]
+                if self.num == i[1]:
+                    del Platformer.alive[self.num]
+                    print(self.listi, self.num)
+            #print(len(Platformer.alive))
+            #self.destroy()
+
+    def delself(self, event):
+        print('a')
+        for i in range(len(Platformer.alive)):
+            self.listi = Platformer.alive[i]
+            self.listi = self.list[1]
+            if self.num == self.listi:
+                del Platformer.alive[i]
+                print(self.listi, self.num)
 
 class top(Sprite):
     r =  RectangleAsset(39,10,noline,black)
@@ -202,13 +217,9 @@ class Platformer(App):
         for Box in self.getSpritesbyClass(Character):
             Box.step(sh)
         
-        if len(self.alive) != 0:
-            #for i in self.alive:
-            i.step(sh) #this is in progress
-            for s in self.getSpritesbyClass(spring):
-                #print(i[1])
-                s.step(sh)
-
+        for i in self.alive:
+            i[0].step(sh)
+                
 myapp = Platformer()
 myapp.run()
 
