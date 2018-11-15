@@ -174,7 +174,7 @@ class Game(App):
             if a.collidingWithSprites(Box):
                 a.vy = 0
                 a.y -= 0.2
-make player jump to y of box
+make player jump to y of box (difference)
 
             else:
                 a.vy += 0.2
