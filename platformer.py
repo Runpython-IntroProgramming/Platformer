@@ -121,9 +121,10 @@ class spring(Sprite):
             self.y -= self.vy
             self.vy = 0
             self.falling = 0
-            for i in Platformer.alive:
-                if self.num == i[1]:
-                    del Platformer.alive[1]
+            for i in range(len(Platformer.alive)):
+                self.t = Platformer.alive[i-1]
+                if self.num == self.t[1]:
+                    del Platformer.alive[i-1]
             '''
             if  self.falling == 0:
                 del Platformer.alive[len(Platformer.alive)-1]
@@ -138,7 +139,6 @@ class spring(Sprite):
             for i in range(len(Platformer.alive)):
                 self.t = Platformer.alive[i-1]
                 if self.num == self.t[1]:
-                    #print(self.num, self.t[1], len(Platformer.alive))
                     del Platformer.alive[i-1]
         
     def delself(self, event):
