@@ -43,13 +43,26 @@ class Player(Sprite):
         self.vx = 0
         self.vy = 0
         super().__init__(player, position)
-    
+        
+class Player2(Sprite):
+    def __init__(self, position):
+        player = RectangleAsset(15,35, noline,blue)
+        self.vx = 0
+        self.vy = 0
+        super().__init__(player, position)
+
         
 class Spring(Sprite):
     def __init__(self,position):
         spring = RectangleAsset(15,8, noline,blue)
         self.vy = 5
         super().__init__(spring, position)
+
+class Bullet(Sprite):
+    def __init__(self,position):
+        bullet = RectangleAsset(15,8, noline,red)
+        self.vy = 5
+        super().__init__(bullet, position)
 
 class Box(Sprite):
     def __init__(self, position):
@@ -92,23 +105,32 @@ class Game(App):
         
         m = 0
         n = 0
-
-        print("Press 'q' to sqawn a player")
-        print("Press 'e' to sqawn a block")
+        
+        print("Press 'x' to sqawn a player")
+        print("Press 'f' to sqawn a block")
         print("Press 's' to sqawn a spring")
         print("Press 'a' to move left")
-        print("Press 'd' to move eight")
+        print("Press 'd' to move right")
         print("Press 'w' to jump")
         
-        Game.listenKeyEvent('keydown', 'e',  self.Square)
-        Game.listenKeyEvent('keydown', 'q',  self.playerplacement)
+        Game.listenKeyEvent('keydown', 'f',  self.Square)
+        Game.listenKeyEvent('keydown', 'h',  self.Square)
+        Game.listenKeyEvent('keydown', 'x',  self.playerplacement)
+        Game.listenKeyEvent('keydown', 'm',  self.player2placement)
         Game.listenKeyEvent('keydown', 's', self.springplacement)
+        Game.listenKeyEvent('keydown', 'k', self.springplacement)
         Game.listenKeyEvent('keydown', 'd', self.right)
         Game.listenKeyEvent('keyup', 'd', self.stop)
         Game.listenKeyEvent('keydown', 'a', self.left)
         Game.listenKeyEvent('keyup', 'a', self.stop)
         Game.listenKeyEvent('keydown', 'w', self.jump)
         Game.listenKeyEvent('keyup', 'w', self.jumpstop)
+        Game.listenKeyEvent('keydown', 'l', self.right2)
+        Game.listenKeyEvent('keyup', 'l', self.stop2)
+        Game.listenKeyEvent('keydown', 'j', self.left2)
+        Game.listenKeyEvent('keyup', 'j', self.stop2)
+        Game.listenKeyEvent('keydown', 'i', self.jump2)
+        Game.listenKeyEvent('keyup', 'i', self.jumpstop2)
         Game.listenMouseEvent("mousemove", self.moveMouse)
   
     def moveMouse(self, event):
@@ -136,6 +158,11 @@ class Game(App):
         for a in Game.getSpritesbyClass(Player):
             a.destroy()
         Player((self.m,self.n))
+        
+    def player2placement(self,event):
+        for a in Game.getSpritesbyClass(Player2):
+            a.destroy()
+        Player2((self.m,self.n))
 
     def springplacement(self,event):
         Spring((self.m,self.n))
@@ -156,8 +183,29 @@ class Game(App):
         for a in self.getSpritesbyClass(Player):
             if a.collidingWithSprites(Box):
                 a.vy = -4.3
+                
+    def right2(self, event):
+        for a in self.getSpritesbyClass(Player2):
+            a.vx = 1.8
+    
+    def left2(self,event):
+        for a in self.getSpritesbyClass(Player2):
+            a.vx = -1.8
+            
+    def stop2(self, event):
+        for a in self.getSpritesbyClass(Player2):
+            a.vx = 0  
+            
+    def jump2(self,event):
+        for a in self.getSpritesbyClass(Player2):
+            if a.collidingWithSprites(Box):
+                a.vy = -4.3
 
     def jumpstop(self, event):
+        for a in self.getSpritesbyClass(Player):
+            a.vy += 0.2
+    
+    def jumpstop2(self, event):
         for a in self.getSpritesbyClass(Player):
             a.vy += 0.2
     
@@ -183,6 +231,33 @@ class Game(App):
                 a.vy += 0.2
              
             for a in self.getSpritesbyClass(Player):
+                a.x += a.vx
+                a.y += a.vy  
+                
+                if a.collidingWithSprites(Line):
+                    a.vx = -1
+                
+                if a.collidingWithSprites(Line2):
+                    a.vx = 1
+                
+                if a.collidingWithSprites(Line3):
+                    a.vy = 1
+                
+                if a.collidingWithSprites(Spring):
+                    a.vy = -6   
+       
+        for a in self.getSpritesbyClass(Player2):
+            a.x += a.vx
+            a.y += a.vy
+    
+            if a.collidingWithSprites(Box):
+                a.vy = 0
+                a.y -= 0.2
+
+            else:
+                a.vy += 0.2
+             
+            for a in self.getSpritesbyClass(Player2):
                 a.x += a.vx
                 a.y += a.vy  
                 
