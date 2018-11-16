@@ -69,13 +69,13 @@ class Newton(Sprite):
                 noline,
                 color),
             (x, y)) 
-        # destroy self if overlapping with anything
+        # destroys self if touching/overlapping
         collisioncontra = self.collidingWithSprites()
         if len(collisioncontra):
             self.destroy()
         
     def step(self):
-        # v-movement
+        # v/y-movement
         self.y += self.vy
         collides = self.collidingWithSprites(Wall)
         collides.extend(self.collidingWithSprites(Ghost))
@@ -91,7 +91,7 @@ class Newton(Sprite):
                 elif isinstance(collider, Wall):
                     self.y = collider.y + collider.height
                     self.vy = 0
-        # h-movement
+        # h/x-movement
         self.x += self.vx
         collides = self.collidingWithSprites(Wall)
         collides.extend(self.collidingWithSprites(Ghost))
@@ -171,13 +171,13 @@ class Playah(Newton):
     def step(self):
         springs = self.collidingWithSprites(Spring)    #interference with springs
         if len(springs):
-            self.vy = -15
+            self.vy = -15    #y -- y positioning
             self.resting = False
         super().step()
         
     def move(self, key):
         if key == "left arrow":
-            if self.vx > 0:
+            if self.vx > 0:  #x -- x positioning
                 self.vx = 0
             else:
                 self.vx = -5
