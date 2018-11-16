@@ -71,6 +71,11 @@ class Line3(Sprite):
         line = RectangleAsset(48,1, noline, black)
         super().__init__(line, position)
 
+class Line4(Sprite):
+    def __init__(self, position):
+        line = RectangleAsset(48,1, noline, black)
+        super().__init__(line, position)
+
 class Game(App):
     def __init__(self):
         super().__init__()
@@ -126,13 +131,12 @@ class Game(App):
         x = (floor(self.m/50)*50)+1
         y = (floor(self.n/50)*50)+49
         Line3((x,y))
-    
+
     def playerplacement(self,event):
         for a in Game.getSpritesbyClass(Player):
             a.destroy()
         Player((self.m,self.n))
 
-        
     def springplacement(self,event):
         Spring((self.m,self.n))
     
@@ -174,7 +178,6 @@ class Game(App):
             if a.collidingWithSprites(Box):
                 a.vy = 0
                 a.y -= 0.2
-make player jump to y of box (difference)
 
             else:
                 a.vy += 0.2
