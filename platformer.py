@@ -136,17 +136,10 @@ class spring(Sprite):
 
         if self.y > h:
             for i in range(len(Platformer.alive)):
-                print(i, len(Platformer.alive))
                 self.t = Platformer.alive[i-1]
-                print(self.t)
                 if self.num == self.t[1]:
-                    print(self.num, self.t[1], len(Platformer.alive))
+                    #print(self.num, self.t[1], len(Platformer.alive))
                     del Platformer.alive[i-1]
-                    print('deleted')
-                else:
-                    print('ugh')
-    def varplus(self, event):
-        self.assign += 1
         
     def delself(self, event):
         print('a')
