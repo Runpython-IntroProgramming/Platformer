@@ -10,8 +10,8 @@ https://github.com/HHS-IntroProgramming/Platformer
 
 from ggame import App, Sprite, RectangleAsset, LineStyle, Color
 
-SCREEN_WIDTH = 1000
-SCREEN_HEIGHT = 800
+#SCREEN_WIDTH = 1000
+#SCREEN_HEIGHT = 800
 
 lightBlue = Color(0x2EFEC8, 1.0)
 black = Color(0x000000, 1.0)
@@ -35,7 +35,7 @@ greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
 grid=RectangleAsset(30,30,gridline,white)
 
-# building blocks
+# building blocks rules for other blocks
 class Block(Sprite):
     def __init__(self, x, y, w, h, color):
         snapfunc = lambda X : X - X % w
@@ -56,7 +56,7 @@ class Ghost(Block):
     def __init__(self, x, y):
         super().__init__(x, y, 45, 10, darkBlue)
     
-# collision with a block
+# collision with a block/Newton's laws of gravity
 class Newton(Sprite):
     def __init__(self, x, y, width, height, color, app):
         self.vx = self.vy = 0
@@ -169,8 +169,7 @@ class Playah(Newton):
         super().__init__(x-w//2, y-h//2, w, h, lightBlue, app)
 
     def step(self):
-        # look for spring collisions
-        springs = self.collidingWithSprites(Spring)
+        springs = self.collidingWithSprites(Spring)    #interference with springs
         if len(springs):
             self.vy = -15
             self.resting = False
