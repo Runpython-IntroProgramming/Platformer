@@ -218,6 +218,7 @@ class Platformer(App):
         self.listenKeyEvent("keydown", "p", self.newPlayah)
         self.listenKeyEvent("keydown", "s", self.newSpring)
         self.listenKeyEvent("keydown", "f", self.newFloor)
+        self.listenKeyEvent("keydown", "z", self.newLazer)
         self.listenKeyEvent("keydown", "left arrow", self.moveKey)
         self.listenKeyEvent("keydown", "right arrow", self.moveKey)
         self.listenKeyEvent("keydown", "up arrow", self.moveKey)
@@ -225,7 +226,6 @@ class Platformer(App):
         self.listenKeyEvent("keyup", "right arrow", self.stopMoveKey)
         self.listenKeyEvent("keyup", "up arrow", self.stopMoveKey)
         self.listenMouseEvent("mousemove", self.moveMouse)
-        self.listenKeyEvent("keydown", "z", self.newLazer)
 
         self.FallingSprings = []
         self.KillList = []
