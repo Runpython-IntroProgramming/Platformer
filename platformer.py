@@ -108,7 +108,7 @@ class spring(Sprite):
         self.falling = 1
         Platformer.springnum += 1
         self.num = Platformer.springnum
-        print(Platformer.springnum)
+        #print(Platformer.springnum)
         #self.assign
         self.listi = []
         self.vy = 0
@@ -123,7 +123,7 @@ class spring(Sprite):
             self.falling = 0
             for i in Platformer.alive:
                 if self.num == i[1]:
-                    del Platformer.alive[self.num]
+                    del Platformer.alive[1]
             '''
             if  self.falling == 0:
                 del Platformer.alive[len(Platformer.alive)-1]
@@ -135,15 +135,16 @@ class spring(Sprite):
                 self.vy += 0.98
 
         if self.y > h:
-            print(len(Platformer.alive), 'a')
-            #del Platformer.alive[len(Platformer.alive)-1]
-            #self.delself
-            for i in Platformer.alive:
-                #self.t = i[1]
-                if self.num == i[1]:
-                    print(self.num, i[1], len(Platformer.alive))
-                    del Platformer.alive[i[1]-1]
+            for i in range(len(Platformer.alive)):
+                print(i, len(Platformer.alive))
+                self.t = Platformer.alive[i-1]
+                print(self.t)
+                if self.num == self.t[1]:
+                    print(self.num, self.t[1], len(Platformer.alive))
+                    del Platformer.alive[i-1]
                     print('deleted')
+                else:
+                    print('ugh')
     def varplus(self, event):
         self.assign += 1
         
