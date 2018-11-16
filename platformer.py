@@ -125,12 +125,6 @@ class spring(Sprite):
                 self.t = Platformer.alive[i-1]
                 if self.num == self.t[1]:
                     del Platformer.alive[i-1]
-            '''
-            if  self.falling == 0:
-                del Platformer.alive[len(Platformer.alive)-1]
-                print(len(Platformer.alive))
-            self.falling = 0
-            '''
         else:
             if self.vy < 5:
                 self.vy += 0.98
