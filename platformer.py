@@ -10,8 +10,8 @@ https://github.com/HHS-IntroProgramming/Platformer
 
 from ggame import App, Sprite, RectangleAsset, LineStyle, Color
 
-#SCREEN_WIDTH = 1000
-#SCREEN_HEIGHT = 800
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 800
 
 lightBlue = Color(0x2EFEC8, 1.0)
 black = Color(0x000000, 1.0)
@@ -279,6 +279,8 @@ class Platformer(App):
         if not obj in self.KillList:
             self.KillList.append(obj)
         
-# Execute the application by instantiate and run        
+        
+
+# go go go
 app = Platformer()
 app.run()
