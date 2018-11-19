@@ -106,7 +106,7 @@ class Newton(Sprite):
         self.vy += 1
         # check for out of bounds
         if self.y > self.app.height:
-            self.app.killMe(self)
+            self.app.killSelf(self)
 
 # ammo 
 class Pellet(Sprite):
@@ -124,19 +124,19 @@ class Pellet(Sprite):
         self.x += self.direction
         # check for out of bounds
         if self.x > self.app.width or self.x < 0:
-            self.app.killMe(self)
+            self.app.killSelf(self)
         # check for any collisions
         hits = self.collidingWithSprites()
         selfdestruct = False
         for target in hits:
             # destroy players and other bolts
             if isinstance(target, Player) or isinstance(target, Bolt):
-                self.app.killMe(target)
+                self.app.killSelf(target)
             # self destruct on anything but a Turret
             if not isinstance(target, Turret):
                 selfdestruct = True
         if selfdestruct:
-            self.app.killMe(self)
+            self.app.killSelf(self)
 
 
 # Laser machina
@@ -272,15 +272,13 @@ class Platformer(App):
             k.destroy()
         self.KillList = []
             
-    def killMe(self, obj):
+    def killSelf(self, obj):
         if obj in self.FallingSprings:
             self.FallingSprings.remove(obj)
         elif obj == self.p:
             self.p = None
         if not obj in self.KillList:
             self.KillList.append(obj)
-        
-        
 
 # go go go
 app = Platformer()
