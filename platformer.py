@@ -156,7 +156,7 @@ class Pewpew(Newton):
 
         
 
-# The player class. only one instance of this is allowed.
+# The player class.
 class Playah(Newton):
     def __init__(self, x, y, app):
         w = 10
