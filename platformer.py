@@ -38,7 +38,7 @@ gridline = LineStyle(1, grey)
 bcolor = white
 grid = RectangleAsset(40,40,gridline, bcolor)
 class Character(Sprite):
-    Box = RectangleAsset(15, 35, noline, green)
+    Box = RectangleAsset(15, 30, noline, green)
     def __init__(self, position):
         super().__init__(Character.Box, position)
         global sh, sw
@@ -108,12 +108,9 @@ class spring(Sprite):
         self.falling = 1
         Platformer.springnum += 1
         self.num = Platformer.springnum
-        #print(Platformer.springnum)
-        #self.assign
         self.listi = []
         self.vy = 0
-        #print(self.num)
-        
+
     def step(self, h):
         self.y += self.vy
         self.stopcollide = self.collidingWithSprites(top)
@@ -137,7 +134,6 @@ class spring(Sprite):
                     del Platformer.alive[i-1]
         
     def delself(self, event):
-        print('a')
         for i in range(len(Platformer.alive)):
             self.listi = Platformer.alive[i]
             self.listi = self.list[1]
@@ -155,7 +151,6 @@ class top(Sprite):
 
 class Block(Sprite):
     cube = (RectangleAsset(39, 20, noline, black))
-    
     def __init__(self, position):
         super().__init__(Block.cube,position)
         global grey, black, bcolor
@@ -206,7 +201,6 @@ class Platformer(App):
         
         self.alive.append([spring((self.mx, self.my)), self.springnum])
         self.springnum += 1
-        #spring.assign = self.springnum
 
     def step(self):
         sw = self.width
