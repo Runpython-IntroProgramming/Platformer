@@ -4,14 +4,14 @@ Author: Olivia Simon
 Credit: 
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
-https://github.com/HHS-IntroProgramming/Platformer
-# Exemplar implementation of the Platformer Project
+https://github.com/HHS-IntroProgramming/platformer
+# Exemplar implementation of the platformer Project
 """
 
 from ggame import App, Sprite, RectangleAsset, LineStyle, Color
 
-SCREEN_WIDTH = 1000
-SCREEN_HEIGHT = 800
+#SCREEN_WIDTH = 1000
+#SCREEN_HEIGHT = 800
 lightBlue = Color(0x2EFEC8, 1.0)
 black = Color(0x000000, 1.0)
 pink = Color(0xFF00FF, 1.0)
@@ -107,7 +107,6 @@ class Newton(Sprite):
         if self.y > self.app.height:
             self.app.killSelf(self)
 
-##cut out here Pellets-Pewpew
 # ammo 
 class Pellet(Sprite):
     def __init__(self, direction, x, y, app):
@@ -201,7 +200,7 @@ class Spring(Newton):
         super().step()
 
 # final playthrough buttons
-class Platformer(App):
+class platformer(App):
     def __init__(self):
         super().__init__()
         self.p = None
@@ -228,7 +227,7 @@ class Platformer(App):
         Wall(self.pos[0], self.pos[1])
         
     def newPlayah(self, event):
-        for p in Platformer.getSpritesbyClass(Playah):
+        for p in platformer.getSpritesbyClass(Playah):
             p.destroy()
             self.p = None
         self.p = Playah(self.pos[0], self.pos[1], self)
@@ -240,7 +239,7 @@ class Platformer(App):
         Ghost(self.pos[0], self.pos[1])
         
     def newLazer(self, event):
-        Pewpew(self.pos[0], self.pos[1])
+        Pewpew(self.pos[0], self.pos[1], self)
         
     def moveKey(self, event):
         if self.p:
@@ -255,9 +254,9 @@ class Platformer(App):
             self.p.step()
         for s in self.FallingSprings:
             s.step()
-        for t in Platformer.getSpritesbyClass(Turret):
+        for t in platformer.getSpritesbyClass(Turret):
             t.step()
-        for b in Platformer.getSpritesbyClass(Bolt):
+        for b in platformer.getSpritesbyClass(Bolt):
             b.step()
         for k in self.KillList:
             k.destroy()
@@ -272,5 +271,5 @@ class Platformer(App):
             self.KillList.append(obj)
 
 # go go go
-app = Platformer()
+app = platformer()
 app.run()
