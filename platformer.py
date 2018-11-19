@@ -116,7 +116,7 @@ class Pellet(Sprite):
         self.app = app
         super().__init__(RectangleAsset(w, h, 
             noline,
-            black,
+            black),
             (x-w//2, y-h//2))
 
     def step(self):
