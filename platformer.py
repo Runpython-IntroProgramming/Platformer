@@ -119,12 +119,13 @@ class spring(Sprite):
         self.stopcollide = self.collidingWithSprites(top)
         if len(self.stopcollide):
             self.y -= self.vy
-            self.vy = 0
+            self.vy = self.vy/2
             self.falling = 0
-            for i in range(len(Platformer.alive)):
-                self.t = Platformer.alive[i-1]
-                if self.num == self.t[1]:
-                    del Platformer.alive[i-1]
+            if self.vy < 0.1:
+                for i in range(len(Platformer.alive)):
+                    self.t = Platformer.alive[i-1]
+                    if self.num == self.t[1]:
+                        del Platformer.alive[i-1]
         else:
             if self.vy < 5:
                 self.vy += 0.98
