@@ -121,7 +121,7 @@ class Pellet(Sprite):
 
     def step(self):
         self.x += self.direction
-        # check for out of bounds
+        
         if self.x > self.app.width or self.x < 0:
             self.app.killSelf(self)
         # check for any collisions
