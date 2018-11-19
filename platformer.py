@@ -12,7 +12,6 @@ from ggame import App, Sprite, RectangleAsset, LineStyle, Color
 
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
-
 lightBlue = Color(0x2EFEC8, 1.0)
 black = Color(0x000000, 1.0)
 pink = Color(0xFF00FF, 1.0)
@@ -226,7 +225,6 @@ class Platformer(App):
         self.listenKeyEvent("keyup", "right arrow", self.stopMoveKey)
         self.listenKeyEvent("keyup", "up arrow", self.stopMoveKey)
         self.listenMouseEvent("mousemove", self.moveMouse)
-
         self.FallingSprings = []
         self.KillList = []
 
