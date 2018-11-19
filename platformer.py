@@ -121,7 +121,6 @@ class Pellet(Sprite):
 
     def step(self):
         self.x += self.direction
-        
         if self.x > self.app.width or self.x < 0:
             self.app.killSelf(self)
         # check for any collisions
@@ -146,7 +145,7 @@ class Pewpew(Newton):
         r = 10
         self.time = 0
         self.direction = 1
-        super().__init__(x-w//2, y-h//2, w, h, Color(0xff8800, 1.0), app)
+        super().__init__(x-w//2, y-h//2, w, h, pink, app)
         
     def step(self):
         super().step()
