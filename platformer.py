@@ -107,6 +107,7 @@ class Newton(Sprite):
         if self.y > self.app.height:
             self.app.killSelf(self)
 
+##cut out here Pellets-Pewpew
 # ammo 
 class Pellet(Sprite):
     def __init__(self, direction, x, y, app):
@@ -133,7 +134,6 @@ class Pellet(Sprite):
         if selfdestruct:
             self.app.killSelf(self)
 
-
 # Laser machina
 class Pewpew(Newton):
     def __init__(self, x, y, app):
@@ -153,8 +153,6 @@ class Pewpew(Newton):
                  self.y+10,
                  self.app)
             self.direction *= -1
-
-        
 
 # The player class.
 class Playah(Newton):
@@ -190,7 +188,6 @@ class Playah(Newton):
             if self.resting:
                 self.vx = 0
 
-  
 # High Jump
 class Spring(Newton):
     def __init__(self, x, y, app):
