@@ -128,10 +128,10 @@ class Pellet(Sprite):
         hits = self.collidingWithSprites()
         selfdestruct = False
         for target in hits:
-            # destroy players and other bolts
+            
             if isinstance(target, Player) or isinstance(target, Pellet):
                 self.app.killSelf(target)
-            # self destruct on anything but a Turret
+            
             if not isinstance(target, Turret):
                 selfdestruct = True
         if selfdestruct:
