@@ -76,6 +76,7 @@ class Bottom(Sprite):
         self.vx = 0 
         self.vy = 0
         super().__init__(Bottom.asset, position)
+        
 class Left(Sprite):
     asset = RectangleAsset(3, 5, thinline, purple)
 
@@ -101,69 +102,125 @@ class Platformer(App):
         Platformer.listenKeyEvent('keydown', 'w', self.wall)
         Platformer.listenKeyEvent('keydown', 's', self.spring)
         Platformer.listenKeyEvent('keydown', 'p', self.player)
-        Platformer.listenKeyEvent('keydown', 'p', self.Top)
-        Platformer.listenKeyEvent('keydown', 'p', self.Bottom)
-        Platformer.listenKeyEvent('keydown', 'p', self.Left)
-        Platformer.listenKeyEvent('keydown', 'p', self.Right)
+        
         Platformer.listenKeyEvent('keydown', 'left arrow', self.lvelocity)
         Platformer.listenKeyEvent('keyup', 'left arrow', self.lvelocity2)
         Platformer.listenKeyEvent('keydown', 'right arrow', self.rvelocity)
         Platformer.listenKeyEvent('keyup', 'right arrow', self.rvelocity2)
+        
+        Platformer.listenKeyEvent('keydown', 'left arrow', self.lvelocityb)
+        Platformer.listenKeyEvent('keyup', 'left arrow', self.lvelocity2b)
+        Platformer.listenKeyEvent('keydown', 'right arrow', self.rvelocityb)
+        Platformer.listenKeyEvent('keyup', 'right arrow', self.rvelocity2b)
+        
+        Platformer.listenKeyEvent('keydown', 'left arrow', self.lvelocityr)
+        Platformer.listenKeyEvent('keyup', 'left arrow', self.lvelocity2r)
+        Platformer.listenKeyEvent('keydown', 'right arrow', self.rvelocityr)
+        Platformer.listenKeyEvent('keyup', 'right arrow', self.rvelocity2r)
+        
+        Platformer.listenKeyEvent('keydown', 'left arrow', self.lvelocityl)
+        Platformer.listenKeyEvent('keyup', 'left arrow', self.lvelocity2l)
+        Platformer.listenKeyEvent('keydown', 'right arrow', self.rvelocityl)
+        Platformer.listenKeyEvent('keyup', 'right arrow', self.rvelocity2l)
+        
+        Platformer.listenKeyEvent('keydown', 'left arrow', self.lvelocityt)
+        Platformer.listenKeyEvent('keyup', 'left arrow', self.lvelocity2t)
+        Platformer.listenKeyEvent('keydown', 'right arrow', self.rvelocityt)
+        Platformer.listenKeyEvent('keyup', 'right arrow', self.rvelocity2t)
+        
         Platformer.listenKeyEvent('keydown', 'up arrow', self.jump)
         Platformer.listenKeyEvent('keyup', 'up arrow', self.jump2)
     
     def step(self):  
         
         for pplayer in self.getSpritesbyClass(Player):
-            if pplayer.y>1000:
-                pplayer.destroy()
-            
-            pplayer.x += pplayer.vx
-            pplayer.y += pplayer.vy
-            m = 0
-            
-            for wwall in self.getSpritesbyClass(Wall):
-                if pplayer.collidingWith(wwall): 
-                    m+=1
-        
-            if m > 0: 
-               pplayer.vy=0
-            else:
-                pplayer.vy = pplayer.vy +.6
-            n=0
-            for sspring in self.getSpritesbyClass(Spring):
-                if pplayer.collidingWith(sspring): 
-                    n+=1
-            if n > 0: 
-               pplayer.vy=  -10
-            else:
-                pplayer.vy = pplayer.vy
-        
-        
-        for s in self.getSpritesbyClass(Spring):
-            if s.y>1000:
-                s.destroy()
-            s.y += s.vy
-            mm = 0
-            
-            for w in self.getSpritesbyClass(Wall):
-                if s.collidingWith(w): 
-                    mm+=1
-                
-            if mm > 0: 
-               s.vy=0
-            else:
-                s.vy = s.vy +.6
-            '''
-            l = 0
-            for wwall in self.getSpritesbyClass(Wall):
-                if pplayer.collidingWith(wwall): 
-                    l+=1
-            if l > 0: 
-               pplayer.vx=0
-            else:
-                pplayer.vx = pplayer.vx
-            '''
+            for left in self.getSpritesbyClass(Left):
+                for right in self.getSpritesbyClass(Right):
+                    for top in self.getSpritesbyClass(Top):
+                        for bottom in self.getSpritesbyClass(Bottom):
+                            if pplayer.y>1000:
+                                pplayer.destroy()
+                            
+                            pplayer.x += pplayer.vx
+                            pplayer.y += pplayer.vy
+                            
+                            m = 0
+                            n = 0 
+                            o = 0
+                            p = 0
+                            q = 0 
+                            for wwall in self.getSpritesbyClass(Wall):
+                                if left.collidingWith(wwall): 
+                                    m+=1
+                                if right.collidingWith(wwall): 
+                                    q+=1
+                                if top.collidingWith(wwall): 
+                                    o+=1
+                                if bottom.collidingWith(wwall): 
+                                    p+=1
+                        
+                            if p > 0: 
+                               pplayer.vy=0
+                            else:
+                                pplayer.vy = pplayer.vy +.6
+                            n=0
+                            for sspring in self.getSpritesbyClass(Spring):
+                                if pplayer.collidingWith(sspring): 
+                                    n+=1
+                            if n > 0: 
+                               pplayer.vy=  -10
+                            else:
+                                pplayer.vy = pplayer.vy
+                        
+                        for right in self.getSpritesbyClass(Right):
+                            if right.y>1000:
+                                right.destroy()
+                            right.x += right.vx
+                            right.y += right.vy
+                            
+                        for left in self.getSpritesbyClass(Left):
+                            if left.y>1000:
+                                left.destroy()
+                            left.x += left.vx
+                            left.y += left.vy
+                            
+                        for top in self.getSpritesbyClass(Top):
+                            if top.y>1000:
+                                top.destroy()
+                            top.x += top.vx
+                            top.y += top.vy
+                            
+                        for bottom in self.getSpritesbyClass(Bottom):
+                            if bottom.y>1000:
+                                bottom.destroy()
+                            bottom.x += bottom.vx
+                            bottom.y += bottom.vy
+                        
+                        
+                        for s in self.getSpritesbyClass(Spring):
+                            if s.y>1000:
+                                s.destroy()
+                            s.y += s.vy
+                            mm = 0
+                            
+                            for w in self.getSpritesbyClass(Wall):
+                                if s.collidingWith(w): 
+                                    mm+=1
+                                
+                            if mm > 0: 
+                               s.vy=0
+                            else:
+                                s.vy = s.vy +.6
+                            '''
+                            l = 0
+                            for wwall in self.getSpritesbyClass(Wall):
+                                if pplayer.collidingWith(wwall): 
+                                    l+=1
+                            if l > 0: 
+                               pplayer.vx=0
+                            else:
+                                pplayer.vx = pplayer.vx
+                            '''
     
         
 
@@ -180,57 +237,57 @@ class Platformer(App):
         for pplayer in self.getSpritesbyClass(Player):
             pplayer.vx = 0
     
-    def lvelocity(self, event): 
+    def lvelocityb(self, event): 
         for bottom in self.getSpritesbyClass(Bottom):
             bottom.vx = -1
-    def lvelocity2(self, event): 
+    def lvelocity2b(self, event): 
         for bottom in self.getSpritesbyClass(Bottom):
             bottom.vx = 0
-    def rvelocity(self, event): 
+    def rvelocityb(self, event): 
         for bottom in self.getSpritesbyClass(Bottom):
             bottom.vx = 1
-    def rvelocity2(self, event): 
+    def rvelocity2b(self, event): 
         for bottom in self.getSpritesbyClass(Bottom):
             bottom.vx = 0
     
     
-    def lvelocity(self, event): 
+    def lvelocityt(self, event): 
         for top in self.getSpritesbyClass(Top):
             top.vx = -1
-    def lvelocity2(self, event): 
+    def lvelocity2t(self, event): 
         for top in self.getSpritesbyClass(Top):
             top.vx = 0
-    def rvelocity(self, event): 
+    def rvelocityt(self, event): 
         for top in self.getSpritesbyClass(Top):
             top.vx = 1
-    def rvelocity2(self, event): 
+    def rvelocity2t(self, event): 
         for top in self.getSpritesbyClass(Top):
             top.vx = 0
             
-    def lvelocity(self, event): 
+    def lvelocityl(self, event): 
         for left in self.getSpritesbyClass(Left):
             left.vx = -1
-    def lvelocity2(self, event): 
+    def lvelocity2l(self, event): 
         for left in self.getSpritesbyClass(Left):
             left.vx = 0
-    def rvelocity(self, event): 
+    def rvelocityl(self, event): 
         for left in self.getSpritesbyClass(Left):
             left.vx = 1
-    def rvelocity2(self, event): 
+    def rvelocity2l(self, event): 
         for left in self.getSpritesbyClass(Left):
             left.vx = 0
     
     
-    def lvelocity(self, event): 
+    def lvelocityr(self, event): 
         for right in self.getSpritesbyClass(Right):
             right.vx = -1
-    def lvelocity2(self, event): 
+    def lvelocity2r(self, event): 
         for right in self.getSpritesbyClass(Right):
             right.vx = 0
-    def rvelocity(self, event): 
+    def rvelocityr(self, event): 
         for right in self.getSpritesbyClass(Right):
             right.vx = 1
-    def rvelocity2(self, event): 
+    def rvelocity2r(self, event): 
         for right in self.getSpritesbyClass(Right):
             right.vx = 0
             
@@ -252,10 +309,13 @@ class Platformer(App):
         for a in Platformer.getSpritesbyClass(Player):
             a.destroy()
         Player((self.asset[0], self.asset[1]))
+        Left((self.asset[0], self.asset[1]+9))
+        Right((self.asset[0]+8, self.asset[1]+9))
+        Top((self.asset[0]+4, self.asset[1]))
+        Bottom((self.asset[0]+4, self.asset[1]+25))
         
     def spring(self, event):
         Spring((self.asset[0], self.asset[1]))
-
-
+    
 myapp = Platformer()
 myapp.run()
