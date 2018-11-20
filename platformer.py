@@ -173,12 +173,20 @@ class Platformer(App):
                                 right.vy = right.vy +.6
                             n=0
                             for sspring in self.getSpritesbyClass(Spring):
-                                if pplayer.collidingWith(sspring): 
+                                if bottom.collidingWith(sspring): 
                                     n+=1
                             if n > 0: 
+                               bottom.vy=  -10
+                               left.vy=  -10
+                               top.vy=  -10
+                               right.vy=  -10
                                pplayer.vy=  -10
                             else:
                                 pplayer.vy = pplayer.vy
+                                top.vy = top.vy
+                                bottom.vy = bottom.vy
+                                right.vy = right.vy
+                                left.vy = left.vy
                         
                         for right in self.getSpritesbyClass(Right):
                             if right.y>1000:
