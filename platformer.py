@@ -61,6 +61,35 @@ class Spring(Sprite):
         self.vy = 0
         super().__init__(Spring.asset, position)
         
+class Top(Sprite):
+    asset = RectangleAsset(5, 3, thinline, purple)
+
+    def __init__(self, position):
+        self.vx = 0 
+        self.vy = 0
+        super().__init__(Top.asset, position)
+        
+class Bottom(Sprite):
+    asset = RectangleAsset(5, 3, thinline, purple)
+
+    def __init__(self, position):
+        self.vx = 0 
+        self.vy = 0
+        super().__init__(Bottom.asset, position)
+class Left(Sprite):
+    asset = RectangleAsset(3, 5, thinline, purple)
+
+    def __init__(self, position):
+        self.vx = 0 
+        self.vy = 0
+        super().__init__(Left.asset, position)
+class Right(Sprite): 
+    asset = RectangleAsset(3, 5, thinline, purple)
+
+    def __init__(self, position):
+        self.vx = 0 
+        self.vy = 0
+        super().__init__(Right.asset, position)
 class Platformer(App):
     
     def __init__(self):
@@ -72,6 +101,10 @@ class Platformer(App):
         Platformer.listenKeyEvent('keydown', 'w', self.wall)
         Platformer.listenKeyEvent('keydown', 's', self.spring)
         Platformer.listenKeyEvent('keydown', 'p', self.player)
+        Platformer.listenKeyEvent('keydown', 'p', self.Top)
+        Platformer.listenKeyEvent('keydown', 'p', self.Bottom)
+        Platformer.listenKeyEvent('keydown', 'p', self.Left)
+        Platformer.listenKeyEvent('keydown', 'p', self.Right)
         Platformer.listenKeyEvent('keydown', 'left arrow', self.lvelocity)
         Platformer.listenKeyEvent('keyup', 'left arrow', self.lvelocity2)
         Platformer.listenKeyEvent('keydown', 'right arrow', self.rvelocity)
