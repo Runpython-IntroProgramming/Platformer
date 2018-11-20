@@ -179,6 +179,61 @@ class Platformer(App):
     def rvelocity2(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
             pplayer.vx = 0
+    
+    def lvelocity(self, event): 
+        for bottom in self.getSpritesbyClass(Bottom):
+            bottom.vx = -1
+    def lvelocity2(self, event): 
+        for bottom in self.getSpritesbyClass(Bottom):
+            bottom.vx = 0
+    def rvelocity(self, event): 
+        for bottom in self.getSpritesbyClass(Bottom):
+            bottom.vx = 1
+    def rvelocity2(self, event): 
+        for bottom in self.getSpritesbyClass(Bottom):
+            bottom.vx = 0
+    
+    
+    def lvelocity(self, event): 
+        for top in self.getSpritesbyClass(Top):
+            top.vx = -1
+    def lvelocity2(self, event): 
+        for top in self.getSpritesbyClass(Top):
+            top.vx = 0
+    def rvelocity(self, event): 
+        for top in self.getSpritesbyClass(Top):
+            top.vx = 1
+    def rvelocity2(self, event): 
+        for top in self.getSpritesbyClass(Top):
+            top.vx = 0
+            
+    def lvelocity(self, event): 
+        for left in self.getSpritesbyClass(Left):
+            left.vx = -1
+    def lvelocity2(self, event): 
+        for left in self.getSpritesbyClass(Left):
+            left.vx = 0
+    def rvelocity(self, event): 
+        for left in self.getSpritesbyClass(Left):
+            left.vx = 1
+    def rvelocity2(self, event): 
+        for left in self.getSpritesbyClass(Left):
+            left.vx = 0
+    
+    
+    def lvelocity(self, event): 
+        for right in self.getSpritesbyClass(Right):
+            right.vx = -1
+    def lvelocity2(self, event): 
+        for right in self.getSpritesbyClass(Right):
+            right.vx = 0
+    def rvelocity(self, event): 
+        for right in self.getSpritesbyClass(Right):
+            right.vx = 1
+    def rvelocity2(self, event): 
+        for right in self.getSpritesbyClass(Right):
+            right.vx = 0
+            
     def jump(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
             pplayer.vy = -10
