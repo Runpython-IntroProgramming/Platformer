@@ -317,7 +317,6 @@ class Game(App):
     def bulletshot2(self,event):
         for a in self.getSpritesbyClass(Bullet2):
             a.vy = 0
-            a.y -= 20
             a.vx = 2
             
     def bulletshotleft2(self,event):
