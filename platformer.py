@@ -144,6 +144,18 @@ class Platformer(App):
                             pplayer.x += pplayer.vx
                             pplayer.y += pplayer.vy
                             
+                            left.x += left.vx
+                            left.y += left.vy
+                            
+                            right.x += right.vx
+                            right.y += right.vy
+                            
+                            bottom.x += bottom.vx
+                            bottom.y += bottom.vy
+                            
+                            top.x += top.vx
+                            top.y += top.vy
+                            
                             m = 0
                             n = 0 
                             o = 0
@@ -246,16 +258,7 @@ class Platformer(App):
                                s.vy=0
                             else:
                                 s.vy = s.vy +.6
-                            '''
-                            l = 0
-                            for wwall in self.getSpritesbyClass(Wall):
-                                if pplayer.collidingWith(wwall): 
-                                    l+=1
-                            if l > 0: 
-                               pplayer.vx=0
-                            else:
-                                pplayer.vx = pplayer.vx
-                            '''
+                                
     
         
 
