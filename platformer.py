@@ -141,20 +141,7 @@ class Platformer(App):
                             if pplayer.y>1000:
                                 pplayer.destroy()
                             
-                            pplayer.x += pplayer.vx
-                            pplayer.y += pplayer.vy
                             
-                            left.x += left.vx
-                            left.y += left.vy
-                            
-                            right.x += right.vx
-                            right.y += right.vy
-                            
-                            bottom.x += bottom.vx
-                            bottom.y += bottom.vy
-                            
-                            top.x += top.vx
-                            top.y += top.vy
                             
                             m = 0
                             n = 0 
@@ -229,6 +216,20 @@ class Platformer(App):
                             if bottom.y>1000:
                                 bottom.destroy()
                             
+                            pplayer.x += pplayer.vx
+                            pplayer.y += pplayer.vy
+                                
+                            left.x += left.vx
+                            left.y += left.vy
+                                
+                            right.x += right.vx
+                            right.y += right.vy
+                                
+                            bottom.x += bottom.vx
+                            bottom.y += bottom.vy
+                                
+                            top.x += top.vx
+                            top.y += top.vy    
                         
                         
                         for s in self.getSpritesbyClass(Spring):
@@ -245,7 +246,7 @@ class Platformer(App):
                                s.vy=0
                             else:
                                 s.vy = s.vy +.6
-                                
+                         
     
         
 
