@@ -158,19 +158,49 @@ class Platformer(App):
                                     o+=1
                                 if bottom.collidingWith(wwall): 
                                     p+=1
-                        
+                                    
                             if p > 0: 
                                pplayer.vy=0
                                left.vy=0
                                right.vy=0
                                top.vy=0
                                bottom.vy=0
+                               
+                              
                             else:
                                 left.vy = left.vy +.6
                                 pplayer.vy = pplayer.vy +.6
                                 bottom.vy = bottom.vy +.6
                                 top.vy = top.vy +.6
                                 right.vy = right.vy +.6
+                            
+                            if q > 0: 
+                               pplayer.vx=0
+                               left.vx=0
+                               right.vx=0
+                               top.vx=0
+                               bottom.vx=0
+                            else:
+                                left.vx = left.vx 
+                                pplayer.vx = pplayer.vx
+                                bottom.vx = bottom.vx
+                                top.vx = top.vx
+                                right.vx = right.vx
+                            
+                            if m > 0: 
+                               pplayer.vx=0
+                               left.vx=0
+                               right.vx=0
+                               top.vx=0
+                               bottom.vx=0
+                            else:
+                                left.vx = left.vx 
+                                pplayer.vx = pplayer.vx
+                                bottom.vx = bottom.vx
+                                top.vx = top.vx
+                                right.vx = right.vx
+                                
+                            
                             n=0
                             for sspring in self.getSpritesbyClass(Spring):
                                 if bottom.collidingWith(sspring): 
