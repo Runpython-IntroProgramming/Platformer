@@ -115,6 +115,8 @@ class Game(App):
         print("Press 'a' to move left")
         print("Press 'd' to move right")
         print("Press 'w' to jump")
+        print("Press 'e' to shoot disk right")
+        print("Press 'q' to shoot disk left")
         print("")
         print("Press 'm' to sqawn a player 2")
         print("Press 'h' to sqawn a block")
@@ -122,6 +124,8 @@ class Game(App):
         print("Press 'j' to move left")
         print("Press 'l' to move right")
         print("Press 'i' to jump")
+        print("Press 'o' to shoot disk right")
+        print("Press 'u' to shoot disk left")
         print("")
         print("")
         
