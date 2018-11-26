@@ -140,9 +140,6 @@ class Platformer(App):
                         for bottom in self.getSpritesbyClass(Bottom):
                             if pplayer.y>1000:
                                 pplayer.destroy()
-                            
-                            
-                            
                             m = 0
                             n = 0 
                             o = 0
