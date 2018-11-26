@@ -199,9 +199,7 @@ class Platformer(App):
                                right.vx=0
                                top.vx=0
                                bottom.vx=0
-                            
-                                
-                            
+                        
                             n=0
                             for sspring in self.getSpritesbyClass(Spring):
                                 if bottom.collidingWith(sspring): 
@@ -219,29 +217,18 @@ class Platformer(App):
                                 right.vy = right.vy
                                 left.vy = left.vy
                         
-                        for right in self.getSpritesbyClass(Right):
                             if right.y>1000:
                                 right.destroy()
-                            right.x += right.vx
-                            right.y += right.vy
                             
-                        for left in self.getSpritesbyClass(Left):
                             if left.y>1000:
                                 left.destroy()
-                            left.x += left.vx
-                            left.y += left.vy
-                            
-                        for top in self.getSpritesbyClass(Top):
+                           
                             if top.y>1000:
                                 top.destroy()
-                            top.x += top.vx
-                            top.y += top.vy
-                            
-                        for bottom in self.getSpritesbyClass(Bottom):
+                        
                             if bottom.y>1000:
                                 bottom.destroy()
-                            bottom.x += bottom.vx
-                            bottom.y += bottom.vy
+                            
                         
                         
                         for s in self.getSpritesbyClass(Spring):
@@ -314,8 +301,7 @@ class Platformer(App):
     def rvelocity2l(self, event): 
         for left in self.getSpritesbyClass(Left):
             left.vx = 0
-    
-    
+            
     def lvelocityr(self, event): 
         for right in self.getSpritesbyClass(Right):
             right.vx = -1
@@ -335,7 +321,7 @@ class Platformer(App):
     def jump2(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
             pplayer.vy = 0
-            
+    
     def mouse(self, event):
         self.asset[0]= event.x
         self.asset[1] = event.y
