@@ -1,7 +1,7 @@
 """
 platformer.py
 Author: Nick lee
-Credit: ggame documentation, Mr. Dennison, original platormer example
+Credit: ggame documentation, Mr. Dennison, original platformer example
 Assignment: Level 3 project
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
