@@ -166,7 +166,6 @@ class Platformer(App):
                                top.vy=0
                                bottom.vy=0
                                
-                              
                             else:
                                 left.vy = left.vy +.6
                                 pplayer.vy = pplayer.vy +.6
@@ -180,12 +179,7 @@ class Platformer(App):
                                right.vx=0
                                top.vx=0
                                bottom.vx=0
-                            else:
-                                left.vx = left.vx 
-                                pplayer.vx = pplayer.vx
-                                bottom.vx = bottom.vx
-                                top.vx = top.vx
-                                right.vx = right.vx
+    
                             
                             if m > 0: 
                                pplayer.vx=0
@@ -193,12 +187,7 @@ class Platformer(App):
                                right.vx=0
                                top.vx=0
                                bottom.vx=0
-                            else:
-                                left.vx = left.vx 
-                                pplayer.vx = pplayer.vx
-                                bottom.vx = bottom.vx
-                                top.vx = top.vx
-                                right.vx = right.vx
+                            
                                 
                             
                             n=0
@@ -354,6 +343,14 @@ class Platformer(App):
     def player(self, event):
         for a in Platformer.getSpritesbyClass(Player):
             a.destroy()
+        for b in Platformer.getSpritesbyClass(Bottom):
+            b.destroy()
+        for t in Platformer.getSpritesbyClass(Top):
+            t.destroy()
+        for l in Platformer.getSpritesbyClass(Left):
+            l.destroy()
+        for r in Platformer.getSpritesbyClass(Right):
+            r.destroy()
         Player((self.asset[0], self.asset[1]))
         Left((self.asset[0], self.asset[1]+9))
         Right((self.asset[0]+8, self.asset[1]+9))
