@@ -52,16 +52,27 @@ class player(Sprite):
         self.h = height
         self.w = width
         self.vy = 0
+        self.vx = 0
         box = RectangleAsset(self.w, self.h, gridline, self.c)
         super().__init__(box, (x, y))
     def step(self):
         self.vy += .2
-        self.y += self.vy
-        collidinglist = player.collidingWishSprites(block)
+        collidinglist = self.collidingWithSprites(block)
         if collidinglist:
-          self.vy = 0
-          self.vx = 0
-        
+            if self.vy<0:
+                self.vy = 2
+                print('yay1')
+            elif self.vy>0:
+                self.vy = -3
+                print('yay2')
+            if self.vx<0:
+                self.vx = 2
+                print('yay3')
+            elif self.vx>0:
+                self.vx = -2
+                print('yay4')
+        self.y += self.vy
+        self.x += self.vx
 
 def step():
     global Player
@@ -71,12 +82,14 @@ def step():
 def rightKey(event):
     global Player
     Player.x += 9
+    Player.vx = 2
 def leftKey(event):
     global Player
     Player.x += -9
+    Player.vx = -2
 def upKey(event):
     global Player
-    Player.vy = -10
+    Player.vy = -6
 
 def mouseMove(event):
     global i 
