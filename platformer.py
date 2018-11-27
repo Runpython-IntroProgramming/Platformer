@@ -164,11 +164,11 @@ class Platformer(App):
                                     p+=1
                                     
                             if p > 0: 
-                               pplayer.vy=0
-                               left.vy=0
-                               right.vy=0
-                               top.vy=0
-                               bottom.vy=0
+                               pplayer.vy=-pplayer.vy
+                               left.vy=-left.vy
+                               right.vy=-right.vy
+                               top.vy=-top.vy
+                               bottom.vy=-bottom.vy
                                
                             else:
                                 left.vy = left.vy +.6
