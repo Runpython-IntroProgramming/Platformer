@@ -112,24 +112,32 @@ class Platformer(App):
         Platformer.listenKeyEvent('keyup', 'left arrow', self.lvelocity2b)
         Platformer.listenKeyEvent('keydown', 'right arrow', self.rvelocityb)
         Platformer.listenKeyEvent('keyup', 'right arrow', self.rvelocity2b)
+        Platformer.listenKeyEvent('keydown', 'up arrow', self.uvelocityb)
+        Platformer.listenKeyEvent('keyup', 'up arrow', self.uvelocity2b)
         
         Platformer.listenKeyEvent('keydown', 'left arrow', self.lvelocityr)
         Platformer.listenKeyEvent('keyup', 'left arrow', self.lvelocity2r)
         Platformer.listenKeyEvent('keydown', 'right arrow', self.rvelocityr)
         Platformer.listenKeyEvent('keyup', 'right arrow', self.rvelocity2r)
+        Platformer.listenKeyEvent('keydown', 'up arrow', self.uvelocityr)
+        Platformer.listenKeyEvent('keyup', 'up arrow', self.uvelocity2r)
         
         Platformer.listenKeyEvent('keydown', 'left arrow', self.lvelocityl)
         Platformer.listenKeyEvent('keyup', 'left arrow', self.lvelocity2l)
         Platformer.listenKeyEvent('keydown', 'right arrow', self.rvelocityl)
         Platformer.listenKeyEvent('keyup', 'right arrow', self.rvelocity2l)
+        Platformer.listenKeyEvent('keydown', 'up arrow', self.uvelocityl)
+        Platformer.listenKeyEvent('keyup', 'up arrow', self.uvelocity2l)
         
         Platformer.listenKeyEvent('keydown', 'left arrow', self.lvelocityt)
         Platformer.listenKeyEvent('keyup', 'left arrow', self.lvelocity2t)
         Platformer.listenKeyEvent('keydown', 'right arrow', self.rvelocityt)
         Platformer.listenKeyEvent('keyup', 'right arrow', self.rvelocity2t)
+        Platformer.listenKeyEvent('keydown', 'up arrow', self.uvelocityt)
+        Platformer.listenKeyEvent('keyup', 'up arrow', self.uvelocity2t)
         
-        Platformer.listenKeyEvent('keydown', 'up arrow', self.jump)
-        Platformer.listenKeyEvent('keyup', 'up arrow', self.jump2)
+        Platformer.listenKeyEvent('keydown', 'up arrow', self.uvelocity)
+        Platformer.listenKeyEvent('keyup', 'up arrow', self.uvelocity2)
     
     def step(self):  
         
@@ -243,8 +251,6 @@ class Platformer(App):
                                s.vy=0
                             else:
                                 s.vy = s.vy +.6
-                         
-    
         
 
     def lvelocity(self, event): 
@@ -259,6 +265,12 @@ class Platformer(App):
     def rvelocity2(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
             pplayer.vx = 0
+    def uvelocity(self, event): 
+        for pplayer in self.getSpritesbyClass(Player):
+            pplayer.vy = -10
+    def uvelocity2(self, event): 
+        for pplayer in self.getSpritesbyClass(Player):
+            pplayer.vy = 0
     
     def lvelocityb(self, event): 
         for bottom in self.getSpritesbyClass(Bottom):
@@ -272,7 +284,12 @@ class Platformer(App):
     def rvelocity2b(self, event): 
         for bottom in self.getSpritesbyClass(Bottom):
             bottom.vx = 0
-    
+    def uvelocityb(self, event): 
+        for bottom in self.getSpritesbyClass(Bottom):
+            bottom.vy = -10
+    def uvelocity2b(self, event): 
+        for bottom in self.getSpritesbyClass(Bottom):
+            bottom.vy = 0
     
     def lvelocityt(self, event): 
         for top in self.getSpritesbyClass(Top):
@@ -286,7 +303,14 @@ class Platformer(App):
     def rvelocity2t(self, event): 
         for top in self.getSpritesbyClass(Top):
             top.vx = 0
-            
+    def uvelocityt(self, event): 
+        for top in self.getSpritesbyClass(Top):
+            top.vy = -10
+    def uvelocity2t(self, event): 
+        for top in self.getSpritesbyClass(Top):
+            top.vy = 0
+     
+          
     def lvelocityl(self, event): 
         for left in self.getSpritesbyClass(Left):
             left.vx = -1
@@ -299,6 +323,12 @@ class Platformer(App):
     def rvelocity2l(self, event): 
         for left in self.getSpritesbyClass(Left):
             left.vx = 0
+    def uvelocityl(self, event): 
+        for left in self.getSpritesbyClass(Left):
+            left.vy = -10
+    def uvelocity2l(self, event): 
+        for left in self.getSpritesbyClass(Left):
+            left.vy = 0
             
     def lvelocityr(self, event): 
         for right in self.getSpritesbyClass(Right):
@@ -312,13 +342,13 @@ class Platformer(App):
     def rvelocity2r(self, event): 
         for right in self.getSpritesbyClass(Right):
             right.vx = 0
-            
-    def jump(self, event): 
-        for pplayer in self.getSpritesbyClass(Player):
-            pplayer.vy = -10
-    def jump2(self, event): 
-        for pplayer in self.getSpritesbyClass(Player):
-            pplayer.vy = 0
+    def uvelocityr(self, event): 
+        for right in self.getSpritesbyClass(Right):
+            right.vy = -10
+    def uvelocity2r(self, event): 
+        for right in self.getSpritesbyClass(Right):
+            right.vy = 0        
+    
     
     def mouse(self, event):
         self.asset[0]= event.x
