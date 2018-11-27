@@ -267,7 +267,7 @@ class Platformer(App):
             pplayer.vx = 0
     def uvelocity(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
-            pplayer.vy = -10
+            pplayer.vy = -20
     def uvelocity2(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
             pplayer.vy = 0
@@ -286,7 +286,7 @@ class Platformer(App):
             bottom.vx = 0
     def uvelocityb(self, event): 
         for bottom in self.getSpritesbyClass(Bottom):
-            bottom.vy = -10
+            bottom.vy = -20
     def uvelocity2b(self, event): 
         for bottom in self.getSpritesbyClass(Bottom):
             bottom.vy = 0
@@ -305,7 +305,7 @@ class Platformer(App):
             top.vx = 0
     def uvelocityt(self, event): 
         for top in self.getSpritesbyClass(Top):
-            top.vy = -10
+            top.vy = -20
     def uvelocity2t(self, event): 
         for top in self.getSpritesbyClass(Top):
             top.vy = 0
@@ -325,7 +325,7 @@ class Platformer(App):
             left.vx = 0
     def uvelocityl(self, event): 
         for left in self.getSpritesbyClass(Left):
-            left.vy = -10
+            left.vy = -20
     def uvelocity2l(self, event): 
         for left in self.getSpritesbyClass(Left):
             left.vy = 0
@@ -344,7 +344,7 @@ class Platformer(App):
             right.vx = 0
     def uvelocityr(self, event): 
         for right in self.getSpritesbyClass(Right):
-            right.vy = -10
+            right.vy = -20
     def uvelocity2r(self, event): 
         for right in self.getSpritesbyClass(Right):
             right.vy = 0        
