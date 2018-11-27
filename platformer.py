@@ -170,19 +170,19 @@ class Platformer(App):
                                 right.vy = right.vy +.6
                             
                             if q > 0: 
-                               pplayer.vx=0
-                               left.vx=0
-                               right.vx=0
-                               top.vx=0
-                               bottom.vx=0
+                               pplayer.vx=-pplayer.vx
+                               left.vx=-left.vx
+                               right.vx=-right.vx
+                               top.vx=-top.vx
+                               bottom.vx=-bottom.vx
     
                             
                             if m > 0: 
-                               pplayer.vx=0
-                               left.vx=0
-                               right.vx=0
-                               top.vx=0
-                               bottom.vx=0
+                               pplayer.vx=-pplayer.vx
+                               left.vx=-left.vx
+                               right.vx=-right.vx
+                               top.vx=-top.vx
+                               bottom.vx=-bottom.vx
                         
                             n=0
                             for sspring in self.getSpritesbyClass(Spring):
