@@ -163,12 +163,12 @@ class Platformer(App):
                                 if bottom.collidingWith(wwall): 
                                     p+=1
                                     
-                            if p > 0: 
-                               pplayer.vy=-pplayer.vy
-                               left.vy=-left.vy
-                               right.vy=-right.vy
-                               top.vy=-top.vy
-                               bottom.vy=-bottom.vy
+                            if p > 0 and pplayer.vy>=0: 
+                               pplayer.vy=0
+                               left.vy=0
+                               right.vy=0
+                               top.vy=0
+                               bottom.vy=0
                                
                             else:
                                 left.vy = left.vy +.6
@@ -267,7 +267,8 @@ class Platformer(App):
             pplayer.vx = 0
     def uvelocity(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
-            pplayer.vy = -20
+            if pplayer.vy==0: 
+                pplayer.vy = -10
     def uvelocity2(self, event): 
         for pplayer in self.getSpritesbyClass(Player):
             pplayer.vy = 0
@@ -286,7 +287,8 @@ class Platformer(App):
             bottom.vx = 0
     def uvelocityb(self, event): 
         for bottom in self.getSpritesbyClass(Bottom):
-            bottom.vy = -20
+            if bottom.vy==0: 
+                bottom.vy = -10
     def uvelocity2b(self, event): 
         for bottom in self.getSpritesbyClass(Bottom):
             bottom.vy = 0
@@ -305,7 +307,8 @@ class Platformer(App):
             top.vx = 0
     def uvelocityt(self, event): 
         for top in self.getSpritesbyClass(Top):
-            top.vy = -20
+            if top.vy==0: 
+                top.vy = -10
     def uvelocity2t(self, event): 
         for top in self.getSpritesbyClass(Top):
             top.vy = 0
@@ -325,7 +328,8 @@ class Platformer(App):
             left.vx = 0
     def uvelocityl(self, event): 
         for left in self.getSpritesbyClass(Left):
-            left.vy = -20
+            if left.vy==0: 
+                left.vy = -10
     def uvelocity2l(self, event): 
         for left in self.getSpritesbyClass(Left):
             left.vy = 0
@@ -344,7 +348,8 @@ class Platformer(App):
             right.vx = 0
     def uvelocityr(self, event): 
         for right in self.getSpritesbyClass(Right):
-            right.vy = -20
+            if right.vy==0:    
+                right.vy = -10
     def uvelocity2r(self, event): 
         for right in self.getSpritesbyClass(Right):
             right.vy = 0        
