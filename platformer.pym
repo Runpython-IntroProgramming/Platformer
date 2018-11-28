@@ -16,6 +16,9 @@ i = None
 j = None
 Player = None
 
+rightkeydisabled = False
+leftkeydisabled = False
+
 for i in range(69):
     blue = Color(0x2EFEC8, 1.0)
     black = Color(0x000000, 1.0)
@@ -56,23 +59,30 @@ class player(Sprite):
         box = RectangleAsset(self.w, self.h, gridline, self.c)
         super().__init__(box, (x, y))
     def step(self):
+        global rightkeydisabled
+        global leftkeydisabled
         self.vy += .2
         collidinglist = self.collidingWithSprites(block)
         if collidinglist:
             if self.vy<0:
                 self.vy = 2
-                print('yay1')
+                rightkeydisabled = True
+                leftkeydisabled = True
             elif self.vy>0:
-                self.vy = -3
-                print('yay2')
+                self.vy = -2.5
             if self.vx<0:
-                self.vx = 2
-                print('yay3')
+                self.vx = 1
+                rightkeydisabled = True
+                leftkeydisabled = True
             elif self.vx>0:
-                self.vx = -2
-                print('yay4')
+                self.vx = -1
+                rightkeydisabled = True
+                leftkeydisabled = True
         self.y += self.vy
         self.x += self.vx
+        if not collidinglist:
+            rightkeydisabled = False
+            leftkeydisabled = False
 
 def step():
     global Player
@@ -81,12 +91,14 @@ def step():
 
 def rightKey(event):
     global Player
-    Player.x += 9
-    Player.vx = 2
+    if not rightkeydisabled:
+        Player.x += 2
+        Player.vx = 3
 def leftKey(event):
     global Player
-    Player.x += -9
-    Player.vx = -2
+    if not leftkeydisabled:
+        Player.x += -2
+        Player.vx = -3
 def upKey(event):
     global Player
     Player.vy = -6
