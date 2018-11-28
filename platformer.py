@@ -68,6 +68,7 @@ class Top(Sprite):
         self.vx = 0 
         self.vy = 0
         super().__init__(Top.asset, position)
+        self.visible = False 
         
 class Bottom(Sprite):
     asset = RectangleAsset(5, 3, thinline, purple)
@@ -76,6 +77,7 @@ class Bottom(Sprite):
         self.vx = 0 
         self.vy = 0
         super().__init__(Bottom.asset, position)
+        self.visible = False 
         
 class Left(Sprite):
     asset = RectangleAsset(3, 5, thinline, purple)
@@ -84,6 +86,7 @@ class Left(Sprite):
         self.vx = 0 
         self.vy = 0
         super().__init__(Left.asset, position)
+        self.visible = False 
 class Right(Sprite): 
     asset = RectangleAsset(3, 5, thinline, purple)
 
@@ -91,6 +94,7 @@ class Right(Sprite):
         self.vx = 0 
         self.vy = 0
         super().__init__(Right.asset, position)
+        self.visible = False 
 class Platformer(App):
     
     def __init__(self):
@@ -146,8 +150,7 @@ class Platformer(App):
                 for right in self.getSpritesbyClass(Right):
                     for top in self.getSpritesbyClass(Top):
                         for bottom in self.getSpritesbyClass(Bottom):
-                            if pplayer.y>1000:
-                                pplayer.destroy()
+                            
                             m = 0
                             n = 0 
                             o = 0
@@ -209,17 +212,6 @@ class Platformer(App):
                                 right.vy = right.vy
                                 left.vy = left.vy
                         
-                            if right.y>1000:
-                                right.destroy()
-                            
-                            if left.y>1000:
-                                left.destroy()
-                           
-                            if top.y>1000:
-                                top.destroy()
-                        
-                            if bottom.y>1000:
-                                bottom.destroy()
                             
                             pplayer.x += pplayer.vx
                             pplayer.y += pplayer.vy
@@ -238,8 +230,7 @@ class Platformer(App):
                         
                         
                         for s in self.getSpritesbyClass(Spring):
-                            if s.y>1000:
-                                s.destroy()
+                            
                             s.y += s.vy
                             mm = 0
                             
