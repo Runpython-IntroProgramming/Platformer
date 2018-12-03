@@ -47,7 +47,6 @@ grid=RectangleAsset(30,30,gridline,white)
 
 
 class Blocks(Sprite):
-
     def __init__(self, x, y, w, h, color):
         grid = lambda X : X - X % w
         super().__init__(
@@ -56,7 +55,6 @@ class Blocks(Sprite):
         collisioncontra =self.collidingWithSprites(type(self))
         if len(collisioncontra):
             collisioncontra[0].destroy()
-
 
 class Wall(Blocks):
     def __init__(self,x,y):
@@ -140,8 +138,18 @@ class Playah(Newton):
 
 def wallKey(event):
     Sprite(Wall,)
-#Index/Glossarix
 
+class Spring(Newton):
+    def __init__(self, x, y, app):
+        w = 10
+        h = t
+        super().__init__(x-w//2, y-h//2, w, h,green, app)
+    def step(self):
+        if self.resting:
+            self.app.FallingSprings.remove(self)
+        super().step()
+
+#Index/Glossarix
 class Game(App):
     def __init__(self):
         super().__init__()
