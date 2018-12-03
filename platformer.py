@@ -116,6 +116,14 @@ class Playah(Newton):
         w = 10 
         h = 20
         super().__init__(x-w//2, y-h//2, w, h, lightBlue, app)
+        
+    def step(self):
+        springs = self.collidingWithSprites(Spring)    #interference with springs
+        if len(springs):
+            self.vy = -15    #y -- y positioning
+            self.resting = False
+        super().step()
+        
     def move(self, key):
         if key == "left arrow":
             if self.vx > 0:
