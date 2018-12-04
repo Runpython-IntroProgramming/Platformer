@@ -74,14 +74,17 @@ class player(Sprite):
             rightkeydisabled = False
             leftkeydisabled = False
             upkeydisabled = False
-            if self.vx>0:
-                if len(collidinglist) == 2:
-                    rightkeydisabled = True
-                    self.x += -1
-            if self.vx<0:
-                if len(collidinglist) == 2:
-                    leftkeydisabled = True
-                    self.x += 1
+            h = floor(self.x/50)*50
+            k = floor(self.y/50)*50
+            self.y = k
+            
+
+        
+        collidinglist2 = self.collidingWithSprites(spring)
+        if collidinglist2:
+            if self.vy>0:
+                self.vy = -10
+
         self.y += self.vy
         self.x += self.vx
         
@@ -90,6 +93,9 @@ def step():
     global Player
     if Player:
         Player.step()
+    global Spring
+    if Spring:
+        Spring.step()
 
 def rightKey(event):
     global Player
@@ -135,8 +141,16 @@ class spring(Sprite):
         self.c = color2
         self.h = height2
         self.w = width2
+        self.vy = 0
         box = RectangleAsset(self.w, self.h, gridline, self.c)
         super().__init__(box, (x, y)) 
+    def step(self):
+        self.vy += .2
+        collidinglist3 = self.collidingWithSprites(block)
+        if collidinglist3:
+            self.vy = 0
+        self.y += self.vy
+
 def mouseMove(event):
     global i 
     global j
@@ -147,7 +161,7 @@ def sKey(event):
     global i
     global j
     if not Spring:
-        Spring = spring(blue, 10, 20, i, j)
+        Spring = spring(blue, 15, 20, i, j)
 
 myapp = platformer()
 myapp.listenMouseEvent('click', mouseClick)
