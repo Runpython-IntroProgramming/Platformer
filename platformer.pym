@@ -18,6 +18,7 @@ Player = None
 
 rightkeydisabled = False
 leftkeydisabled = False
+upkeydisabled = False
 
 for i in range(69):
     blue = Color(0x2EFEC8, 1.0)
@@ -61,28 +62,29 @@ class player(Sprite):
     def step(self):
         global rightkeydisabled
         global leftkeydisabled
+        global upkeydisabled
         self.vy += .2
         collidinglist = self.collidingWithSprites(block)
-        if collidinglist:
-            if self.vy<0:
-                self.vy = 2
-                rightkeydisabled = True
-                leftkeydisabled = True
-            elif self.vy>0:
-                self.vy = -2.5
-            if self.vx<0:
-                self.vx = 1
-                rightkeydisabled = True
-                leftkeydisabled = True
-            elif self.vx>0:
-                self.vx = -1
-                rightkeydisabled = True
-                leftkeydisabled = True
-        self.y += self.vy
-        self.x += self.vx
         if not collidinglist:
+            upkeydisabled = True
+            
+        if collidinglist:
+            self.vx = 0
+            self.vy = -.2
             rightkeydisabled = False
             leftkeydisabled = False
+            upkeydisabled = False
+            if self.vx>0:
+                if len(collidinglist) == 2:
+                    rightkeydisabled = True
+                    self.x += -1
+            if self.vx<0:
+                if len(collidinglist) == 2:
+                    leftkeydisabled = True
+                    self.x += 1
+        self.y += self.vy
+        self.x += self.vx
+        
 
 def step():
     global Player
@@ -93,15 +95,16 @@ def rightKey(event):
     global Player
     if not rightkeydisabled:
         Player.x += 2
-        Player.vx = 3
+        Player.vx = 4
 def leftKey(event):
     global Player
     if not leftkeydisabled:
         Player.x += -2
-        Player.vx = -3
+        Player.vx = -4
 def upKey(event):
     global Player
-    Player.vy = -6
+    if not upkeydisabled:
+        Player.vy = -9
 
 def mouseMove(event):
     global i 
