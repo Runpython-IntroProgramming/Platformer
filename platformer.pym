@@ -12,6 +12,12 @@ from math import floor
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
 
+print('Press space to create your player')
+print('Click your mouse to make a platform')
+print('Press the s key to make a spring')
+print('Use the arrow keys to control your player')
+
+
 i = None
 j = None
 Player = None
