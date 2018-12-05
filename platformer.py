@@ -64,27 +64,36 @@ class MarioWall(Blocks):
     def __init__(self, x, y):
         super().__init__(x, y, 50, 15, purple)
         
+        
 class Newton(Sprite):
     def __init__(self, x, y, width, height, color, app):
         self.vx = self.vy = 0
         self.stuck = False
-        self.app = app                         
-        self.resting = False                   
+        self.app = app                          
+        self.resting = False                    
         super().__init__(
             RectangleAsset(
                 width, height, 
-                LineStyle(0, black),
-                color), (x, y)) 
-                
-        collisioncontra=self.collidingWithSprites()
-        if len(collisioncontra):
-            self.destroy()
-
+                LineStyle(0, white),
+                color),
+            (x, y)) 
+        
     def step(self):
-        # vertical movements
+        # process movement in horizontal direction first
+        self.x += self.vx
+        collides = self.collidingWithSprites(Wall)
+        collides.extend(self.collidingWithSprites(MarioWall))
+        for collider in collides:
+            if self.vx > 0 or self.vx < 0:
+                if self.vx > 0:
+                    self.x = collider.x - self.width - 1
+                else:
+                    self.x = collider.x + collider.width + 1
+                self.vx = 0
+        # process movement in vertical direction second
         self.y += self.vy
         collides = self.collidingWithSprites(Wall)
-        collides.extend(self.collidingWithSprites(Platform))
+        collides.extend(self.collidingWithSprites(MarioWall))
         for collider in collides:
             if self.vy > 0 or self.vy < 0:
                 if self.vy > 0:
@@ -95,20 +104,9 @@ class Newton(Sprite):
                     self.vy = 0
                 # upward collisions for true Wall only
                 elif isinstance(collider, Wall):
-                    self.y = collider.y + collider.height
-                    self.vy = 0
-
-        # process movement in horizontal direction second
-        self.x += self.vx
-        collides = self.collidingWithSprites(Wall)
-        collides.extend(self.collidingWithSprites(Game))
-        for collider in collides:
-            if self.vx > 0 or self.vx < 0:
-                if self.vx > 0:
-                    self.x = collider.x - self.width
-                else:
-                    self.x = collider.x + collider.width
-                self.vx = 0
+                    pass
+                    #self.y = collider.y + collider.height
+                    #self.vy = 0
         # adjust vertical velocity for acceleration due to gravity
         self.vy += 1
         # check for out of bounds
@@ -122,9 +120,9 @@ class Playah(Newton):
         super().__init__(x-w//2, y-h//2, w, h, lightBlue, app)
         
     def step(self):
-        springs = self.collidingWithSprites(Spring)    #interference with springs
-        if len(springs):
-            self.vy = -15    #y -- y positioning
+        Jumpers = self.collidingWithSprites(Jumper)    #interference with Jumpers
+        if len(Jumpers):
+            self.vy = -10    #y -- y positioning
             self.resting = False
         super().step()
         
@@ -140,7 +138,7 @@ class Playah(Newton):
             else:
                 self.vx = 5
         elif key == "up arrow" and self.resting:
-            self.vy = -10
+            self.vy = -8
             self.resting = False
             
     def stopMove(self, key):
@@ -169,7 +167,7 @@ class Pellets(Sprite):
         selfdestruct = False
         for target in hits:
             # destroy players and other Pellets
-            if isinstance(target, Player) or isinstance(target, Pellets):
+            if isinstance(target, Playah) or isinstance(target, Pellets):
                 self.app.killMe(target)
             # self destruct on anything but a Machina
             if not isinstance(target, Machina):
@@ -196,19 +194,14 @@ class Machina(Newton):
                  self.app)
             self.direction *= -1
 
-
-def wallKey(event):
-    Sprite(Wall,)
-
-
-class Spring(Newton):
+class Jumper(Newton):
     def __init__(self, x, y, app):
         w = 10
         h = t
         super().__init__(x-w//2, y-h//2, w, h,green, app)
     def step(self):
         if self.resting:
-            self.app.FallingSprings.remove(self)
+            self.app.FallingJumpers.remove(self)
         super().step()
 
 #Index/Glossarix
@@ -219,7 +212,8 @@ class Game(App):
         self.pos = (0,0)
         self.listenKeyEvent("keydown", "w", self.newWall)
         self.listenKeyEvent("keydown", "p", self.newPlayah)
-        self.listenKeyEvent("keydown", "f", self.newStepThrough)
+        self.listenKeyEvent("keydown", "j", self.newJumper)
+        self.listenKeyEvent("keydown", "m", self.newStepThrough)
         self.listenKeyEvent("keydown", "left arrow", self.moveKey)
         self.listenKeyEvent("keydown", "right arrow", self.moveKey)
         self.listenKeyEvent("keydown", "up arrow", self.moveKey)
@@ -240,8 +234,11 @@ class Game(App):
             self.p = None
         self.p = Playah(self.pos[0], self.pos[1], self)
         
+    def newJumper(self, event):
+        self.FallingJumpers.append(Jumper(self.pos[0], self.pos[1], self))
+        
     def newStepThrough(self, event):
-        Game(self.pos[0], self.pos[1])
+        Game(self.pos[0], self.pos[1])   #tuple???
 
     def moveKey(self, event):
         if self.p:
@@ -251,9 +248,24 @@ class Game(App):
         if self.p:
             self.p.stopMove(event.key)
 
+    #########           
+    #def step(self):
+    #    if self.p:
+    #        self.p.step()
+    #    for s in self.FallingJumpers:
+    #        s.step()
+    #    for t in Game.getSpritesbyClass(Machina):
+    #        t.step()
+    #    for b in Game.getSpritesbyClass(Pellets):
+    #        b.step()
+    #    for k in self.KillList:
+    #        k.destroy()
+    #    self.KillList = []
+    ##########
+    
     def killMe(self, obj):
-        if obj in self.FallingSprings:
-            self.FallingSprings.remove(obj)
+        if obj in self.FallingJumpers:
+            self.FallingJumpers.remove(obj)
         elif obj == self.p:
             self.p = None
         if not obj in self.KillList:
