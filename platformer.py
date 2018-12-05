@@ -147,9 +147,59 @@ class Playah(Newton):
         if key == "left arrow" or key == "right arrow":
             if self.resting:
                 self.vx = 0
+                
+class Pellets(Sprite):
+    def __init__(self, direction, x, y, app):
+        w = 15
+        h = 5
+        self.direction = direction
+        self.app = app
+        super().__init__(RectangleAsset(w, h, 
+            LineStyle(0, Color(0, 1.0)),
+            Color(0x00ffff, 1.0)),
+            (x-w//2, y-h//2))
+
+    def step(self):
+        self.x += self.direction
+        # check for out of bounds
+        if self.x > self.app.width or self.x < 0:
+            self.app.killMe(self)
+        # check for any collisions
+        hits = self.collidingWithSprites()
+        selfdestruct = False
+        for target in hits:
+            # destroy players and other Pellets
+            if isinstance(target, Player) or isinstance(target, Pellets):
+                self.app.killMe(target)
+            # self destruct on anything but a Machina
+            if not isinstance(target, Machina):
+                selfdestruct = True
+        if selfdestruct:
+            self.app.killMe(self)
+            
+class Machina(Newton):
+    def __init__(self, x, y, app):
+        w = 20
+        h = 35
+        r = 10
+        self.time = 0
+        self.direction = 1
+        super().__init__(x-w//2, y-h//2, w, h, Color(0xff8800, 1.0), app)
+        
+    def step(self):
+        super().step()
+        self.time += 1
+        if self.time % 100 == 0:
+            Pellets(self.direction, 
+                 self.x+self.width//2,
+                 self.y+10,
+                 self.app)
+            self.direction *= -1
+
 
 def wallKey(event):
     Sprite(Wall,)
+
 
 class Spring(Newton):
     def __init__(self, x, y, app):
@@ -191,7 +241,7 @@ class Game(App):
         self.p = Playah(self.pos[0], self.pos[1], self)
         
     def newStepThrough(self, event):
-        Platform(self.pos[0], self.pos[1])
+        Game(self.pos[0], self.pos[1])
 
     def moveKey(self, event):
         if self.p:
