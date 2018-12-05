@@ -60,6 +60,10 @@ class Wall(Blocks):
     def __init__(self,x,y):
         super().__init__(x,y,60,60,grey)      #(self, x, y, w, h, color)
 
+class MarioWall(Blocks):
+    def __init__(self, x, y):
+        super().__init__(x, y, 50, 15, purple)
+        
 class Newton(Sprite):
     def __init__(self, x, y, width, height, color, app):
         self.vx = self.vy = 0
@@ -165,6 +169,7 @@ class Game(App):
         self.pos = (0,0)
         self.listenKeyEvent("keydown", "w", self.newWall)
         self.listenKeyEvent("keydown", "p", self.newPlayah)
+        self.listenKeyEvent("keydown", "f", self.newStepThrough)
         self.listenKeyEvent("keydown", "left arrow", self.moveKey)
         self.listenKeyEvent("keydown", "right arrow", self.moveKey)
         self.listenKeyEvent("keydown", "up arrow", self.moveKey)
@@ -184,6 +189,9 @@ class Game(App):
             p.destroy()
             self.p = None
         self.p = Playah(self.pos[0], self.pos[1], self)
+        
+    def newStepThrough(self, event):
+        Platform(self.pos[0], self.pos[1])
 
     def moveKey(self, event):
         if self.p:
