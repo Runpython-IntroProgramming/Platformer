@@ -97,7 +97,6 @@ class Player(pygame.sprite.Sprite):
 class Platform(pygame.sprite.Sprite):
  
     def __init__(self, width, height):
-            code.
  
     def __init__(self, player):
     
@@ -137,31 +136,31 @@ class Level_01(Level):
             self.platform_list.add(block)
  
  
-def main():
+    def main():
 
-    pygame.init()
+        pygame.init()
  
-    size = [SCREEN_WIDTH, SCREEN_HEIGHT]
-    screen = pygame.display.set_mode(size)
+        size = [SCREEN_WIDTH, SCREEN_HEIGHT]
+        screen = pygame.display.set_mode(size)
  
-    pygame.display.set_caption("Platformer Jumper")
+      pygame.display.set_caption("Platformer Jumper")
+     
+        player = Player()
  
-    player = Player()
+      level_list = []
+      level_list.append( Level_01(player) )
  
-     level_list = []
-    level_list.append( Level_01(player) )
+      current_level_no = 0
+     current_level = level_list[current_level_no]
  
-    current_level_no = 0
-    current_level = level_list[current_level_no]
- 
-    active_sprite_list = pygame.sprite.Group()
-    player.level = current_level
- 
-    player.rect.x = 340
-    player.rect.y = SCREEN_HEIGHT - player.rect.height
-    active_sprite_list.add(player)
- 
-    done = False
+      active_sprite_list = pygame.sprite.Group()
+      player.level = current_level
+    
+      player.rect.x = 340
+      player.rect.y = SCREEN_HEIGHT - player.rect.height
+      active_sprite_list.add(player)
+    
+     done = False
  
     clock = pygame.time.Clock()
  
