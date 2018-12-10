@@ -249,18 +249,18 @@ class Game(App):
             self.p.stopMove(event.key)
 
     #########           
-    #def step(self):
-    #    if self.p:
-    #        self.p.step()
+    def step(self):
+        if self.p:
+            self.p.step()
     #    for s in self.FallingJumpers:
-    #        s.step()
-    #    for t in Game.getSpritesbyClass(Machina):
-    #        t.step()
-    #    for b in Game.getSpritesbyClass(Pellets):
-    #        b.step()
-    #    for k in self.KillList:
-    #        k.destroy()
-    #    self.KillList = []
+     #       s.step()
+        for t in Game.getSpritesbyClass(Machina):
+            t.step()
+        for b in Game.getSpritesbyClass(Pellets):
+            b.step()
+        for k in self.KillList:
+            k.destroy()
+        self.KillList = []
     ##########
     
     def killMe(self, obj):
@@ -273,8 +273,6 @@ class Game(App):
 
 app = Game()
 app.run()
-
-
 
 
 
