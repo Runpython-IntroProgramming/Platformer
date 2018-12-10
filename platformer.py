@@ -33,7 +33,4 @@ greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
 grid=RectangleAsset(30,30,gridline,white)
 
-grid = RectangleAsset(40, 40, noline, white)
-for x in range(0, 40):
-    for y in range(0, 20):
-        Sprite(grid, (40*x, 40*y))
+
