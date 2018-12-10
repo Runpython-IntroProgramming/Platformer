@@ -8,7 +8,7 @@ https://github.com/HHS-IntroProgramming/Platformer
 """
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
 
-SCREEN_WIDTH = 1000
+SCREEN_WIDTH = 1600
 SCREEN_HEIGHT = 800
 
 blue = Color(0x2EFEC8, 1.0)
@@ -33,3 +33,7 @@ greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
 grid=RectangleAsset(30,30,gridline,white)
 
+grid = RectangleAsset(40, 40, noline, white)
+for x in range(0, 40):
+    for y in range(0, 20):
+        Sprite(grid, (40*x, 40*y))
