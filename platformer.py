@@ -35,7 +35,7 @@ class GenericWall(Sprite):
 
 class Wall(GenericWall):
     def __init__(self, x, y):
-        super().__init__(x, y, 50, 50, Color(0, 1.0))
+        super().__init__(x, y, 50, 50, Color(0x0000ff, 1.0))
 
 class Platform(GenericWall):
     def __init__(self, x, y):
