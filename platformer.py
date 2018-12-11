@@ -1,6 +1,6 @@
 """
 platformer.py
-Author: 
+Author: Morgan Gardner
 Credit: 
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
@@ -8,13 +8,27 @@ https://github.com/HHS-IntroProgramming/Platformer
 """
 from ggame import App, Sprite, RectangleAsset, LineStyle, Color
 
+blue = Color(0x2EFEC8, 1.0)
+black = Color(0x000000, 1.0)
+pink = Color(0xFF00FF, 1.0)
+red = Color(0xFF5733, 1.0)
+white = Color(0xFFFFFF, 1.0)
+red = Color(0xff0000, 1.0)
+green = Color(0x00ff00, 1.0)
+blue = Color(0x0000ff, 1.0)
+black = Color(0x000000, 1.0)
+white = Color(0xffffff, 1.0)
+grey = Color(0xC0C0C0, 1.0)
+
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 800
+   
 class GenericWall(Sprite):
     def __init__(self, x, y, w, h, color):
         snapfunc = lambda X : X - X % w
         super().__init__(
             RectangleAsset(w-1,h-1,LineStyle(0,Color(0, 1.0)), color),
             (snapfunc(x), snapfunc(y)))
-            
         collideswith = self.collidingWithSprites(type(self))
         if len(collideswith):
             collideswith[0].destroy()
@@ -22,10 +36,25 @@ class GenericWall(Sprite):
 class Wall(GenericWall):
     def __init__(self, x, y):
         super().__init__(x, y, 50, 50, Color(0, 1.0))
-     
+
+class Platform(GenericWall):
+    def __init__(self, x, y):
+        super().__init__(x, y, 50, 15, Color(0xff0000, 1.0))
+    
+class GravityActor(Sprite):
+    def __init__(self, x, y, width, height, color, app):
+        self.vx = self.vy = 0
+        self.stuck = False
+        self.app = app                         
+        self.resting = False                   
+        super().__init__(
+            RectangleAsset(
+                width, height, 
+                LineStyle(0, Color(0, 1.0)),
+                color),
+            (x, y)) 
         
     def step(self):
-
         self.x += self.vx
         collides = self.collidingWithSprites(Wall)
         collides.extend(self.collidingWithSprites(Platform))
@@ -36,7 +65,6 @@ class Wall(GenericWall):
                 else:
                     self.x = collider.x + collider.width + 1
                 self.vx = 0
-    
         self.y += self.vy
         collides = self.collidingWithSprites(Wall)
         collides.extend(self.collidingWithSprites(Platform))
@@ -48,10 +76,11 @@ class Wall(GenericWall):
                         self.vx = 0
                     self.resting = True
                     self.vy = 0
-          
                 elif isinstance(collider, Wall):
                     pass
- 
+                
+        self.vy += 1
+      
         if self.y > self.app.height:
             self.app.killMe(self)
 
@@ -68,22 +97,28 @@ class Bolt(Sprite):
 
     def step(self):
         self.x += self.direction
-        
         if self.x > self.app.width or self.x < 0:
             self.app.killMe(self)
-
         hits = self.collidingWithSprites()
         selfdestruct = False
         for target in hits:
-      
             if isinstance(target, Player) or isinstance(target, Bolt):
                 self.app.killMe(target)
-           
             if not isinstance(target, Turret):
                 selfdestruct = True
         if selfdestruct:
             self.app.killMe(self)
 
+
+class Turret(GravityActor):
+    def __init__(self, x, y, app):
+        w = 20
+        h = 35
+        r = 10
+        self.time = 0
+        self.direction = 1
+        super().__init__(x-w//2, y-h//2, w, h, Color(0xff8800, 1.0), app)
+        
     def step(self):
         super().step()
         self.time += 1
@@ -94,6 +129,7 @@ class Bolt(Sprite):
                  self.app)
             self.direction *= -1
 
+        
 class Player(GravityActor):
     def __init__(self, x, y, app):
         w = 15
@@ -118,14 +154,20 @@ class Player(GravityActor):
                 self.vx = 0
             else:
                 self.vx = 5
-        elif key == "uparrow" and self.resting:
+        elif key == "up arrow" and self.resting:
             self.vy = -12
             self.resting = False
             
     def stopMove(self, key):
-        if key == "leftarrow" or key == "rightarrow":
+        if key == "left arrow" or key == "right arrow":
             if self.resting:
                 self.vx = 0
+
+class Spring(GravityActor):
+    def __init__(self, x, y, app):
+        w = 10
+        h = 4
+        super().__init__(x-w//2, y-h//2, w, h, Color(0x0000ff, 1.0), app)
         
     def step(self):
         if self.resting:
@@ -139,13 +181,16 @@ class Platformer(App):
         self.pos = (0,0)
         self.listenKeyEvent("keydown", "w", self.newWall)
         self.listenKeyEvent("keydown", "p", self.newPlayer)
-        self.listenKeyEvent("keydown", "leftarrow", self.moveKey)
-        self.listenKeyEvent("keydown", "rightarrow", self.moveKey)
-        self.listenKeyEvent("keydown", "uparrow", self.moveKey)
-        self.listenKeyEvent("keyup", "leftarrow", self.stopMoveKey)
-        self.listenKeyEvent("keyup", "rightarrow", self.stopMoveKey)
-        self.listenKeyEvent("keyup", "uparrow", self.stopMoveKey)
-        self.listenMouseEvent("movemouse", self.moveMouse)
+        self.listenKeyEvent("keydown", "s", self.newSpring)
+        self.listenKeyEvent("keydown", "f", self.newFloor)
+        self.listenKeyEvent("keydown", "l", self.newLaser)
+        self.listenKeyEvent("keydown", "left arrow", self.moveKey)
+        self.listenKeyEvent("keydown", "right arrow", self.moveKey)
+        self.listenKeyEvent("keydown", "up arrow", self.moveKey)
+        self.listenKeyEvent("keyup", "left arrow", self.stopMoveKey)
+        self.listenKeyEvent("keyup", "right arrow", self.stopMoveKey)
+        self.listenKeyEvent("keyup", "up arrow", self.stopMoveKey)
+        self.listenMouseEvent("mousemove", self.moveMouse)
         self.FallingSprings = []
         self.KillList = []
 
@@ -161,6 +206,15 @@ class Platformer(App):
             self.p = None
         self.p = Player(self.pos[0], self.pos[1], self)
     
+    def newSpring(self, event):
+        self.FallingSprings.append(Spring(self.pos[0], self.pos[1], self))
+    
+    def newFloor(self, event):
+        Platform(self.pos[0], self.pos[1])
+        
+    def newLaser(self, event):
+        Turret(self.pos[0], self.pos[1], self)
+        
     def moveKey(self, event):
         if self.p:
             self.p.move(event.key)
@@ -189,11 +243,14 @@ class Platformer(App):
             self.p = None
         if not obj in self.KillList:
             self.KillList.append(obj)
-
-print("Move your mouse cursor around the screen and:")
-print("hit w to create a platform block")
-print("suhit p to create a player")
-print("Use the left, right, and the up arrow control player movement")
-    
+        
+print("Move your mouse cursor around the graphics screen and:")
+print("w: create a wall block")
+print("s: create a spring")
+print("f: create a floor")
+print("l: create a laser turret")
+print("p: create a player")
+print("left, right, up arrow: control player movement")
+        
+# Execute the application by instantiate and run        
 app = Platformer()
-app.run()
