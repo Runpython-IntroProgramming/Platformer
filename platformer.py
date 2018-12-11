@@ -62,7 +62,7 @@ class Wall(Blocks):
 
 class MarioWall(Blocks):
     def __init__(self, x, y):
-        super().__init__(x, y, 50, 15, purple)
+        super().__init__(x, y, 50, 15, black)
         
         
 class Newton(Sprite):
@@ -223,6 +223,7 @@ class Game(App):
         self.listenMouseEvent("mousemove", self.moveMouse)
         self.FallingJumpers = []
         self.KillList = []
+        
     def moveMouse(self, event):
         self.pos = (event.x, event.y)
 
@@ -239,7 +240,7 @@ class Game(App):
         self.FallingJumpers.append(Jumper(self.pos[0], self.pos[1], self))
         
     def newStepThrough(self, event):
-        Game(self.pos[0], self.pos[1])   #tuple???
+        MarioWall(self.pos[0], self.pos[1])   #tuple???
 
     def moveKey(self, event):
         if self.p:
