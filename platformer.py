@@ -131,7 +131,13 @@ class Spring(GravityActor):
             self.app.FallingSprings.remove(self)
         super().step()
         
-
+class Win(Sprite):
+    def __init__(self, x, y, w, h, color):
+        snapfunc = lambda X : X - X % w
+        super().__init__(
+            RectangleAsset(w-1,h-1,LineStyle(0,Color(0x00ff00, 1.0)), color),
+            (snapfunc(x), snapfunc(y)))
+    
 class Platformer(App):
     def __init__(self):
         super().__init__()
