@@ -170,7 +170,7 @@ class Platformer(App):
         self.listenKeyEvent("keyup", "left arrow", self.stopMoveKey)
         self.listenKeyEvent("keyup", "right arrow", self.stopMoveKey)
         self.listenKeyEvent("keyup", "up arrow", self.stopMoveKey)
-        self.listenMouseEvent("mousemove", self.moveMouse)
+        self.listenMouseEvent("movemouse", self.moveMouse)
         self.FallingSprings = []
         self.KillList = []
 
