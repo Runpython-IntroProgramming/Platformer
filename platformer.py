@@ -9,7 +9,7 @@ https://github.com/HHS-IntroProgramming/Platformer
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
 from math import floor
 
-SCREEN_WIDTH = 1000
+SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 800
 
 blue = Color(0x2EFEC8, 1.0)
@@ -46,6 +46,7 @@ class Falling(Sprite):
     def __init__(self,x,y,w,h,COLOR,app):
         self.vx=0
         self.vy=0
+        self.app=app
         self.stuck=False
         self.resting=False
         BOX=RectangleAsset(w,h,thinline,COLOR)
@@ -59,6 +60,9 @@ class Falling(Sprite):
             if self.vx>0 or self.vx<0:
                 if self.vx<0:
                     self.x=i.x+i.w+.1
+                    if not self.resting:
+                        self.vx = 0
+                    self.resting = True
                 else:
                     self.x=i.x-self.w-.1
                 self.vx=0
@@ -81,4 +85,43 @@ class Falling(Sprite):
 class Spring(Falling):
     def __init__(self,x,y,app):
         super().__init__(x,y,10,10,pink, app)
-
+        
+class User(Falling):
+    def __init__(self,x,y,app):
+        super().__init__(x,y,10,20,blue, app)
+    def step(self):
+        springtouch = self.collidingWithSprites(Spring)
+        if springtouch:
+            self.vy = -22
+            self.resting=False
+        super().step()
+    def Arrows(self,press)
+        if press=='right':
+            self.vx=7
+        elif press=='left':
+            self.vx=-7
+        elif press=='up' and self.resting:
+            self.vy=-14
+            self.resting=False
+    def stop(self, press):
+        if button == 'left' or button == 'right':
+            if self.resting:
+                self.vx = 0
+        else:
+            pass
+        
+class Game(App):
+    def __init__(self):
+        super().__init__()
+        grid = RectangleAsset(40,40,gridline,white)
+        x = 0 
+        y = 0 
+        for d in range(15):
+            for e in range(25):
+                Sprite(grid, (x,y))
+                x = x + 40
+            x = 0
+            Sprite(grid,(x,y))
+            y = y + 40
+        
+        
