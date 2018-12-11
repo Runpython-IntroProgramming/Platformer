@@ -28,36 +28,33 @@ class GenericWall(Sprite):
     def __init__(self, x, y, w, h, color):
         snapfunc = lambda X : X - X % w
         super().__init__(
-            RectangleAsset(w-1,h-1,LineStyle(0,Color(0x2EFEC8, 1.0)), color),
+            RectangleAsset(w-1,h-1,LineStyle(0,Color(0x0000ff, 1.0)), color),
             (snapfunc(x), snapfunc(y)))
-
         collideswith = self.collidingWithSprites(type(self))
         if len(collideswith):
             collideswith[0].destroy()
 
-
 class Wall(GenericWall):
     def __init__(self, x, y):
-        super().__init__(x, y, 50, 50, Color(0x2EFEC8, 1.0))
-
+        super().__init__(x, y, 35, 35, Color(0x0000ff, 1.0))
 
 class Platform(GenericWall):
     def __init__(self, x, y):
-        super().__init__(x, y, 50, 15, Color(0x2EFEC8, 1.0))
+        super().__init__(x, y, 70, 25, Color(0x2EFEC8, 1.0))
     
-
 class GravityActor(Sprite):
     def __init__(self, x, y, width, height, color, app):
         self.vx = self.vy = 0
         self.stuck = False
         self.app = app                         
-        self.resting = False                   
+        self.resting = False                  
         super().__init__(
             RectangleAsset(
                 width, height, 
                 LineStyle(0, Color(0, 1.0)),
                 color),
             (x, y)) 
+
         
     def step(self):
         self.x += self.vx
@@ -70,7 +67,6 @@ class GravityActor(Sprite):
                 else:
                     self.x = collider.x + collider.width + 1
                 self.vx = 0
-        
         self.y += self.vy
         collides = self.collidingWithSprites(Wall)
         collides.extend(self.collidingWithSprites(Platform))
@@ -82,20 +78,17 @@ class GravityActor(Sprite):
                         self.vx = 0
                     self.resting = True
                     self.vy = 0
-                
                 elif isinstance(collider, Wall):
                     pass
-                    
         self.vy += 1
         if self.y > self.app.height:
             self.app.killMe(self)
-        
-        
+
 class Player(GravityActor):
     def __init__(self, x, y, app):
-        w = 15
-        h = 30
-        super().__init__(x-w//2, y-h//2, w, h, Color(0x00ff00, 1.0), app)
+        w = 20
+        h = 20
+        super().__init__(x-w//2, y-h//2, w, h, Color(0xFF00FF, 1.0), app)
 
     def step(self):
         springs = self.collidingWithSprites(Spring)
@@ -140,10 +133,10 @@ class Platformer(App):
         super().__init__()
         self.p = None
         self.pos = (0,0)
-        self.listenKeyEvent("keydown", "w", self.newWall)
-        self.listenKeyEvent("keydown", "p", self.newPlayer)
-        self.listenKeyEvent("keydown", "s", self.newSpring)
-        self.listenKeyEvent("keydown", "f", self.newFloor)
+        self.listenKeyEvent("keydown", "b", self.newWall)
+        self.listenKeyEvent("keydown", "s", self.newPlayer)
+        self.listenKeyEvent("keydown", "j", self.newSpring)
+        self.listenKeyEvent("keydown", "p", self.newFloor)
         self.listenKeyEvent("keydown", "left arrow", self.moveKey)
         self.listenKeyEvent("keydown", "right arrow", self.moveKey)
         self.listenKeyEvent("keydown", "up arrow", self.moveKey)
@@ -197,12 +190,12 @@ class Platformer(App):
         if not obj in self.KillList:
             self.KillList.append(obj)
         
-print("Move your mouse cursor around the graphics screen and:")
-print("w: create a wall block")
-print("s: create a spring")
-print("f: create a floor")
-print("p: create a player")
-print("left, right, up arrow: control player movement")
-
+print("Use your cursor to aim where you want to place the following")
+print("Hit s to spawn a sprite")
+print("Hit b to create a block")
+print("Hit j to create a jump pad")
+print("Hit p to create a platform")
+print("Use the left, right, and up arrow to move around")
+        
 app = Platformer()
 app.run()
