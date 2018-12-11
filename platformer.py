@@ -22,22 +22,6 @@ class GenericWall(Sprite):
 class Wall(GenericWall):
     def __init__(self, x, y):
         super().__init__(x, y, 50, 50, Color(0, 1.0))
-
-class Platform(GenericWall):
-    def __init__(self, x, y):
-        super().__init__(x, y, 50, 15, Color(0xff0000, 1.0))
-
-    def __init__(self, x, y, width, height, color, app):
-        self.vx = self.vy = 0
-        self.stuck = False
-        self.app = app                      
-        self.resting = False                    
-        super().__init__(
-            RectangleAsset(
-                width, height, 
-                LineStyle(0, Color(0, 1.0)),
-                color),
-            (x, y)) 
      
         
     def step(self):
@@ -100,15 +84,6 @@ class Bolt(Sprite):
         if selfdestruct:
             self.app.killMe(self)
 
-class Turret(GravityActor):
-    def __init__(self, x, y, app):
-        w = 20
-        h = 35
-        r = 10
-        self.time = 0
-        self.direction = 1
-        super().__init__(x-w//2, y-h//2, w, h, Color(0xff8800, 1.0), app)
-        
     def step(self):
         super().step()
         self.time += 1
