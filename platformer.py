@@ -37,7 +37,7 @@ class User(pygame.sprite.Sprite):
         self.vel=vector(0,0)
         self.acc=vector(0,0)
     def update(self):
-        self.acc=vector(0,0)
+        self.acc=vector(0,0.8)
         arrows=pygame.key.get_pressed()
         if arrows[pygame.K_LEFT]:
             self.acc.x= -pacc
@@ -45,7 +45,7 @@ class User(pygame.sprite.Sprite):
             self.acc.x= pacc
         self.acc += self.vel * fric
         self.vel +=self.acc
-        self.pos += self.vel + 0.5 * self.acc
+        self.pos += self.vel + 0.8 * self.acc
         if self.pos.x > WIDTH:
             self.pos.x = 0
         if self.pos.x < 0:
@@ -94,6 +94,3 @@ while p.running:
     p.new()
     p.esc()
 pygame.quit()
-
-
-
