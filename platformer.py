@@ -31,3 +31,15 @@ blueline = LineStyle(2, blue)
 redline = LineStyle(1, red)
 greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
+
+class Wall(Sprite):
+    def __init__(self,x,y,W,H,color):
+        func1=lamda Q:Q-Q%W
+        box=RectangleAsset(w-.2,h-.2,redline,color)
+        super().__init__(BOX,(func1(x),func1(y)))
+        
+class Block(Wall):
+    def __init__(self,x,y):
+        super().__init__(x y,40,40,black))
+
+
