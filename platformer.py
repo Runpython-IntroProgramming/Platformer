@@ -253,8 +253,8 @@ class Game(App):
     def step(self):
         if self.p:
             self.p.step()
-    #    for s in self.FallingJumpers:
-     #       s.step()
+        for s in self.FallingJumpers:
+            s.step()
         for t in Game.getSpritesbyClass(Machina):
             t.step()
         for b in Game.getSpritesbyClass(Pellets):
