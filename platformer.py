@@ -6,7 +6,7 @@ Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
 """
-from ggame import App, Sprite, RectangleAsset, LineStyle, Color
+from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
 
 blue = Color(0x2EFEC8, 1.0)
 black = Color(0x000000, 1.0)
@@ -39,7 +39,7 @@ class Wall(GenericWall):
 
 class Platform(GenericWall):
     def __init__(self, x, y):
-        super().__init__(x, y, 50, 15, Color(0xff0000, 1.0))
+        super().__init__(x, y, 50, 15, Color(0xC0C0C0, 1.0))
     
 class GravityActor(Sprite):
     def __init__(self, x, y, width, height, color, app):
