@@ -84,52 +84,6 @@ class GravityActor(Sprite):
         if self.y > self.app.height:
             self.app.killMe(self)
 
-class Bolt(Sprite):
-    def __init__(self, direction, x, y, app):
-        w = 15
-        h = 5
-        self.direction = direction
-        self.app = app
-        super().__init__(RectangleAsset(w, h, 
-            LineStyle(0, Color(0, 1.0)),
-            Color(0x00ffff, 1.0)),
-            (x-w//2, y-h//2))
-
-    def step(self):
-        self.x += self.direction
-        if self.x > self.app.width or self.x < 0:
-            self.app.killMe(self)
-        hits = self.collidingWithSprites()
-        selfdestruct = False
-        for target in hits:
-            if isinstance(target, Player) or isinstance(target, Bolt):
-                self.app.killMe(target)
-            if not isinstance(target, Turret):
-                selfdestruct = True
-        if selfdestruct:
-            self.app.killMe(self)
-
-
-class Turret(GravityActor):
-    def __init__(self, x, y, app):
-        w = 20
-        h = 35
-        r = 10
-        self.time = 0
-        self.direction = 1
-        super().__init__(x-w//2, y-h//2, w, h, Color(0xff8800, 1.0), app)
-        
-    def step(self):
-        super().step()
-        self.time += 1
-        if self.time % 100 == 0:
-            Bolt(self.direction, 
-                 self.x+self.width//2,
-                 self.y+10,
-                 self.app)
-            self.direction *= -1
-
-        
 class Player(GravityActor):
     def __init__(self, x, y, app):
         w = 15
@@ -163,17 +117,6 @@ class Player(GravityActor):
             if self.resting:
                 self.vx = 0
 
-class Spring(GravityActor):
-    def __init__(self, x, y, app):
-        w = 10
-        h = 4
-        super().__init__(x-w//2, y-h//2, w, h, Color(0x0000ff, 1.0), app)
-        
-    def step(self):
-        if self.resting:
-            self.app.FallingSprings.remove(self)
-        super().step()
-
 class Platformer(App):
     def __init__(self):
         super().__init__()
@@ -181,9 +124,7 @@ class Platformer(App):
         self.pos = (0,0)
         self.listenKeyEvent("keydown", "w", self.newWall)
         self.listenKeyEvent("keydown", "p", self.newPlayer)
-        self.listenKeyEvent("keydown", "s", self.newSpring)
         self.listenKeyEvent("keydown", "f", self.newFloor)
-        self.listenKeyEvent("keydown", "l", self.newLaser)
         self.listenKeyEvent("keydown", "left arrow", self.moveKey)
         self.listenKeyEvent("keydown", "right arrow", self.moveKey)
         self.listenKeyEvent("keydown", "up arrow", self.moveKey)
@@ -191,7 +132,6 @@ class Platformer(App):
         self.listenKeyEvent("keyup", "right arrow", self.stopMoveKey)
         self.listenKeyEvent("keyup", "up arrow", self.stopMoveKey)
         self.listenMouseEvent("mousemove", self.moveMouse)
-        self.FallingSprings = []
         self.KillList = []
 
     def moveMouse(self, event):
@@ -206,14 +146,8 @@ class Platformer(App):
             self.p = None
         self.p = Player(self.pos[0], self.pos[1], self)
     
-    def newSpring(self, event):
-        self.FallingSprings.append(Spring(self.pos[0], self.pos[1], self))
-    
     def newFloor(self, event):
         Platform(self.pos[0], self.pos[1])
-        
-    def newLaser(self, event):
-        Turret(self.pos[0], self.pos[1], self)
         
     def moveKey(self, event):
         if self.p:
@@ -246,9 +180,7 @@ class Platformer(App):
         
 print("Move your mouse cursor around the graphics screen and:")
 print("w: create a wall block")
-print("s: create a spring")
 print("f: create a floor")
-print("l: create a laser turret")
 print("p: create a player")
 print("left, right, up arrow: control player movement")
         
