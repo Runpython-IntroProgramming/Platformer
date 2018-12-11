@@ -8,10 +8,9 @@ https://github.com/HHS-IntroProgramming/Platformer
 """
 import pygame
 
-
 WIDTH=1600
 HEIGHT=800
-FPS=30
+FPS=60
 
 black=(0,0,0)
 white=(255,255,255)
@@ -22,26 +21,37 @@ yellow=(255,255,0)
 pink=(255,0,255)
 lblue=(0,255,255)
 
-thinline = LineStyle(2, black)
-blkline = LineStyle(1, black)
-noline = LineStyle(0, white)
-coolline = LineStyle(1, grey)
-blueline = LineStyle(2, blue)
-redline = LineStyle(1, red)
-greenline = LineStyle(1, green)
-gridline = LineStyle(1, grey)
-grid=RectangleAsset(30,30,gridline,white)
+
+class User(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image=pygame.Surface((20,40))
+        self.image.fill(lblue)
+        self.rect=self.image.get_rect()
+        self.vex=0
+        self.vey=0
+        self.rect.center=(WIDTH/2,HEIGHT/2)
+    def update(self):
+        self.vex=0
+        arrows=pygame.key.get_pressed()
+        if arrows[pygame.K_LEFT]:
+            self.vex=-15
+        if arrows[pygame.K_RIGHT]:
+            self.vex=15
+        self.rect.x +=self.vex
+        self.rect.y +=self.vey
+
 
 class Platformer:
     def __init__(self):
         pygame.init()
-        self.screen=pygame.set_mode(WIDTH,HEIGHT))
+        self.screen=pygame.display.set_mode((WIDTH,HEIGHT))
         self.clock=pygame.time.Clock()
         self.running=True
     def new(self):
-        self.all_sprites=pygame.sprite.Group()
-        self.P1=Player()
-        self.all_sprites.add(self.P1)
+        self.asp=pygame.sprite.Group()
+        self.player= User()
+        self.asp.add(self.player)
         self.run()
     def run(self):
         self.playing=True
@@ -51,22 +61,25 @@ class Platformer:
             self.update()
             self.draw()
     def update(self):
-        self.all_sprites.update()
+        self.asp.update()
     def events(self):
         for i in pygame.event.get():
-            if event.type==pygame.QUIT:
-                if self.playing:
-                    self.playing=False
+            if i.type==pygame.QUIT:
+                self.playing=False
                 self.running=False
     def draw(self):
-        screen.fill(white)
-        self.all_sprites.draw(self.screen)
+        self.screen.fill(white)
+        self.asp.draw(self.screen)
         pygame.display.flip()
     def ssc(self):
         pass
     def esc(self):
         pass
 p=Platformer()
-
+p.ssc()
+while p.running:
+    p.new()
+    p.esc()
+pygame.quit()
 
 
