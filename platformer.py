@@ -122,7 +122,7 @@ class Playah(Newton):
     def step(self):
         Jumpers = self.collidingWithSprites(Jumper)    #interference with Jumpers
         if len(Jumpers):
-            self.vy = -10    #y -- y positioning
+            self.vy = -16    #y -- y positioning jump boost
             self.resting = False
         super().step()
         
@@ -138,7 +138,7 @@ class Playah(Newton):
             else:
                 self.vx = 5
         elif key == "space" and self.resting:
-            self.vy = -8
+            self.vy = -12
             self.resting = False
             
     def stopMove(self, key):
