@@ -37,6 +37,10 @@ class GenericWall(Sprite):
 class Wall(GenericWall):
     def __init__(self, x, y):
         super().__init__(x, y, 35, 35, Color(0x0000ff, 1.0))
+        
+class Goal(GenericWall):
+    def __init__(self, x, y):
+        super().__init__(x, y, 40, 40, Color(0xff0000, 1.0))
 
 class Platform(GenericWall):
     def __init__(self, x, y):
@@ -127,6 +131,7 @@ class Spring(GravityActor):
         if self.resting:
             self.app.FallingSprings.remove(self)
         super().step()
+        
 
 class Platformer(App):
     def __init__(self):
@@ -137,6 +142,7 @@ class Platformer(App):
         self.listenKeyEvent("keydown", "s", self.newPlayer)
         self.listenKeyEvent("keydown", "j", self.newSpring)
         self.listenKeyEvent("keydown", "p", self.newFloor)
+        self.listenKeyEvent("keydown", "g", self.newGoal)
         self.listenKeyEvent("keydown", "left arrow", self.moveKey)
         self.listenKeyEvent("keydown", "right arrow", self.moveKey)
         self.listenKeyEvent("keydown", "up arrow", self.moveKey)
@@ -164,6 +170,9 @@ class Platformer(App):
     
     def newFloor(self, event):
         Platform(self.pos[0], self.pos[1])
+        
+    def newGoal(self,event):
+        Goal(self.pos[0], self.pos[1])
         
     def moveKey(self, event):
         if self.p:
