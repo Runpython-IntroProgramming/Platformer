@@ -7,6 +7,7 @@ Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
 """
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
+from math import floor
 
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
@@ -31,15 +32,43 @@ blueline = LineStyle(2, blue)
 redline = LineStyle(1, red)
 greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
+grid = RectangleAsset(40,40,gridline,white)
 
-class Wall(Sprite):
-    def __init__(self,x,y,W,H,color):
-        func1=lamda Q:Q-Q%W
-        box=RectangleAsset(w-.2,h-.2,redline,color)
-        super().__init__(BOX,(func1(x),func1(y)))
-        
-class Block(Wall):
-    def __init__(self,x,y):
-        super().__init__(x y,40,40,black))
+class Block(Sprite):
+    def __init__(self, position):
+        box = RectangleAsset(40,40, cooline, red)
+        x-=x%w
+        y-=y%w
+        super().__init__(box, (x,y))
+
+
+class Falling(Sprite):
+    def __init__(self,x,y,w,h,COLOR,app):
+        self.vx=0
+        self.vy=0
+        self.stuck=False
+        self.resting=False
+        BOX=RectangleAsset(w,h,thinline,COLOR)
+        super().__init__(BOX,(x, y)) 
+    def step(self):
+        self.x=+self.vx
+        collision=self.collidingWithSprites(Block)
+        for i in collision:
+            if self.vx>0 or self.vx<0:
+                if self.vx<0:
+                    self.x=i.x+i.w+1
+                else:
+                    self.x=i.x-self.w-1
+                self.vx=0
+        self.y=+self.vy
+        collision1=self.collidingWithSprites(Block)
+        for i in collision:
+            if self.vx>0 or self.vx<0:
+                if self.vx<0:
+                    self.x=i.x+i.w+1
+                else:
+                    self.x=i.x-self.w-1
+                self.vx=0
+
 
 
