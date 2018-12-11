@@ -221,6 +221,7 @@ class Game(App):
         self.listenKeyEvent("keyup", "right arrow", self.stopMoveKey)
         self.listenKeyEvent("keyup", "up arrow", self.stopMoveKey)
         self.listenMouseEvent("mousemove", self.moveMouse)
+        self.FallingJumpers = []
         self.KillList = []
     def moveMouse(self, event):
         self.pos = (event.x, event.y)
