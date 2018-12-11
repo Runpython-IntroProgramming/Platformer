@@ -7,9 +7,10 @@ Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
 """
 import pygame
+import random
 
-WIDTH=1600
-HEIGHT=800
+WIDTH=800
+HEIGHT=600
 FPS=60
 
 black=(0,0,0)
@@ -21,6 +22,9 @@ yellow=(255,255,0)
 pink=(255,0,255)
 lblue=(0,255,255)
 
+vector=pygame.math.Vector2
+fric = -0.12
+pacc =0.8
 
 class User(pygame.sprite.Sprite):
     def __init__(self):
@@ -28,18 +32,26 @@ class User(pygame.sprite.Sprite):
         self.image=pygame.Surface((20,40))
         self.image.fill(lblue)
         self.rect=self.image.get_rect()
-        self.vex=0
-        self.vey=0
-        self.rect.center=(WIDTH/2,HEIGHT/2)
+        self.rect.center=(WIDTH / 2, HEIGHT / 2)
+        self.pos=vector(WIDTH / 2, HEIGHT / 2)
+        self.vel=vector(0,0)
+        self.acc=vector(0,0)
     def update(self):
-        self.vex=0
+        self.acc=vector(0,0)
         arrows=pygame.key.get_pressed()
         if arrows[pygame.K_LEFT]:
-            self.vex=-15
+            self.acc.x= -pacc
         if arrows[pygame.K_RIGHT]:
-            self.vex=15
-        self.rect.x +=self.vex
-        self.rect.y +=self.vey
+            self.acc.x= pacc
+        self.acc += self.vel * fric
+        self.vel +=self.acc
+        self.pos += self.vel + 0.5 * self.acc
+        if self.pos.x > WIDTH:
+            self.pos.x = 0
+        if self.pos.x < 0:
+            self.pos.x = WIDTH
+
+        self.rect.center = self.pos
 
 
 class Platformer:
@@ -65,8 +77,9 @@ class Platformer:
     def events(self):
         for i in pygame.event.get():
             if i.type==pygame.QUIT:
-                self.playing=False
-                self.running=False
+                if self.playing:
+                    self.playing=False
+            self.running=False
     def draw(self):
         self.screen.fill(white)
         self.asp.draw(self.screen)
@@ -81,5 +94,6 @@ while p.running:
     p.new()
     p.esc()
 pygame.quit()
+
 
 
