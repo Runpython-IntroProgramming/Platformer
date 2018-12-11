@@ -118,12 +118,12 @@ class Player(GravityActor):
                 self.vx = 0
             else:
                 self.vx = 5
-        elif key == "up arrow" and self.resting:
+        elif key == "uparrow" and self.resting:
             self.vy = -12
             self.resting = False
             
     def stopMove(self, key):
-        if key == "left arrow" or key == "right arrow":
+        if key == "leftarrow" or key == "rightarrow":
             if self.resting:
                 self.vx = 0
         
@@ -139,12 +139,12 @@ class Platformer(App):
         self.pos = (0,0)
         self.listenKeyEvent("keydown", "w", self.newWall)
         self.listenKeyEvent("keydown", "p", self.newPlayer)
-        self.listenKeyEvent("keydown", "left arrow", self.moveKey)
-        self.listenKeyEvent("keydown", "right arrow", self.moveKey)
-        self.listenKeyEvent("keydown", "up arrow", self.moveKey)
-        self.listenKeyEvent("keyup", "left arrow", self.stopMoveKey)
-        self.listenKeyEvent("keyup", "right arrow", self.stopMoveKey)
-        self.listenKeyEvent("keyup", "up arrow", self.stopMoveKey)
+        self.listenKeyEvent("keydown", "leftarrow", self.moveKey)
+        self.listenKeyEvent("keydown", "rightarrow", self.moveKey)
+        self.listenKeyEvent("keydown", "uparrow", self.moveKey)
+        self.listenKeyEvent("keyup", "leftarrow", self.stopMoveKey)
+        self.listenKeyEvent("keyup", "rightarrow", self.stopMoveKey)
+        self.listenKeyEvent("keyup", "uparrow", self.stopMoveKey)
         self.listenMouseEvent("movemouse", self.moveMouse)
         self.FallingSprings = []
         self.KillList = []
