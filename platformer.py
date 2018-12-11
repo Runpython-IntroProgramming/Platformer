@@ -37,8 +37,6 @@ grid = RectangleAsset(40,40,gridline,white)
 class Block(Sprite):
     def __init__(self, x, y, w, h, color):
         box = RectangleAsset(40,40,LineStyle(4,grey), red)
-        x-=x%w
-        y-=y%w
         super().__init__(box,x,y)
 
 
@@ -123,5 +121,44 @@ class Game(App):
             x = 0
             Sprite(grid,(x,y))
             y = y + 40
+        self.listenKeyEvent("keydown", 'q', self.cBlock)
+        self.listenKeyEvent("keydown", 'p', self.cUser)
+        self.listenKeyEvent("keydown", 's', self.cSpring)
+        self.listenKeyEvent("keydown", 'left', self.Keys)
+        self.listenKeyEvent("keydown",'right', self.Keys)
+        self.listenKeyEvent("keydown", 'up', self.Keys)
+        self.listenKeyEvent("keyup", 'left', self.stopKeys)
+        self.listenKeyEvent("keyup", 'right', self.stopKeys)
+        self.listenKeyEvent("keyup", 'up', self.stopKeys)
+        self.listenMouseEvent('mouse', self.Mouse)
+        z=0
+        x=0
+        self.i = 0
         
-        
+        def moveMouse(self, event):
+            self.z = event.x
+            self.x = event.y
+        def cBlock(self,event):
+            x=self.z - self.z%40
+            y=self.x - self.x%40
+        def springplacement(self,event):
+        Spring((self.z,self.x))
+        def cUser(self,event):
+            for i in Game.getSpritesbyClass(User):
+                i.destroy
+                self.i=0
+            self.i=User((self.z,self.x))
+        def cSpring(self,event):
+            Spring((self.z,self.x))
+        def Keys(self, event):
+        if self.i:
+            self.i.Arrows(event.press)
+        def StopKeys(self, event):
+        if self.i:
+            self.i.stop(event.press)
+         
+                
+    
+
+
+
