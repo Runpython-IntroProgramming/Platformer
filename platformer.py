@@ -1,6 +1,11 @@
-# Exemplar implementation of the Platformer Project
-# (c) 2018 E. Dennison
-# See: https://github.com/BrythonServer/Platformer
+"""
+platformer.py
+Author: 
+Credit: 
+Assignment:
+Write and submit a program that implements the sandbox platformer game:
+https://github.com/HHS-IntroProgramming/Platformer
+"""
 
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
 
