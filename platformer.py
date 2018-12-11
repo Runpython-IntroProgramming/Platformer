@@ -43,7 +43,7 @@ class User(pygame.sprite.Sprite):
             self.acc.x= -pacc
         if arrows[pygame.K_RIGHT]:
             self.acc.x= pacc
-        self.acc += self.vel * fric
+        self.acc.x += self.vel.x * fric
         self.vel +=self.acc
         self.pos += self.vel + 0.8 * self.acc
         if self.pos.x > WIDTH:
@@ -51,8 +51,16 @@ class User(pygame.sprite.Sprite):
         if self.pos.x < 0:
             self.pos.x = WIDTH
 
-        self.rect.center = self.pos
+        self.rect.midbottom = self.pos
 
+class Wall(pygame.sprite.Sprite):
+    def __init__(self, x, y, w, h):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((w, h))
+        self.image.fill(black)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
 
 class Platformer:
     def __init__(self):
@@ -63,7 +71,11 @@ class Platformer:
     def new(self):
         self.asp=pygame.sprite.Group()
         self.player= User()
+        self.Wall=pygame.sprite.Group()
         self.asp.add(self.player)
+        b=Wall(0,HEIGHT-40, WIDTH,80)
+        self.asp.add(b)
+        self.Wall.add(b)
         self.run()
     def run(self):
         self.playing=True
@@ -74,6 +86,10 @@ class Platformer:
             self.draw()
     def update(self):
         self.asp.update()
+        collide=pygame.sprite.spritecollide(self.player, self.Wall, False)
+        if collide:
+            self.player.pos.y=collide[0].rect.top
+            self.player.vel.y=0
     def events(self):
         for i in pygame.event.get():
             if i.type==pygame.QUIT:
