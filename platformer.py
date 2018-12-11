@@ -23,12 +23,16 @@ pink=(255,0,255)
 lblue=(0,255,255)
 
 vector=pygame.math.Vector2
-fric = -0.12
-pacc =0.8
+fric = -0.13
+pacc = 1
+pgrav = 0.8
+
+platl = [(0, HEIGHT - 40, WIDTH, 40)]
 
 class User(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, game):
         pygame.sprite.Sprite.__init__(self)
+        self.game = game
         self.image=pygame.Surface((20,40))
         self.image.fill(lblue)
         self.rect=self.image.get_rect()
@@ -36,8 +40,14 @@ class User(pygame.sprite.Sprite):
         self.pos=vector(WIDTH / 2, HEIGHT / 2)
         self.vel=vector(0,0)
         self.acc=vector(0,0)
+    def jump(self):
+        self.rect.x += 1
+        collide = pygame.sprite.spritecollide(self, self.game.platforms, False)
+        self.rect.x-=1
+        if collide:
+            self.vel.y=-20
     def update(self):
-        self.acc=vector(0,0.8)
+        self.acc=vector(0,pgrav)
         arrows=pygame.key.get_pressed()
         if arrows[pygame.K_LEFT]:
             self.acc.x= -pacc
@@ -61,6 +71,61 @@ class Wall(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
+class Platformer:
+    def __init__(self):
+        pygame.init()
+        self.screen=pygame.display.set_mode((WIDTH,HEIGHT))
+        self.clock=pygame.time.Clock()
+        self.running=True
+    def new(self):
+        self.asp=pygame.sprite.Group()
+        self.platforms=pygame.sprite.Group()
+        self.player= User(self)
+        self.platforms=pygame.sprite.Group()
+        self.asp.add(self.player)
+        for plat in platl:
+            q = Wall(*plat)
+            self.asp.add(q)
+            self.platforms.add(q)
+        self.run()
+    def run(self):
+        self.playing=True
+        while self.playing:
+            self.clock.tick(FPS)
+            self.events()
+            self.update()
+            self.draw()
+    def update(self):
+        self.asp.update()
+        collide=pygame.sprite.spritecollide(self.player, self.platforms, False)
+        if collide:
+            self.player.pos.y=collide[0].rect.top
+            self.player.vel.y=0
+    def events(self):
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                if self.playing:
+                    self.playing=False
+            self.running=False
+            if event.type==pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    self.player.jump()
+    def draw(self):
+        self.screen.fill(white)
+        self.asp.draw(self.screen)
+        pygame.display.flip()
+    def ssc(self):
+        pass
+    def esc(self):
+        pass
+p=Platformer()
+p.ssc()
+while p.running:
+    p.new()
+    p.esc()
+pygame.quit()
+
 
 class Platformer:
     def __init__(self):
