@@ -196,8 +196,8 @@ class Machina(Newton):
 
 class Jumper(Newton):
     def __init__(self, x, y, app):
-        w = 10
-        h = t
+        w = 20
+        h = 3
         super().__init__(x-w//2, y-h//2, w, h,green, app)
     def step(self):
         if self.resting:
