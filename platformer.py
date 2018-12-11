@@ -137,7 +137,7 @@ class Playah(Newton):
                 self.vx = 0
             else:
                 self.vx = 5
-        elif key == "up arrow" and self.resting:
+        elif key == "space" and self.resting:
             self.vy = -8
             self.resting = False
             
@@ -216,13 +216,22 @@ class Game(App):
         self.listenKeyEvent("keydown", "m", self.newStepThrough)
         self.listenKeyEvent("keydown", "left arrow", self.moveKey)
         self.listenKeyEvent("keydown", "right arrow", self.moveKey)
-        self.listenKeyEvent("keydown", "up arrow", self.moveKey)
+        self.listenKeyEvent("keydown", "space", self.moveKey)
         self.listenKeyEvent("keyup", "left arrow", self.stopMoveKey)
         self.listenKeyEvent("keyup", "right arrow", self.stopMoveKey)
-        self.listenKeyEvent("keyup", "up arrow", self.stopMoveKey)
+        self.listenKeyEvent("keyup", "space", self.stopMoveKey)
         self.listenMouseEvent("mousemove", self.moveMouse)
-        self.FallingJumpers = []
+        self.FallingJumpers = []    #jummpers appended
         self.KillList = []
+        
+        print("press w to make a wall appear.")
+        print("press p for your Playah to appear.")
+        print("press m for a ghost wall to appear.")
+        print("press j for a jumper to appear.")
+        print("use the arrowkeys to move left and right.")
+        print("use the spacebar to jump.")
+        print("Have fun!")
+        
         
     def moveMouse(self, event):
         self.pos = (event.x, event.y)
@@ -240,7 +249,7 @@ class Game(App):
         self.FallingJumpers.append(Jumper(self.pos[0], self.pos[1], self))
         
     def newStepThrough(self, event):
-        MarioWall(self.pos[0], self.pos[1])   #tuple???
+        MarioWall(self.pos[0], self.pos[1],) #how to place it directly on mouse and not higher???
 
     def moveKey(self, event):
         if self.p:
@@ -254,7 +263,7 @@ class Game(App):
     def step(self):
         if self.p:
             self.p.step()
-        for s in self.FallingJumpers:
+        for s in self.FallingJumpers:      # problem fixed, empty list in Game added for fallingjumpers
             s.step()
         for t in Game.getSpritesbyClass(Machina):
             t.step()
@@ -263,7 +272,7 @@ class Game(App):
         for k in self.KillList:
             k.destroy()
         self.KillList = []
-    ##########
+    
     
     def killMe(self, obj):
         if obj in self.FallingJumpers:
