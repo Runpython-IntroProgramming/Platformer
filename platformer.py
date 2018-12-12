@@ -29,6 +29,11 @@ blue = Color(0x0000ff, 1.0)
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
 
+line = LineStyle(3, black)
+
+rectangle = RectangleAsset(1000, 500, line, black)
+
+Sprite(rectangle)
 
 class GenericWall(Sprite):
    def __init__(self, x, y, w, h, color):
