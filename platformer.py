@@ -1,7 +1,11 @@
 """
 platformer.py
-Author: 
-Credit: 
+Author: Morgan Gardner
+Credit: https://github.com/HHS-IntroProgramming/Platformer
+        https://github.com/BrythonServer/Platformer
+        http://programarcadegames.com/index.php?chapter=example_code_platformer
+
+
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
@@ -11,17 +15,16 @@ from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, El
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
 
+
 blue = Color(0x2EFEC8, 1.0)
+yellow = Color(0xffff00, 1.0)
 black = Color(0x000000, 1.0)
 pink = Color(0xFF00FF, 1.0)
 red = Color(0xFF5733, 1.0)
-white = Color(0xFFFFFF, 1.0)
 red = Color(0xff0000, 1.0)
 green = Color(0x00ff00, 1.0)
 blue = Color(0x0000ff, 1.0)
-black = Color(0x000000, 1.0)
-white = Color(0xffffff, 1.0)
-grey = Color(0xC0C0C0, 1.0)
+
 
 thinline = LineStyle(2, black)
 blkline = LineStyle(1, black)
