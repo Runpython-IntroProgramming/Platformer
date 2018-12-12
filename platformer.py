@@ -17,6 +17,7 @@ blue = Color(0x0000ff, 1.0)
 black = Color(0x000000, 1.0)
 white = Color(0xffffff, 1.0)
 grey = Color(0xC0C0C0, 1.0)
+green = Color(0x00ff00, 1.0)
 gridline = LineStyle(1, grey)
 print('Move your mouse around the screen and:')
 print('create a block with b')
@@ -30,7 +31,7 @@ class Block(Sprite):
         super().__init__(box, position)
 class Platform(Sprite):
     def __init__(self, position):
-        box1 = RectangleAsset(40,15,LineStyle(4, grey),red)
+        box1 = RectangleAsset(40,15,LineStyle(1, grey),green)
         super().__init__(box1, position)
 class Falling(Sprite):
     def __init__(self,x,y,w,h,COLOR,app):
