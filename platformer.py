@@ -27,11 +27,11 @@ print('create a player with p')
 print('Control your player with the arrow keys')
 class Block(Sprite):
     def __init__(self, position):
-        box = RectangleAsset(40,40, LineStyle(4, grey),red)
+        box = RectangleAsset(60,60, LineStyle(4, grey),red)
         super().__init__(box, position)
 class Platform(Sprite):
     def __init__(self, position):
-        box1 = RectangleAsset(40,15,LineStyle(1, grey),green)
+        box1 = RectangleAsset(60,15,LineStyle(1, grey),green)
         super().__init__(box1, position)
 class Falling(Sprite):
     def __init__(self,x,y,w,h,COLOR,app):
@@ -88,7 +88,7 @@ class Spring(Falling):
         super().step()
 class User(Falling):
     def __init__(self,x,y,app):
-        super().__init__(x,y,15,24,blue, app)
+        super().__init__(x,y,15,35,blue, app)
     def step(self):
         springtouch = self.collidingWithSprites(Spring)
         if springtouch:
@@ -110,16 +110,16 @@ class User(Falling):
 class Game(App):
     def __init__(self):
         super().__init__()
-        grid = RectangleAsset(40,40,gridline,white)
+        grid = RectangleAsset(60,60,gridline,white)
         x = 0 
         y = 0 
-        for d in range(20):
-            for e in range(30):
+        for d in range(13):
+            for e in range(20):
                 Sprite(grid, (x,y))
-                x = x + 40
+                x = x + 60
             x = 0
             Sprite(grid,(x,y))
-            y = y + 40
+            y = y + 60
         super().__init__()
         self.listenKeyEvent("keydown", "b", self.cBlock)
         self.listenKeyEvent("keydown", "p", self.cUser)
@@ -139,12 +139,12 @@ class Game(App):
     def Mouse(self, event):
         self.pos = (event.x, event.y)
     def cBlock(self,event):
-        x = floor(self.pos[0]/40)*40
-        y = floor(self.pos[1]/40)*40
+        x = floor(self.pos[0]/60)*60
+        y = floor(self.pos[1]/60)*60
         Block((x,y))
     def cPlat(self,event):
-        x = floor(self.pos[0]/40)*40
-        y = floor(self.pos[1]/40)*40
+        x = floor(self.pos[0]/60)*60
+        y = floor(self.pos[1]/60)*60
         Platform((x,y))
     def cUser(self, event):
         for t in Game.getSpritesbyClass(User):
