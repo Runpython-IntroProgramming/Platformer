@@ -1,7 +1,7 @@
 """
 platformer.py
-Author: 
-Credit: 
+Author: Morgan Gardner
+Credit: https://github.com/HHS-IntroProgramming/Platformer
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
