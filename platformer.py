@@ -18,10 +18,9 @@ red = Color(0xff0000, 1.0)
 green = Color(0x00ff00, 1.0)
 blue = Color(0x0000ff, 1.0)
 
-
-
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
+   
    
 class GenericWall(Sprite):
     def __init__(self, x, y, w, h, color):
@@ -131,7 +130,7 @@ class Spring(GravityActor):
             self.app.FallingSprings.remove(self)
         super().step()
         
-class Win(Sprite):
+class Goal(Sprite):
     def __init__(self, x, y, w, h, color):
         snapfunc = lambda X : X - X % w
         super().__init__(
