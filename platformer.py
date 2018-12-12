@@ -48,5 +48,52 @@ class Wall(GenericWall):
 class Goal(GenericWall):
    def __init__(self, x, y):
        super().__init__(x, y, 40, 80, Color(0xffff00, 1.0))
+       
+class Platform(GenericWall):
+   def __init__(self, x, y):
+       super().__init__(x, y, 70, 25, Color(0x2EFEC8, 1.0))
+  
+class GravityActor(Sprite):
+   def __init__(self, x, y, width, height, color, app):
+       self.vx = self.vy = 0
+       self.stuck = False
+       self.app = app                        
+       self.resting = False                 
+       super().__init__(
+           RectangleAsset(
+               width, height,
+               LineStyle(0, Color(0, 1.0)),
+               color),
+           (x, y))
+
+
+   def step(self):
+       self.x += self.vx
+       collides = self.collidingWithSprites(Wall)
+       collides.extend(self.collidingWithSprites(Platform))
+       for collider in collides:
+           if self.vx > 0 or self.vx < 0:
+               if self.vx > 0:
+                   self.x = collider.x - self.width - 1
+               else:
+                   self.x = collider.x + collider.width + 1
+               self.vx = 0
+       self.y += self.vy
+       collides = self.collidingWithSprites(Wall)
+       collides.extend(self.collidingWithSprites(Platform))
+       for collider in collides:
+           if self.vy > 0 or self.vy < 0:
+               if self.vy > 0:
+                   self.y = collider.y - self.height - 1
+                   if not self.resting:
+                       self.vx = 0
+                   self.resting = True
+                   self.vy = 0
+               elif isinstance(collider, Wall):
+                   pass
+       self.vy += 1
+       if self.y > self.app.height:
+           self.app.killMe(self)
+
 
 
