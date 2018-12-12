@@ -40,14 +40,14 @@ class GenericWall(Sprite):
        if len(collideswith):
            collideswith[0].destroy()
 
-class Wall(GenericWall):
-   def __init__(self, x, y):
-       super().__init__(x, y, 35, 35, Color(0x0000ff, 1.0))
-      
 class Goal(GenericWall):
    def __init__(self, x, y):
        super().__init__(x, y, 40, 80, Color(0xffff00, 1.0))
        
+class Wall(GenericWall):
+   def __init__(self, x, y):
+       super().__init__(x, y, 35, 35, Color(0x0000ff, 1.0))
+      
 class Platform(GenericWall):
    def __init__(self, x, y):
        super().__init__(x, y, 70, 25, Color(0x2EFEC8, 1.0))
@@ -139,13 +139,6 @@ class Spring(GravityActor):
        if self.resting:
            self.app.FallingSprings.remove(self)
        super().step()
-      
-class Goal(Sprite):
-   def __init__(self, x, y, w, h, color):
-       snapfunc = lambda X : X - X % w
-       super().__init__(
-           RectangleAsset(w-1,h-1,LineStyle(0,Color(0x00ff00, 1.0)), color),
-           (snapfunc(x), snapfunc(y)))
   
 class Platformer(App):
    def __init__(self):
