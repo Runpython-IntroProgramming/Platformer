@@ -213,7 +213,7 @@ print("Hit s to spawn a sprite")
 print("Hit b to create a block")
 print("Hit j to create a jump pad")
 print("Hit p to create a platform")
-print("Hit g to create a goal")
+print("Hit g to create a goal area")
 print("Use the left, right, and up arrow to move around")
 print("Leave the cursor over where you want to spawn after you've designed your level so if you fail you can jsut hit s to start over from the original spawn point you used")
       
