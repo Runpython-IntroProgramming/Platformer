@@ -2,6 +2,8 @@
 platformer.py
 Author: Morgan Gardner
 Credit: https://github.com/HHS-IntroProgramming/Platformer
+        https://github.com/BrythonServer/Platformer
+        http://programarcadegames.com/index.php?chapter=example_code_platformer
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
