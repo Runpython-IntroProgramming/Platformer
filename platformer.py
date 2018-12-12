@@ -18,6 +18,11 @@ black = Color(0x000000, 1.0)
 white = Color(0xffffff, 1.0)
 grey = Color(0xC0C0C0, 1.0)
 gridline = LineStyle(1, grey)
+print('Move your mouse around the screen and:')
+print('create a block with b')
+print('create a spring with s')
+print('create a player with p')
+print('Control your player with the arrow keys')
 class Block(Sprite):
     def __init__(self, position):
         box = RectangleAsset(40,40, LineStyle(4, grey),red)
@@ -147,10 +152,5 @@ class Game(App):
             self.g = None
         if not t in self.w:
             self.w.append(t)
-print('Move your mouse around the screen and:')
-print('create a block with b')
-print('create a spring with s')
-print('create a player with p')
-print('Control your player with the arrow keys')
 app=Game()
 app.run()
