@@ -88,7 +88,7 @@ class Spring(Falling):
         super().step()
 class User(Falling):
     def __init__(self,x,y,app):
-        super().__init__(x,y,20,40,blue, app)
+        super().__init__(x,y,15,24,blue, app)
     def step(self):
         springtouch = self.collidingWithSprites(Spring)
         if springtouch:
@@ -144,7 +144,7 @@ class Game(App):
         Block((x,y))
     def cPlat(self,event):
         x = floor(self.pos[0]/40)*40
-        y = floor(self.pos[1]/15)*15
+        y = floor(self.pos[1]/40)*40
         Platform((x,y))
     def cUser(self, event):
         for t in Game.getSpritesbyClass(User):
