@@ -20,6 +20,7 @@ grey = Color(0xC0C0C0, 1.0)
 gridline = LineStyle(1, grey)
 print('Move your mouse around the screen and:')
 print('create a block with b')
+print('create a floor with f')
 print('create a spring with s')
 print('create a player with p')
 print('Control your player with the arrow keys')
@@ -27,6 +28,10 @@ class Block(Sprite):
     def __init__(self, position):
         box = RectangleAsset(40,40, LineStyle(4, grey),red)
         super().__init__(box, position)
+class Platform(Sprite):
+    def __init__(self, position):
+        box1 = RectangleAsset(40,15,LineStyle(4, grey),red)
+        super().__init__(box1, position)
 class Falling(Sprite):
     def __init__(self,x,y,w,h,COLOR,app):
         self.vx=0
@@ -62,6 +67,17 @@ class Falling(Sprite):
                 else:
                     self.y=i1.y+i1.height
                     self.vy=0
+        collision2=self.collidingWithSprites(Platform)
+        for i1 in collision2:
+            if self.vy>0:
+                self.y= i1.y - self.height-1
+                if not self.resting:
+                    self.vx=0
+                self.resting=True
+                self.vy=0
+            else:
+                pass
+        
 class Spring(Falling):
     def __init__(self,x,y,app):
         super().__init__(x,y,20,10,pink, app)
@@ -107,6 +123,7 @@ class Game(App):
         self.listenKeyEvent("keydown", "b", self.cBlock)
         self.listenKeyEvent("keydown", "p", self.cUser)
         self.listenKeyEvent("keydown", "s", self.cSpring)
+        self.listenKeyEvent("keydown", "f", self.cPlat)
         self.listenKeyEvent("keydown", "left arrow", self.Keys)
         self.listenKeyEvent("keydown", "right arrow", self.Keys)
         self.listenKeyEvent("keydown", "up arrow", self.Keys)
@@ -124,6 +141,10 @@ class Game(App):
         x = floor(self.pos[0]/40)*40
         y = floor(self.pos[1]/40)*40
         Block((x,y))
+    def cPlat(self,event):
+        x = floor(self.pos[0]/40)*40
+        y = floor(self.pos[1]/15)*15
+        Platform((x,y))
     def cUser(self, event):
         for t in Game.getSpritesbyClass(User):
             t.destroy()
