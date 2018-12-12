@@ -1,7 +1,7 @@
 """
 platformer.py
-Author: 
-Credit: 
+Author: Kyle Rozzi
+Credit:Mr. Dennison, Mr. Dennison's sample program, and Tristan Meyer
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
@@ -12,34 +12,20 @@ from math import floor
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 800
 
-blue = Color(0x2EFEC8, 1.0)
-black = Color(0x000000, 1.0)
 pink = Color(0xFF00FF, 1.0)
 red = Color(0xFF5733, 1.0)
-white = Color(0xFFFFFF, 1.0)
 red = Color(0xff0000, 1.0)
-green = Color(0x00ff00, 1.0)
 blue = Color(0x0000ff, 1.0)
 black = Color(0x000000, 1.0)
 white = Color(0xffffff, 1.0)
 grey = Color(0xC0C0C0, 1.0)
 
-thinline = LineStyle(2, black)
-blkline = LineStyle(1, black)
-noline = LineStyle(0, white)
-coolline = LineStyle(1, grey)
-blueline = LineStyle(2, blue)
-redline = LineStyle(1, red)
-greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
-grid = RectangleAsset(40,40,gridline,white)
 
 class Block(Sprite):
-    def __init__(self, x, y, w, h, color):
-        box = RectangleAsset(40,40,LineStyle(4,grey), red)
-        super().__init__(box,x,y)
-
-
+    def __init__(self, position):
+        box = RectangleAsset(40,40, LineStyle(4, grey),red)
+        super().__init__(box, position)
 class Falling(Sprite):
     def __init__(self,x,y,w,h,COLOR,app):
         self.vx=0
@@ -47,118 +33,132 @@ class Falling(Sprite):
         self.app=app
         self.stuck=False
         self.resting=False
-        BOX=RectangleAsset(w,h,thinline,COLOR)
+        BOX=RectangleAsset(w,h,LineStyle(0, white),COLOR)
         super().__init__(BOX,(x, y)) 
     def step(self):
-        self.x=+self.vx
+        self.x+=self.vx
         collision=self.collidingWithSprites(Block)
-        if self.x>self.app.w:
-            self.app.killMe(self)
         for i in collision:
             if self.vx>0 or self.vx<0:
-                if self.vx<0:
-                    self.x=i.x+i.w+.1
-                    if not self.resting:
-                        self.vx = 0
-                    self.resting = True
+                if self.vx > 0:
+                    self.x = i.x - self.width - 1
                 else:
-                    self.x=i.x-self.w-.1
-                self.vx=0
-        self.y=+self.vy
-        collision1=self.collidingWithSprites(Block)
-        self.vy+=0.8
-        if self.y>self.app.h:
+                    self.x = i.x + i.width + 1
+                self.vx = 0
+        self.y += self.vy
+        collision=self.collidingWithSprites(Block)
+        self.vy+=1
+        if self.y>self.app.height:
             self.app.killMe(self)
-        for i in collision1:
+        for i1 in collision:
             if self.vy>0 or self.vy<0:
                 if self.vy>0:
-                    self.y= i.y + self.h-.1
+                    self.y= i1.y - self.height-1
                     if not self.resting:
                         self.vx=0
                     self.resting=True
-                else:
-                    self.y=i.y+i.h
                     self.vy=0
-
+                else:
+                    self.y=i1.y+i1.height
+                    self.vy=0
 class Spring(Falling):
     def __init__(self,x,y,app):
-        super().__init__(x,y,10,10,pink, app)
-        
+        super().__init__(x,y,20,10,pink, app)
+    def step(self):
+        if self.resting:
+            self.app.q.remove(self)
+        super().step()
 class User(Falling):
     def __init__(self,x,y,app):
-        super().__init__(x,y,10,20,blue, app)
+        super().__init__(x,y,20,40,blue, app)
     def step(self):
         springtouch = self.collidingWithSprites(Spring)
         if springtouch:
-            self.vy = -22
+            self.vy = -20
             self.resting=False
         super().step()
-    def Arrows(self,press)
-        if press=='right':
-            self.vx=7
-        elif press=='left':
-            self.vx=-7
-        elif press=='up' and self.resting:
-            self.vy=-14
-            self.resting=False
-    def stop(self, press):
-        if button == 'left' or button == 'right':
+    def Arrows(self, key):
+        if key == "left arrow":
+                self.vx = -8
+        elif key == "right arrow":
+                self.vx = 8
+        elif key == "up arrow" and self.resting:
+            self.vy = -14
+            self.resting = False
+    def stop(self, key):
+        if key == "left arrow" or key == "right arrow":
             if self.resting:
                 self.vx = 0
-        else:
-            pass
-        
 class Game(App):
     def __init__(self):
         super().__init__()
         grid = RectangleAsset(40,40,gridline,white)
         x = 0 
         y = 0 
-        for d in range(15):
-            for e in range(25):
+        for d in range(20):
+            for e in range(30):
                 Sprite(grid, (x,y))
                 x = x + 40
             x = 0
             Sprite(grid,(x,y))
             y = y + 40
-        self.listenKeyEvent("keydown", 'q', self.cBlock)
-        self.listenKeyEvent("keydown", 'p', self.cUser)
-        self.listenKeyEvent("keydown", 's', self.cSpring)
-        self.listenKeyEvent("keydown", 'left', self.Keys)
-        self.listenKeyEvent("keydown",'right', self.Keys)
-        self.listenKeyEvent("keydown", 'up', self.Keys)
-        self.listenKeyEvent("keyup", 'left', self.stopKeys)
-        self.listenKeyEvent("keyup", 'right', self.stopKeys)
-        self.listenKeyEvent("keyup", 'up', self.stopKeys)
-        self.listenMouseEvent('mouse', self.Mouse)
-        z=0
-        x=0
-        self.i = 0
-        
-        def moveMouse(self, event):
-            self.z = event.x
-            self.x = event.y
-        def cBlock(self,event):
-            x=self.z - self.z%40
-            y=self.x - self.x%40
-        def springplacement(self,event):
-        Spring((self.z,self.x))
-        def cUser(self,event):
-            for i in Game.getSpritesbyClass(User):
-                i.destroy
-                self.i=0
-            self.i=User((self.z,self.x))
-        def cSpring(self,event):
-            Spring((self.z,self.x))
-        def Keys(self, event):
-        if self.i:
-            self.i.Arrows(event.press)
-        def StopKeys(self, event):
-        if self.i:
-            self.i.stop(event.press)
+        super().__init__()
+        self.listenKeyEvent("keydown", "b", self.cBlock)
+        self.listenKeyEvent("keydown", "p", self.cUser)
+        self.listenKeyEvent("keydown", "s", self.cSpring)
+        self.listenKeyEvent("keydown", "left arrow", self.Keys)
+        self.listenKeyEvent("keydown", "right arrow", self.Keys)
+        self.listenKeyEvent("keydown", "up arrow", self.Keys)
+        self.listenKeyEvent("keyup", "left arrow", self.stopKeys)
+        self.listenKeyEvent("keyup", "right arrow", self.stopKeys)
+        self.listenKeyEvent("keyup", "up arrow", self.stopKeys)
+        self.listenMouseEvent("mousemove", self.Mouse)
+        self.q = []
+        self.w = []
+        self.g = None
+        self.pos = (0,0)
+    def Mouse(self, event):
+        self.pos = (event.x, event.y)
+    def cBlock(self,event):
+        x = floor(self.pos[0]/40)*40
+        y = floor(self.pos[1]/40)*40
+        Block((x,y))
+    def cUser(self, event):
+        for t in Game.getSpritesbyClass(User):
+            t.destroy()
+            self.g = None
+        self.g = User(self.pos[0], self.pos[1], self)
+    def cSpring(self, event):
+        self.q.append(Spring(self.pos[0], self.pos[1], self))
+    def Keys(self, event):
+        if self.g:
+            self.g.Arrows(event.key)
+    def stopKeys(self,event):
+        if self.g:
+            self.g.stop(event.key)
+    def step(self):
+        if self.g:
+            self.g.step()
+        for i in self.q:
+            i.step()
+        for o in self.w:
+            o.destroy()
+        self.w=[]
+    def killMe(self,t):
+        if t in self.q:
+            self.q.remove(t)
+        elif t == self.g:
+            self.g = None
+        if not t in self.w:
+            self.w.append(t)
+print('Move your mouse around the screen and:')
+print('create a block with b')
+print('create a spring with s')
+print('create a player with p')
+print('Control your player with the arrow keys')
+app=Game()
+app.run()
+                
          
                 
     
-
-
-
