@@ -187,7 +187,7 @@ class Platformer(App):
    def newFloor(self, event):
        Platform(self.pos[0], self.pos[1])
       
-   def newGoal(self,event):
+   def newGoal(self, event):
        Goal(self.pos[0], self.pos[1])
       
    def moveKey(self, event):
