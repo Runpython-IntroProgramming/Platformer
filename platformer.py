@@ -78,7 +78,6 @@ class Falling(Sprite):
                 self.vy=0
             else:
                 pass
-        
 class Spring(Falling):
     def __init__(self,x,y,app):
         super().__init__(x,y,20,10,pink, app)
