@@ -33,12 +33,13 @@ greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
 grid=RectangleAsset(30,30,gridline,white)
 
+
 class SpaceShip(Sprite):
     """
     Animated space ship
     """
-    asset = ImageAsset("images/four_spaceship_by_albertov_with_thrust.png", 
-        Frame(227,0,65,125), 4, 'vertical')
+    asset = RectangleAsset(50,50,thinline,black)
+        
 
     def __init__(self, position):
         super().__init__(SpaceShip.asset, position)
@@ -55,21 +56,7 @@ class SpaceShip(Sprite):
         self.x += self.vx
         self.y += self.vy
         self.rotation += self.vr
-        # manage thrust animation
-        if self.thrust == 1:
-            self.setImage(self.thrustframe)
-            self.thrustframe += 1
-            if self.thrustframe == 4:
-                self.thrustframe = 1
-        else:
-            self.setImage(0)
-
-    def thrustOn(self, event):
-        self.thrust = 1
         
-    def thrustOff(self, event):
-        self.thrust = 0
-
 
 class SpaceGame(App):
     """
@@ -80,9 +67,11 @@ class SpaceGame(App):
         # Background
         black = Color(0, 1)
         noline = LineStyle(0, black)
-        bg_asset = RectangleAsset(self.width, self.height, noline, black)
+        bg_asset = RectangleAsset(self.width, self.height, noline, grey)
         bg = Sprite(bg_asset, (0,0))
-        
+        SpaceShip((100,100))
+        SpaceShip((150,150))
+        SpaceShip((200,50))
 
     def step(self):
         for ship in self.getSpritesbyClass(SpaceShip):
