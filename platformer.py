@@ -80,7 +80,7 @@ class SpaceGame(App):
         bg_asset = RectangleAsset(self.width, self.height, noline, black)
         ground_asset = RectangleAsset(self.width, 50, noline, white)
         bg = Sprite(bg_asset, (0,0))
-        ground = Sprite(ground_asset, (800, 500)
+        ground = Sprite(ground_asset, (850, 0))
         SpaceShip((100,100))
         SpaceShip((150,150))
         SpaceShip((200,50))
