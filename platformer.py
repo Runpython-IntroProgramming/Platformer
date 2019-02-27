@@ -59,7 +59,10 @@ class SpaceShip(Sprite):
         self.y += self.vy
         self.rotation += self.vr
         # deleted thrust animation
-        
+        if self.thrust == 1:
+            self.vy = -5
+        else:
+            self.vy=1
 
     def thrustOn(self, event):
         self.thrust = 1
@@ -82,8 +85,7 @@ class SpaceGame(App):
         bg = Sprite(bg_asset, (0,0))
         ground = Sprite(ground_asset, (0, 510))
         SpaceShip((100,100))
-        SpaceShip((150,150))
-        SpaceShip((200,50))
+        
 
     def step(self):
         for ship in self.getSpritesbyClass(SpaceShip):
