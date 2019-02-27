@@ -50,9 +50,10 @@ class SpaceShip(Sprite):
         self.vr = 0.01
         self.thrust = 0
         self.thrustframe = 1
+        self.left=0
         SpaceGame.listenKeyEvent("keydown", "space", self.thrustOn)
         SpaceGame.listenKeyEvent("keyup", "space", self.thrustOff)
-        SpaceGame.listenKeyEvent("keydown", "leftarrow", self.lefton)
+        SpaceGame.listenKeyEvent("keydown", "left arrow", self.lefton)
         self.fxcenter = self.fycenter = 0.5
 
     def step(self):
@@ -60,14 +61,18 @@ class SpaceShip(Sprite):
         self.y += self.vy
         self.rotation += self.vr
         # deleted thrust animation
+         
+        if self.left==1:
+            self.vx=5
+        
+        else:
+            self.vx=1
+        
         if self.thrust == 1:
             self.vy = -5
         else:
             self.vy=1
-        if self.lefton==1:
-            self.vx=5
-        else:
-            self.vx=1
+       
 
     def thrustOn(self, event):
         self.thrust = 1
@@ -76,6 +81,7 @@ class SpaceShip(Sprite):
         self.thrust = 0
     
     def lefton(self, event):
+        print("yes")
         self.left=1
 
 
