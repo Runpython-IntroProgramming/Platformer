@@ -33,8 +33,6 @@ greenline = LineStyle(1, green)
 gridline = LineStyle(1, grey)
 grid=RectangleAsset(30,30,gridline,white)
 
-from ggame import App, RectangleAsset, ImageAsset, Sprite, LineStyle, Color, Frame
-
 class SpaceShip(Sprite):
     """
     Animated space ship
@@ -85,10 +83,11 @@ class SpaceGame(App):
         bg_asset = RectangleAsset(self.width, self.height, noline, black)
         bg = Sprite(bg_asset, (0,0))
         
-        def step(self):
+
+    def step(self):
         for ship in self.getSpritesbyClass(SpaceShip):
             ship.step()
+
         
-        
-        
-        
+myapp = SpaceGame()
+myapp.run()
