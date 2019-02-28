@@ -65,10 +65,18 @@ class SpaceShip(Sprite):
         self.rotation += self.vr
         # deleted thrust animation
         if self.right==1:
-            self.vx=5
+            if self.vx<5:
+                if self.y<x:
+                    self.vx=self.vx+.5
+                else: 
+                    self.vx=self.vx+2
         else:
             if self.left==1:
-                self.vx=-5
+                if self.vx>-5:
+                    if self.y<x:
+                        self.vx=self.vx-.5
+                    else: 
+                        self.vx=self.vx-2
             else:
                 self.vx=0
         ############
@@ -76,13 +84,14 @@ class SpaceShip(Sprite):
         ############
         if self.thrust == 1:
             self.vy = -5
+            self.thrust=0
         else:
-            if self.y>450:
+            if self.y>=x:
                 self.vy=0
             else:
                 self.vy=self.vy+.1
     def thrustOn(self, event):
-        if self.y>449:
+        if self.y==x:
             self.thrust = 1
         
     def thrustOff(self, event):
@@ -90,7 +99,6 @@ class SpaceShip(Sprite):
     
     def lefton(self, event):
         self.left=1
-        print("yes")
     def leftoff(self, event):
         self.left=0
     
@@ -108,12 +116,13 @@ class SpaceGame(App):
     def __init__(self):
         super().__init__()
         # Background
+        x=510
         black = Color(0, 1)
         noline = LineStyle(0, black)
         bg_asset = RectangleAsset(self.width, self.height, noline, black)
         ground_asset = RectangleAsset(self.width, 50, noline, white)
         bg = Sprite(bg_asset, (0,0))
-        ground = Sprite(ground_asset, (0, 510))
+        ground = Sprite(ground_asset, (0, x))
         SpaceShip((100,100))
         
 
