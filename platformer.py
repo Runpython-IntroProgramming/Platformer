@@ -10,7 +10,7 @@ from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, El
 x=510
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
-
+L=range(5)
 blue = Color(0x2EFEC8, 1.0)
 black = Color(0x000000, 1.0)
 pink = Color(0xFF00FF, 1.0)
@@ -51,6 +51,7 @@ class SpaceShip(Sprite):
         self.thrust = 0
         self.left=0
         self.right=0
+        self.collide=0
         SpaceGame.listenKeyEvent("keydown", "space", self.thrustOn)
         SpaceGame.listenKeyEvent("keyup", "space", self.thrustOff)
         SpaceGame.listenKeyEvent("keydown", "left arrow", self.lefton)
@@ -64,24 +65,23 @@ class SpaceShip(Sprite):
         self.y += self.vy
         self.rotation += self.vr
         # deleted thrust animation
+        
         if self.right==1:
             if self.vx<5:
                 if self.y<x:
                     self.vx=self.vx+.5
                 else: 
-                    self.vx=self.vx+2
+                    self.vx=5
         else:
             if self.left==1:
                 if self.vx>-5:
                     if self.y<x:
                         self.vx=self.vx-.5
                     else: 
-                        self.vx=self.vx-2
+                        self.vx=-5
             else:
                 self.vx=0
-        ############
-        
-        ############
+    
         if self.thrust == 1:
             self.vy = -5
             self.thrust=0
@@ -108,6 +108,29 @@ class SpaceShip(Sprite):
     def rightoff(self, event):
         self.right=0
 
+class Wallblock(Sprite):
+    """
+    Animated space ship
+    """
+    wallasset = RectangleAsset(100, 50, noline, black)
+
+    def __init__(self, position):
+        super().__init__(SpaceShip.wallasset, position)
+        self.vx = 0
+        self.vy = 0
+        self.vr = 0
+        self.thrust = 0
+        
+        SpaceGame.listenKeyEvent("keydown", "space", self.placeOn)
+        SpaceGame.listenKeyEvent("keyup", "space", self.placeOff)
+        self.fxcenter = self.fycenter = 0.5
+
+    def step(self):
+        self.x += self.vx
+        self.y += self.vy
+        self.rotation += self.vr
+        
+
 
 class SpaceGame(App):
     """
@@ -120,7 +143,7 @@ class SpaceGame(App):
         beeg=50
         black = Color(0, 1)
         noline = LineStyle(0, black)
-        bg_asset = RectangleAsset(self.width, self.height, noline, black)
+        bg_asset = RectangleAsset(self.width, self.height, noline, green)
         ground_asset = RectangleAsset(self.width, beeg, noline, white)
         bg = Sprite(bg_asset, (0,0))
         ground = Sprite(ground_asset, (0, x+beeg/2))
