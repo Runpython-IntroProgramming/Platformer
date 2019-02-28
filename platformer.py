@@ -51,7 +51,8 @@ class SpaceShip(Sprite):
         self.thrust = 0
         self.left=0
         self.right=0
-        self.collide=0
+        self.collidingWithSprites
+        
         SpaceGame.listenKeyEvent("keydown", "space", self.thrustOn)
         SpaceGame.listenKeyEvent("keyup", "space", self.thrustOff)
         SpaceGame.listenKeyEvent("keydown", "left arrow", self.lefton)
@@ -65,6 +66,7 @@ class SpaceShip(Sprite):
         self.y += self.vy
         self.rotation += self.vr
         # deleted thrust animation
+        y=self.collidingWithSprites(Wallblock)
         
         if self.right==1:
             if self.vx<5:
@@ -115,14 +117,14 @@ class Wallblock(Sprite):
     wallasset = RectangleAsset(100, 50, noline, black)
 
     def __init__(self, position):
-        super().__init__(SpaceShip.wallasset, position)
+        super().__init__(Wallblock.wallasset, position)
         self.vx = 0
         self.vy = 0
         self.vr = 0
         self.thrust = 0
         
-        SpaceGame.listenKeyEvent("keydown", "space", self.placeOn)
-        SpaceGame.listenKeyEvent("keyup", "space", self.placeOff)
+        #SpaceGame.listenKeyEvent("keydown", "space", self.placeOn)
+        #SpaceGame.listenKeyEvent("keyup", "space", self.placeOff)
         self.fxcenter = self.fycenter = 0.5
 
     def step(self):
@@ -148,6 +150,7 @@ class SpaceGame(App):
         bg = Sprite(bg_asset, (0,0))
         ground = Sprite(ground_asset, (0, x+beeg/2))
         SpaceShip((100,100))
+        Wallblock((300,400))
         
 
     def step(self):
