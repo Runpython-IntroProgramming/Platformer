@@ -67,12 +67,12 @@ class SpaceShip(Sprite):
         if self.right==1:
             self.vx=5
         else:
-            self.vx=0
+            if self.left==1:
+                self.vx=-5
+            else:
+                self.vx=0
         ############
-        if self.left==1:
-            self.vx=-5
-        else:
-            self.vx=0
+        
         ############
         if self.thrust == 1:
             self.vy = -5
