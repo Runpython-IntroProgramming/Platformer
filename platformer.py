@@ -49,7 +49,6 @@ class SpaceShip(Sprite):
         self.vy = 0
         self.vr = 0.1
         self.thrust = 0
-        self.thrustframe = 1
         self.left=1
         self.right=0
         SpaceGame.listenKeyEvent("keydown", "space", self.thrustOn)
@@ -83,13 +82,17 @@ class SpaceShip(Sprite):
         
     def thrustOff(self, event):
         self.thrust = 0
+    
     def lefton(self, event):
         self.left=1
         print("yes")
+    
     def leftoff(self, event):
         self.left=0
+    
     def righton(self, event):
         self.right=1
+    
     def rightoff(self, event):
         self.right=0
 
