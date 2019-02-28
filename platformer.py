@@ -7,7 +7,7 @@ Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
 """
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
-
+x=510
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
 
@@ -91,7 +91,7 @@ class SpaceShip(Sprite):
             else:
                 self.vy=self.vy+.1
     def thrustOn(self, event):
-        if self.y==x:
+        if self.y>=x:
             self.thrust = 1
         
     def thrustOff(self, event):
@@ -117,12 +117,13 @@ class SpaceGame(App):
         super().__init__()
         # Background
         x=510
+        beeg=50
         black = Color(0, 1)
         noline = LineStyle(0, black)
         bg_asset = RectangleAsset(self.width, self.height, noline, black)
-        ground_asset = RectangleAsset(self.width, 50, noline, white)
+        ground_asset = RectangleAsset(self.width, beeg, noline, white)
         bg = Sprite(bg_asset, (0,0))
-        ground = Sprite(ground_asset, (0, x))
+        ground = Sprite(ground_asset, (0, x+beeg/2))
         SpaceShip((100,100))
         
 
