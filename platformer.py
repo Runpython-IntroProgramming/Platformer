@@ -68,8 +68,8 @@ class SpaceShip(Sprite):
         # deleted thrust animation
         y=self.collidingWithSprites(Wallblock)
         if len(y)>0:
-            self.xy=0
-            self.vy=0
+            self.vx=-.5*self.vx
+            self.vy=-.5*self.vy
         if self.right==1:
             if self.vx<5:
                 if self.y<x:
