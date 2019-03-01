@@ -62,7 +62,9 @@ class SpaceShip(Sprite):
 
     def step(self):
         self.x += self.vx
+        x1=self.x
         self.y += self.vy
+        y1=self.y
         self.rotation += self.vr
         # deleted thrust animation
         
@@ -95,7 +97,7 @@ class SpaceShip(Sprite):
         if self.y>=x:
             self.thrust = 1
         def thrustOff(self, event):
-        self.thrust = 0
+            self.thrust = 0
     def lefton(self, event):
         self.left=1
     def leftoff(self, event):
