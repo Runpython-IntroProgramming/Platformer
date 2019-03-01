@@ -42,7 +42,7 @@ class SpaceShip(Sprite):
     """
     asset = RectangleAsset(10,20,blkline,green) 
     
-
+    
     def __init__(self, position):
         super().__init__(SpaceShip.asset, position)
         self.vx = 0
@@ -62,9 +62,9 @@ class SpaceShip(Sprite):
 
     def step(self):
         self.x += self.vx
-        x1=self.x
+        
         self.y += self.vy
-        y1=self.y
+        
         self.rotation += self.vr
         # deleted thrust animation
         
@@ -96,8 +96,8 @@ class SpaceShip(Sprite):
     def thrustOn(self, event):
         if self.y>=x:
             self.thrust = 1
-        def thrustOff(self, event):
-            self.thrust = 0
+    def thrustOff(self, event):
+        self.thrust = 0
     def lefton(self, event):
         self.left=1
     def leftoff(self, event):
@@ -121,24 +121,24 @@ class Wallblock(Sprite):
         self.thrust = 0
         #SpaceGame.listenKeyEvent("keydown", "space", self.placeOn)
         #SpaceGame.listenKeyEvent("keyup", "space", self.placeOff)
-        self.fxcenter = self.fycenter = 0.5
+        Wallblock.fxcenter = Wallblock.fycenter = 0.5
 
     def step(self):
         self.x += self.vx
         self.y += self.vy
         self.rotation += self.vr
-class Rightcollide(Sprite):
-    rcollideasset = RectangleAsset(10,30)
+class Collide(Sprite):
+    rcollideasset = RectangleAsset(10,30, noline, red)
     def __init__(self, position):
-        super().__init__(Rightcollide.rcollideasset, position)
+        super().__init__(Collide.rcollideasset, position)
         self.vx = 0
         self.vy = 0
         self.vr = 0
         self.thrust = 0
         self.fxcenter = self.fycenter = 0.5
     def step(self):
-        self.x=x1
-        self.y=y1
+        self.x=10
+        self.y=10
         self.rotation += self.vr
 
 
@@ -159,11 +159,13 @@ class SpaceGame(App):
         ground = Sprite(ground_asset, (0, x+beeg/2))
         SpaceShip((100,100))
         Wallblock((300,450))
-        
+        Collide((0,0))
 
     def step(self):
         for ship in self.getSpritesbyClass(SpaceShip):
             ship.step()
+        for rcollide in self.getSpritesbyClass(Collide):
+            rcollide.step()
 
         
 myapp = SpaceGame()
