@@ -47,11 +47,10 @@ class SpaceShip(Sprite):
         super().__init__(SpaceShip.asset, position)
         self.vx = 0
         self.vy = 0
-        self.vr = 0.1
         self.thrust = 0
         self.left=0
         self.right=0
-        
+        self.collidingwithsprites=0
         SpaceGame.listenKeyEvent("keydown", "space", self.thrustOn)
         SpaceGame.listenKeyEvent("keyup", "space", self.thrustOff)
         SpaceGame.listenKeyEvent("keydown", "left arrow", self.lefton)
@@ -59,16 +58,28 @@ class SpaceShip(Sprite):
         SpaceGame.listenKeyEvent("keydown", "right arrow", self.righton)
         SpaceGame.listenKeyEvent("keyup", "right arrow", self.rightoff)
         self.fxcenter = self.fycenter = 0.5
-
+        
     def step(self):
         self.x += self.vx
-        
         self.y += self.vy
-        
-        self.rotation += self.vr
-        # deleted thrust animation
-        
-        #if len(y)>0:
+        collisions=self.collidingWithSprites(Wallblock)
+        if 
+        for collision in collisions:
+               
+            if not self.vx==0 and kewl==0:
+                if self.vx>0:
+                    self.x=collision.x-self.w
+                if self.vx<0:
+                    self.x=self.x+self.vx
+                
+            if not self.vy==0:
+                if self.vy>0:
+                    self.y=self.y-self.vy
+                    kewl=1
+                if self.vy<0:
+                    self.y=self.y+self.vy
+            else:
+                kewl=1
         if self.right==1:
             if self.vx<5:
                 if self.y<x:
@@ -92,7 +103,8 @@ class SpaceShip(Sprite):
             if self.y>=x:
                 self.vy=0
             else:
-                self.vy=self.vy+.1
+                if kewl==0:
+                    self.vy=self.vy+.1
     def thrustOn(self, event):
         if self.y>=x:
             self.thrust = 1
@@ -127,7 +139,7 @@ class Wallblock(Sprite):
         self.x += self.vx
         self.y += self.vy
         self.rotation += self.vr
-class Collide(Sprite):
+"""class Collide(Sprite):
     rcollideasset = RectangleAsset(10,30, noline, red)
     def __init__(self, position):
         super().__init__(Collide.rcollideasset, position)
@@ -139,7 +151,7 @@ class Collide(Sprite):
     def step(self):
         self.x=10
         self.y=10
-        self.rotation += self.vr
+        self.rotation += self.vr"""
 
 
 class SpaceGame(App):
@@ -159,13 +171,13 @@ class SpaceGame(App):
         ground = Sprite(ground_asset, (0, x+beeg/2))
         SpaceShip((100,100))
         Wallblock((300,450))
-        Collide((0,0))
+        #Collide((0,0))
 
     def step(self):
         for ship in self.getSpritesbyClass(SpaceShip):
             ship.step()
-        for rcollide in self.getSpritesbyClass(Collide):
-            rcollide.step()
+        """for rcollide in self.getSpritesbyClass(Collide):
+            rcollide.step()"""
 
         
 myapp = SpaceGame()
