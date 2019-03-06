@@ -66,7 +66,7 @@ class SpaceShip(Sprite):
         if 
         for collision in collisions:
                
-            if not self.vx==0 and kewl==0:
+            if not self.vx==0:
                 if self.vx>0:
                     self.x=collision.x-self.w
                 if self.vx<0:
@@ -75,11 +75,9 @@ class SpaceShip(Sprite):
             if not self.vy==0:
                 if self.vy>0:
                     self.y=self.y-self.vy
-                    kewl=1
+                    
                 if self.vy<0:
                     self.y=self.y+self.vy
-            else:
-                kewl=1
         if self.right==1:
             if self.vx<5:
                 if self.y<x:
@@ -103,8 +101,7 @@ class SpaceShip(Sprite):
             if self.y>=x:
                 self.vy=0
             else:
-                if kewl==0:
-                    self.vy=self.vy+.1
+                self.vy=self.vy+.1
     def thrustOn(self, event):
         if self.y>=x:
             self.thrust = 1
