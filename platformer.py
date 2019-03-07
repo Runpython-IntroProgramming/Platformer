@@ -62,7 +62,7 @@ class Player(Sprite):
         self.left=0
         self.right=0
         self.collidingwithsprites=0
-        self.collidetop=Collide
+        self.collidetop=Collide(position)
         SpaceGame.listenKeyEvent("keydown", "space", self.thrustOn)
         SpaceGame.listenKeyEvent("keyup", "space", self.thrustOff)
         SpaceGame.listenKeyEvent("keydown", "left arrow", self.lefton)
@@ -74,7 +74,7 @@ class Player(Sprite):
     def step(self):
         self.x += self.vx
         self.y += self.vy
-        self.collidetop.x+=self.vx
+        self.collidetop.x += self.vx
         collisions=self.collidingWithSprites(Wallblock)
         if self.left==1:
             self.vx=-3
@@ -106,6 +106,11 @@ class Player(Sprite):
     def rightoff(self, event):
         self.right=0
 
+class Collide(Sprite):
+    rcollideasset = RectangleAsset(10,30, noline, red)
+    def __init__(self, position):
+        super().__init__(Collide.rcollideasset, position)
+        self.fxcenter = self.fycenter = 0.5
 
 class Wallblock(Sprite):
     """
@@ -128,11 +133,7 @@ class Wallblock(Sprite):
         self.y += self.vy
         self.rotation += self.vr
 
-class Collide(Sprite):
-    rcollideasset = RectangleAsset(10,30, noline, red)
-    def __init__(self, position):
-        super().__init__(Collide.rcollideasset, position)
-        self.fxcenter = self.fycenter = 0.5
+
 
         
 
