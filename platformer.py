@@ -74,10 +74,14 @@ class Player(Sprite):
         self.x += self.vx
         self.y += self.vy
         collisions=self.collidingWithSprites(Wallblock)
+        if self.left==1:
+            self.vx=-3
+        else:
+            if self.right==1:
+                self.vx=3
+            else:
+                self.vx=0
         
-        
-           
-    
         if self.thrust == 1:
             self.vy = -5
             self.thrust=0
@@ -107,12 +111,13 @@ class Wallblock(Sprite):
     """
     wallasset = RectangleAsset(100, 50, noline, black)
 
-    def __init__(self, x, y, color):
-        super().__init__(RectangleAsset(50,50, noline, color), (x,y))
-        
-        touchy=self.collidingWithSprites(type(self))
-        if len(touchy)>1:
-            touchy[0].destroy()
+    def __init__(self, x, y):
+        grid=lambda W: (W-W%51)
+        super().__init__(RectangleAsset(50,50,noline,red),(grid(x), grid(y)))
+        # destroy any overlapping walls
+        collideswith = self.collidingWithSprites(type(self))
+        if len(collideswith):
+            collideswith[0].destroy()
         
         Wallblock.fxcenter = Wallblock.fycenter = 0.5
 
@@ -148,7 +153,7 @@ class SpaceGame(App):
         noline = LineStyle(0, black)
         bg_asset = RectangleAsset(self.width, self.height, noline, green)
         ground_asset = RectangleAsset(self.width, beeg, noline, white)
-        bg = Sprite(bg_asset, (0,0))
+        #bg = Sprite(bg_asset, (0,0))
         ground = Sprite(ground_asset, (0, x+beeg/2))
         Player((100,100))
         self.listenKeyEvent("keydown", "w", self.Wallblock)
