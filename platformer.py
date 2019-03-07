@@ -35,8 +35,19 @@ grid=RectangleAsset(30,30,gridline,white)
 
 
 from ggame import App, RectangleAsset, ImageAsset, Sprite, LineStyle, Color, Frame
-
-class SpaceShip(Sprite):
+"""class Collide(Sprite):
+     asset = RectangleAsset(10,20,blkline,red) 
+    def __init__(self, position):
+        super().__init__(Collide.asset, position)
+        self.vx = 0
+        self.vy = 0
+        self.thrust = 0
+        self.left=0
+        self.right=0
+        self.collidingwithsprites=0
+    
+        self.fxcenter = self.fycenter = 0.5"""
+class Player(Sprite):
     """
     Animated space ship
     """
@@ -44,7 +55,7 @@ class SpaceShip(Sprite):
     
     
     def __init__(self, position):
-        super().__init__(SpaceShip.asset, position)
+        super().__init__(Player.asset, position)
         self.vx = 0
         self.vy = 0
         self.thrust = 0
@@ -63,36 +74,9 @@ class SpaceShip(Sprite):
         self.x += self.vx
         self.y += self.vy
         collisions=self.collidingWithSprites(Wallblock)
-        if 
-        for collision in collisions:
-               
-            if not self.vx==0:
-                if self.vx>0:
-                    self.x=collision.x-self.w
-                if self.vx<0:
-                    self.x=self.x+self.vx
-                
-            if not self.vy==0:
-                if self.vy>0:
-                    self.y=self.y-self.vy
-                    
-                if self.vy<0:
-                    self.y=self.y+self.vy
-        if self.right==1:
-            if self.vx<5:
-                if self.y<x:
-                    self.vx=self.vx+.5
-                else: 
-                    self.vx=5
-        else:
-            if self.left==1:
-                if self.vx>-5:
-                    if self.y<x:
-                        self.vx=self.vx-.5
-                    else: 
-                        self.vx=-5
-            else:
-                self.vx=0
+        
+        
+           
     
         if self.thrust == 1:
             self.vy = -5
@@ -115,6 +99,7 @@ class SpaceShip(Sprite):
         self.right=1
     def rightoff(self, event):
         self.right=0
+        
 
 class Wallblock(Sprite):
     """
@@ -122,14 +107,13 @@ class Wallblock(Sprite):
     """
     wallasset = RectangleAsset(100, 50, noline, black)
 
-    def __init__(self, position):
-        super().__init__(Wallblock.wallasset, position)
-        self.vx = 0
-        self.vy = 0
-        self.vr = 0
-        self.thrust = 0
-        #SpaceGame.listenKeyEvent("keydown", "space", self.placeOn)
-        #SpaceGame.listenKeyEvent("keyup", "space", self.placeOff)
+    def __init__(self, x, y, color):
+        super().__init__(RectangleAsset(50,50, noline, color), (x,y))
+        
+        touchy=self.collidingWithSprites(type(self))
+        if len(touchy)>1:
+            touchy[0].destroy()
+        
         Wallblock.fxcenter = Wallblock.fycenter = 0.5
 
     def step(self):
@@ -166,13 +150,21 @@ class SpaceGame(App):
         ground_asset = RectangleAsset(self.width, beeg, noline, white)
         bg = Sprite(bg_asset, (0,0))
         ground = Sprite(ground_asset, (0, x+beeg/2))
-        SpaceShip((100,100))
-        Wallblock((300,450))
-        #Collide((0,0))
-
+        Player((100,100))
+        self.listenKeyEvent("keydown", "w", self.Wallblock)
+        self.listenMouseEvent("mousemove", self.Mouse)
+    def Mouse(self, event):
+        self.pos = (event.x, event.y)
+    
+    def Wallblock(self,event):
+        Wallblock(self.pos[0], self.pos[1])
+        
+        
+        
     def step(self):
-        for ship in self.getSpritesbyClass(SpaceShip):
+        for ship in self.getSpritesbyClass(Player):
             ship.step()
+        
         """for rcollide in self.getSpritesbyClass(Collide):
             rcollide.step()"""
 
