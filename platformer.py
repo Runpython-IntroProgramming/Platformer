@@ -79,12 +79,12 @@ class Player(Sprite):
         self.y += self.vy
         self.collidetop.x += self.vx
         self.collidetop.y += self.vy
-        self.collidebottom.x
-        self.collidebottom.y
-        self.collideright.x
-        self.collideright.y
-        self.collideleft.x
-        self.collideleft.y
+        self.collidebottom.x +=self.vx
+        self.collidebottom.y +=self.vy
+        self.collideright.x +=self.vx
+        self.collideright.y +=self.vy
+        self.collideleft.x +=self.vx
+        self.collideleft.y +=self.vy
         if self.left==1:
             self.vx=-3
         else:
