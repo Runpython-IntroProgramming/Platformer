@@ -62,10 +62,10 @@ class Player(Sprite):
         self.left=0
         self.right=0
         self.collidingwithsprites=0
-        self.collidetop=Collide(position,.5,2.6, green)
-        self.collidebottom=Collide(position,.5,-2.6,blue)
-        self.collideright=Collide(position,1,.5,red)
-        self.collideleft=Collide(position,-1,.5,pink)
+        self.collidetop=Collide(position,15,5,.5,2.6, green)
+        self.collidebottom=Collide(position,15,5,.5,-2.6,blue)
+        self.collideleft=Collide(position,5,20,2,.5,red)
+        self.collideright=Collide(position,5,20,-1,.5,pink)
         SpaceGame.listenKeyEvent("keydown", "space", self.thrustOn)
         SpaceGame.listenKeyEvent("keyup", "space", self.thrustOff)
         SpaceGame.listenKeyEvent("keydown", "left arrow", self.lefton)
@@ -116,8 +116,8 @@ class Player(Sprite):
         self.right=0
 
 class Collide(Sprite):
-    def __init__(self, position, centerx, centery, color):
-        super().__init__(RectangleAsset(20,5,noline, color), position)
+    def __init__(self, position,w,h,centerx, centery, color):
+        super().__init__(RectangleAsset(w,h,noline, color), position)
         self.fxcenter = centerx
         self.fycenter = centery
 
