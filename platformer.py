@@ -35,18 +35,7 @@ grid=RectangleAsset(30,30,gridline,white)
 
 
 from ggame import App, RectangleAsset, ImageAsset, Sprite, LineStyle, Color, Frame
-"""class Collide(Sprite):
-     asset = RectangleAsset(10,20,blkline,red) 
-    def __init__(self, position):
-        super().__init__(Collide.asset, position)
-        self.vx = 0
-        self.vy = 0
-        self.thrust = 0
-        self.left=0
-        self.right=0
-        self.collidingwithsprites=0
-    
-        self.fxcenter = self.fycenter = 0.5"""
+
 class Player(Sprite):
     """
     Animated space ship
@@ -65,8 +54,8 @@ class Player(Sprite):
         self.resting=0
         self.collidetop=Collide(position,15,5,green)
         self.collidebottom=Collide(position,10,5,blue)
-        self.collideleft=Collide(position,5,20,red)
-        self.collideright=Collide(position,5,20,pink)
+        self.collideleft=Collide(position,5,22,red)
+        self.collideright=Collide(position,5,22,pink)
         SpaceGame.listenKeyEvent("keydown", "space", self.thrustOn)
         SpaceGame.listenKeyEvent("keyup", "space", self.thrustOff)
         SpaceGame.listenKeyEvent("keydown", "left arrow", self.lefton)
@@ -81,14 +70,17 @@ class Player(Sprite):
         self.collidetop.x = self.x
         self.collidetop.y = self.y-15
         self.collidebottom.x =self.x
-        self.collidebottom.y =self.y+5
-        self.collideright.x =self.x+10
+        self.collidebottom.y =self.y+10
+        self.collideright.x =self.x+7
         self.collideright.y =self.y
-        self.collideleft.x =self.x-10
+        self.collideleft.x =self.x-7
         self.collideleft.y =self.y
         upcollide=self.collidetop.collidingWithSprites(Wallblock)
         downcollide=self.collidebottom.collidingWithSprites(Wallblock)
         if len(downcollide)>0:
+            if self.vy>=3:
+                self.vy=0
+                self.y=self.y-3
             self.vy=0
             self.resting=1
         elif len(downcollide)==0:
@@ -97,14 +89,14 @@ class Player(Sprite):
             if len(upcollide):
                 self.y=self.y+3
                 self.vy=self.vy*-.5
-        """leftcollide=self.collideleft.collidingWithSprites(Wallblock)
+        leftcollide=self.collideleft.collidingWithSprites(Wallblock)
         if len(leftcollide):
             self.x=self.x+3
             self.vx=self.vx*-0.5
         rightcollide=self.collideright.collidingWithSprites(Wallblock)
         if len(rightcollide):
             self.x=self.x-3
-            self.vx=self.vx*-0.5"""
+            self.vx=self.vx*-0.5
         if self.left==1:
             self.vx=-3
         else:
