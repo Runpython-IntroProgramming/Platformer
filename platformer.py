@@ -79,7 +79,7 @@ class Player(Sprite):
         self.x += self.vx
         self.y += self.vy
         self.collidetop.x = self.x
-        self.collidetop.y = self.y-15
+        self.collidetop.y = self.y-10
         self.collidebottom.x =self.x
         self.collidebottom.y =self.y+10
         self.collideright.x =self.x+10
@@ -93,13 +93,18 @@ class Player(Sprite):
         downcollide=self.collidebottom.collidingWithSprites(Wallblock)
         if len(downcollide)>0:
             self.vy=0
-            
             self.resting=1
         else:
             self.vy=self.vy+.2
             self.resting=0
-        leftcollide=self.collideleft.collidingWithSprites(Wallblock)
-        rigthcollide=self.collideright.collidingWithSprites(Wallblock)
+        """leftcollide=self.collideleft.collidingWithSprites(Wallblock)
+        if len(leftcollide):
+            self.x=self.x+3
+            self.vx=self.vx*-0.5
+        rightcollide=self.collideright.collidingWithSprites(Wallblock)
+        if len(rightcollide):
+            self.x=self.x-3
+            self.vx=self.vx*-0.5"""
         if self.left==1:
             self.vx=-3
         else:
@@ -109,7 +114,7 @@ class Player(Sprite):
                 self.vx=0
         
         if self.thrust == 1:
-            self.vy = -5
+            self.vy = -7
             self.thrust=0
         else:
             if self.y>=x:
