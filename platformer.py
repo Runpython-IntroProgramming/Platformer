@@ -168,9 +168,6 @@ class SpaceGame(App):
         for ship in self.getSpritesbyClass(Player):
             ship.step()
         
-        """for rcollide in self.getSpritesbyClass(Collide):
-            rcollide.step()"""
-
         
 myapp = SpaceGame()
 myapp.run()
