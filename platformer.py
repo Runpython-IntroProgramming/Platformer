@@ -62,8 +62,9 @@ class Player(Sprite):
         self.left=0
         self.right=0
         self.collidingwithsprites=0
+        self.resting=0
         self.collidetop=Collide(position,15,5,.5,2.6, green)
-        self.collidebottom=Collide(position,15,5,.5,-2.6,blue)
+        self.collidebottom=Collide(position,15,5,.5,-2,blue)
         self.collideleft=Collide(position,5,20,2,.5,red)
         self.collideright=Collide(position,5,20,-1,.5,pink)
         SpaceGame.listenKeyEvent("keydown", "space", self.thrustOn)
@@ -85,7 +86,17 @@ class Player(Sprite):
         self.collideright.y +=self.vy
         self.collideleft.x +=self.vx
         self.collideleft.y +=self.vy
-        upcollide=Collide.collidingWithSprites(Wallblock)
+        upcollide=self.collidetop.collidingWithSprites(Wallblock)
+        if len(upcollide):
+            self.vy=0
+        downcollide=self.collidebottom.collidingWithSprites(Wallblock)
+        if len(downcollide):
+            self.vy=0
+            self.resting=1
+        else:
+            self.resting=0
+        leftcollide=self.collideleft.collidingWithSprites(Wallblock)
+        rigthcollide=self.collideright.collidingWithSprites(Wallblock)
         if self.left==1:
             self.vx=-3
         else:
@@ -101,7 +112,8 @@ class Player(Sprite):
             if self.y>=x:
                 self.vy=0
             else:
-                self.vy=self.vy+.1
+                if resting==0:
+                    self.vy=self.vy+.1
     def thrustOn(self, event):
         if self.y>=x and not self.collidingWithSprites:
             self.thrust = 1
