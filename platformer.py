@@ -62,7 +62,10 @@ class Player(Sprite):
         self.left=0
         self.right=0
         self.collidingwithsprites=0
-        self.collidetop=Collide(position,.5,2.6)
+        self.collidetop=Collide(position,.5,2.6, green)
+        self.collidebottom=Collide(position,.5,-2.6,blue)
+        self.collideright=Collide(position,1,.5,red)
+        self.collideleft=Collide(position,-1,.5,pink)
         SpaceGame.listenKeyEvent("keydown", "space", self.thrustOn)
         SpaceGame.listenKeyEvent("keyup", "space", self.thrustOff)
         SpaceGame.listenKeyEvent("keydown", "left arrow", self.lefton)
@@ -76,7 +79,12 @@ class Player(Sprite):
         self.y += self.vy
         self.collidetop.x += self.vx
         self.collidetop.y += self.vy
-        collisions=self.collidingWithSprites(Wallblock)
+        self.collidebottom.x
+        self.collidebottom.y
+        self.collideright.x
+        self.collideright.y
+        self.collideleft.x
+        self.collideleft.y
         if self.left==1:
             self.vx=-3
         else:
