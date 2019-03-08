@@ -85,6 +85,7 @@ class Player(Sprite):
         self.collideright.y +=self.vy
         self.collideleft.x +=self.vx
         self.collideleft.y +=self.vy
+        upcollide=Collide.collidingWithSprites(Wallblock)
         if self.left==1:
             self.vx=-3
         else:
