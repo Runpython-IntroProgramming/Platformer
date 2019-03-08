@@ -64,7 +64,7 @@ class Player(Sprite):
         self.collidingwithsprites=0
         self.resting=0
         self.collidetop=Collide(position,15,5,green)
-        self.collidebottom=Collide(position,15,5,blue)
+        self.collidebottom=Collide(position,10,5,blue)
         self.collideleft=Collide(position,5,20,red)
         self.collideright=Collide(position,5,20,pink)
         SpaceGame.listenKeyEvent("keydown", "space", self.thrustOn)
@@ -79,24 +79,25 @@ class Player(Sprite):
         self.x += self.vx
         self.y += self.vy
         self.collidetop.x = self.x
-        self.collidetop.y = self.y-10
+        self.collidetop.y = self.y-15
         self.collidebottom.x =self.x
-        self.collidebottom.y =self.y+10
+        self.collidebottom.y =self.y+5
         self.collideright.x =self.x+10
         self.collideright.y =self.y
         self.collideleft.x =self.x-10
         self.collideleft.y =self.y
         upcollide=self.collidetop.collidingWithSprites(Wallblock)
-        if len(upcollide):
-            self.y=self.y+3
-            self.vy=self.vy*-.5
+        
         downcollide=self.collidebottom.collidingWithSprites(Wallblock)
         if len(downcollide)>0:
             self.vy=0
             self.resting=1
-        else:
+        elif len(downcollide)==0:
             self.vy=self.vy+.2
             self.resting=0
+            if len(upcollide):
+                self.y=self.y+3
+                self.vy=self.vy*-.5
         """leftcollide=self.collideleft.collidingWithSprites(Wallblock)
         if len(leftcollide):
             self.x=self.x+3
@@ -144,8 +145,6 @@ class Wallblock(Sprite):
     """
     Animated space ship
     """
-    wallasset = RectangleAsset(100, 50, noline, black)
-
     def __init__(self, x, y):
         grid=lambda W: (W-W%51)
         super().__init__(RectangleAsset(50,50,noline,red),(grid(x), grid(y)))
@@ -155,15 +154,6 @@ class Wallblock(Sprite):
             collideswith[0].destroy()
         
         Wallblock.fxcenter = Wallblock.fycenter = 0.5
-
-    def step(self):
-        self.x += self.vx
-        self.y += self.vy
-        self.rotation += self.vr
-
-
-
-        
 
 
 class SpaceGame(App):
