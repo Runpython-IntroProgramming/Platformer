@@ -63,10 +63,10 @@ class Player(Sprite):
         self.right=0
         self.collidingwithsprites=0
         self.resting=0
-        self.collidetop=Collide(position,15,5,.5,2.6, green)
-        self.collidebottom=Collide(position,15,5,.5,-2,blue)
-        self.collideleft=Collide(position,5,20,2,.5,red)
-        self.collideright=Collide(position,5,20,-1,.5,pink)
+        self.collidetop=Collide(position,15,5,green)
+        self.collidebottom=Collide(position,15,5,blue)
+        self.collideleft=Collide(position,5,20,red)
+        self.collideright=Collide(position,5,20,pink)
         SpaceGame.listenKeyEvent("keydown", "space", self.thrustOn)
         SpaceGame.listenKeyEvent("keyup", "space", self.thrustOff)
         SpaceGame.listenKeyEvent("keydown", "left arrow", self.lefton)
@@ -78,22 +78,25 @@ class Player(Sprite):
     def step(self):
         self.x += self.vx
         self.y += self.vy
-        self.collidetop.x += self.vx
-        self.collidetop.y += self.vy
-        self.collidebottom.x +=self.vx
-        self.collidebottom.y +=self.vy
-        self.collideright.x +=self.vx
-        self.collideright.y +=self.vy
-        self.collideleft.x +=self.vx
-        self.collideleft.y +=self.vy
+        self.collidetop.x = self.x
+        self.collidetop.y = self.y-15
+        self.collidebottom.x =self.x
+        self.collidebottom.y =self.y+10
+        self.collideright.x =self.x+10
+        self.collideright.y =self.y
+        self.collideleft.x =self.x-10
+        self.collideleft.y =self.y
         upcollide=self.collidetop.collidingWithSprites(Wallblock)
         if len(upcollide):
-            self.vy=0
+            self.y=self.y+3
+            self.vy=self.vy*-.5
         downcollide=self.collidebottom.collidingWithSprites(Wallblock)
-        if len(downcollide):
+        if len(downcollide)>0:
             self.vy=0
+            
             self.resting=1
         else:
+            self.vy=self.vy+.2
             self.resting=0
         leftcollide=self.collideleft.collidingWithSprites(Wallblock)
         rigthcollide=self.collideright.collidingWithSprites(Wallblock)
@@ -111,11 +114,9 @@ class Player(Sprite):
         else:
             if self.y>=x:
                 self.vy=0
-            else:
-                if resting==0:
-                    self.vy=self.vy+.1
+        
     def thrustOn(self, event):
-        if self.y>=x and not self.collidingWithSprites:
+        if self.y>=x or self.resting==1:
             self.thrust = 1
     def thrustOff(self, event):
         self.thrust = 0
@@ -129,10 +130,10 @@ class Player(Sprite):
         self.right=0
 
 class Collide(Sprite):
-    def __init__(self, position,w,h,centerx, centery, color):
+    def __init__(self, position,w,h,color):
         super().__init__(RectangleAsset(w,h,noline, color), position)
-        self.fxcenter = centerx
-        self.fycenter = centery
+        self.fxcenter = 0.5
+        self.fycenter = 0.5
 
 class Wallblock(Sprite):
     """
