@@ -87,7 +87,6 @@ class Player(Sprite):
         self.collideleft.x =self.x-10
         self.collideleft.y =self.y
         upcollide=self.collidetop.collidingWithSprites(Wallblock)
-        
         downcollide=self.collidebottom.collidingWithSprites(Wallblock)
         if len(downcollide)>0:
             self.vy=0
@@ -153,7 +152,7 @@ class Wallblock(Sprite):
         if len(collideswith):
             collideswith[0].destroy()
         
-        Wallblock.fxcenter = Wallblock.fycenter = 0.5
+        Wallblock.fxcenter = Wallblock.fycenter = 0
 
 
 class SpaceGame(App):
