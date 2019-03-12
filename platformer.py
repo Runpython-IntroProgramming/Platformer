@@ -133,9 +133,6 @@ class Collide(Sprite):
         self.fycenter = 0.5
 
 class Wallblock(Sprite):
-    """
-    Animated space ship
-    """
     def __init__(self, x, y):
         grid=lambda W: (W-W%51)
         super().__init__(RectangleAsset(50,50,noline,red),(grid(x), grid(y)))
@@ -145,12 +142,12 @@ class Wallblock(Sprite):
             collideswith[0].destroy()
         
         Wallblock.fxcenter = Wallblock.fycenter = 0
-
+        
+class Platform(Wallblock):
+    def __init__(self, x, y):
+        
 
 class SpaceGame(App):
-    """
-    Tutorial4 space game example.
-    """
     def __init__(self):
         super().__init__()
         # Background
@@ -164,13 +161,15 @@ class SpaceGame(App):
         ground = Sprite(ground_asset, (0, x+beeg/2))
         Player((100,100))
         self.listenKeyEvent("keydown", "w", self.Wallblock)
+        self.listenKeyEvent("keydown", "p", self.Platform)
         self.listenMouseEvent("mousemove", self.Mouse)
     def Mouse(self, event):
         self.pos = (event.x, event.y)
     
     def Wallblock(self,event):
         Wallblock(self.pos[0], self.pos[1])
-        
+    """def Platform(self,event):
+        Platform(self.pos[0], self.pos[1])"""
         
         
     def step(self):
