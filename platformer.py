@@ -145,8 +145,8 @@ class Wallblock(Sprite):
         
 class Platform(Wallblock):
     def __init__(self, x, y):
+        super().__init__(RectangleAsset(50,10,noline,blue),(grid(x),grid(y)))
         
-
 class SpaceGame(App):
     def __init__(self):
         super().__init__()
@@ -168,8 +168,8 @@ class SpaceGame(App):
     
     def Wallblock(self,event):
         Wallblock(self.pos[0], self.pos[1])
-    """def Platform(self,event):
-        Platform(self.pos[0], self.pos[1])"""
+    def Platform(self,event):
+        Platform(self.pos[0], self.pos[1])
         
         
     def step(self):
