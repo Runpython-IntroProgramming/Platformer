@@ -193,6 +193,6 @@ class SpaceGame(App):
         for ship in self.getSpritesbyClass(Player):
             ship.step()
         
-        
+print("use the arrow keys and spacebar for movement, 'l' for a spring, 'p' for a platform, and 'w' for a wall/ground block")        
 myapp = SpaceGame()
 myapp.run()
