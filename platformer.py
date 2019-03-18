@@ -75,10 +75,14 @@ class Player(Sprite):
         self.collideright.y =self.y
         self.collideleft.x =self.x-7
         self.collideleft.y =self.y
-        upcollide=self.collidetop.collidingWithSprites(Wallblock)
-        downcollide=self.collidebottom.collidingWithSprites(Wallblock)
+        upcollide=self.collidetop.collidingWithSprites(Block)
+        downcollide=self.collidebottom.collidingWithSprites(Block)
         downcollidep=self.collidebottom.collidingWithSprites(Platform)
         downcollide.extend(downcollidep)
+        downcollides=self.collidebottom.collidingWithSprites(sprong)
+        if len(downcollides):
+            
+            self.vy=-10
         if len(downcollide)>0:
             if self.vy>0:
                 if self.vy>=3:
@@ -151,9 +155,13 @@ class Platform(Wallblock):
 class Block(Wallblock):
     def __init__(self, x, y):
         super().__init__(x, y, 50, 50, red)
-class Longblock(Wallblock):
+"""class Longblock(Wallblock):
     def __init__(self, x, y):
-        super().__init__(x, y, 100, 50, pink)
+        super().__init__(x, y, 101, 50, pink)"""
+class sprong(Wallblock):
+    def __init__(self, x, y):
+        super().__init__(x, y, 50, 10, pink)
+        
 class SpaceGame(App):
     def __init__(self):
         super().__init__()
@@ -170,7 +178,7 @@ class SpaceGame(App):
         self.listenKeyEvent("keydown", "w", self.Block)
         self.listenKeyEvent("keydown", "p", self.Platform)
         self.listenMouseEvent("mousemove", self.Mouse)
-        self.listenKeyEvent("keydown", "l", self.Longblock)
+        self.listenKeyEvent("keydown", "l", self.sprong)
     def Mouse(self, event):
         self.pos = (event.x, event.y)
     
@@ -178,8 +186,8 @@ class SpaceGame(App):
         Block(self.pos[0], self.pos[1])
     def Platform(self,event):
         Platform(self.pos[0], self.pos[1])
-    def Longblock(self,event):
-        Longblock(self.pos[0], self.pos[1])  
+    def sprong(self,event):
+        sprong(self.pos[0], self.pos[1])  
         
     def step(self):
         for ship in self.getSpritesbyClass(Player):
