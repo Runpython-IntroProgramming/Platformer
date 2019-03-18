@@ -77,12 +77,15 @@ class Player(Sprite):
         self.collideleft.y =self.y
         upcollide=self.collidetop.collidingWithSprites(Wallblock)
         downcollide=self.collidebottom.collidingWithSprites(Wallblock)
+        downcollidep=self.collidebottom.collidingWithSprites(Platform)
+        downcollide.extend(downcollidep)
         if len(downcollide)>0:
-            if self.vy>=3:
+            if self.vy>0:
+                if self.vy>=3:
+                    self.vy=0
+                    self.y=self.y-3
                 self.vy=0
-                self.y=self.y-3
-            self.vy=0
-            self.resting=1
+                self.resting=1
         elif len(downcollide)==0:
             self.vy=self.vy+.2
             self.resting=0
@@ -131,22 +134,23 @@ class Collide(Sprite):
         super().__init__(RectangleAsset(w,h,noline, color), position)
         self.fxcenter = 0.5
         self.fycenter = 0.5
+        self.visible=False
 
 class Wallblock(Sprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y, w, h, color):
         grid=lambda W: (W-W%51)
-        super().__init__(RectangleAsset(50,50,noline,red),(grid(x), grid(y)))
-        # destroy any overlapping walls
+        super().__init__(RectangleAsset(w-1,h-1,noline, color),
+            (grid(x), grid(y)))
         collideswith = self.collidingWithSprites(type(self))
         if len(collideswith):
             collideswith[0].destroy()
-        
         Wallblock.fxcenter = Wallblock.fycenter = 0
-        
 class Platform(Wallblock):
     def __init__(self, x, y):
-        super().__init__(RectangleAsset(50,10,noline,blue),(grid(x),grid(y)))
-        
+        super().__init__(x, y, 50, 10, blue)
+class Block(Wallblock):
+    def __init__(self, x, y):
+        super().__init__(x, y, 50, 50, red)
 class SpaceGame(App):
     def __init__(self):
         super().__init__()
@@ -160,14 +164,14 @@ class SpaceGame(App):
         #bg = Sprite(bg_asset, (0,0))
         ground = Sprite(ground_asset, (0, x+beeg/2))
         Player((100,100))
-        self.listenKeyEvent("keydown", "w", self.Wallblock)
+        self.listenKeyEvent("keydown", "w", self.Block)
         self.listenKeyEvent("keydown", "p", self.Platform)
         self.listenMouseEvent("mousemove", self.Mouse)
     def Mouse(self, event):
         self.pos = (event.x, event.y)
     
-    def Wallblock(self,event):
-        Wallblock(self.pos[0], self.pos[1])
+    def Block(self,event):
+        Block(self.pos[0], self.pos[1])
     def Platform(self,event):
         Platform(self.pos[0], self.pos[1])
         
