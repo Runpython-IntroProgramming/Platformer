@@ -96,11 +96,11 @@ class Player(Sprite):
             if len(upcollide):
                 self.y=self.y+3
                 self.vy=self.vy*-.5
-        leftcollide=self.collideleft.collidingWithSprites(Wallblock)
+        leftcollide=self.collideleft.collidingWithSprites(Block)
         if len(leftcollide):
             self.x=self.x+3
             self.vx=self.vx*-0.5
-        rightcollide=self.collideright.collidingWithSprites(Wallblock)
+        rightcollide=self.collideright.collidingWithSprites(Block)
         if len(rightcollide):
             self.x=self.x-3
             self.vx=self.vx*-0.5
