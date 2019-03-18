@@ -1,7 +1,7 @@
 """
 platformer.py
-Author: 
-Credit: 
+Author:waSclthu11
+Credit:The example platformer program helped a lot, especially with subclasses, which I used for the terrain. Also Mr.Dennison helped with the collision detection setup.
 Assignment:
 Write and submit a program that implements the sandbox platformer game:
 https://github.com/HHS-IntroProgramming/Platformer
