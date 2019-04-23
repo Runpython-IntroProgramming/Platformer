@@ -112,7 +112,7 @@ class GravityActor(Sprite):
 # "bullets" to fire from Turrets.
 class Bolt(Sprite):
     def __init__(self, direction, x, y, app):
-        asset = ImageAsset("dn-2.jpg")
+        asset = ImageAsset("dn copy 2.png")
         self.direction = direction
         self.app = app
         super().__init__(asset, (x,y))
@@ -139,7 +139,7 @@ class Bolt(Sprite):
 # An object that generates bolts (laser shots)
 class Turret(GravityActor):
     def __init__(self, x, y, app):
-        asset = ImageAsset("doughnut-transparent-stacked-9.jpg")
+        asset = ImageAsset("doughnut-transparent-stacked-9.png")
         self.time = 0
         self.direction = 1
         super().__init__(asset, x, y, app)
@@ -161,7 +161,7 @@ class Player(GravityActor):
     def __init__(self, x, y, app):
         w = 15
         h = 30
-        asset = ImageAsset("ox7pesyc2oi01-2.jpg")
+        asset = ImageAsset("ox7pesyc2oi01 copy.png")
         super().__init__(asset, x, y, app)
 
     def step(self):
