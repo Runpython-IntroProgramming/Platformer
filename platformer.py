@@ -63,17 +63,12 @@ class Platform(GenericWall):
     
 # super class for anything that falls and lands or bumps into walls
 class GravityActor(Sprite):
-    def __init__(self, asset, x, y, width, height, app):
+    def __init__(self, asset, x, y, app):
         self.vx = self.vy = 0
         self.stuck = False
         self.app = app                          # app, need to know
         self.resting = False                    # whether resting on wall
-        super().__init__(
-            RectangleAsset(
-                width, height, 
-                LineStyle(0, Color(0, 1.0)),
-                color),
-            (x, y)) 
+        super().__init__(asset,(x, y)) 
         # destroy self if overlapping with anything
         #collideswith = self.collidingWithSprites()
         #if len(collideswith):
@@ -117,14 +112,10 @@ class GravityActor(Sprite):
 # "bullets" to fire from Turrets.
 class Bolt(Sprite):
     def __init__(self, direction, x, y, app):
-        w = 15
-        h = 5
+        asset = ImageAsset("dn.png")
         self.direction = direction
         self.app = app
-        super().__init__(RectangleAsset(w, h, 
-            LineStyle(0, Color(0, 1.0)),
-            Color(0x00ffff, 1.0)),
-            (x-w//2, y-h//2))
+        super().__init__(asset, (x,y))
 
     def step(self):
         self.x += self.direction
@@ -147,13 +138,11 @@ class Bolt(Sprite):
 
 # An object that generates bolts (laser shots)
 class Turret(GravityActor):
-    def __init__(self, asset, x, y, app):
-        w = 20
-        h = 35
+    def __init__(self, x, y, app):
         asset = ImageAsset("doughnut-transparent-stacked-9.png")
         self.time = 0
         self.direction = 1
-        super().__init__(x-w//2, y-h//2, w, h, Color(0xff8800, 1.0), app)
+        super().__init__(asset, x, y, app)
         
     def step(self):
         super().step()
@@ -169,11 +158,11 @@ class Turret(GravityActor):
 
 # The player class. only one instance of this is allowed.
 class Player(GravityActor):
-    def __init__(self, asset, x, y, app):
+    def __init__(self, x, y, app):
         w = 15
         h = 30
         asset = ImageAsset("ox7pesyc2oi01.png")
-        super().__init__(x-w//2, y-h//2, w, h, Color(0x00ff00, 1.0), app)
+        super().__init__(asset, x, y, app)
 
     def step(self):
         # look for spring collisions
@@ -206,11 +195,11 @@ class Player(GravityActor):
   
 # A spring makes the player "bounce" higher than she can jump
 class Spring(GravityActor):
-    def __init__(self, asset, x, y, app):
+    def __init__(self, x, y, app):
         w = 10
         h = 4
         asset = ImageAsset("20150207151848!Trampoline-2.png")
-        super().__init__(x-w//2, y-h//2, w, h, Color(0x0000ff, 1.0), app)
+        super().__init__(asset, x, y, app)
         
     def step(self):
         if self.resting:
