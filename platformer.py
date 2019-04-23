@@ -198,8 +198,9 @@ class Spring(GravityActor):
     def __init__(self, x, y, app):
         w = 10
         h = 4
-        asset = ImageAsset("20150207151848!Trampoline-2.png")
+        asset = ImageAsset("20150207151848!Trampoline-2 copy 4.png",Frame(17,62,161,66))
         super().__init__(asset, x, y, app)
+        self.scale = 0.3
         
     def step(self):
         if self.resting:
