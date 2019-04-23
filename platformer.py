@@ -161,7 +161,7 @@ class Player(GravityActor):
     def __init__(self, x, y, app):
         w = 15
         h = 30
-        asset = ImageAsset("ox7pesyc2oi01.png")
+        asset = ImageAsset("ox7pesyc2oi01-2.jpg")
         super().__init__(asset, x, y, app)
 
     def step(self):
