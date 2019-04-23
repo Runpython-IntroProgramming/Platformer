@@ -281,9 +281,9 @@ class Platformer(App):
 # Display some hints about how to play!
 print("Move your mouse cursor around the graphics screen and:")
 print("w: create a wall block")
-print("s: create a spring")
+print("t: create a trampoline")
 print("f: create a floor")
-print("l: create a laser turret")
+print("d: create a donut laser turret")
 print("p: create a player")
 print("left, right, up arrow: control player movement")
         
